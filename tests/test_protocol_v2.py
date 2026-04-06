@@ -82,19 +82,15 @@ def _can_import(module: str) -> bool:
 
 
 _skip_bn_syn = pytest.mark.skipif(
-    not _can_import("bn_syn.transfer_entropy"),
-    reason="bn_syn root stubs removed — modules live in substrates/bn_syn/",
-)
-_skip_tradepulse = pytest.mark.skipif(
-    not _can_import("tradepulse.coherence_bridge"),
-    reason="tradepulse root stubs removed",
+    not _can_import("substrates.bn_syn.transfer_entropy"),
+    reason="substrates.bn_syn.transfer_entropy unavailable",
 )
 
 
 @_skip_bn_syn
 class TestTransferEntropy:
     def test_te_directed(self):
-        from bn_syn.transfer_entropy import transfer_entropy
+        from substrates.bn_syn.transfer_entropy import transfer_entropy
 
         rng = np.random.default_rng(0)
         T = 5000
@@ -107,14 +103,14 @@ class TestTransferEntropy:
         assert transfer_entropy(X, Y, bins=6) > transfer_entropy(Y, X, bins=6)
 
     def test_te_nonnegative(self):
-        from bn_syn.transfer_entropy import transfer_entropy
+        from substrates.bn_syn.transfer_entropy import transfer_entropy
 
         rng = np.random.default_rng(0)
         X, Y = rng.standard_normal(500), rng.standard_normal(500)
         assert transfer_entropy(X, Y) >= 0
 
     def test_te_matrix_shape(self):
-        from bn_syn.transfer_entropy import transfer_entropy_matrix
+        from substrates.bn_syn.transfer_entropy import transfer_entropy_matrix
 
         rng = np.random.default_rng(42)
         signals = rng.standard_normal((4, 200))
@@ -125,7 +121,7 @@ class TestTransferEntropy:
             assert mat[i, i] == 0.0
 
     def test_te_short_signal(self):
-        from bn_syn.transfer_entropy import transfer_entropy
+        from substrates.bn_syn.transfer_entropy import transfer_entropy
 
         assert transfer_entropy(np.array([1.0, 2.0]), np.array([3.0, 4.0])) == 0.0
 
@@ -136,7 +132,7 @@ class TestTransferEntropy:
 @_skip_bn_syn
 class TestPhiProxy:
     def test_phi_coupled_gt_independent(self):
-        from bn_syn.phi_proxy import phi_proxy
+        from substrates.bn_syn.phi_proxy import phi_proxy
 
         rng = np.random.default_rng(42)
         T = 1000
@@ -154,14 +150,14 @@ class TestPhiProxy:
         assert phi_proxy(coupled) > phi_proxy(indep)
 
     def test_phi_nonnegative(self):
-        from bn_syn.phi_proxy import phi_proxy
+        from substrates.bn_syn.phi_proxy import phi_proxy
 
         rng = np.random.default_rng(0)
         mat = rng.binomial(1, 0.3, (3, 100)).astype(float)
         assert phi_proxy(mat) >= 0.0
 
     def test_phi_too_small(self):
-        from bn_syn.phi_proxy import phi_proxy
+        from substrates.bn_syn.phi_proxy import phi_proxy
 
         assert phi_proxy(np.zeros((1, 50))) == 0.0
 
@@ -172,7 +168,7 @@ class TestPhiProxy:
 @_skip_bn_syn
 class TestCellAssembly:
     def test_assembly_detection(self):
-        from bn_syn.cell_assembly import detect_cell_assemblies
+        from substrates.bn_syn.cell_assembly import detect_cell_assemblies
 
         rng = np.random.default_rng(42)
         N, T = 10, 500
@@ -184,7 +180,7 @@ class TestCellAssembly:
         assert isinstance(assemblies, list)
 
     def test_assembly_empty_sparse(self):
-        from bn_syn.cell_assembly import detect_cell_assemblies
+        from substrates.bn_syn.cell_assembly import detect_cell_assemblies
 
         rng = np.random.default_rng(0)
         spikes = rng.binomial(1, 0.01, (5, 100)).astype(float)
@@ -192,66 +188,21 @@ class TestCellAssembly:
         assert isinstance(assemblies, list)
 
     def test_assembly_too_small(self):
-        from bn_syn.cell_assembly import detect_cell_assemblies
+        from substrates.bn_syn.cell_assembly import detect_cell_assemblies
 
         assert detect_cell_assemblies(np.zeros((2, 10))) == []
 
 
 # ===================================================================
-# TASK 5: COHERENCE BRIDGE
+# TASK 5: COHERENCE BRIDGE — removed
+#
+# Historical tradepulse.coherence_bridge.CoherenceBridge API
+# (regime_classify / compute_kuramoto_r / demo_synthetic / ingest)
+# was deleted when tradepulse root stubs were removed. The surviving
+# core.coherence_bridge.CoherenceBridge is a different object with a
+# different contract, and is already covered by tests/test_coherence_bridge.py.
+# Dead tests removed rather than perpetually skipped — zero tech debt.
 # ===================================================================
-@_skip_tradepulse
-class TestCoherenceBridge:
-    def test_regime_critical(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge()
-        assert bridge.regime_classify(r=0.6, gamma=1.05) == "critical"
-        assert bridge.regime_classify(r=0.6, gamma=1.14) == "critical"
-
-    def test_regime_synchronized(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge()
-        assert bridge.regime_classify(r=0.95, gamma=1.05) == "synchronized"
-
-    def test_regime_incoherent(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge()
-        assert bridge.regime_classify(r=0.1, gamma=0.5) == "incoherent"
-
-    def test_kuramoto_r_range(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge()
-        for _ in range(20):
-            phases = np.random.uniform(-np.pi, np.pi, 50)
-            r = bridge.compute_kuramoto_r(phases)
-            assert 0.0 <= r <= 1.0
-
-    def test_demo_synthetic_runs(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge()
-        demo = bridge.demo_synthetic(200)
-        assert demo["total_windows"] > 0
-        assert "mean_gamma" in demo
-        assert "trajectory" in demo
-
-    def test_invariant_iv_external_domain(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge()
-        # Bridge must not have internal NFI state
-        assert not hasattr(bridge, "_nfi_internal_state")
-
-    def test_ingest_short_signal(self):
-        from tradepulse.coherence_bridge import CoherenceBridge
-
-        bridge = CoherenceBridge(window=50)
-        result = bridge.ingest({"prices": np.array([1.0, 2.0, 3.0])})
-        assert result["regime"] == "insufficient_data"
 
 
 # ===================================================================

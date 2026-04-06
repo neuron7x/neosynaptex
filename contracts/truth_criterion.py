@@ -286,7 +286,7 @@ def evaluate_truth_criterion(
     = REGIME INVARIANT.
     Absence of synchronicity = ARTIFACT, rejected.
     """
-    from bn_syn.transfer_entropy import transfer_entropy
+    from substrates.bn_syn.transfer_entropy import transfer_entropy
 
     # Step 1: rolling beta per channel
     t1, b1 = rolling_beta(series_1, fs=fs)
