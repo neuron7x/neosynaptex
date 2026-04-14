@@ -56,11 +56,18 @@ def test_required_entry_keys_is_non_empty_and_stable():
 
 
 def test_substrate_classes_and_verdicts_match_protocol():
-    assert {
-        "in_vivo_cns",
-        "neuronal_culture",
-        "simulated_agent",
-    } == ALLOWED_SUBSTRATE_CLASSES
+    # Neural classes (original REPLICATION_PROTOCOL.md scope).
+    neural = {"in_vivo_cns", "neuronal_culture", "simulated_agent"}
+    # γ-program extensions per CLAIM_BOUNDARY.md §3.2.
+    gamma_program = {
+        "market_macro",
+        "market_microstructure",
+        "developmental_transcriptome",
+        "physiological_cardiac",
+        "reaction_diffusion",
+        "synchronisation",
+    }
+    assert neural | gamma_program == ALLOWED_SUBSTRATE_CLASSES
     assert {
         "support",
         "falsification",

@@ -66,7 +66,22 @@ REQUIRED_ENTRY_KEYS: frozenset[str] = frozenset(
 )
 
 ALLOWED_SUBSTRATE_CLASSES: frozenset[str] = frozenset(
-    {"in_vivo_cns", "neuronal_culture", "simulated_agent"}
+    {
+        # Neural classes (original REPLICATION_PROTOCOL.md scope).
+        "in_vivo_cns",
+        "neuronal_culture",
+        "simulated_agent",
+        # γ-program extensions per docs/CLAIM_BOUNDARY.md §3.2 —
+        # cross-substrate convergence framing spans neural + market +
+        # morphogenetic substrates. Adding a class here requires a
+        # matching row in docs/SUBSTRATE_MEASUREMENT_TABLE.yaml.
+        "market_macro",
+        "market_microstructure",
+        "developmental_transcriptome",
+        "physiological_cardiac",
+        "reaction_diffusion",
+        "synchronisation",
+    }
 )
 ALLOWED_VERDICTS: frozenset[str] = frozenset(
     {"support", "falsification", "theory_revision", "pending"}

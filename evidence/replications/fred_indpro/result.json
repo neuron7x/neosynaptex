@@ -1,0 +1,64 @@
+{
+  "substrate": "market_fred",
+  "series_id": "INDPRO",
+  "claim_status": "hypothesized",
+  "verdict": "non_separable_from_at_least_one_null",
+  "gamma": {
+    "gamma": 0.9414,
+    "ci_low": 0.6408,
+    "ci_high": 1.0948,
+    "r2": 0.5201,
+    "n_points": 1285,
+    "method_label": "welch_psd_theilsen",
+    "fit_freq_lo": 0.00390625,
+    "fit_freq_hi": 0.5,
+    "n_frequencies_fit": 128
+  },
+  "nulls": [
+    {
+      "null_family": "shuffled",
+      "n_surrogates": 500,
+      "mu": 0.0059,
+      "sigma": 0.0529,
+      "z_score": 17.676,
+      "null_ci_low": -0.1011,
+      "null_ci_high": 0.1109,
+      "real_outside_null_ci": true,
+      "separable_at_z3": true
+    },
+    {
+      "null_family": "ar1",
+      "n_surrogates": 500,
+      "mu": 0.8942,
+      "sigma": 0.0638,
+      "z_score": 0.74,
+      "null_ci_low": 0.7635,
+      "null_ci_high": 1.0257,
+      "real_outside_null_ci": false,
+      "separable_at_z3": false
+    },
+    {
+      "null_family": "iaaft",
+      "n_surrogates": 500,
+      "mu": 0.8775,
+      "sigma": 0.033,
+      "z_score": 1.938,
+      "null_ci_low": 0.8152,
+      "null_ci_high": 0.9409,
+      "real_outside_null_ci": true,
+      "separable_at_z3": false
+    }
+  ],
+  "provenance": {
+    "series_id": "INDPRO",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=INDPRO",
+    "bytes_count": 24320,
+    "sha256": "a63bd2d967dc32bb1d957672d2f0992087a7578d4292123f13ebf7020741d2a2",
+    "fetched_utc": "2026-04-14T10:10:41Z",
+    "fetch_method": "curl (urllib timed out)"
+  },
+  "method_hierarchy_cite": "docs/MEASUREMENT_METHOD_HIERARCHY.md \u00a72.3 (bounded secondary)",
+  "null_hierarchy_cite": "docs/NULL_MODEL_HIERARCHY.md \u00a72.1\u20132.3",
+  "interpretation_boundary": "Measures the aperiodic slope of FRED INDPRO log-returns via Welch-PSD + Theil-Sen (bounded-secondary method per MEASUREMENT_METHOD_HIERARCHY.md \u00a72.3). Does NOT license any claim about market criticality, economic laws, or cross-substrate \u03b3 convergence. Does NOT replace the primary specparam/IRASA measurement which is a follow-up PR. Nulls tested in this pass: shuffled + AR(1) + IAAFT. OU and latent-variable surrogate are deferred. Poisson N/A for continuous series. Per docs/CLAIM_BOUNDARY.md \u00a73.1.",
+  "claim_boundary_pointer": "docs/CLAIM_BOUNDARY.md"
+}

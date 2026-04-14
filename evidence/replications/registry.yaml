@@ -21,4 +21,13 @@
 
 schema_version: 1
 protocol: docs/REPLICATION_PROTOCOL.md
-replications: []
+replications:
+  - id: fred_indpro_pilot_2026_04_14
+    date: 2026-04-14
+    substrate_class: market_macro
+    lab: internal
+    prereg_path: evidence/replications/fred_indpro/prereg.yaml
+    verdict: pending
+    commit_sha: TO_BE_STAMPED_AT_MERGE
+    claim_tested: "γ on FRED INDPRO monthly log-returns is separable from shuffled, IAAFT, and AR(1) null families per NULL_MODEL_HIERARCHY.md §4."
+    interpretation_boundary: "Bounded-secondary method pilot. Does NOT license any market criticality claim or cross-substrate γ convergence. Retrospectively filed, not pre-data OSF prereg."

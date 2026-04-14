@@ -1,0 +1,213 @@
+# Prereg — FRED INDPRO γ-replication (initial pilot)
+# Per docs/PREREG_TEMPLATE_GAMMA.md.
+#
+# NOTE — this is a RETROSPECTIVELY FILED pilot prereg. Per
+# CLAIM_BOUNDARY.md §6 a retrospectively-filed prereg is NOT
+# equivalent to a pre-data OSF filing. The claim-status of this
+# run is therefore capped at `hypothesized` regardless of outcome
+# until a genuine pre-data OSF prereg is filed for a subsequent
+# run on a distinct data window.
+#
+# This file documents the exact analysis configuration used, so
+# that future runs on the same data can reproduce it bit-for-bit.
+
+prereg_version: 1
+prereg_filed_date: 2026-04-14
+osf_doi: null                # NOT yet filed on OSF (retrospective pilot)
+commit_sha_at_filing: TO_BE_STAMPED_AT_MERGE
+substrate_id: fred_indpro
+
+hypothesis:
+  primary: >-
+    γ on FRED INDPRO monthly log-returns falls within the literature
+    prior range 0.5–1.5 for market_macro, consistent with a
+    quasicritical regime marker candidate per CLAIM_BOUNDARY.md §3.1.
+  claim_regime: candidate_marker
+  claim_scope: >-
+    Single substrate (market_macro / fred_indpro), bounded-secondary
+    method, initial pilot. No cross-substrate inference licensed.
+  relation_to_cross_substrate_claim: >-
+    This pilot does NOT contribute to CLAIM_BOUNDARY.md §3.2
+    cross-substrate convergence. A full specparam run + full null
+    suite + external rerun are required before such contribution.
+
+data:
+  source_type: public_bundle
+  source_url: https://fred.stlouisfed.org/graph/fredgraph.csv?id=INDPRO
+  source_sha256: see result.json provenance.sha256
+  unit_of_analysis: monthly_observation
+  independence_structure: >-
+    Monthly observations of US industrial production index. Not
+    independent in the statistical sense — time series with known
+    autocorrelation. Independence assumption is at the epoch level
+    (rolling-window analysis treats windows as quasi-independent
+    conditional on stationarity check).
+  sample_size: 1285
+  sample_size_justification: >-
+    Full INDPRO history 1919-01 → 2026-02 at monthly frequency
+    (107 years × ~12). Power analysis: 1285 log-returns is well
+    beyond the n >= 8 minimum in xform gamma_probe and beyond the
+    CSN-framework minimum of ~50 for meaningful x_min estimation.
+  inclusion_criteria:
+    - value > 0 (log-transform valid)
+    - value is numeric (FRED sentinel "." rejected)
+  exclusion_criteria:
+    - none (full series used)
+  known_biases:
+    - Pre-1947 values are constructed retrospectively; post-1947
+      uses modern methodology. Potential structural break.
+    - Annual revisions to INDPRO may mutate historical values; the
+      sha256 pins the snapshot at fetch time.
+
+preprocessing:
+  pipeline_steps:
+    - parse FRED CSV (stdlib csv)
+    - drop null / non-positive values
+    - compute log-returns as diff(log(x))
+  alternate_pipeline:
+    - differencing on raw levels (not log) as §5.2 cross-check (not run in this pilot)
+  stationarity_check: not_run_in_pilot  # follow-up required
+  artefact_rejection: none
+  windowing: full_series_single_window
+
+measurement:
+  primary_aperiodic:
+    tool: theil_sen_loglog_psd
+    note: >-
+      BOUNDED SECONDARY per MEASUREMENT_METHOD_HIERARCHY.md §2.3.
+      specparam/IRASA (primary) upgrade is the follow-up PR.
+    fit_range_hz: [f > 0, none]
+    excluded_bands_hz: []
+  cross_check_aperiodic:
+    tool: not_run
+    reason: awaiting specparam upgrade
+  avalanche_fit:
+    enabled: false
+    reason: continuous series; not event-based
+  robust_regression:
+    enabled: true
+    method: theil_sen
+    bootstrap_n: 500
+    ci_level: 0.95
+  secondary_crosscheck:
+    dfa_enabled: false
+    reason: deferred to follow-up
+  uncertainty:
+    bootstrap_n: 500
+    seed: 42
+
+null_models:
+  shuffled:
+    enabled: true
+    n_surrogates: 500
+  iaaft:
+    enabled: true
+    n_surrogates: 500
+    implementation: inline custom IAAFT (substrates/market_fred/gamma_fit.py)
+    n_iter: 100
+  ornstein_uhlenbeck:
+    enabled: false
+    note: AR(1) substitutes per MEASUREMENT_METHOD_HIERARCHY.md §2.3 bounded-secondary notes
+  ar1:
+    enabled: true
+    n_surrogates: 500
+    tau_estimated_from: empirical_autocorrelation_lag_1
+  poisson:
+    enabled: false
+    reason: not_applicable_continuous_series
+  latent_variable:
+    enabled: false
+    reason: DEFERRED — NULL_MODEL_HIERARCHY.md §2.5 requires a substrate-specific latent model; not yet preregistered for FRED.
+  significance_threshold:
+    z_score_cutoff: 3.0
+    ci_level: 0.95
+
+statistics:
+  primary_test: z_score_of_gamma_real_vs_null_family_mean
+  alpha_two_sided: 0.01
+  multiple_comparisons_control: none_justified
+  heterogeneity_reporting: not_applicable_single_run
+
+predictions:
+  H1_primary: >-
+    γ in [0.5, 1.5] and separable from all tested nulls at |z| >= 3.
+  H0_null: >-
+    γ is reproducible by AR(1) / IAAFT nulls (claim_status stays
+    hypothesized).
+  H2_alternative: >-
+    γ separable from shuffled but NOT from AR(1)/IAAFT → γ is an
+    artefact of linear autocorrelation structure.
+  exit_on_falsification: >-
+    Any required null family non-separable → claim_status stays at
+    hypothesized. Upgrade to specparam + latent-variable before any
+    promotion attempt.
+
+controls:
+  surrogate_families: [shuffled, iaaft, ar1]
+  perturbation_set: []
+  counter_models:
+    - ar1_matched_autocorrelation
+  cross_level_checks:
+    - alternate_preprocessing (not run in pilot)
+  topology_control:
+    required: false
+    reason: single-series not a graph substrate
+
+replication_plan:
+  within_lab: 1
+  cross_lab: not_planned_with_reason   # owner action to establish
+  external_rerun_committed: true
+  external_rerun_target_labs:
+    - any researcher with scipy and internet can reproduce from prereg + raw CSV
+
+interpretation_boundary: >-
+  Measures the aperiodic slope of FRED INDPRO log-returns via a
+  bounded-secondary method. Does NOT license any claim about
+  market criticality, economic laws, or cross-substrate γ
+  convergence. Does NOT replace the primary specparam/IRASA
+  measurement. Nulls tested are shuffled + AR(1) + IAAFT only;
+  OU-matched-τ and latent-variable surrogate are deferred. Poisson
+  N/A (continuous series). A pilot retrospectively filed, not a
+  pre-data OSF prereg.
+
+p_status: not_defined
+p_rationale: >-
+  No task-level productivity metric is defined for FRED INDPRO.
+  Per evidence/levin_bridge/hypotheses.yaml P-optional pattern,
+  the substrate remains in exploratory lane for productivity
+  claims.
+
+revision_rules:
+  narrowing_to_bounded_regime: >-
+    If specparam upgrade confirms AR(1) non-separability, narrow
+    the market_macro γ-framing to "aperiodic slope of
+    AR(1)-consistent time series, no criticality claim licensed".
+  falsification: >-
+    If latent-variable null (when filed) reproduces γ, the
+    market_macro substrate's evidential candidacy is falsified.
+  theory_retention: >-
+    Only if γ survives specparam primary + latent-variable null +
+    one external rerun does the substrate merit evidential-lane
+    consideration.
+
+provenance:
+  adapter_code_sha: TO_BE_STAMPED_AT_MERGE
+  data_sha256: see result.json provenance.sha256
+  pipeline_runner: run_fred_indpro_replication.py
+  analysis_notebook: none
+  results_table: evidence/replications/fred_indpro/result.json
+  author: TO_BE_STAMPED_AT_MERGE   # ORCID of repo owner
+  author_affiliation: neuron7xLab
+  filing_commit_message: >-
+    First real FRED γ-replication pilot. Retrospectively filed
+    prereg documents exact configuration for bit-reproducibility.
+
+exit_criteria:
+  success_conditions:
+    - γ separable from shuffled, IAAFT, AR(1) at |z|>=3
+    - bootstrap CI95 outside every surrogate CI95
+  failure_conditions:
+    - Any tested null family non-separable → claim stays hypothesized
+  theory_revision_conditions:
+    - Specparam upgrade agrees with non-separability → narrow frame
+    - Latent-variable null reproduces γ → falsify market_macro candidacy
