@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/core/gamma.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-12, 1e-10, 0.15, 0.3, 0.5, 1.0, 2.5, 97.5, 500, 'COLLAPSE', 'CRITICAL', 'GammaResult', 'INSUFFICIENT_DATA', 'INSUFFICIENT_RANGE', 'LOW_R2', 'METASTABLE', 'WARNING', 'compute_gamma', 'ignore', 'nan']

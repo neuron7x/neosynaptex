@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/substrates/bn_syn/cell_assembly.py
+# hypothesis_version: 6.140.3
+
+[0.1, 0.7, 0.95, 1.0, 2.0, 100, 200, 500, '__main__', 'component', 'ica', 'mask', 'n_neurons', 'pca_threshold', 'stability']

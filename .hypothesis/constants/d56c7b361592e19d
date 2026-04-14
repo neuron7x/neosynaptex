@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/core/coherence_state_space.py
+# hypothesis_version: 6.140.3
+
+[-1.0, 0.0, 1e-12, 0.001, 0.1, 0.2, 0.3, 0.5, 0.6, 0.8, 1.0, 1.2, 1.5, 2.0, 'CoherenceState', 'CoherenceStateSpace', 'StabilityReport', 'dt must be positive', 'inf']

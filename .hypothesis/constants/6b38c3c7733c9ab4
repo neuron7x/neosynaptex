@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/substrates/hrv_fantasia/adapter.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-10, 1e-06, 0.15, 0.3, 0.5, 1.0, 2.0, 2.5, 97.5, 1000000.0, 1000, 2000, '\n  Per-subject:', 'COLLAPSE', 'CRITICAL', 'METASTABLE', 'N', 'WARNING', '__main__', 'alpha1', 'alpha1_mean', 'alpha1_std', 'alpha2', 'ci_contains_unity', 'ci_high', 'ci_low', 'data', 'dfa_alpha1', 'dfa_alpha2', 'ecg', 'fantasia', 'gamma', 'hrv_fantasia', 'id', 'method', 'n_rr', 'n_subjects', 'nan', 'per_subject', 'std', 'verdict']

@@ -1,0 +1,565 @@
+- generic [ref=e2]:
+  - region
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e9]:
+        - button "Toggle navigation" [ref=e11] [cursor=pointer]
+        - link "Homepage" [ref=e17] [cursor=pointer]:
+          - /url: /
+          - img [ref=e18]
+        - generic [ref=e20]:
+          - link "Sign in" [ref=e21] [cursor=pointer]:
+            - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Fneuron7xLab%2Fneosynaptex%2Fpull%2F98
+          - button "Appearance settings" [ref=e24] [cursor=pointer]:
+            - img
+  - main [ref=e28]:
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e32]:
+          - img [ref=e33]
+          - link "neuron7xLab" [ref=e36] [cursor=pointer]:
+            - /url: /neuron7xLab
+          - generic [ref=e37]: /
+          - strong [ref=e38]:
+            - link "neosynaptex" [ref=e39] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex
+          - generic [ref=e40]: Public
+        - generic [ref=e41]:
+          - list:
+            - listitem [ref=e42]:
+              - link "You must be signed in to change notification settings" [ref=e43] [cursor=pointer]:
+                - /url: /login?return_to=%2Fneuron7xLab%2Fneosynaptex
+                - img [ref=e44]
+                - text: Notifications
+            - listitem [ref=e46]:
+              - link "Fork 0" [ref=e47] [cursor=pointer]:
+                - /url: /login?return_to=%2Fneuron7xLab%2Fneosynaptex
+                - img [ref=e48]
+                - text: Fork
+                - generic "0" [ref=e50]
+            - listitem [ref=e51]:
+              - link "You must be signed in to star a repository" [ref=e53] [cursor=pointer]:
+                - /url: /login?return_to=%2Fneuron7xLab%2Fneosynaptex
+                - img [ref=e54]
+                - text: Star
+                - generic "0 users starred this repository" [ref=e56]: "0"
+      - navigation "Repository" [ref=e57]:
+        - list [ref=e58]:
+          - listitem [ref=e59]:
+            - link "Code" [ref=e60] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex
+              - img [ref=e61]
+              - generic [ref=e63]: Code
+          - listitem [ref=e64]:
+            - link "Issues" [ref=e65] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/issues
+              - img [ref=e66]
+              - generic [ref=e69]: Issues
+          - listitem [ref=e70]:
+            - link "Pull requests 4" [ref=e71] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/pulls
+              - img [ref=e72]
+              - generic [ref=e74]: Pull requests
+              - generic "4" [ref=e75]
+          - listitem [ref=e76]:
+            - link "Discussions" [ref=e77] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/discussions
+              - img [ref=e78]
+              - generic [ref=e80]: Discussions
+          - listitem [ref=e81]:
+            - link "Actions" [ref=e82] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/actions
+              - img [ref=e83]
+              - generic [ref=e85]: Actions
+          - listitem [ref=e86]:
+            - link "Projects" [ref=e87] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/projects
+              - img [ref=e88]
+              - generic [ref=e90]: Projects
+          - listitem [ref=e91]
+          - listitem [ref=e92]
+        - button "Additional navigation options" [ref=e96] [cursor=pointer]:
+          - img
+    - generic [ref=e103]:
+      - generic [ref=e106]:
+        - 'heading "feat(gamma-program): first REAL γ-replication on FRED INDPRO — honest negative #98" [level=1] [ref=e108]':
+          - text: "feat(gamma-program): first REAL γ-replication on FRED INDPRO — honest negative"
+          - generic [ref=e110]: "#98"
+        - generic [ref=e113]:
+          - generic [ref=e115]:
+            - img "Pull request" [ref=e116]
+            - text: Open
+          - generic [ref=e119]:
+            - link "neuron7xLab" [ref=e120] [cursor=pointer]:
+              - /url: /neuron7xLab
+            - text: wants to merge 3 commits into
+            - link "main" [ref=e121] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/tree/main
+            - generic [ref=e122]: from
+            - generic [ref=e123]:
+              - link "feat/fred-indpro-replication" [ref=e124] [cursor=pointer]:
+                - /url: /neuron7xLab/neosynaptex/tree/feat/fred-indpro-replication
+              - button "Copy head branch name to clipboard" [ref=e125] [cursor=pointer]:
+                - img [ref=e126]
+        - navigation "Pull request navigation tabs" [ref=e132]:
+          - tablist [ref=e133]:
+            - tab "Conversation" [selected] [ref=e134] [cursor=pointer]:
+              - img [ref=e135]
+              - text: Conversation
+            - tab "Commits (3)" [ref=e137] [cursor=pointer]:
+              - img [ref=e138]
+              - text: Commits
+              - generic [ref=e140]: "3"
+              - generic [ref=e141]: (3)
+            - tab "Checks" [ref=e142] [cursor=pointer]:
+              - img [ref=e143]
+              - text: Checks
+            - tab "Files changed" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+              - text: Files changed
+      - generic [ref=e152]:
+        - generic [ref=e154]:
+          - heading "Conversation" [level=2] [ref=e155]
+          - generic [ref=e156]:
+            - generic [ref=e157]:
+              - generic [ref=e159]:
+                - link "@neuron7xLab" [ref=e160] [cursor=pointer]:
+                  - /url: /neuron7xLab
+                  - img "@neuron7xLab" [ref=e161]
+                - generic [ref=e163]:
+                  - generic [ref=e164]:
+                    - generic [ref=e165]:
+                      - group [ref=e167]:
+                        - button "Show options" [ref=e168] [cursor=pointer]:
+                          - img "Show options" [ref=e171]
+                      - generic "This user is the owner of the neosynaptex repository." [ref=e174]:
+                        - generic [ref=e175]: Owner
+                    - heading "neuron7xLab commented Apr 14, 20261 hour ago" [level=3] [ref=e176]:
+                      - generic [ref=e177]:
+                        - strong [ref=e178]:
+                          - link "neuron7xLab" [ref=e179] [cursor=pointer]:
+                            - /url: /neuron7xLab
+                        - text: commented
+                        - link "Apr 14, 20261 hour ago" [ref=e180] [cursor=pointer]:
+                          - /url: "#issue-4261358688"
+                  - generic [ref=e184]:
+                    - heading "Summary" [level=2] [ref=e185]
+                    - paragraph [ref=e186]:
+                      - strong [ref=e187]: First executable γ-replication on real public data
+                      - text: per γ-program Phase VI §Step 23.
+                    - paragraph [ref=e188]:
+                      - text: "Honest negative result: γ=0.9414 on FRED INDPRO is"
+                      - strong [ref=e189]: not separable
+                      - text: from AR(1) or IAAFT nulls. Claim stays at
+                      - code [ref=e190]: hypothesized
+                      - text: . The null hierarchy did its job — protocol working as designed.
+                    - paragraph [ref=e191]:
+                      - strong [ref=e192]:
+                        - text: Stacked on
+                        - link "#83 replication index" [ref=e193] [cursor=pointer]:
+                          - /url: https://github.com/neuron7xLab/neosynaptex/pull/83
+                        - text: .
+                    - heading "Numerical result" [level=2] [ref=e194]
+                    - table [ref=e196]:
+                      - rowgroup [ref=e197]:
+                        - row "Value" [ref=e198]:
+                          - columnheader [ref=e199]
+                          - columnheader "Value" [ref=e200]
+                      - rowgroup [ref=e201]:
+                        - row "γ 0.9414" [ref=e202]:
+                          - cell "γ" [ref=e203]
+                          - cell "0.9414" [ref=e204]
+                        - row "CI95 [0.6408, 1.0948]" [ref=e205]:
+                          - cell "CI95" [ref=e206]
+                          - cell "[0.6408, 1.0948]" [ref=e207]
+                        - row "r² 0.520" [ref=e208]:
+                          - cell "r²" [ref=e209]
+                          - cell "0.520" [ref=e210]
+                        - row "n log-returns 1285 (monthly, 1919–2026)" [ref=e211]:
+                          - cell "n log-returns" [ref=e212]
+                          - cell "1285 (monthly, 1919–2026)" [ref=e213]
+                        - row "sha256 of raw see result.json" [ref=e214]:
+                          - cell "sha256 of raw" [ref=e215]
+                          - cell "see result.json" [ref=e216]
+                    - table [ref=e218]:
+                      - rowgroup [ref=e219]:
+                        - row "Null family z-score Verdict" [ref=e220]:
+                          - columnheader "Null family" [ref=e221]
+                          - columnheader "z-score" [ref=e222]
+                          - columnheader "Verdict" [ref=e223]
+                      - rowgroup [ref=e224]:
+                        - row "shuffled 17.7 separable (weakest null rejects)" [ref=e225]:
+                          - cell "shuffled" [ref=e226]
+                          - cell "17.7" [ref=e227]
+                          - cell "separable (weakest null rejects)" [ref=e228]:
+                            - strong [ref=e229]: separable
+                            - text: (weakest null rejects)
+                        - row "AR(1) 0.74 NOT separable" [ref=e230]:
+                          - cell "AR(1)" [ref=e231]
+                          - cell "0.74" [ref=e232]
+                          - cell "NOT separable" [ref=e233]:
+                            - strong [ref=e234]: NOT separable
+                        - row "IAAFT 1.94 NOT separable" [ref=e235]:
+                          - cell "IAAFT" [ref=e236]
+                          - cell "1.94" [ref=e237]
+                          - cell "NOT separable" [ref=e238]:
+                            - strong [ref=e239]: NOT separable
+                    - paragraph [ref=e240]:
+                      - text: Per
+                      - code [ref=e241]: NULL_MODEL_HIERARCHY.md §6
+                      - text: ", AR(1) + IAAFT non-separability means γ emerges from linear autocorrelation structure."
+                      - strong [ref=e242]: No criticality claim licensed.
+                    - heading "What this PR ships" [level=2] [ref=e243]
+                    - list [ref=e244]:
+                      - listitem [ref=e245]:
+                        - code [ref=e246]: substrates/market_fred/
+                        - text: "— new substrate package: FRED fetcher + γ-fit + 3 null families. stdlib-only fetcher; scipy for PSD/regression."
+                      - listitem [ref=e247]:
+                        - code [ref=e248]: run_fred_indpro_replication.py
+                        - text: — one-shot driver.
+                      - listitem [ref=e249]:
+                        - code [ref=e250]: evidence/replications/fred_indpro/
+                        - text: — INDPRO.csv (raw, 45 KB), result.json (structured), prereg.yaml (retrospectively filed), REPLICATION_REPORT_FRED.md (honest report).
+                      - listitem [ref=e251]:
+                        - strong [ref=e252]: First real entry
+                        - text: in
+                        - code [ref=e253]: evidence/replications/registry.yaml
+                        - text: (not synthetic).
+                      - listitem [ref=e254]:
+                        - text: Baseline bumped
+                        - code [ref=e255]: min_replications_count
+                        - text: 0 → 1 per filing protocol.
+                      - listitem [ref=e256]:
+                        - code [ref=e257]: tools/audit/replication_index_check.py
+                        - code [ref=e258]: ALLOWED_SUBSTRATE_CLASSES
+                        - text: extended to include market_macro / market_microstructure / developmental_transcriptome / physiological_cardiac / synchronisation / reaction_diffusion — γ-program §3.2 cross-substrate framing requires this beyond original neural scope.
+                    - heading "Honest boundaries" [level=2] [ref=e259]
+                    - paragraph [ref=e260]:
+                      - text: Per
+                      - code [ref=e261]: CLAIM_BOUNDARY.md §3.1
+                      - text: ", this result:"
+                    - list [ref=e262]:
+                      - listitem [ref=e263]:
+                        - strong [ref=e264]: Does NOT license
+                        - text: any market criticality claim.
+                      - listitem [ref=e265]:
+                        - strong [ref=e266]: Does NOT support
+                        - text: cross-substrate γ convergence (§3.2).
+                      - listitem [ref=e267]:
+                        - strong [ref=e268]: Does NOT replace
+                        - text: primary specparam/IRASA (scheduled follow-up).
+                      - listitem [ref=e269]:
+                        - text: Is a
+                        - strong [ref=e270]: bounded-secondary method pilot
+                        - text: (
+                        - code [ref=e271]: MEASUREMENT_METHOD_HIERARCHY.md §2.3
+                        - text: ).
+                      - listitem [ref=e272]:
+                        - text: prereg is
+                        - strong [ref=e273]: retrospectively filed
+                        - text: ", NOT a pre-data OSF prereg. Claim-status capped at"
+                        - code [ref=e274]: hypothesized
+                        - text: regardless of null outcome.
+                    - heading "Next steps" [level=2] [ref=e275]
+                    - list [ref=e276]:
+                      - listitem [ref=e277]: specparam/IRASA upgrade (primary) — is non-separability a method artefact?
+                      - listitem [ref=e278]: Remaining FRED series (T10Y2Y, SP500, VXVCLS, ICNSA) — same pipeline.
+                      - listitem [ref=e279]: OU-matched-τ surrogate (§NULL_MODEL_HIERARCHY.md §2.3).
+                      - listitem [ref=e280]: Latent-variable surrogate (§2.5, primary threat model).
+                      - listitem [ref=e281]: OSF prereg for next run — pre-data this time.
+                    - heading "Test plan" [level=2] [ref=e282]
+                    - list [ref=e283]:
+                      - listitem [ref=e284]:
+                        - img [ref=e286]
+                        - checkbox "Completed task" [checked] [disabled] [ref=e288]
+                        - code [ref=e289]: curl
+                        - text: fetch of INDPRO.csv → 1286 rows, 1919–2026, SHA256 recorded.
+                      - listitem [ref=e290]:
+                        - img [ref=e292]
+                        - checkbox "Completed task" [checked] [disabled] [ref=e294]
+                        - code [ref=e295]: python run_fred_indpro_replication.py
+                        - text: → γ=0.9414, writes result.json.
+                      - listitem [ref=e296]:
+                        - img [ref=e298]
+                        - checkbox "Completed task" [checked] [disabled] [ref=e300]
+                        - code [ref=e301]: python -m tools.audit.replication_index_check
+                        - text: "→ OK: 1 replication valid."
+                      - listitem [ref=e302]:
+                        - img [ref=e304]
+                        - checkbox "Completed task" [checked] [disabled] [ref=e306]
+                        - code [ref=e307]: pytest tests/audit/ -q
+                        - text: → 61/61.
+                      - listitem [ref=e308]:
+                        - img [ref=e310]
+                        - checkbox "Completed task" [checked] [disabled] [ref=e312]
+                        - text: Pre-commit hooks pass (ruff, format, yaml, fast regression).
+                      - listitem [ref=e313]:
+                        - img [ref=e315]
+                        - checkbox "Incomplete task" [disabled] [ref=e317]
+                        - text: Reviewer confirms honest-negative framing is the right report shape.
+                    - paragraph [ref=e318]: "claim_status: measured"
+                    - paragraph [ref=e319]:
+                      - text: 🤖 Generated with
+                      - link "Claude Code" [ref=e320] [cursor=pointer]:
+                        - /url: https://claude.com/claude-code
+              - generic [ref=e321]:
+                - generic [ref=e323]:
+                  - generic [ref=e324]:
+                    - img [ref=e326]
+                    - generic [ref=e328]:
+                      - link "neuron7xLab" [ref=e329] [cursor=pointer]:
+                        - /url: /neuron7xLab
+                      - text: and others added 3 commits
+                      - link "April 14, 2026 09:146 hours ago" [ref=e330] [cursor=pointer]:
+                        - /url: "#commits-pushed-82c2ee5"
+                  - generic [ref=e331]:
+                    - generic [ref=e332]:
+                      - img [ref=e334]
+                      - generic [ref=e339]:
+                        - generic [ref=e341]:
+                          - link "@neuron7xLab" [ref=e342] [cursor=pointer]:
+                            - /url: /neuron7xLab
+                            - img "@neuron7xLab" [ref=e343]
+                          - link "@claude" [ref=e344] [cursor=pointer]:
+                            - /url: /claude
+                            - img "@claude" [ref=e345]
+                        - generic [ref=e346]:
+                          - code [ref=e347]:
+                            - 'link "feat(audit): external replication index — scaffolded registry + ratch…" [ref=e348] [cursor=pointer]':
+                              - /url: /neuron7xLab/neosynaptex/pull/98/commits/82c2ee5b7dc768691a66e82c6de6ec3b394fed18
+                          - button "…" [ref=e350] [cursor=pointer]
+                        - button "Verified" [ref=e352] [cursor=pointer]:
+                          - generic [ref=e354]: Verified
+                        - group [ref=e357]:
+                          - generic "15 / 21 checks OK" [ref=e358] [cursor=pointer]:
+                            - img "15 / 21 checks OK" [ref=e359]
+                        - code [ref=e362]:
+                          - link "82c2ee5" [ref=e363] [cursor=pointer]:
+                            - /url: /neuron7xLab/neosynaptex/pull/98/commits/82c2ee5b7dc768691a66e82c6de6ec3b394fed18
+                    - generic [ref=e364]:
+                      - img [ref=e366]
+                      - generic [ref=e371]:
+                        - generic [ref=e373]:
+                          - link "@neuron7xLab" [ref=e374] [cursor=pointer]:
+                            - /url: /neuron7xLab
+                            - img "@neuron7xLab" [ref=e375]
+                          - link "@claude" [ref=e376] [cursor=pointer]:
+                            - /url: /claude
+                            - img "@claude" [ref=e377]
+                        - generic [ref=e378]:
+                          - code [ref=e379]:
+                            - 'link "fix(audit): fallback parser omits replications key when absent" [ref=e380] [cursor=pointer]':
+                              - /url: /neuron7xLab/neosynaptex/pull/98/commits/9bf4389b822767e809bc0ca1a67758e56add4a81
+                          - button "…" [ref=e382] [cursor=pointer]
+                        - button "Verified" [ref=e384] [cursor=pointer]:
+                          - generic [ref=e386]: Verified
+                        - group [ref=e389]:
+                          - generic "21 / 21 checks OK" [ref=e390] [cursor=pointer]:
+                            - img "21 / 21 checks OK" [ref=e391]
+                        - code [ref=e394]:
+                          - link "9bf4389" [ref=e395] [cursor=pointer]:
+                            - /url: /neuron7xLab/neosynaptex/pull/98/commits/9bf4389b822767e809bc0ca1a67758e56add4a81
+                    - generic [ref=e396]:
+                      - img [ref=e398]
+                      - generic [ref=e403]:
+                        - generic [ref=e405]:
+                          - link "@neuron7xLab" [ref=e406] [cursor=pointer]:
+                            - /url: /neuron7xLab
+                            - img "@neuron7xLab" [ref=e407]
+                          - link "@claude" [ref=e408] [cursor=pointer]:
+                            - /url: /claude
+                            - img "@claude" [ref=e409]
+                        - generic [ref=e410]:
+                          - code [ref=e411]:
+                            - 'link "feat(gamma-program): first REAL γ-replication on FRED INDPRO — honest…" [ref=e412] [cursor=pointer]':
+                              - /url: /neuron7xLab/neosynaptex/pull/98/commits/53023442ecc879e4ccb62abafa2706a99c2d40b9
+                          - button "…" [ref=e414] [cursor=pointer]
+                        - button "Verified" [ref=e416] [cursor=pointer]:
+                          - generic [ref=e418]: Verified
+                        - group [ref=e421]:
+                          - generic "21 / 21 checks OK" [ref=e422] [cursor=pointer]:
+                            - img "21 / 21 checks OK" [ref=e423]
+                        - code [ref=e426]:
+                          - link "5302344" [ref=e427] [cursor=pointer]:
+                            - /url: /neuron7xLab/neosynaptex/pull/98/commits/53023442ecc879e4ccb62abafa2706a99c2d40b9
+                - generic [ref=e429]:
+                  - link "@chatgpt-codex-connector" [ref=e431] [cursor=pointer]:
+                    - /url: /apps/chatgpt-codex-connector
+                    - img "@chatgpt-codex-connector" [ref=e432]
+                  - generic [ref=e434]:
+                    - generic [ref=e435]:
+                      - group [ref=e438]:
+                        - button "Show options" [ref=e439] [cursor=pointer]:
+                          - img "Show options" [ref=e442]
+                      - heading "chatgpt-codex-connector bot commented Apr 14, 20261 hour ago" [level=3] [ref=e444]:
+                        - generic [ref=e445]:
+                          - strong [ref=e446]:
+                            - link "chatgpt-codex-connector" [ref=e447] [cursor=pointer]:
+                              - /url: /apps/chatgpt-codex-connector
+                            - generic [ref=e448]: bot
+                          - text: commented
+                          - link "Apr 14, 20261 hour ago" [ref=e449] [cursor=pointer]:
+                            - /url: "#issuecomment-4243118657"
+                    - table [ref=e452]:
+                      - rowgroup [ref=e453]:
+                        - row "You have reached your Codex usage limits for code reviews. You can see your limits in the Codex usage dashboard." [ref=e454]:
+                          - cell "You have reached your Codex usage limits for code reviews. You can see your limits in the Codex usage dashboard." [ref=e455]:
+                            - paragraph [ref=e456]:
+                              - text: You have reached your Codex usage limits for code reviews. You can see your limits in the
+                              - link "Codex usage dashboard" [ref=e457] [cursor=pointer]:
+                                - /url: https://chatgpt.com/codex/cloud/settings/usage
+                              - text: .
+                - generic [ref=e458]:
+                  - generic [ref=e459]:
+                    - img [ref=e461]
+                    - generic [ref=e463]:
+                      - link "@neuron7xLab" [ref=e464] [cursor=pointer]:
+                        - /url: /neuron7xLab
+                        - img "@neuron7xLab" [ref=e465]
+                      - link "neuron7xLab" [ref=e466] [cursor=pointer]:
+                        - /url: /neuron7xLab
+                      - text: enabled auto-merge (squash)
+                      - link "April 14, 2026 10:181 hour ago" [ref=e467] [cursor=pointer]:
+                        - /url: "#event-24482889448"
+                  - generic [ref=e468]:
+                    - img [ref=e470]
+                    - generic [ref=e472]:
+                      - generic [ref=e473]:
+                        - link "@neuron7xLab" [ref=e474] [cursor=pointer]:
+                          - /url: /neuron7xLab
+                          - img "@neuron7xLab" [ref=e475]
+                        - link "neuron7xLab" [ref=e476] [cursor=pointer]:
+                          - /url: /neuron7xLab
+                        - text: mentioned this pull request
+                        - link "Apr 14, 20261 hour ago" [ref=e477] [cursor=pointer]:
+                          - /url: "#ref-pullrequest-4261378249"
+                      - generic [ref=e478]:
+                        - 'link "docs(gamma-program): LOBSTER acquisition plan — Phase VI §Step 24 #99" [ref=e480] [cursor=pointer]':
+                          - /url: /neuron7xLab/neosynaptex/pull/99
+                        - 'generic "Status: Merged" [ref=e482]':
+                          - img [ref=e483]
+                          - text: Merged
+                      - generic [ref=e486]:
+                        - img [ref=e488]
+                        - generic [ref=e490]: 2 tasks
+                  - generic [ref=e491]:
+                    - img [ref=e493]
+                    - generic [ref=e495]:
+                      - link "neuron7xLab" [ref=e496] [cursor=pointer]:
+                        - /url: /neuron7xLab
+                      - text: added a commit that referenced this pull request
+                      - link "Apr 14, 20261 hour ago" [ref=e497] [cursor=pointer]:
+                        - /url: "#ref-commit-a3dd55c"
+                      - generic [ref=e501]:
+                        - generic [ref=e503]:
+                          - link "@neuron7xLab" [ref=e504] [cursor=pointer]:
+                            - /url: /neuron7xLab
+                            - img "@neuron7xLab" [ref=e505]
+                          - link "@claude" [ref=e506] [cursor=pointer]:
+                            - /url: /claude
+                            - img "@claude" [ref=e507]
+                        - generic [ref=e508]:
+                          - code [ref=e509]:
+                            - 'link "feat(gamma-program): SECOND market substrate — BTCUSDT γ on free Bina…" [ref=e510] [cursor=pointer]':
+                              - /url: /neuron7xLab/neosynaptex/commit/a3dd55c6af97008b83b0ba6eb84575f415c65e1f
+                          - button "…" [ref=e512] [cursor=pointer]
+                        - button "Verified" [ref=e514] [cursor=pointer]:
+                          - generic [ref=e516]: Verified
+                        - group [ref=e518]:
+                          - generic "21 / 21 checks OK" [ref=e519] [cursor=pointer]:
+                            - img "21 / 21 checks OK" [ref=e520]
+                        - code [ref=e523]:
+                          - link "a3dd55c" [ref=e524] [cursor=pointer]:
+                            - /url: /neuron7xLab/neosynaptex/commit/a3dd55c6af97008b83b0ba6eb84575f415c65e1f
+                  - generic [ref=e525]:
+                    - img [ref=e527]
+                    - generic [ref=e529]:
+                      - generic [ref=e530]:
+                        - link "@neuron7xLab" [ref=e531] [cursor=pointer]:
+                          - /url: /neuron7xLab
+                          - img "@neuron7xLab" [ref=e532]
+                        - link "neuron7xLab" [ref=e533] [cursor=pointer]:
+                          - /url: /neuron7xLab
+                        - text: mentioned this pull request
+                        - link "Apr 14, 20261 hour ago" [ref=e534] [cursor=pointer]:
+                          - /url: "#ref-pullrequest-4261453536"
+                      - generic [ref=e535]:
+                        - 'link "feat(gamma-program): SECOND market substrate — BTCUSDT γ on free Binance public REST #100" [ref=e537] [cursor=pointer]':
+                          - /url: /neuron7xLab/neosynaptex/pull/100
+                        - 'generic "Status: Open" [ref=e539]':
+                          - img [ref=e540]
+                          - text: Open
+                      - generic [ref=e543]:
+                        - img [ref=e545]
+                        - generic [ref=e547]: 5 tasks
+            - generic [ref=e551]:
+              - link "Sign up for free" [ref=e552] [cursor=pointer]:
+                - /url: /join?source=comment-repo
+              - strong [ref=e553]: to join this conversation on GitHub
+              - text: . Already have an account?
+              - link "Sign in to comment" [ref=e554] [cursor=pointer]:
+                - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Fneuron7xLab%2Fneosynaptex%2Fpull%2F98
+        - generic [ref=e558]:
+          - form "Select reviewers" [ref=e560]:
+            - heading "Reviewers" [level=3] [ref=e561]
+            - text: No reviews
+          - form "Select assignees" [ref=e563]:
+            - heading "Assignees" [level=3] [ref=e564]
+            - text: No one assigned
+          - generic [ref=e565]:
+            - heading "Labels" [level=3] [ref=e566]
+            - generic [ref=e567]: None yet
+          - form "Select projects" [ref=e569]:
+            - heading "Projects" [level=3] [ref=e570]
+            - text: None yet
+          - form "Select milestones" [ref=e572]:
+            - heading "Milestone" [level=3] [ref=e573]
+            - text: No milestone
+          - form "Link issues" [ref=e579]:
+            - heading "Development" [level=3] [ref=e580]
+            - paragraph [ref=e581]: Successfully merging this pull request may close these issues.
+            - paragraph [ref=e583]: None yet
+          - generic [ref=e585]:
+            - heading "1 participant" [level=3] [ref=e586]
+            - link "@neuron7xLab" [ref=e588] [cursor=pointer]:
+              - /url: /neuron7xLab
+              - img "@neuron7xLab" [ref=e589]
+  - contentinfo [ref=e590]:
+    - heading "Footer" [level=2] [ref=e591]
+    - generic [ref=e592]:
+      - generic [ref=e593]:
+        - link "GitHub Homepage" [ref=e594] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e595]
+        - generic [ref=e597]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e598]:
+        - heading "Footer navigation" [level=3] [ref=e599]
+        - list "Footer navigation" [ref=e600]:
+          - listitem [ref=e601]:
+            - link "Terms" [ref=e602] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e603]:
+            - link "Privacy" [ref=e604] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e605]:
+            - link "Security" [ref=e606] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e607]:
+            - link "Status" [ref=e608] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e609]:
+            - link "Community" [ref=e610] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e611]:
+            - link "Docs" [ref=e612] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e613]:
+            - link "Contact" [ref=e614] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e615]:
+            - button "Manage cookies" [ref=e617] [cursor=pointer]
+          - listitem [ref=e618]:
+            - button "Do not share my personal information" [ref=e620] [cursor=pointer]

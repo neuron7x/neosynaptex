@@ -1,0 +1,134 @@
+- generic [ref=e2]:
+  - region
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e9]:
+        - button "Toggle navigation" [ref=e11] [cursor=pointer]
+        - link "Homepage" [ref=e17] [cursor=pointer]:
+          - /url: /
+          - img [ref=e18]
+        - generic [ref=e20]:
+          - link "Sign in" [ref=e21] [cursor=pointer]:
+            - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Fneuron7xLab%2Fneosynaptex%2Fsecurity
+          - button "Appearance settings" [ref=e24] [cursor=pointer]:
+            - img
+  - main [ref=e27]:
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - link "neuron7xLab" [ref=e35] [cursor=pointer]:
+            - /url: /neuron7xLab
+          - generic [ref=e36]: /
+          - strong [ref=e37]:
+            - link "neosynaptex" [ref=e38] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex
+          - generic [ref=e39]: Public
+        - generic [ref=e40]:
+          - list:
+            - listitem [ref=e41]:
+              - link "You must be signed in to change notification settings" [ref=e42] [cursor=pointer]:
+                - /url: /login?return_to=%2Fneuron7xLab%2Fneosynaptex
+                - img [ref=e43]
+                - text: Notifications
+            - listitem [ref=e45]:
+              - link "Fork 0" [ref=e46] [cursor=pointer]:
+                - /url: /login?return_to=%2Fneuron7xLab%2Fneosynaptex
+                - img [ref=e47]
+                - text: Fork
+                - generic "0" [ref=e49]
+            - listitem [ref=e50]:
+              - link "You must be signed in to star a repository" [ref=e52] [cursor=pointer]:
+                - /url: /login?return_to=%2Fneuron7xLab%2Fneosynaptex
+                - img [ref=e53]
+                - text: Star
+                - generic "0 users starred this repository" [ref=e55]: "0"
+      - navigation "Repository" [ref=e56]:
+        - list [ref=e57]:
+          - listitem [ref=e58]:
+            - link "Code" [ref=e59] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex
+              - img [ref=e60]
+              - generic [ref=e62]: Code
+          - listitem [ref=e63]:
+            - link "Issues" [ref=e64] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/issues
+              - img [ref=e65]
+              - generic [ref=e68]: Issues
+          - listitem [ref=e69]:
+            - link "Pull requests 21" [ref=e70] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/pulls
+              - img [ref=e71]
+              - generic [ref=e73]: Pull requests
+              - generic "21" [ref=e74]
+          - listitem [ref=e75]:
+            - link "Discussions" [ref=e76] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/discussions
+              - img [ref=e77]
+              - generic [ref=e79]: Discussions
+          - listitem [ref=e80]:
+            - link "Actions" [ref=e81] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/actions
+              - img [ref=e82]
+              - generic [ref=e84]: Actions
+          - listitem [ref=e85]:
+            - link "Projects" [ref=e86] [cursor=pointer]:
+              - /url: /neuron7xLab/neosynaptex/projects
+              - img [ref=e87]
+              - generic [ref=e89]: Projects
+          - listitem [ref=e90]
+          - listitem [ref=e91]
+        - button "Additional navigation options" [ref=e95] [cursor=pointer]:
+          - img
+    - generic [ref=e97]:
+      - 'heading "Security: neuron7xLab/neosynaptex" [level=1] [ref=e98]'
+      - generic [ref=e102]:
+        - heading "Security" [level=2] [ref=e104]
+        - generic [ref=e106]:
+          - img [ref=e107]
+          - heading "No security policy detected" [level=3] [ref=e109]
+          - paragraph [ref=e110]: This project has not set up a SECURITY.md file yet.
+          - link "Report a vulnerability" [ref=e111] [cursor=pointer]:
+            - /url: /neuron7xLab/neosynaptex/security/advisories/new
+        - generic [ref=e114]:
+          - img [ref=e115]
+          - heading "There aren’t any published security advisories" [level=2] [ref=e118]
+  - contentinfo [ref=e119]:
+    - heading "Footer" [level=2] [ref=e120]
+    - generic [ref=e121]:
+      - generic [ref=e122]:
+        - link "GitHub Homepage" [ref=e123] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e124]
+        - generic [ref=e126]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e127]:
+        - heading "Footer navigation" [level=3] [ref=e128]
+        - list "Footer navigation" [ref=e129]:
+          - listitem [ref=e130]:
+            - link "Terms" [ref=e131] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e132]:
+            - link "Privacy" [ref=e133] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e134]:
+            - link "Security" [ref=e135] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e136]:
+            - link "Status" [ref=e137] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e138]:
+            - link "Community" [ref=e139] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e140]:
+            - link "Docs" [ref=e141] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e142]:
+            - link "Contact" [ref=e143] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e144]:
+            - button "Manage cookies" [ref=e146] [cursor=pointer]
+          - listitem [ref=e147]:
+            - button "Do not share my personal information" [ref=e149] [cursor=pointer]

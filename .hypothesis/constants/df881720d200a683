@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/evl/aggregator.py
+# hypothesis_version: 6.140.3
+
+[0.15, 1.0, 'INSUFFICIENT', 'NO_VALID_SESSIONS', 'OK', 'accuracy_pct', 'analysis.json', 'beta', 'beta_max', 'beta_mean', 'beta_min', 'beta_std', 'beta_trajectory', 'converging', 'evidence/sessions', 'first_distance', 'last_distance', 'metastable_fraction', 'n', 'n_sessions', 'n_tasks', 'nan', 'psd_latency', 'session', 'session_*', 'sessions', 'slope', 'statistics', 'status', 'target']

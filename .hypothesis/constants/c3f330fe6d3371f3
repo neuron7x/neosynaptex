@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/scripts/ci_orchestrator.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.5, 1.5, 2.5, 97.5, 600, 2000, '--tb=line', '-c', '-m', '-q', '-x', 'DEGENERATE', 'ERROR', 'UNKNOWN', '__main__', 'adapter.py', 'ci_hi', 'ci_lo', 'cross_coherence', 'excludes_zero', 'gamma_mean', 'gamma_per_domain', 'in_range', 'mean_gamma', 'n_domains', 'nan', 'passed', 'phase', 'pytest', 'reason', 'spectral_radius', 'substrates', 'tests/']

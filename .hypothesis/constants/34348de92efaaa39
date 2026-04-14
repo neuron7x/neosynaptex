@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/substrates/eeg_resting/adapter.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-06, 0.15, 0.3, 0.5, 1.0, 2.0, 2.5, 5.0, 7.0, 13.0, 40.0, 45.0, 97.5, 2000, '\n  Per-subject:', '1.0.0', 'COLLAPSE', 'CRITICAL', 'ERROR', 'METASTABLE', 'MNE-eegbci-data', 'WARNING', '__main__', 'aperiodic_exponent', 'ci_contains_unity', 'ci_high', 'ci_low', 'data', 'eeg_physionet', 'eeg_resting', 'eegmmidb', 'files', 'gamma', 'id', 'method', 'n_epochs', 'n_subjects', 'per_subject', 'runs', 'std', 'verdict', 'welch']

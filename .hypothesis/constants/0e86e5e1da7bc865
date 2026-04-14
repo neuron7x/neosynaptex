@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/core/gamma_registry.py
+# hypothesis_version: 6.140.3
+
+['data_source', 'entries', 'evidence', 'gamma', 'gamma_ledger.json', 'locked', 'sha256', 'status']

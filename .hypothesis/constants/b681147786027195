@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/substrates/cfp_diy/adapter.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-10, 1e-06, 0.001, 0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 0.6, 0.95, 1.0, 2.0, 2.5, 3.0, 5.0, 97.5, 200, 2000, 10000, 'COLLAPSE', 'CRITICAL', 'INSUFFICIENT', 'METASTABLE', 'WARNING', '__main__', 'ai_quality', 'cfp_diy', 'ci', 'delegation', 'error_rate', 'gamma', 'mean_delegation', 'mean_skill', 'n', 'nan', 'p_perm', 'r2', 'regime', 'skill', 'throughput']

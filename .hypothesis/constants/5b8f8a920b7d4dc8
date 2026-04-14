@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/core/rqa.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-15, 1e-10, 0.1, 200, 'det', 'ent', 'inf', 'lam', 'nan', 'p_value', 'rr', 'tau_used']

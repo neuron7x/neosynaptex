@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/core/coherence_bridge.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.01, 0.05, 0.85, 1.15, '--short', 'EXTERNAL', 'HEAD', 'anomaly_score', 'cross_coherence', 'dampen', 'error', 'excite', 'gamma', 'gamma_ci', 'gamma_global', 'gamma_std', 'git', 'git_sha', 'json', 'maintain', 'modulation', 'nan', 'no observations', 'observe', 'per_domain', 'phase', 'rev-parse', 'spectral_radius', 'tick', 'timestamp', 'unknown', 'utf-8']

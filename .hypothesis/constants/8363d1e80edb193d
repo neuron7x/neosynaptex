@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/core/adapter_registry.py
+# hypothesis_version: 6.140.3
+
+[128, '*/adapter.py', 'domain', 'state', 'state_keys', 'substrates', 'thermo_cost', 'topo']

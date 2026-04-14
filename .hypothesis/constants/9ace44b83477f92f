@@ -1,0 +1,4 @@
+# file: /home/neuro7/Desktop/Системи в системах /neosynaptex/evl/effect_size.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-15, 0.2, 0.5, 0.8, 'baseline_mean_ms', 'baseline_n', 'cohens_d', 'interpretation', 'large', 'lat_ratio', 'medium', 'nan', 'negligible', 'small', 'stress_mean_ms', 'stress_n']
