@@ -72,8 +72,33 @@ __all__ = [
     "extract_metrics",
     "compute_verdict",
     "build_output_document",
+    "strict_json_sanitize",
     "REQUIRED_FILES",
 ]
+
+
+def strict_json_sanitize(value: Any) -> Any:
+    """Recursively coerce a value into a strict-JSON-safe shape.
+
+    Non-finite floats (``NaN``, ``+Infinity``, ``-Infinity``) are not part
+    of the strict JSON grammar (RFC 8259) and would otherwise be written
+    by ``json.dump`` as bare ``NaN`` / ``Infinity`` tokens. The evidence
+    ledger MUST stay strict-JSON, so this sanitizer maps every such
+    value to ``None`` and walks dicts / lists / tuples in place. Tuples
+    are emitted as JSON arrays — Python's ``json`` does the same — but
+    keys are coerced to ``str`` defensively so a stray non-string key
+    does not crash the writer downstream.
+    """
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, float):
+        return value if math.isfinite(value) else None
+    if isinstance(value, dict):
+        return {str(k): strict_json_sanitize(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [strict_json_sanitize(v) for v in value]
+    return value
+
 
 REQUIRED_FILES: tuple[str, ...] = (
     "criticality_report.json",
@@ -157,12 +182,8 @@ def extract_metrics(
     # by surfacing whatever the caller may have appended downstream.
     raw_low = crit.get("sigma_ci_low") if isinstance(crit, dict) else None
     raw_high = crit.get("sigma_ci_high") if isinstance(crit, dict) else None
-    kappa_ci_low: float | None = (
-        _safe_float(raw_low) if raw_low is not None else None
-    )
-    kappa_ci_high: float | None = (
-        _safe_float(raw_high) if raw_high is not None else None
-    )
+    kappa_ci_low: float | None = _safe_float(raw_low) if raw_low is not None else None
+    kappa_ci_high: float | None = _safe_float(raw_high) if raw_high is not None else None
     # Translate NaN sentinels (from _safe_float on garbage) back to None
     # so downstream "missing CI" stays unambiguous.
     if kappa_ci_low is not None and not math.isfinite(kappa_ci_low):
@@ -258,9 +279,7 @@ def _local_pass(metrics: BnSynStructuralMetrics, thresholds: dict[str, Any]) -> 
     target = float(kappa_cfg.get("target", 1.0))
     tolerance = float(kappa_cfg.get("tolerance", 0.1))
 
-    kappa_ok_point = (
-        math.isfinite(metrics.kappa) and abs(metrics.kappa - target) <= tolerance
-    )
+    kappa_ok_point = math.isfinite(metrics.kappa) and abs(metrics.kappa - target) <= tolerance
     kappa_ok_ci = (
         metrics.kappa_ci_low is not None
         and metrics.kappa_ci_high is not None
@@ -336,8 +355,8 @@ def compute_verdict(
 
     local_status = "PASS" if local_pass else "FAIL"
     artifact_status = "NOT_SUSPECTED"
-    gamma_status = "NO_ADMISSIBLE_CLAIM" if gamma_pass is None else (
-        "PASS" if gamma_pass else "FAIL"
+    gamma_status = (
+        "NO_ADMISSIBLE_CLAIM" if gamma_pass is None else ("PASS" if gamma_pass else "FAIL")
     )
 
     if not prov_ok:
@@ -438,8 +457,7 @@ def build_output_document(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Import BN-Syn canonical proof bundle into "
-            "NeoSynaptex structural-evidence JSON."
+            "Import BN-Syn canonical proof bundle into NeoSynaptex structural-evidence JSON."
         ),
     )
     parser.add_argument("--bundle", required=True, type=Path, help="BN-Syn bundle directory.")
@@ -493,8 +511,9 @@ def main(argv: list[str] | None = None) -> int:
         document = build_output_document(bundle_dir, metrics, verdict, reports, missing)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    document = strict_json_sanitize(document)
     with out_path.open("w", encoding="utf-8") as fh:
-        json.dump(document, fh, sort_keys=True, indent=2)
+        json.dump(document, fh, sort_keys=True, indent=2, allow_nan=False)
         fh.write("\n")
 
     return 0

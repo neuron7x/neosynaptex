@@ -33,6 +33,7 @@ from tools.import_bnsyn_structural_evidence import (  # noqa: E402
     extract_metrics,
     load_bundle,
     main,
+    strict_json_sanitize,
 )
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -315,6 +316,55 @@ def test_required_files_constant_is_complete() -> None:
         "robustness_report.json",
     }
     assert set(REQUIRED_FILES) == expected
+
+
+def test_missing_file_output_is_strict_json_without_nan_tokens(tmp_path: Path) -> None:
+    """Fail-closed missing-file output must be strict-JSON: no NaN/Infinity tokens."""
+    bundle = tmp_path / "bundle"
+    _write_bundle(bundle, omit=("criticality_report.json",))
+    out = tmp_path / "evidence.json"
+
+    rc = main(["--bundle", str(bundle), "--out", str(out)])
+
+    assert rc == 0
+    raw = out.read_text(encoding="utf-8")
+    # Strict JSON (RFC 8259) forbids these tokens. Their presence would
+    # mean json.dump silently emitted the Python float("nan") sentinels.
+    assert "NaN" not in raw
+    assert "Infinity" not in raw
+    assert "-Infinity" not in raw
+
+    doc = json.loads(raw)
+    assert doc["verdict"]["claim_status"] == "NO_ADMISSIBLE_CLAIM"
+    assert doc["metrics"]["kappa"] is None
+    assert doc["metrics"]["avalanche_fit_quality"] is None
+    assert doc["metrics"]["phase_coherence"] is None
+
+
+def test_strict_json_sanitizer_converts_nonfinite_nested_values() -> None:
+    """Sanitizer maps NaN/inf to None recursively across dicts, lists, tuples."""
+    payload = {
+        "kappa": float("nan"),
+        "ci": [float("inf"), float("-inf"), 1.0],
+        "summary": {"mean": float("nan"), "count": 7},
+        "tuple_field": (float("nan"), 0.5),
+        "ok_int": 3,
+        "ok_str": "x",
+        "ok_bool": True,
+    }
+    out = strict_json_sanitize(payload)
+    assert out["kappa"] is None
+    assert out["ci"] == [None, None, 1.0]
+    assert out["summary"]["mean"] is None
+    assert out["summary"]["count"] == 7
+    assert out["tuple_field"] == [None, 0.5]
+    assert out["ok_int"] == 3
+    assert out["ok_str"] == "x"
+    assert out["ok_bool"] is True
+    # And the result round-trips through strict JSON.
+    raw = json.dumps(out, allow_nan=False, sort_keys=True)
+    assert "NaN" not in raw
+    assert "Infinity" not in raw
 
 
 def test_build_output_document_shape(tmp_path: Path) -> None:
