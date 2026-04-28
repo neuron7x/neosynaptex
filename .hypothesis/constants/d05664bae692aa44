@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/experiments/spectral_coherence_v3/physical_audit.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-12, 1e-09, 0.05, 1.0, 2.0, 200.0, 120, 200, 256, 500, '__main__', 'acf', 'acf_1e_lag_ticks', 'aggregate_mean', 'aggregate_std', 'audit.json', 'bnsyn', 'burst_interval_ticks', 'error', 'event_interval_ticks', 'f_bnsyn', 'f_geosync', 'geosync', 'inf', 'n_bars', 'n_tickers', 'nan', 'pop_rate_mean', 'pop_rate_std', 'pop_rates_len', 'psd', 'psd_peak_frequency', 'steps_per_tick', 'unavailable']

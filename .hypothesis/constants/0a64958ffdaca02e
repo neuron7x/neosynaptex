@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/canon_reference_check.py
+# hypothesis_version: 6.140.3
+
+['*', ', ', ',.;:!?)', '- path:', '.', '.csv', '.git', '.ipynb', '.json', '.md', '.py', '.sh', '.toml', '.txt', '.yaml', '.yml', '/', ':', '::', '; ', '<', '>', '?', 'CANON_DOCUMENTS', 'PATH_EXTENSIONS', '__main__', 'allowed_missing', 'allowed_missing:', 'audit', 'extract_references', 'http://', 'https://', 'load_allowlist', 'main', 'path', 'run_check', 'tools', 'utf-8']

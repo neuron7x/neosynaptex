@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/experiments/spectral_coherence_v3/spectral_battery.py
+# hypothesis_version: 6.140.3
+
+[-0.5, -0.25, 1e-24, 0.02, 0.5, 0.8, 1.0, 2.0, 3.0, 6.0, 128, 'MultitaperResult', 'WaveletResult', 'WelchResult', 'multitaper_coherence', 'same', 'wavelet_coherence', 'welch_coherence']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/objection_energy_budget.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.05, 0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 'OEBController', 'ObjectionBudget', 'dt must be positive', 'simulate_with_oeb']

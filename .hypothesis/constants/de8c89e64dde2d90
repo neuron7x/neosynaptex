@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/gray_scott/adapter.py
+# hypothesis_version: 6.140.3
+
+[1e-10, 1e-06, 0.001, 0.01, 0.02, 0.03, 0.06, 0.065, 0.08, 0.15, 0.16, 0.25, 0.3, 0.5, 1.0, 1000000.0, 1000, 'COLLAPSE', 'CRITICAL', 'F', 'METASTABLE', 'WARNING', '__main__', 'ci', 'entropy', 'gamma', 'grad_energy', 'n', 'r2', 'reaction_diffusion', 'regime', 'u_mean', 'v_mass', 'v_mean']

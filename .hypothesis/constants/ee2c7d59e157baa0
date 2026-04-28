@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/stats/effect_size.py
+# hypothesis_version: 6.140.3
+
+[-1.0, 0.0, 0.5, 0.95, 1.0, 2.0, 3.0, 4.0, 9.0, 100, 'EffectSize', 'bootstrap_ci', 'ci_high', 'ci_low', 'ci_method', 'cliff_1993_wald', 'cliffs_delta', 'cohen_d', 'confidence', 'hedges_g', 'n_a', 'n_b', 'name', 'point']

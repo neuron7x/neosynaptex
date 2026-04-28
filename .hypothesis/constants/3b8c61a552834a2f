@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/hrv/gamma_cohort.py
+# hypothesis_version: 6.140.3
+
+[0.003, 0.04, 500, 1024, 20000, 'GammaSubject', 'cohort', 'error', 'gamma', 'gamma_ci95', 'gamma_fit_error', 'load_rr_cache', 'missing_cache', 'n_frequencies_fit', 'n_rr', 'ok', 'r2', 'record', 'run_cohort_gamma', 'status', 'too_short']

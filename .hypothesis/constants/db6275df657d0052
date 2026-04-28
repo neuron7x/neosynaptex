@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/contracts/provenance.py
+# hypothesis_version: 6.140.3
+
+['ClaimStatus', 'EngineMode', 'HasProvenance', 'Provenance', 'ProvenanceClass', 'ProvenanceViolation', 'REAL_MODES', 'admissible', 'canonical', 'demo', 'downgraded', 'ensure_admissible', 'forbidden', 'is_real_mode', 'mock', 'proof', 'provenance', 'real', 'replication', 'synthetic', 'test']

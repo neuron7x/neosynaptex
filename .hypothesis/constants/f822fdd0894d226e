@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/hrv/mfdfa_cohort.py
+# hypothesis_version: 6.140.3
+
+[-3.0, 0.5, 3.5, 20000, 'MFDFASubject', 'cohort', 'delta_alpha', 'delta_h', 'error', 'h_at_q2', 'load_rr_cache', 'mfdfa_error', 'missing_cache', 'n_rr', 'ok', 'record', 'run_cohort_mfdfa', 'status', 'too_short']

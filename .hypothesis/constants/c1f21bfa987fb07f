@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/dcvp/causality.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-12, 1e-09, 0.01, 0.05, 0.5, 1.0, 199, 'StationarityReport', 'baseline_drift', 'cascade_lag', 'effect_size', 'granger_robust', 'inf', 'jitter_survival', 'lag_selected', 'p_value', 'stationarity', 'te_null', 'transfer_entropy']

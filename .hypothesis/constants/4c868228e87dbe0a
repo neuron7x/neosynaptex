@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/telemetry/emit.py
+# hypothesis_version: 6.140.3
+
+[1000.0, '%Y-%m-%dT%H:%M:%S.', ',', '-C', ':', 'DEFAULT_SINK_RELPATH', 'HEAD', 'NEOSYNAPTEX_TRACE_ID', 'TRACE_ID_ENV', 'a', 'commit_sha', 'current_trace_id', 'duration_ms', 'emit_event', 'event_type', 'fail', 'git', 'links', 'neosynaptex_trace_id', 'ok', 'outcome', 'parent_span_id', 'payload', 'resolve_sink_path', 'rev-parse', 'schema_version', 'span', 'span_id', 'stamp_commit_sha', 'substrate', 'timestamp_utc', 'trace_id', 'utf-8']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/kill_signal_coverage.py
+# hypothesis_version: 6.140.3
+
+['#', '- ', ':', '; ', '<no id>', 'DRIFT: ', 'FRONTMATTER_REGEX', 'IntegrityError', 'SYSTEM_PROTOCOL.md', '\\A---\\n(.*?\\n)---\\n', '__main__', 'audit', 'docs', 'id', 'instrumented', 'kill_criteria', 'kill_criteria:', 'load_baseline', 'load_kill_criteria', 'main', 'measurement_status', 'run_check', 'signal_contract', 'signal_contract:', 'test_suite', 'tool', 'tools', 'utf-8']

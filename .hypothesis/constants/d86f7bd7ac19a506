@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/hrv/null_suite.py
+# hypothesis_version: 6.140.3
+
+[2.0, 3.0, 200, 10000, 1000003, 'BORD', 'BORDERLINE', 'LayerResult', 'NOTSEP', 'NOT_SEPARABLE', 'NullSuiteConfig', 'NullSuiteResult', 'SEP', 'SEPARABLE', 'aggregate_verdict', 'compute_null_suite', 'dfa_scales', 'families', 'n_beats_cap', 'per_layer', 'statistic', 'verdict_from_z', 'z_borderline_low', 'z_separable']

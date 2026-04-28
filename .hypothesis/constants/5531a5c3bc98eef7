@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/claim_span_extractor.py
+# hypothesis_version: 6.140.3
+
+['\'"', '(?<=[.!?])\\s+|;\\s+', '>', '[\\s,\\[\\]]+', '\\s+', '^#{1,6}\\s+', '^[A-Za-z0-9_.:-]+$', '^\\s*[-*]\\s+', '^\\s*[\\w.-]+\\s*:\\s*', 'equal', 'evidence:', 'evidence_id:', 'evidence_ids:', 'external validation', 'linked_evidence:', 'quote:', '|']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/telemetry_adoption.py
+# hypothesis_version: 6.140.3
+
+['"', '#', "'", '*.py', ', ', '- ', '.benchmarks', '.git', '.hypothesis', '.mypy_cache', '.playwright-mcp', '.pytest_cache', '.ruff_cache', '.venv', ':', '; ', 'DRIFT: ', 'EMIT_MODULE', 'IntegrityError', 'TRACKED_SYMBOLS', '[]', '__main__', '__pycache__', 'build', 'discover_call_sites', 'dist', 'emit_event', 'emit_sites', 'emit_sites:', 'line', 'load_manifest', 'main', 'node_modules', 'path', 'run_check', 'span', 'symbol', 'telemetry', 'tests', 'tools', 'tools.telemetry.emit', 'utf-8', 'venv']

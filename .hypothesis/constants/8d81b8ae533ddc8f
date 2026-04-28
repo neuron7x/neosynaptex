@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/pr_body_check.py
+# hypothesis_version: 6.140.3
+
+[200, ', ', '-', '. Valid labels: ', '__main__', 'audit.pr_body_check', 'fail', 'main', 'ok', 'reason_head', 'utf-8', 'validate', '|']

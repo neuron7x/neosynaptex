@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/hrv/contrast.py
+# hypothesis_version: 6.140.3
+
+[0.0001, 'ContrastResult', 'PanelContrast', 'cliffs_delta', 'cliffs_delta_ci95', 'cohen_d', 'cohen_d_ci95', 'contrast', 'contrast_panel', 'mean_a', 'mean_b', 'mwu_p', 'mwu_u', 'n_a', 'n_b', 'nan', 'panel_with_fdr', 'std_a', 'std_b', 'welch_df', 'welch_p', 'welch_t']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/git_sha.py
+# hypothesis_version: 6.140.3
+
+['-C', 'HEAD', 'UNSTAMPED:', 'UNSTAMPED_PREFIX', 'git', 'git_head_sha', 'rev-parse']

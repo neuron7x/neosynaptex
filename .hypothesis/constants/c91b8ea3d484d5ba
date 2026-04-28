@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/stats/classifier_metrics.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.5, 0.95, 1.0, 2.0, 100, 'bootstrap_metric_ci', 'trials must be ≥1', 'wilson_interval']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/event_bus.py
+# hypothesis_version: 6.140.3
+
+[0.0, 10000, 'AnomalyEvent', 'CoherenceEvent', 'EventBus', 'EventHandler', 'GammaShiftEvent', 'ModulationEvent', 'PhaseTransitionEvent', 'SubstrateEvent', 'anomaly', 'coherence', 'gamma_shift', 'global', 'modulation', 'phase_transition']

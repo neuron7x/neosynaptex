@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/adversarial/auditor.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1000.0, 200, '--pr-body', 'AuditorReport', 'AuditorTool', 'FAIL', 'INFO', 'OK', 'SKIP', 'TOOLS', 'ToolVerdict', '__main__', 'adversarial', 'adversarial.auditor', 'applied', 'claim_status_applied', 'exit_code', 'fail', 'main', 'message_head', 'n_failed', 'n_run', 'n_skipped', 'null_family_gate', 'ok', 'pr_body_check', 'run_all', 'run_audit', 'run_check', 'total_duration_ms', 'utf-8', 'validate']

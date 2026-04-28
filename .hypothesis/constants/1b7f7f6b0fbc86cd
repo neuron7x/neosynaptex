@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/falsification_protocol.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-10, 0.05, 0.1, 0.15, 0.2, 0.3, 0.8, 1.0, 10.0, 200, '---', '; ', '?', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'FAIL', 'FALSIFIED', 'FalsificationReport', 'NOT_FALSIFIED', 'PARTIALLY_FALSIFIED', 'PASS', 'SURVIVES', 'VALIDATED', 'WARN', 'WEAKENED', 'biological', 'bn_syn', 'cfp_diy', 'chemical', 'ci_high', 'ci_low', 'cns_ai_loop', 'computational', 'eeg_physionet', 'eeg_resting', 'entries', 'evidence', 'gamma', 'gamma_ledger.json', 'gray_scott', 'hrv_fantasia', 'hrv_physionet', 'inf', 'kuramoto_market', 'market', 'mock_market', 'nfi_unified', 'p_permutation', 'status', 'substrate', 'unknown', 'zebrafish', '| Status | Count |', '|--------|-------|']

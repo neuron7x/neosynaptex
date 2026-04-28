@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/experiments/spectral_coherence_v3/nulls.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-09, 1.0, 2.0, 200, 1000, 3235826430, 'NullBatteryResult', 'NullFamilyResult', 'circular_shift', 'cross_run_mismatch', 'nan', 'phase_randomize', 'phase_randomized', 'run_null_battery', 'time_reverse', 'time_reversed', 'time_shuffle', 'time_shuffled']

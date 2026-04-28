@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/decision_bridge_contracts.py
+# hypothesis_version: 6.140.3
+
+['*.py', '::', '?', 'I-DB(?:-[A-Z])?-\\d+', '__main__', 'contracts', 'core', 'decision_bridge.yaml', 'docs', 'enforced_by', 'file', 'id', 'invariants', 'symbol', 'tests', 'utf-8']

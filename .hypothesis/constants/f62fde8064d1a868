@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/hrv/surrogates.py
+# hypothesis_version: 6.140.3
+
+[-0.999, -0.5, 0.0, 1e-12, 1e-06, 0.5, 0.999, 1.0, 30.0, 200, 'SurrogateBundle', 'SurrogateFamily', 'ar1', 'ar1_surrogate', 'generate_family', 'iaaft', 'latent_gmm', 'latent_gmm_surrogate', 'poisson', 'poisson_surrogate', 'shuffled', 'shuffled_surrogate']

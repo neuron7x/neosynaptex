@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/intelligence_certificate.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.1, 0.3, 1.0, 100.0, '1.0.0', '; ', 'CERTIFIED', 'DENIED', 'INCONCLUSIVE', 'alive_frac', 'certificate_sha256', 'certify', 'diagnosis', 'dynamic_frac', 'fisher_info', 'gamma_in_metastable', 'gamma_mean', 'gamma_std', 'gradient_diagnosis', 'living_gradient', 'lyapunov_is_chaotic', 'lyapunov_max', 'reason', 'renyi_min', 'renyi_shannon', 'timestamp_utc', 'trajectory_dim', 'trajectory_length', 'trajectory_sha256', 'utf-8', 'verdict', 'verify_certificate', 'version', 'γ in metastable zone']

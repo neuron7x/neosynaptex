@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/bridge_ledger_audit.py
+# hypothesis_version: 6.140.3
+
+['  anomalies:', '  anomalies: none', '--json-report', 'DEAD', '__main__', 'chaotic', 'hallucination_risk', 'high', 'ledger', 'ok', 'operating_regime', 'system_health', 'utf-8']

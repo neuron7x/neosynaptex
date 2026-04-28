@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/cns_ai_loop/adapter.py
+# hypothesis_version: 6.140.3
+
+[1e-10, 1e-06, 0.01, 0.02, 0.1, 0.15, 0.3, 0.4, 0.5, 0.95, 1.0, 5.0, 10.0, 11.0, 500, 10000, 'COLLAPSE', 'CRITICAL', 'METASTABLE', 'WARNING', '__main__', 'arousal', 'ci', 'cns_ai', 'error_rate', 'gamma', 'n', 'quality', 'r2', 'regime', 'throughput']

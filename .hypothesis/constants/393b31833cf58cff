@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/data/analysis_split.py
+# hypothesis_version: 6.140.3
+
+[0.0, '      -', '#', '\'"', ',', ', ', '-', ':', 'ANALYSIS_SPLIT_PATH', 'ImmutabilityError', 'Split', 'SplitLeakError', 'SubjectRef', '[]', 'analysis_split.yaml', 'cohort', 'cohort_assignment', 'cohort_assignment:', 'cohort_counts', 'cohorts', 'cohorts:', 'config', 'data', 'development', 'enforce_dev_only', 'external', 'fs_hz', 'load_split', 'manifests', 'max', 'mean', 'mean_rr_s', 'min', 'n', 'n_rr_intervals', 'n_subjects', 'n_subjects:', 'name', 'record', 'recording_duration_s', 'sampling_fs_hz', 'schema_version', 'schema_version:', 'split_sha256', 'splits', 'splits:', 'subjects', 'subjects:', 'utf-8', '{', '}']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/hrv/branch_a_marker.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-18, 0.5, 1.0, 'LockedMarker', 'MarkerScore', 'accuracy', 'accuracy_ci95', 'auc', 'auc_ci95', 'cohen_d_projection', 'delta_h', 'feature_names', 'fit_marker', 'h_at_q2', 'healthy_label', 'id', 'label', 'n', 'n_healthy', 'n_pathology', 'nan', 'pathology_label', 'score', 'seed', 'sensitivity', 'sensitivity_ci95', 'specificity', 'specificity_ci95', 'stratified_split', 'test', 'test_ids', 'threshold', 'train', 'train_fraction', 'train_n_healthy', 'train_n_pathology', 'w']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/serotonergic_kuramoto/adapter.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-06, 0.0001, 0.001, 0.02, 0.065, 0.15, 0.25, 0.3, 0.5, 0.7, 0.75, 1.0, 2.0, 8.0, 10.0, 2000, 10000, 'COLLAPSE', 'CRITICAL', 'K_eff', 'K_over_Kc', 'Kc', 'METASTABLE', 'R', 'R_std', 'WARNING', '__main__', 'c', 'gamma', 'mean_plv', 'nan', 'phase_entropy', 'r2', 'regime', 'thermo_cost', 'topo']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/contracts/fail_closed.py
+# hypothesis_version: 6.140.3
+
+['CONSTRUCTED', 'DomainAssessment', 'FAIL_CLOSED', 'FRAGILE', 'INCONCLUSIVE', 'MISSING', 'VERIFIED', 'Verdict', 'aggregate_verdicts', 'parse_verdict']

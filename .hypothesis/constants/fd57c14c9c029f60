@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/data/physionet_cohort.py
+# hypothesis_version: 6.140.3
+
+[0.0, 128.0, 250.0, 201, 230, '%Y-%m-%dT%H:%M:%SZ', '.json.tmp', '16265', '16272', '16273', '16420', '16483', '16539', '16773', '16786', '16795', '17052', '17453', '18177', '18184', '19088', '19090', '19093', '19140', '19830', 'COHORTS', 'CohortRecord', 'CohortSpec', 'N', 'ODC-By 1.0', '__version__', 'actual_n_subjects', 'annotation_extension', 'atr', 'build_manifest', 'chf2db', 'chfdb', 'citation', 'dataset_name', 'derive_rr_intervals', 'development_healthy', 'ecg', 'error_class', 'error_message', 'expected_n_subjects', 'external_healthy', 'external_pathology', 'failed', 'fetch_record', 'generated_utc', 'license', 'nominal_fs_hz', 'nsr2db', 'nsrdb', 'ok', 'pn_dir', 'role', 'source_url', 'subjects', 'symbols_observed', 'unknown', 'utf-8', 'wb', 'wfdb_version', 'write_manifest']
