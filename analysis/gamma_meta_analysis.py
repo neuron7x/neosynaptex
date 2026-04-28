@@ -292,11 +292,23 @@ def load_from_gamma_ledger(path: str | Path) -> list[SubstrateResult]:
     """
     blob = json.loads(Path(path).read_text())
     entries = blob.get("entries", {})
+    # Phase 2 hardening (ledger v2.0.0): meta-analysis pools the same
+    # measurement tiers as the substrate-diversity report — VALIDATED
+    # plus pre-VALIDATED tiers (EVIDENCE_CANDIDATE, SUPPORTED_BY_NULLS,
+    # VALIDATED_SUBSTRATE_EVIDENCE). Sub-γ statuses (LOCAL_STRUCTURAL_…,
+    # BLOCKED_BY_…, NO_ADMISSIBLE_CLAIM) are excluded because they do
+    # not emit a γ value.
+    _MEASURED_STATUSES = {
+        "VALIDATED",
+        "VALIDATED_SUBSTRATE_EVIDENCE",
+        "EVIDENCE_CANDIDATE",
+        "SUPPORTED_BY_NULLS",
+    }
     out: list[SubstrateResult] = []
     for key, entry in entries.items():
         if not isinstance(entry, dict):
             continue
-        if entry.get("status") != "VALIDATED":
+        if entry.get("status") not in _MEASURED_STATUSES:
             continue
         g = entry.get("gamma")
         lo = entry.get("ci_low")

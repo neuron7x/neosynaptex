@@ -79,7 +79,7 @@ gamma = 1.0 is not a tuned parameter. It is a **convergent empirical value** acr
 - Cross-domain coherence
 - The human-AI loop itself
 
-**Mean across 6 validated substrates:**
+**Mean across 6 measured candidate substrates** (per `evidence/gamma_ledger.json` v2.0.0; the candidate cohort remains exploratory — none has yet closed all six §5.1 gates of `docs/CLAIM_BOUNDARY.md` for VALIDATED status):
 gamma = 0.991 +/- 0.052
 
 </td>
@@ -90,7 +90,7 @@ gamma = 0.991 +/- 0.052
 
 ## Six substrates
 
-<sub>Five validated + one historical-exploratory (CNS-AI loop, downgraded).</sub>
+<sub>Five measured candidate substrates (status: EVIDENCE_CANDIDATE pending external replication per docs/CLAIM_BOUNDARY.md §5.1) plus one historical-exploratory (CNS-AI loop, downgraded).</sub>
 
 <table>
 <tr>
@@ -193,7 +193,7 @@ gamma = 0.991 +/- 0.052
 </tr>
 <tr>
 <td align="center" colspan="6">
-<sub>Five validated substrates have 95% CI containing gamma = 1.0. The CNS-AI Loop cell is retained for historical continuity only (downgraded 2026-04-14).</sub>
+<sub>Five measured candidate substrates (status: EVIDENCE_CANDIDATE per evidence/gamma_ledger.json v2.0.0) have 95% CI containing gamma = 1.0; none has yet closed all six §5.1 gates of docs/CLAIM_BOUNDARY.md for VALIDATED status. The CNS-AI Loop cell is retained for historical continuity only (downgraded 2026-04-14).</sub>
 </td>
 </tr>
 <tr>

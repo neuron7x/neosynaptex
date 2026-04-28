@@ -1,6 +1,8 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "schema_url": "evidence/ledger_schema.py",
   "invariant": "gamma derived only, never assigned",
+  "phase_2_authority": "docs/audit/CLAIM_SURFACE_RECONCILIATION_REPORT.md (#158) and docs/CLAIM_BOUNDARY.md §5.1",
   "entries": {
     "zebrafish_wt": {
       "substrate": "zebrafish",
@@ -11,14 +13,20 @@
       "r2": 0.76,
       "n_pairs": null,
       "p_permutation": null,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_NO_HASH",
+      "downgrade_reason": "NO_REAL_DATA_HASH",
       "locked": true,
       "data_source": {
         "file": "data/zebrafish/Out_WT_default_1.mat",
         "sha256": null
       },
+      "data_sha256": null,
       "adapter_code_hash": null,
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "McGuirl 2020, derived density->NN_CV",
       "method_tier": "T2"
     },
@@ -31,14 +39,20 @@
       "r2": 0.995,
       "n_pairs": 20,
       "p_permutation": null,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_NO_HASH",
+      "downgrade_reason": "NO_REAL_DATA_HASH",
       "locked": true,
       "data_source": {
         "file": "data/gray_scott/params.json",
         "sha256": null
       },
+      "data_sha256": null,
       "adapter_code_hash": null,
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "PDE simulation, F-sweep 20 equilibria",
       "method_tier": "T3"
     },
@@ -51,36 +65,49 @@
       "r2": 0.9,
       "n_pairs": null,
       "p_permutation": null,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_NO_HASH",
+      "downgrade_reason": "NO_REAL_DATA_HASH",
       "locked": true,
       "data_source": {
         "file": "data/kuramoto/config.json",
         "sha256": null
       },
+      "data_sha256": null,
       "adapter_code_hash": null,
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "128-oscillator Kc simulation, vol->1/|ret|",
       "method_tier": "T3"
     },
     "bnsyn": {
       "substrate": "bn_syn",
-      "description": "BN-Syn spiking network — criticality scaling exponent",
-      "gamma": 0.946,
-      "ci_low": 0.81,
-      "ci_high": 1.08,
-      "r2": 0.28,
+      "description": "BN-Syn spiking network — local branching-criticality (κ); NOT a γ-class measurement.",
+      "gamma": null,
+      "ci_low": null,
+      "ci_high": null,
+      "r2": null,
       "n_pairs": null,
       "p_permutation": null,
-      "status": "VALIDATED",
-      "tier": "evidential",
+      "status": "LOCAL_STRUCTURAL_EVIDENCE_ONLY",
+      "tier": "local_structural",
+      "evidence_tier": "LOCAL_STRUCTURAL",
+      "downgrade_reason": "KAPPA_NOT_GAMMA",
       "locked": true,
       "data_source": {
         "file": null,
         "sha256": null
       },
+      "data_sha256": null,
       "adapter_code_hash": null,
-      "derivation_method": "1/f spiking network, rate->CV",
-      "method_tier": "T3"
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/claim_boundaries/BN_SYN_LOCAL_STRUCTURAL_EVIDENCE.md",
+      "derivation_method": "1/f spiking network, rate->CV (κ proxy, not γ)",
+      "method_tier": "T3",
+      "kappa_neq_gamma_note": "BN-Syn measures κ (local branching ratio). γ in NeoSynaptex is the metastability scaling exponent on a separate measurement chain. Per docs/claim_boundaries/BN_SYN_LOCAL_STRUCTURAL_EVIDENCE.md and docs/architecture/recursive_claim_refinement.md §5, the BN-Syn substrate is structurally barred from emitting a γ value. The historical 'gamma=0.946' shown in the v1.0.0 ledger was a κ surrogate; it has been removed."
     },
     "eeg_physionet": {
       "substrate": "eeg_physionet",
@@ -91,14 +118,21 @@
       "r2": null,
       "n_pairs": 20,
       "p_permutation": 0.02,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_WITH_HASH",
+      "downgrade_reason": "NO_EXTERNAL_REPLICATION",
       "locked": true,
       "data_source": {
         "file": "data/eeg_physionet/MNE-eegbci-data/",
-        "sha256": null
+        "sha256": "evidence/data_hashes.json#datasets.eeg_physionet (per-file)"
       },
+      "data_sha256": "28c886b442a7d99d1431639cadf2c35fa8403fea703a3a61489da3b005885140",
+      "data_sha256_kind": "bundle_manifest:evidence/data_hashes.json",
       "adapter_code_hash": null,
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "specparam aperiodic exponent, 20 subjects, motor imagery runs 4/8/12",
       "method_tier": "T1"
     },
@@ -111,22 +145,25 @@
       "r2": 0.93,
       "n_pairs": 10,
       "p_permutation": null,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_NO_HASH",
+      "downgrade_reason": "NO_REAL_DATA_HASH",
       "locked": true,
       "data_source": {
         "file": "PhysioNet nsr2db (remote)",
         "sha256": null
       },
+      "data_sha256": null,
       "adapter_code_hash": null,
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "VLF PSD (0.003-0.04 Hz) of RR intervals, 10 subjects. DFA cross-validation: alpha=1.107±0.047",
       "dfa_cross_validation": {
         "alpha_mean": 1.107,
         "alpha_std": 0.047,
-        "alpha_range": [
-          1.04,
-          1.18
-        ],
+        "alpha_range": [1.04, 1.18],
         "n_subjects": 10,
         "interpretation": "1/f scaling confirmed (alpha≈1.0 = critical, 0.5 = white, 1.5 = Brownian)"
       },
@@ -141,14 +178,21 @@
       "r2": 0.341483,
       "n_pairs": 10,
       "p_permutation": 0.047904,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_WITH_HASH",
+      "downgrade_reason": "NO_EXTERNAL_REPLICATION",
       "locked": true,
       "data_source": {
         "file": "data/eeg_physionet/MNE-eegbci-data/files/eegmmidb/1.0.0/S{001..010}/R01",
-        "sha256": "see evidence/data_hashes.json (sha256 block)"
+        "sha256": "evidence/data_hashes.json#datasets.eeg_physionet (per-file)"
       },
+      "data_sha256": "28c886b442a7d99d1431639cadf2c35fa8403fea703a3a61489da3b005885140",
+      "data_sha256_kind": "bundle_manifest:evidence/data_hashes.json",
       "adapter_code_hash": "67c2269077f9d3fca92235aa5beb27a361e5dd7e1234ee49d9f3502594e88ea7",
+      "null_family_status": null,
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "Welch PSD (2-40 Hz) + Theil-Sen slope, alpha band (7-13 Hz) excluded. 10 subjects, eyes-open resting run 1. Bootstrap CI95 n=2000.",
       "method_tier": "T1",
       "verdict": "WARNING",
@@ -176,23 +220,26 @@
       "r2": 0.5826,
       "n_pairs": 20,
       "p_permutation": 1.0,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_WITH_HASH",
+      "downgrade_reason": "NO_EXTERNAL_REPLICATION",
       "locked": true,
       "data_source": {
         "file": "substrates/serotonergic_kuramoto/adapter.py",
         "sha256": "df55071e0dc8c2f17e2cef41d3f0047e4f3de2d495e61a8e216499d63aa816b0"
       },
+      "data_sha256": "df55071e0dc8c2f17e2cef41d3f0047e4f3de2d495e61a8e216499d63aa816b0",
       "adapter_code_hash": "df55071e0dc8c2f17e2cef41d3f0047e4f3de2d495e61a8e216499d63aa816b0",
+      "null_family_status": "p_permutation=1.0 — null cannot be rejected; surrogate did NOT distinguish from γ=1 hypothesis. Phase 3 null screen pending.",
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "Cross-concentration sweep, Welch log-log Theil-Sen fit on (topo, cost) pairs. K_eff = 2.0*(1 - 0.7*c), sigma_op = 0.065 Hz operational bandwidth.",
       "method_tier": "T5",
       "verdict": "METASTABLE",
       "calibration_basin": {
         "sigma_op_reference_hz": 0.065,
-        "sigma_op_basin_hz": [
-          0.058,
-          0.068
-        ],
+        "sigma_op_basin_hz": [0.058, 0.068],
         "basin_width_hz": 0.01,
         "basin_width_ratio": 1.17,
         "test": "tests/test_calibration_robustness.py"
@@ -221,14 +268,21 @@
       "r2": 0.001077,
       "n_pairs": 10,
       "p_permutation": 0.946108,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "evidential",
+      "evidence_tier": "MEASURED_WITH_HASH",
+      "downgrade_reason": "NO_EXTERNAL_REPLICATION",
       "locked": true,
       "data_source": {
         "file": "data/fantasia/f1y{01..10}.{hea,ecg}",
-        "sha256": "see evidence/data_hashes.json datasets.hrv_fantasia"
+        "sha256": "evidence/data_hashes.json#datasets.hrv_fantasia (per-file)"
       },
+      "data_sha256": "28c886b442a7d99d1431639cadf2c35fa8403fea703a3a61489da3b005885140",
+      "data_sha256_kind": "bundle_manifest:evidence/data_hashes.json",
       "adapter_code_hash": "7a4ba2c860b1de554c5deafbcb43fddccc27294220b4f19979e515f571947242",
+      "null_family_status": "p_permutation=0.946 — null cannot be rejected. Phase 3 full null screen pending.",
+      "rerun_command": null,
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-003",
       "derivation_method": "Detrended Fluctuation Analysis α₂ on RR intervals (normal beats), scales 16-64 beats. Peng et al. 1995 convention. Bootstrap CI95 n=2000.",
       "method_tier": "T1",
       "verdict": "METASTABLE",
@@ -261,14 +315,22 @@
       "r2": null,
       "n_pairs": 240,
       "p_permutation": null,
-      "status": "VALIDATED",
+      "status": "EVIDENCE_CANDIDATE",
       "tier": "analytical_anchor",
+      "evidence_tier": "NUMERICAL_INTERNAL",
+      "downgrade_reason": "NO_EXTERNAL_RERUN",
       "locked": true,
       "data_source": {
         "file": "experiments/lemma_1_verification/verify_kuramoto_gamma_unity.py",
-        "sha256": "see evidence/lemma_1_numerical.json.script_sha256"
+        "sha256": "f17866093d985b5e1345f5c7a5818a9304392f6187bc47be961424acac109eb9"
       },
-      "adapter_code_hash": null,
+      "data_sha256": "f17866093d985b5e1345f5c7a5818a9304392f6187bc47be961424acac109eb9",
+      "data_sha256_kind": "script_sha256_at_generation_time",
+      "data_sha256_drift_note": "Live script sha256 differs (8a5a52974edb1734efba08440875f6194380606fb8c617bd64710a175339dbd9 as of 2026-04-28); recorded hash stays anchored to evidence/lemma_1_numerical.json#script_sha256.",
+      "adapter_code_hash": "f17866093d985b5e1345f5c7a5818a9304392f6187bc47be961424acac109eb9",
+      "null_family_status": "not_applicable_analytical (no surrogate null required for closed-form lemma; verification is by re-execution against C-001 analytical statement).",
+      "rerun_command": "python experiments/lemma_1_verification/verify_kuramoto_gamma_unity.py",
+      "claim_boundary_ref": "docs/CLAIM_BOUNDARY.md#claim-c-001",
       "derivation_method": "Mean-field self-consistency: K_c = median_K( K * (1 - r^2) ) over mid-supercritical K grid [1.1..2.0] filtered by r in [0.3, 0.999). OLS fit log K_sum = log A - gamma * log(N-1) on full set N in {30,100,300,1000,3000}. Bootstrap CI n=2000.",
       "method_tier": "T1",
       "verdict": "CONSISTENT_WITH_GAMMA_EQUALS_ONE",
@@ -278,6 +340,28 @@
       "asymptotic_fit_note": "Asymptotic fit (N >= 100) gives gamma_hat = 0.9875, CI95 = [0.9754, 0.9995] — 95% CI misses 1.0 by 0.0005 due to finite-size bias in the mean-field self-consistency estimator, not an analytical falsification. Primary fit = full_fit (all N) with CI containing 1.0. Rationale in evidence/lemma_1_numerical.json#primary_fit.rationale."
     }
   },
+  "downgrade_log": [
+    {
+      "date": "2026-04-28",
+      "phase": "Phase 2 — Ledger Evidence Hardening",
+      "actor": "neuron7xLab",
+      "audit_source": "docs/audit/CLAIM_SURFACE_RECONCILIATION_REPORT.md (#158)",
+      "rationale_authority": "docs/CLAIM_BOUNDARY.md §5.1 (evidential core empty: no substrate has closed all six §5.1 gates).",
+      "downgrades": [
+        {"substrate": "zebrafish_wt", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_REAL_DATA_HASH"},
+        {"substrate": "gray_scott", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_REAL_DATA_HASH"},
+        {"substrate": "kuramoto", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_REAL_DATA_HASH"},
+        {"substrate": "bnsyn", "from": "VALIDATED", "to": "LOCAL_STRUCTURAL_EVIDENCE_ONLY", "reason": "KAPPA_NOT_GAMMA"},
+        {"substrate": "eeg_physionet", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_EXTERNAL_REPLICATION"},
+        {"substrate": "hrv_physionet", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_REAL_DATA_HASH"},
+        {"substrate": "eeg_resting", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_EXTERNAL_REPLICATION"},
+        {"substrate": "serotonergic_kuramoto", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_EXTERNAL_REPLICATION"},
+        {"substrate": "hrv_fantasia", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_EXTERNAL_REPLICATION"},
+        {"substrate": "lemma_1_kuramoto_dense", "from": "VALIDATED", "to": "EVIDENCE_CANDIDATE", "reason": "NO_EXTERNAL_RERUN"}
+      ],
+      "promotion_path": "Each entry can return to VALIDATED only by closing all six §5.1 gates: public bundle exists, deterministic pipeline, preregistered analysis, raw-data reproduction under frozen pipeline, surrogate non-reproduction, external rerun. Re-promotion requires a PR that cites which gate evidence closes the lifted downgrade_reason."
+    }
+  ],
   "derivation_protocol": {
     "bootstrap_n": 2000,
     "seed": 42,

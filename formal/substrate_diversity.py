@@ -135,11 +135,30 @@ def analyze_diversity(
             )
         )
 
-        if status == "VALIDATED":
+        # Phase 2 hardening (ledger v2.0.0): treat the "measured candidate"
+        # tier as the universality-evidence pool. A substrate enters this
+        # pool when it carries a γ value AND its status is one of the
+        # pre-VALIDATED measurement tiers (VALIDATED, EVIDENCE_CANDIDATE,
+        # SUPPORTED_BY_NULLS). VALIDATED_SUBSTRATE_EVIDENCE — reachable
+        # only with external replication — is also included. Sub-γ
+        # statuses (LOCAL_STRUCTURAL_EVIDENCE_ONLY for BN-Syn etc.) are
+        # excluded because they do not emit γ.
+        if status in {
+            "VALIDATED",
+            "VALIDATED_SUBSTRATE_EVIDENCE",
+            "EVIDENCE_CANDIDATE",
+            "SUPPORTED_BY_NULLS",
+        }:
             validated_gammas.append(gamma)
 
-    # Analysis
-    validated = [s for s in substrates if s.status == "VALIDATED"]
+    # Analysis: pool the same set the loop fed into validated_gammas.
+    _MEASURED_STATUSES = {
+        "VALIDATED",
+        "VALIDATED_SUBSTRATE_EVIDENCE",
+        "EVIDENCE_CANDIDATE",
+        "SUPPORTED_BY_NULLS",
+    }
+    validated = [s for s in substrates if s.status in _MEASURED_STATUSES]
     domains = sorted({s.domain for s in validated})
     broad_cats = sorted({s.broad_category for s in validated if s.broad_category != "MOCK"})
 

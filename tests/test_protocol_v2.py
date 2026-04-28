@@ -295,8 +295,12 @@ class TestAxiom0:
     def test_substrate_gamma_values(self):
         from core.axioms import SUBSTRATE_GAMMA
 
-        assert len(SUBSTRATE_GAMMA) >= 6  # 9 VALIDATED substrates after ledger cleanup
+        assert len(SUBSTRATE_GAMMA) >= 6  # 9 ledger entries after Phase 2 hardening
+        # Skip substrates that do not emit γ (e.g. BN-Syn after κ ≠ γ Phase 2
+        # downgrade — bnsyn.gamma=null in ledger v2.0.0).
         for name, (gamma, _) in SUBSTRATE_GAMMA.items():
+            if gamma is None:
+                continue
             assert 0 < gamma < 3, f"{name} gamma={gamma} out of range"
 
 
