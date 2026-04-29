@@ -64,12 +64,33 @@ N_IC independent phase initial conditions (vectorised in a single
 (N_IC, N) tensor). γ = −slope of log(cost) vs log(topo) via sorted
 OLS — robust to the inevitable non-monotonicity near the critical
 transition.
+
+Phase 4 substrate-resolution upgrade
+------------------------------------
+``_N_SWEEP`` raised from 20 to 128 to honour the admissibility floor
+``MIN_TRAJECTORY_LENGTH = 128`` from the Phase 3 estimator-admissibility
+trial (``result_hash: ed619996…``). The c-axis sampler switched from
+``np.linspace`` to ``np.geomspace`` so log-uniform spacing covers the
+``K ~ C^(-γ)`` log–log regression target evenly across decades; linear-c
+spacing biases the regression toward the high-c decade. ``_SWEEP_MIN``
+moved from ``0.0`` to ``0.01`` because ``geomspace`` requires strictly
+positive endpoints and ``c = 0`` is unphysical for the log–log fit
+(``log(0) = -inf`` is dropped by the estimator's finite-filter anyway).
+See ``docs/audit/PHASE_4_SUBSTRATE_RESOLUTION_PROTOCOL.md``.
 """
 
 from __future__ import annotations
 
+from typing import Final
+
 import numpy as np
-from scipy.stats import norm
+from scipy.stats import norm  # type: ignore[import-untyped]
+
+from tools.phase_3.admissibility import MIN_TRAJECTORY_LENGTH
+
+#: Phase 4 substrate-resolution upgrade: _N_SWEEP=128 + log-uniform C;
+#: γ̂_obs to be re-derived under canonical Phase 3 protocol.
+__version__: Final[str] = "2.0.0"
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -82,13 +103,20 @@ _K_BASE = 2.0  # spec-literal
 _MOD_SLOPE = 0.7  # K_eff = K_base·(1 − 0.7·c)
 _SIGMA_HZ_OP = 0.065  # operational bandwidth (see module docstring)
 _MEAN_HZ = 10.0  # spec-literal centre frequency
-_N_SWEEP = 20  # concentration sweep resolution
+_N_SWEEP: Final[int] = 128  # concentration sweep resolution (Phase 4: admissibility floor)
 _N_IC = 4  # parallel phase initial conditions (averaged)
-_SWEEP_MIN = 0.0
+# Phase 4: strictly positive (np.geomspace requires it;
+# c=0 unphysical for log-log).
+_SWEEP_MIN = 0.01
 _SWEEP_MAX = 1.0
 _PAIR_THRESHOLD = 0.3
 _TOPO_FLOOR = 1e-6
 _PHASE_BINS = 16
+
+assert _N_SWEEP >= MIN_TRAJECTORY_LENGTH, (
+    f"_N_SWEEP={_N_SWEEP} below admissibility floor {MIN_TRAJECTORY_LENGTH}; "
+    "see docs/audit/ESTIMATOR_ADMISSIBILITY_PROTOCOL.md"
+)
 
 
 def _quantile_frequencies(n: int, mean_hz: float, sigma_hz: float) -> np.ndarray:
@@ -101,7 +129,7 @@ def _quantile_frequencies(n: int, mean_hz: float, sigma_hz: float) -> np.ndarray
     q = (np.arange(n) + 0.5) / n
     mu_rad = mean_hz * 2.0 * np.pi
     sigma_rad = sigma_hz * 2.0 * np.pi
-    return norm.ppf(q, loc=mu_rad, scale=sigma_rad)
+    return np.asarray(norm.ppf(q, loc=mu_rad, scale=sigma_rad), dtype=np.float64)
 
 
 class SerotonergicKuramotoAdapter:
@@ -159,8 +187,11 @@ class SerotonergicKuramotoAdapter:
         self._theta0_bank = self._rng.uniform(0.0, 2.0 * np.pi, (_N_IC, self._N))
 
         # Run the concentration sweep
-        self._c_grid = np.linspace(_SWEEP_MIN, _SWEEP_MAX, _N_SWEEP)
-        self._samples: list[dict] = [
+        # Phase 4: log-uniform sampling. Linear-c sampling biases the
+        # log–log regression toward the high-c decade; log-uniform spreads
+        # samples evenly across the K~C^(-γ) regression target.
+        self._c_grid = np.geomspace(_SWEEP_MIN, _SWEEP_MAX, _N_SWEEP)
+        self._samples: list[dict[str, float]] = [
             self._simulate_at_concentration(float(c)) for c in self._c_grid
         ]
         self._idx = -1
@@ -169,7 +200,7 @@ class SerotonergicKuramotoAdapter:
     # ------------------------------------------------------------------
     # Core simulation — vectorised across N_IC parallel trajectories
     # ------------------------------------------------------------------
-    def _simulate_at_concentration(self, c: float) -> dict:
+    def _simulate_at_concentration(self, c: float) -> dict[str, float]:
         """Run N_IC parallel 10 000-step measurement windows at c.
 
         Returns the IC-averaged {R, phase_entropy, mean_plv, topo,
@@ -247,7 +278,7 @@ class SerotonergicKuramotoAdapter:
     # ------------------------------------------------------------------
     # Convenience lookup
     # ------------------------------------------------------------------
-    def sample_at(self, c: float) -> dict:
+    def sample_at(self, c: float) -> dict[str, float]:
         """Return the pre-computed sweep sample closest to concentration *c*."""
         idx = int(np.argmin(np.abs(self._c_grid - float(c))))
         return self._samples[idx]
@@ -328,7 +359,7 @@ def _sweep_gamma(adapter: SerotonergicKuramotoAdapter) -> tuple[float, float]:
 # ---------------------------------------------------------------------------
 # Standalone validation
 # ---------------------------------------------------------------------------
-def validate_standalone(seed: int = 42) -> dict:
+def validate_standalone(seed: int = 42) -> dict[str, float | str]:
     print("=== Serotonergic Kuramoto — γ across 5-HT2A concentration axis ===\n")
     a = SerotonergicKuramotoAdapter(concentration=0.5, seed=seed)
     print(
