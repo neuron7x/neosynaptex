@@ -1,0 +1,113 @@
+name: phase_3_null_screen
+
+# Phase 3 — runs the null-screen runner on each registered substrate.
+# PR-time: M=200 smoke (--smoke flag, ~2-5 min total).
+# main / merge_group: M=10000 canonical screen (~30 min, parallelisable).
+# Per ``docs/audit/PHASE_3_PROTOCOL.md`` the ledger_update block in
+# every output JSON is a *proposal only* — Phase 3 never auto-promotes.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  smoke:
+    name: phase-3-null-screen-smoke (PR)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        substrate:
+          - serotonergic_kuramoto
+          - synthetic_white_noise
+          - synthetic_power_law
+          - synthetic_constant
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install (test extras only)
+        run: pip install -e ".[dev]" --quiet
+      - name: Adversarial test battery (synthetic, deterministic)
+        run: |
+          python -m pytest -q tests/test_phase_3_null_screen.py
+      - name: Run smoke null-screen
+        run: |
+          mkdir -p evidence/phase_3_null_screen
+          python -m tools.phase_3.run_null_screen \
+            --substrate '${{ matrix.substrate }}' \
+            --M 200 \
+            --smoke \
+            --print-summary \
+            --out 'evidence/phase_3_null_screen/${{ matrix.substrate }}_smoke.json'
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase-3-smoke-${{ matrix.substrate }}
+          path: evidence/phase_3_null_screen/${{ matrix.substrate }}_smoke.json
+          if-no-files-found: error
+
+  canonical:
+    name: phase-3-null-screen-canonical (main / merge_group)
+    if: github.event_name == 'push' || github.event_name == 'merge_group'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        # Canonical M=10000 only on registered real-substrate adapters.
+        # Synthetic substrates are covered by the per-PR adversarial
+        # test battery and are not re-run at canonical M to keep CI
+        # cost bounded.
+        substrate:
+          - serotonergic_kuramoto
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install (test extras only)
+        run: pip install -e ".[dev]" --quiet
+      - name: Run canonical null-screen
+        run: |
+          mkdir -p evidence/phase_3_null_screen
+          python -m tools.phase_3.run_null_screen \
+            --substrate '${{ matrix.substrate }}' \
+            --M 10000 \
+            --print-summary \
+            --out 'evidence/phase_3_null_screen/${{ matrix.substrate }}.json'
+      - name: Upload canonical result
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase-3-canonical-${{ matrix.substrate }}
+          path: evidence/phase_3_null_screen/${{ matrix.substrate }}.json
+          if-no-files-found: error
+      - name: Verdict ceiling check
+        # Phase 3 must never propose a status above SUPPORTED_BY_NULLS.
+        run: |
+          python - <<'EOF'
+          import json
+          import sys
+          path = "evidence/phase_3_null_screen/${{ matrix.substrate }}.json"
+          payload = json.load(open(path))
+          allowed = {"SUPPORTED_BY_NULLS", "EVIDENCE_CANDIDATE_NULL_FAILED", "INCONCLUSIVE"}
+          proposed = payload["ledger_update"]["status_proposed"]
+          if proposed not in allowed:
+              print(f"phase_3 verdict-ceiling violation: status_proposed={proposed}", file=sys.stderr)
+              sys.exit(2)
+          print(f"phase_3: status_proposed={proposed} (within ceiling)")
+          EOF
