@@ -141,33 +141,41 @@ def _check_ledger_entry(
     substrate_id: str,
     entry: dict[str, Any],
 ) -> list[Violation]:
-    """Check a single ledger entry against the VALIDATED-requires-evidence rules."""
+    """Check a single ledger entry against the VALIDATED-requires-evidence rules.
+
+    Phase 2 schema (v2.0.0): canonical fields are flat ``data_sha256``,
+    ``adapter_code_hash``, ``null_family_status``, ``rerun_command``,
+    ``claim_boundary_ref``. Legacy ``data_source.sha256`` is a fallback.
+    """
     out: list[Violation] = []
     status = entry.get("status")
-    if status != "VALIDATED":
+    if status not in {"VALIDATED", "VALIDATED_SUBSTRATE_EVIDENCE"}:
         return out
 
     ledger_path = "evidence/gamma_ledger.json"
     base_locator = f"entries.{substrate_id}"
 
-    data_source = entry.get("data_source") or {}
-    sha = data_source.get("sha256") if isinstance(data_source, dict) else None
+    sha = entry.get("data_sha256")
+    if not _is_real_hash(sha):
+        legacy = entry.get("data_source") or {}
+        if isinstance(legacy, dict):
+            sha = legacy.get("sha256")
     if not _is_real_hash(sha):
         out.append(
             Violation(
                 code="VALIDATED_WITHOUT_DATA_SHA256",
                 severity="CRITICAL",
                 surface=ledger_path,
-                locator=f"{base_locator}.data_source.sha256",
+                locator=f"{base_locator}.data_sha256",
                 message=(
                     f"substrate {substrate_id!r} carries status=VALIDATED but its "
-                    "data_source.sha256 is missing, null, or a free-text pointer; "
+                    "data_sha256 is missing, null, or a free-text pointer; "
                     "VALIDATED requires a concrete data hash per CLAIM_BOUNDARY.md §5.1."
                 ),
                 proposed_action=(
-                    "Either populate data_source.sha256 with a real 64-hex sha256 "
-                    "(in this PR or a follow-up Phase 2 hardening PR) or downgrade "
-                    f"{substrate_id} to LOCAL_STRUCTURAL_EVIDENCE_ONLY / EVIDENCE_CANDIDATE."
+                    "Either populate data_sha256 with a real 64-hex sha256 "
+                    "or downgrade the substrate to "
+                    "LOCAL_STRUCTURAL_EVIDENCE_ONLY / EVIDENCE_CANDIDATE."
                 ),
                 evidence={"observed": sha},
             )
@@ -194,9 +202,6 @@ def _check_ledger_entry(
             )
         )
 
-    # null_family_status / rerun_command / claim_boundary_ref are not yet
-    # part of the ledger schema; flag their absence as a HIGH-severity
-    # gap so Phase 2 ledger hardening picks them up.
     for required_field, code in (
         ("null_family_status", "VALIDATED_WITHOUT_NULL_FAMILY_STATUS"),
         ("rerun_command", "VALIDATED_WITHOUT_RERUN_COMMAND"),
@@ -211,15 +216,45 @@ def _check_ledger_entry(
                     locator=f"{base_locator}.{required_field}",
                     message=(
                         f"substrate {substrate_id!r} carries status=VALIDATED but lacks "
-                        f"a {required_field!r} field; required by Phase 2 hardening."
+                        f"a {required_field!r} field; required by Phase 2 schema."
                     ),
                     proposed_action=(
-                        f"Add {required_field!r} to the ledger entry in Phase 2 hardening "
+                        f"Add {required_field!r} to the ledger entry "
                         f"or downgrade {substrate_id} until the field is supplied."
                     ),
                 )
             )
 
+    return out
+
+
+def _check_downgrade_completeness(
+    substrate_id: str,
+    entry: dict[str, Any],
+) -> list[Violation]:
+    """Non-VALIDATED entries (other than NO_ADMISSIBLE_CLAIM) need a downgrade_reason."""
+    out: list[Violation] = []
+    status = entry.get("status")
+    if status in {"VALIDATED", "VALIDATED_SUBSTRATE_EVIDENCE", "NO_ADMISSIBLE_CLAIM"}:
+        return out
+    if not entry.get("downgrade_reason"):
+        out.append(
+            Violation(
+                code="DOWNGRADE_WITHOUT_REASON",
+                severity="HIGH",
+                surface="evidence/gamma_ledger.json",
+                locator=f"entries.{substrate_id}.downgrade_reason",
+                message=(
+                    f"substrate {substrate_id!r} has status={status!r} (below VALIDATED) "
+                    "but no downgrade_reason field; non-VALIDATED entries must explain "
+                    "why they sit below VALIDATED."
+                ),
+                proposed_action=(
+                    "Populate downgrade_reason with a code from "
+                    "evidence/ledger_schema.ALLOWED_DOWNGRADE_REASONS."
+                ),
+            )
+        )
     return out
 
 
@@ -420,6 +455,7 @@ def collect_violations(repo_root: Path) -> list[Violation]:
         for substrate_id, entry in entries.items():
             if isinstance(entry, dict):
                 violations.extend(_check_ledger_entry(substrate_id, entry))
+                violations.extend(_check_downgrade_completeness(substrate_id, entry))
         violations.extend(_check_bnsyn_ledger(entries))
 
     readme_path = repo_root / "README.md"

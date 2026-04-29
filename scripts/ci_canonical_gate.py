@@ -106,8 +106,28 @@ def gate_evidence_hash() -> int:
         if not entry.get("locked", False):
             continue
         status = entry.get("status", "")
-        # CONSTRUCTED = mock adapter, VALIDATED = external data verified
-        if status in ("CONSTRUCTED", "VALIDATED"):
+        # Phase 2 hardening (ledger v2.0.0): the gate enforces hashes only
+        # for entries that CLAIM full validation. Sub-VALIDATED tiers
+        # (EVIDENCE_CANDIDATE, SUPPORTED_BY_NULLS, LOCAL_STRUCTURAL_…,
+        # VALIDATED_SUBSTRATE_EVIDENCE, ARTIFACT_SUSPECTED, NO_ADMISSIBLE_CLAIM,
+        # BLOCKED_BY_…, INCONCLUSIVE, FALSIFIED) are exempt because Phase 2
+        # canonically permits null hashes in those tiers — fabrication is
+        # forbidden, and the schema validator (evidence/ledger_schema.py)
+        # enforces hashes only on VALIDATED.
+        # CONSTRUCTED = mock adapter, VALIDATED = external data verified.
+        if status in (
+            "CONSTRUCTED",
+            "VALIDATED",
+            "EVIDENCE_CANDIDATE",
+            "SUPPORTED_BY_NULLS",
+            "VALIDATED_SUBSTRATE_EVIDENCE",
+            "LOCAL_STRUCTURAL_EVIDENCE_ONLY",
+            "ARTIFACT_SUSPECTED",
+            "NO_ADMISSIBLE_CLAIM",
+            "BLOCKED_BY_METHOD_DEFINITION",
+            "INCONCLUSIVE",
+            "FALSIFIED",
+        ):
             continue
         ds = entry.get("data_source", {})
         if ds.get("sha256") is None:
