@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/run_nsr_chf_deployment_validation.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.2, 0.5, 0.75, 0.8, 1.0, 1000, '1.0.0', 'CHF', 'DEPLOYMENT_BLOCKED', 'DEPLOYMENT_READY', 'DEPLOYMENT_REPORT.md', 'UNSTABLE', 'VERDICT', '__main__', 'auprc', 'auprc_min', 'auroc', 'auroc_min', 'bin_centre', 'bin_count', 'brier', 'brier_max', 'chf_features', 'classifier', 'config_hash', 'cv', 'delta_h', 'execution_date_utc', 'fail_codes', 'feature_set', 'freeze_hash', 'full_cohort', 'gates', 'h_q2', 'immutable_config', 'lbfgs', 'loso', 'n', 'n_chf', 'n_nsr', 'nan', 'nsr_features', 'observed_freq', 'positive_class', 'protocol_version', 'reason', 'reliability', 'results.json', 'seed', 'threshold_mean', 'threshold_range', 'threshold_std', 'thresholds', 'upstream_freeze_hash', 'upstream_verdict', 'utf-8', 'validation', '— (none)']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/scripts/ci_orchestrator.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.5, 1.5, 2.5, 97.5, 600, 2000, '--tb=line', '-c', '-m', '-q', '-x', 'BLOCK', 'CI_REPORT_JSON=', 'DEGENERATE', 'UNKNOWN', '__main__', 'adapter.py', 'ci_hi', 'ci_lo', 'cross_coherence', 'cross_substrate', 'error', 'excludes_zero', 'fail', 'gamma_invariant', 'gamma_mean', 'gamma_per_domain', 'in_range', 'mean_gamma', 'n_domains', 'n_failed', 'n_stages', 'n_valid', 'nan', 'ok', 'pass', 'passed', 'phase', 'pytest', 'reason', 'returncode', 'root_tests', 'skip', 'soft ', 'spectral_radius', 'stages', 'substrates', 'test', 'tests/']

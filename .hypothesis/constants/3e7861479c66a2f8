@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/cfp_diy/protocol.py
+# hypothesis_version: 6.140.3
+
+[0.0, 'NO_DATA', 'T0_baseline', 'T1_onset', 'T2_deep', 'T3_recovery', 'cfp_v2_pilot', 'cpr', 'cpr_discriminator', 'created_at', 'crr', 'crr_mean', 'crr_median', 'crr_std', 'di', 'domain', 'dt', 'experiment_id', 'ld', 'n', 'n_subjects', 'n_tasks', 'phases', 's', 'science', 'state', 'state_distribution', 'status', 'subjects', 'summary', 'tc']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/granger_multilag.py
+# hypothesis_version: 6.140.3
+
+[1e-15, 200, 'bic_per_lag', 'f_stat', 'granger_multilag', 'inf', 'lag_selected', 'n_obs', 'nan', 'p_value']

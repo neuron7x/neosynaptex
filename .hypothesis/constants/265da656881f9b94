@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/experiments/causal_topology/verdict.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.01, 0.6, 0.75, 0.8, 'MOTIF_KL_MARGIN', 'NULL_P_LIMIT', 'P_LIMIT', 'TOPOLOGY_CONVERGENCE', 'TOPOLOGY_INDEPENDENT', 'VerdictInputs', 'VerdictReport', 'assign_verdict', 'delta_D>0', 'mannwhitney_p<0.01', 'null_worst_p<0.01', 'segment_pass']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/dcvp/pairs.py
+# hypothesis_version: 6.140.3
+
+[1e-09, 0.02, 0.05, 0.1, 0.3, 0.75, 0.9, 1.0, 500, 999, 10000, 'GammaStreamFn', 'SubstratePair', 'causal_linear', 'get_pair', 'independent', 'list_pairs', 'register_mock_pairs', 'register_pair', 'register_real_pairs', 'same', 'shared_driver']

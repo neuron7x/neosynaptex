@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/experiments/causal_topology/composite_distance.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.25, 1.0, 1.5, 'CompositeWeights', 'composite_components', 'composite_distance', 'degree', 'ged', 'motif', 'spectral']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/replication_index_check.py
+# hypothesis_version: 6.140.3
+
+['"', '#', '- ', ':', '; ', 'ALLOWED_VERDICTS', 'DRIFT: ', 'IntegrityError', 'REQUIRED_ENTRY_KEYS', '[]', '__main__', 'audit', 'claim_tested', 'commit_sha', 'date', 'evidence', 'falsification', 'id', 'in_vivo_cns', 'key', 'lab', 'load_baseline', 'load_registry', 'main', 'market_macro', 'neuronal_culture', 'pending', 'prereg_path', 'reaction_diffusion', 'registry.yaml', 'replications', 'replications:', 'run_check', 'simulated_agent', 'substrate_class', 'support', 'synchronisation', 'theory_revision', 'tools', 'utf-8', 'val', 'verdict']

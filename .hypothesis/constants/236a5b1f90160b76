@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/zebrafish/adapter.py
+# hypothesis_version: 6.140.3
+
+[1e-10, 1e-06, 0.15, 0.3, 0.5, 1.0, 1000.0, 200, 'COLLAPSE', 'CRITICAL', 'DATA_MISSING', 'INSUFFICIENT', 'METASTABLE', 'Out_*default*.mat', 'Out_WT_default_1.mat', 'WARNING', 'WT', '__main__', '_separation', 'boundaryX', 'boundaryY', 'cellsM', 'ci', 'data', 'density', 'gamma', 'iri_frac', 'mel_frac', 'n', 'nacre', 'nan', 'numIrid', 'numIril', 'numMel', 'numXanc', 'numXansn', 'pfef', 'r2', 'regime', 'shady', 'status', 'xan_frac', 'zebrafish']

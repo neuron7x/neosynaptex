@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/adapter_scope_check.py
+# hypothesis_version: 6.140.3
+
+['-', '---', ':', ':---', 'WORD_TO_COUNT', '^#{1,6}\\s+\\S', '__main__', '`', 'count_declared_scope', 'evidence', 'extract_prereg_paths', 'five', 'four', 'horizon_knobs.md', 'levin_bridge', 'main', 'name', 'path', 'run_check', 'scoped out', 'six', 'substrate', 'three', 'two', 'utf-8', 'word']

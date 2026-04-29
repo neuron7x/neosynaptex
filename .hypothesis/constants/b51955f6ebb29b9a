@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/contracts/truth_criterion.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-30, 0.001, 0.05, 0.15, 0.3, 0.5, 1.0, 2.0, 5.0, 200, 'ARTIFACT', 'INCONCLUSIVE', 'INSUFFICIENT_DATA', 'REGIME_INVARIANT', 'TRIVIAL_DRIFT', 'ch1', 'ch2', 'inf', 'linear', 'unknown']

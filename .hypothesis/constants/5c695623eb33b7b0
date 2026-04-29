@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/dcvp/perturbation.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-12, 'apply_perturbation', 'delay', 'identity', 'noise', 'topology']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/gamma_ledger_integrity.py
+# hypothesis_version: 6.140.3
+
+['; ', 'ALLOWED_STATUSES', 'ARTIFACT_SUSPECTED', 'DRAFT', 'DRIFT: ', 'EVIDENCE_CANDIDATE', 'FALSIFIED', 'INCONCLUSIVE', 'INVALIDATED', 'IntegrityError', 'METHOD_TIER_REGEX', 'NO_ADMISSIBLE_CLAIM', 'PENDING', 'REQUIRED_ENTRY_KEYS', 'SUPPORTED_BY_NULLS', 'VALIDATED', '^T[1-5]$', '__main__', 'ci_high', 'ci_low', 'data_source', 'derivation_method', 'description', 'entries', 'evidence', 'file', 'gamma', 'gamma_ledger.json', 'invariant', 'load_ledger', 'locked', 'main', 'method_tier', 'n_pairs', 'p_permutation', 'r2', 'run_check', 'sha256', 'status', 'substrate', 'tier', 'utf-8', 'version']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/experiments/spectral_coherence/spectral_analysis.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-12, 1e-10, 0.25, 0.3, 0.5, 0.8, 1.0, 1.2, 2.0, 130, 500, 3235826430, '--', 'Agg', 'BN-Syn', 'GeoSync', 'Preparing series...', '__main__', 'bnsyn_valid', 'coherence C(f)', 'coherence_plot.png', 'compute_coherence', 'compute_psd', 'detail', 'gamma_bnsyn.npy', 'gamma_geosync.npy', 'geosync_valid', 'grey', 'inf', 'max_z_score', 'n_samples_analyzed', 'n_surrogates', 'n_ticks', 'nperseg', 'null mean', 'null ±2σ', 'null_threshold', 'observed', 'peak_coherence', 'peak_frequency', 'prepare', 'red', 'result.json', 'run_analysis', 'surrogate_coherence', 'threshold 0.5', 'upper right', 'verdict']

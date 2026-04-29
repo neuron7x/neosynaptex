@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/axioms.py
+# hypothesis_version: 6.140.3
+
+[-0.0016, 0.0, 1e-09, 0.1, 0.15, 0.5, 0.9, 1.0, 2.0, 3.0, '\nAXIOM_0: CONSISTENT', 'AXIOM_0', 'COLLAPSE', 'CRITICAL', 'GAMMA_THRESHOLDS', 'I', 'II', 'III', 'INVARIANTS', 'INV_YV1_FORMAL', 'INV_YV1_TEXT', 'IV', 'METASTABLE', 'POSITION', 'SUBSTRATE_GAMMA', 'WARNING', 'YV1', '__main__', 'alive_frac', 'architecture', 'bn_syn', 'bnsyn', 'check_inv_yv1', 'classify_regime', 'collapse', 'convergence_slope', 'critical', 'd_delta_v', 'dead_equilibrium', 'delta_v', 'derivation_method', 'diagnosis', 'dynamic_frac', 'eeg_physionet', 'eeg_resting', 'gamma', 'gamma_psd', 'gray_scott', 'ground', 'hrv_fantasia', 'hrv_physionet', 'instrument', 'inv_yv1_holds', 'kuramoto', 'kuramoto_market', 'ledger-unavailable', 'living_gradient', 'metastable', 'purpose', 'static_capacitor', 'substrates', 'transient', 'warning', 'zebrafish', 'zebrafish_wt', 'ΔV > 0 ∧ dΔV/dt ≠ 0']

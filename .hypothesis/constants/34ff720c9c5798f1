@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/geosync_market/adapter.py
+# hypothesis_version: 6.140.3
+
+[-2.0, 0.0, 1e-08, 1e-06, 0.001, 0.3, 0.5, 1.0, 4.0, 120, 'AUDUSD=X', 'BTC-USD', 'CAD=X', 'CL=F', 'Close', 'EEM', 'ETH-USD', 'EURUSD=X', 'GBPUSD=X', 'GC=F', 'GLD', 'JPY=X', 'QQQ', 'SPY', 'TLT', 'XLE', 'XLF', 'XLK', 'XLV', 'ZC=F', 'combo_signal', 'delta_ricci', 'fiedler_lambda2', 'geosync_market', 'ricci_mean']

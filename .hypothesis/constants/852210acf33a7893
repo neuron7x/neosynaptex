@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/dcvp/runner.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.05, 1.0, 200, 1000003, 202238481, 'A', 'B', 'MKL_NUM_THREADS', 'OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'alignment.py', 'causality.py', 'channel.py', 'controls.py', 'dcvp_', 'inf', 'nan_fraction>5%', 'noise', 'pairs.py', 'perturbation.py', 'protocol.py', 'run_dcvp', 'runner.py', 'spawn', 'verdict.py', 'worker.py']

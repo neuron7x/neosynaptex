@@ -1,0 +1,18 @@
+{
+  "datasets": {
+    "eeg_physionet": {
+      "n_files": 24,
+      "size_bytes_known": false,
+      "merkle_root_sha256": "b87fd6b05f0bbab8ceb80ee21fe4f97cb9acb4f15e539b02e8bb26bc9cecac2f",
+      "first_file": "eeg_physionet/MNE-eegbci-data/files/eegmmidb/1.0.0/S001/S001R01.edf",
+      "last_file": "eeg_physionet/MNE-eegbci-data/files/eegmmidb/1.0.0/S012/S012R02.edf"
+    },
+    "hrv_fantasia": {
+      "n_files": 20,
+      "size_bytes_known": false,
+      "merkle_root_sha256": "024a4b57868c70f0859f411cc139ef681e30e97c1c0f052b8ff189b98382e241",
+      "first_file": "fantasia/f1y01.ecg",
+      "last_file": "fantasia/f1y10.hea"
+    }
+  }
+}

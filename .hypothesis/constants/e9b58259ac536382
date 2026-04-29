@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/analysis/gamma_meta_analysis.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.975, 1.0, 2.0, 75.0, 100.0, '  - I^2 < 75%', '--include-xform', '--ledger', '--xform', '=', 'EVIDENCE_CANDIDATE', 'INVARIANT_CONFIRMED', 'INVARIANT_REJECTED', 'Pooled estimates:', 'SUPPORTED_BY_NULLS', 'VALIDATED', 'VERDICT: ', '__main__', 'ci_high', 'ci_low', 'entries', 'fixed', 'gamma', 'n', 'n_pairs', 'nan', 'random', 'results', 'status', 'store_true']

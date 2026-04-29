@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/multiverse.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.25, 0.5, 0.75, 1.0, 2.0, 4.0, 'MULTIVERSE_GRID', 'MultiverseCell', 'R_plus', 'R_strong', 'R_unity', 'betti_area', 'block_m', 'correlation', 'error', 'estimator', 'euclidean', 'h01_entropy', 'h0_entropy', 'huber', 'median_gamma', 'metric', 'multiverse_summary', 'n_cells_total', 'n_cells_valid', 'no valid cells', 'ok', 'overlap', 'p05_gamma', 'p95_gamma', 'theilslopes', 'topo_summary', 'window_ratio']

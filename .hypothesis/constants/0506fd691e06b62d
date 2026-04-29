@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/accel.py
+# hypothesis_version: 6.140.3
+
+[1e-15, 0.3, 0.5, 500, 'ACCEL_BACKEND', 'bootstrap_gammas', 'cache_line_bytes', 'ci_high', 'ci_low', 'compute_gamma_accel', 'euclidean_distances', 'f64_per_cache_line', 'features', 'gamma', 'hilbert_indices', 'hilbert_sort', 'n_valid', 'num_cores', 'numpy', 'r2', 'rust+simd', 'simd_info', 'simd_level', 'verdict']

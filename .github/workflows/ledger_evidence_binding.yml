@@ -1,0 +1,75 @@
+name: ledger_evidence_binding
+
+# Phase 2.1 — closes audit B1+B2 + Stanford/MIT review P1/P2/P3/P5/P8/P9.
+# Recomputes every declared SHA-256 in evidence/gamma_ledger.json against
+# the file referenced by hash_binding.<field>_source on every PR + merge_group.
+# Also runs:
+#  - schema validator (fails on FROZEN VALIDATED, null-failed at non-permitted state)
+#  - runtime GammaRegistry load (in-process double-gate)
+#  - dataset Merkle root drift check
+#  - schema + binding test suites
+#  - path-traversal + falsy-binding test parametrisations
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  check:
+    name: ledger-evidence-binding
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install (test extras only)
+        run: pip install -e ".[dev]" --quiet
+
+      - name: Schema validator
+        run: |
+          python -c "
+          import json, sys
+          from evidence.ledger_schema import validate_ledger
+          d = json.load(open('evidence/gamma_ledger.json'))
+          errs = validate_ledger(d)
+          if errs:
+              for s, es in errs.items():
+                  print(f'{s}: {es}', file=sys.stderr)
+              sys.exit(2)
+          print(f'schema OK ({len(d.get(\"entries\", {}))} entries)')
+          "
+
+      - name: Hash-binding gate (recompute from disk)
+        run: python -m tools.audit.ledger_evidence_binding
+
+      - name: Dataset Merkle roots drift check
+        run: python -m tools.audit.dataset_merkle_root --check
+
+      - name: Runtime GammaRegistry load
+        run: |
+          python -c "
+          from core.gamma_registry import GammaRegistry, GammaRegistryError
+          # Both gates fire on this call: validate_ledger + collect_violations
+          ledger = GammaRegistry._load()
+          n = len(ledger.get('entries', {}))
+          print(f'runtime double-gate OK; loaded {n} entries; ledger_hash={GammaRegistry.ledger_hash()[:16]}...')
+          "
+
+      - name: Schema + binding + Merkle tests (incl. path traversal, falsy bindings)
+        run: |
+          pytest -q --tb=short \
+            tests/test_ledger_schema.py \
+            tests/test_ledger_evidence_binding.py \
+            tests/test_dataset_merkle_root.py

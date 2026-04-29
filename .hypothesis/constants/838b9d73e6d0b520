@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/evidence_pipeline.py
+# hypothesis_version: 6.140.3
+
+['--short', '1.0.0', 'EvidencePipeline', 'HEAD', 'RawEvidence', 'ValidatedEvidence', 'ci95_hi', 'ci95_lo', 'evidence', 'git', 'manifests', 'method', 'metric', 'n_records', 'nan', 'records', 'registry.json', 'rev-parse', 'session_id', 'substrate', 'timestamp', 'unknown', 'value', 'version']

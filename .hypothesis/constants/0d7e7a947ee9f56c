@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/claim_status_applied.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.5, 200, '\x00', '--cwd', '--n-windows', '--strict', '--window-days', 'CANONICAL_LABELS', 'Verdict', 'WindowReport', '__main__', 'applied', 'at_risk', 'audit.claim_status', 'claim_status_applied', 'decide_verdict', 'derived', 'fail', 'falsified', 'git', 'hypothesized', 'log', 'main', 'measured', 'n_windows', 'no windows supplied', 'no_signal', 'ok', 'partial', 'reason_head', 'replace', 'run_audit', 'skip', 'stopped', 'store_true', 'unverified analogy', 'utf-8', 'verdict', 'window_days', '|']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/dcvp/controls.py
+# hypothesis_version: 6.140.3
+
+[1e-12, 200, 'ControlResult', 'cross_run_mismatch', 'randomized_source', 'run_all_controls', 'synthetic_noise_only', 'time_reversed']

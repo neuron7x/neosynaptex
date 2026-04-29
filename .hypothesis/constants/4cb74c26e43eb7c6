@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/contracts/invariants.py
+# hypothesis_version: 6.140.3
+
+[-0.1, -0.05, 0.05, 0.1, 0.5, 0.7, 0.85, 0.9, 1.15, 1.3, 1.5, 'AXIOM_0', 'BOUNDED_MODULATION', 'GAMMA_DERIVED_ONLY', 'GRADIENT_ONTOLOGY', 'I', 'II', 'III', 'INV-YV1', 'IV', 'STATE_NOT_PROOF', 'YV1', 'assigned', 'axiom', 'bn_syn', 'bnsyn', 'computed', 'constant', 'critical', 'dead_equilibrium', 'eeg_physionet', 'eeg_resting', 'enforcement', 'external', 'gamma', 'gray_scott', 'hardcoded', 'hrv_fantasia', 'hrv_physionet', 'internal', 'kuramoto', 'kuramoto_market', 'living_gradient', 'manual', 'metastable', 'name', 'nfi', 'reason', 'rule', 'static_capacitor', 'target', 'test', 'transient', 'warning', 'zebrafish', 'zebrafish_wt']

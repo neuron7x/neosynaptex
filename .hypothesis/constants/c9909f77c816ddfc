@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/mathematical_precision.py
+# hypothesis_version: 6.140.3
+
+[-2.0, -0.01, 0.0, 1e-15, 1e-10, 0.01, 0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 50.0, 100.0, 10000000000.0, 100, 200, 'CramerRaoBound', 'LyapunovResult', 'RenyiSpectrum', 'cramer_rao_fdt', 'full', 'inf', 'invalid parameters', 'lyapunov_exponent', 'renyi_entropy', 'renyi_spectrum']

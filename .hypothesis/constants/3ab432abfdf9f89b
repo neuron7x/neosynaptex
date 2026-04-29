@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/substrates/physionet_hrv/nsr2db_client.py
+# hypothesis_version: 6.140.3
+
+['%Y-%m-%dT%H:%M:%SZ', 'N', 'NSRRecord', 'available_records', 'ecg', 'fetch_rr_intervals', 'fetched_utc', 'fs_hz', 'mean_rr_s', 'n_normal_beats', 'n_rr_intervals', 'nsr2db', 'record_name', 'rr_sha256', 'std_rr_s']

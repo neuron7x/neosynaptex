@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/stats/tests.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.0001, 2.0, 'TestResult', 'auto', 'df', 'extra', 'mann_whitney_u', 'mean_observed', 'mu_0', 'n_a', 'n_b', 'n_extreme', 'n_permutations', 'one_sample_t', 'one_sample_t_test', 'p_value', 'permutation', 'permutation_test', 'statistic', 'test', 'two-sided', 'u_min', 'u_statistic_b', 'welch_t', 'welch_t_test']

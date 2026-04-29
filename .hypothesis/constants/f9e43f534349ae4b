@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/telemetry/query.py
+# hypothesis_version: 6.140.3
+
+[', ', '.start', '; ', 'ConformanceReport', 'SpanNode', 'UNSTAMPED:', 'assert_monotonic', 'assert_stamped', 'build_span_tree', 'by_substrate', 'by_trace', 'commit_sha', 'event_type', 'load_events', 'monotonic_report', 'parent_span_id', 'span_id', 'substrate', 'timestamp_utc', 'trace_conformance', 'trace_id', 'traces', 'utf-8']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/core/evidence_hardening.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0, 6.0, 'A', 'AuditReport', 'B', 'C', 'D', 'EVIDENCE_CANDIDATE', 'EntryGrade', 'F', 'INSUFFICIENT', 'MODERATE', 'STRONG', 'SUPPORTED_BY_NULLS', 'UNKNOWN', 'VALIDATED', 'WEAK', 'adapter_code_hash', 'audit_ledger', 'ci_high', 'ci_low', 'compute_code_hash', 'compute_data_hash', 'data_source', 'entries', 'evidence', 'gamma', 'gamma_ledger.json', 'missing CI', 'missing R²', 'missing data SHA-256', 'missing n_pairs', 'missing p-value', 'n_pairs', 'p_permutation', 'r2', 'sha256', 'status', 'utf-8']

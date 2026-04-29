@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/audit/evidence_ceiling.py
+# hypothesis_version: 6.140.3
+
+['0', 'active', 'bounded_positive', 'causal', 'controls', 'derived', 'draft', 'enforced', 'external_replication', 'fake_alternative', 'false', 'falsifier', 'gate_closed', 'hypothesized', 'intervention', 'measured', 'measured_but_bounded', 'method', 'missing', 'multi_substrate', 'no', 'none', 'null', 'null_hierarchy', 'null_separation', 'proved', 'replication', 'signal', 'status', 'substrate', 'validated', 'window']

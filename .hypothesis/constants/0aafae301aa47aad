@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/formal/substrate_diversity.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.15, 1.0, 'BIOLOGICAL', 'COMPUTATIONAL', 'DiversityReport', 'EVIDENCE_CANDIDATE', 'MOCK', 'PHYSICAL', 'SUPPORTED_BY_NULLS', 'SubstrateCategory', 'UNKNOWN', 'VALIDATED', 'agent_model', 'analyze_diversity', 'biology', 'bnsyn', 'cfp_diy', 'chemistry', 'cns_ai_loop', 'cognitive_loop', 'eeg_physionet', 'eeg_resting', 'entries', 'evidence', 'gamma', 'gamma_ledger.json', 'gray_scott', 'hrv_fantasia', 'hrv_physionet', 'kuramoto', 'mock', 'mock_market', 'mock_morpho', 'mock_psyche', 'mock_spike', 'network_dynamics', 'neuroscience', 'nfi_unified', 'physiology', 'status', 'unified_field', 'unknown', 'utf-8', 'zebrafish_wt']

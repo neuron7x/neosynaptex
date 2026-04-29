@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/tools/adversarial/verifier.py
+# hypothesis_version: 6.140.3
+
+['  - ', '#', '- ', ':', '; ', '<no id>', '<no source>', 'CONTRACT_SOURCES', 'ContractVerdict', 'REQUIRED_FIELDS', 'VerdictKind', 'VerifierReport', '\\A---\\n(.*?\\n)---\\n', '__main__', '_signal_id', '_source', 'controls', 'fake_alternative', 'falsifier', 'id', 'incomplete', 'instrumented', 'kill_criteria', 'kill_criteria:', 'main', 'malformed', 'measurement_status', 'method', 'ok', 'run_check', 'signal', 'signal_contract', 'signal_contract:', 'substrate', 'utf-8', 'verify_contract', 'window']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neuron7xLab/neosynaptex/contracts/bnsyn_structural_evidence.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1.0, 'ARTIFACT_SUSPECTED', 'ArtifactStatus', 'BnSynEvidenceVerdict', 'ClaimStatusLabel', 'FAIL', 'GammaStatus', 'KAPPA_NOT_FINITE', 'MISSING', 'NOT_SUSPECTED', 'NO_ADMISSIBLE_CLAIM', 'PASS', 'validate_metrics']
