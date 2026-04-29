@@ -75,7 +75,24 @@ REQUIRED_ENTRY_KEYS: frozenset[str] = frozenset(
 )
 
 ALLOWED_STATUSES: frozenset[str] = frozenset(
-    {"VALIDATED", "PENDING", "INVALIDATED", "FALSIFIED", "DRAFT"}
+    {
+        "VALIDATED",
+        "PENDING",
+        "INVALIDATED",
+        "FALSIFIED",
+        "DRAFT",
+        # Phase 2 hardening (ledger v2.0.0): canonical claim ladder per
+        # docs/architecture/recursive_claim_refinement.md §2 plus extended
+        # sub-VALIDATED states authorised by the Phase 2 protocol.
+        "EVIDENCE_CANDIDATE",
+        "LOCAL_STRUCTURAL_EVIDENCE_ONLY",
+        "ARTIFACT_SUSPECTED",
+        "NO_ADMISSIBLE_CLAIM",
+        "SUPPORTED_BY_NULLS",
+        "VALIDATED_SUBSTRATE_EVIDENCE",
+        "BLOCKED_BY_METHOD_DEFINITION",
+        "INCONCLUSIVE",
+    }
 )
 
 METHOD_TIER_REGEX = re.compile(r"^T[1-5]$")
@@ -113,9 +130,22 @@ def _validate_entry(entry_id: str, entry: dict) -> list[str]:
     if missing:
         errors.append(f"{entry_id}: missing keys {sorted(missing)}")
 
-    for numeric_key in ("gamma", "ci_low", "ci_high"):
-        if numeric_key in entry and not _is_number(entry[numeric_key]):
-            errors.append(f"{entry_id}: {numeric_key}={entry[numeric_key]!r} must be numeric")
+    # Phase 2 hardening: substrates that do not emit γ (e.g. BN-Syn after
+    # κ ≠ γ downgrade to LOCAL_STRUCTURAL_EVIDENCE_ONLY) carry null gamma /
+    # ci_low / ci_high. This is the canonically correct representation —
+    # null is preferred over a fabricated κ-as-γ value. Skip the numeric
+    # check for these entries.
+    status_for_numeric = entry.get("status")
+    skip_numeric_check = status_for_numeric in {
+        "LOCAL_STRUCTURAL_EVIDENCE_ONLY",
+        "BLOCKED_BY_METHOD_DEFINITION",
+        "NO_ADMISSIBLE_CLAIM",
+        "FALSIFIED",
+    }
+    if not skip_numeric_check:
+        for numeric_key in ("gamma", "ci_low", "ci_high"):
+            if numeric_key in entry and not _is_number(entry[numeric_key]):
+                errors.append(f"{entry_id}: {numeric_key}={entry[numeric_key]!r} must be numeric")
 
     if all(_is_number(entry.get(k)) for k in ("gamma", "ci_low", "ci_high")):
         gamma = float(entry["gamma"])

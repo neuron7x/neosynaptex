@@ -41,6 +41,13 @@ jobs:
           print('=== NFI Substrate Benchmark ===')
           start = time.perf_counter()
           for name, (gamma, note) in SUBSTRATE_GAMMA.items():
+              # Phase 2 hardening (ledger v2.0.0): skip substrates that do not
+              # emit γ (e.g. BN-Syn after the κ ≠ γ downgrade, where the
+              # ledger sets bnsyn.gamma=null). classify_regime is undefined
+              # on None and arithmetic on None would raise TypeError.
+              if gamma is None:
+                  print(f'SKIP {name:20s} γ=null (sub-γ status, not benchmarked)')
+                  continue
               t0 = time.perf_counter()
               regime = classify_regime(gamma)
               dt = time.perf_counter() - t0

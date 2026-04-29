@@ -258,7 +258,16 @@ def audit_ledger(
             is_reliable=ess >= 0.4,
         )
         grades.append(entry_grade)
-        if status == "VALIDATED":
+        # Phase 2 hardening (ledger v2.0.0): pool VALIDATED + the
+        # post-VALIDATED measurement tiers (EVIDENCE_CANDIDATE,
+        # SUPPORTED_BY_NULLS, VALIDATED_SUBSTRATE_EVIDENCE) as the
+        # "γ-emitting candidate" set. Sub-γ statuses are excluded.
+        if status in {
+            "VALIDATED",
+            "VALIDATED_SUBSTRATE_EVIDENCE",
+            "EVIDENCE_CANDIDATE",
+            "SUPPORTED_BY_NULLS",
+        }:
             validated_grades.append(entry_grade)
 
     # Aggregate
