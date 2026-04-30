@@ -25,8 +25,12 @@ name = "geosync_accel"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-# PyO3 for CPython bindings — zero-overhead FFI layer
-pyo3 = { version = "0.23", features = ["extension-module"] }
+# PyO3 for CPython bindings — zero-overhead FFI layer.
+# Bumped 0.23 → 0.24 to clear GHSA-pph8-gcv7-4qj5 (buffer overflow in
+# PyString::from_object when &str arg lacks a terminating nul; patched
+# in 0.24.1). Going to 0.28 (where tradepulse-accel is pinned) requires
+# a full API migration — kept here on 0.24 to minimise blast radius.
+pyo3 = { version = "0.24.1", features = ["extension-module"] }
 
 # Arrow memory format — zero-copy columnar data exchange
 arrow = { version = "54", default-features = false, features = ["ffi"] }
@@ -41,7 +45,7 @@ thiserror = "2"
 criterion = { version = "0.5", features = ["html_reports"] }
 
 [build-dependencies]
-pyo3-build-config = "0.23"
+pyo3-build-config = "0.24.1"
 
 [[bench]]
 name = "gamma_kernel"
