@@ -35,29 +35,34 @@ from mycelium_fractal_net.types.report import AnalysisReport
 SCHEMA_VERSION = "mfn-artifact-manifest-v2"
 
 
-def _validated_path(p: str | Path) -> Path:
-    """Sanitizer barrier for caller-supplied filesystem paths.
+def _reject_traversal(p: str | Path) -> Path:
+    """Defense-in-depth: reject paths with ``..`` segments.
 
-    Rejects ``..`` traversal segments before resolution and returns an
-    absolute path; downstream filesystem operations then run on a
-    normalized, traversal-free location (CodeQL py/path-injection).
+    Output paths in this pipeline flow from operator-controlled config
+    (``output_root`` argument), not from adversarial input. The guard
+    below catches accidental traversal in misconfigured deployments.
+    ``.resolve()`` was deliberately removed after PR #164 — it added new
+    CodeQL py/path-injection sinks without closing the original alerts
+    (CodeQL's barriers do not include ``Path.resolve()``). The original
+    parameter→sink flow is dismissed in the security tab as
+    not-exploitable under this admin-controlled threat model.
     """
     import os as _os
 
     raw = _os.fspath(p)
     if ".." in Path(raw).parts:
         raise ValueError(f"path traversal disallowed: {raw!r}")
-    return Path(raw).resolve()
+    return Path(raw)
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    safe = _validated_path(path)
+    safe = _reject_traversal(path)
     safe.parent.mkdir(parents=True, exist_ok=True)
     safe.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _write_text(path: Path, text: str) -> None:
-    safe = _validated_path(path)
+    safe = _reject_traversal(path)
     safe.parent.mkdir(parents=True, exist_ok=True)
     safe.write_text(text, encoding="utf-8")
 
@@ -67,7 +72,7 @@ def _ensure_history(sequence: FieldSequence) -> np.ndarray:
 
 
 def _sha256_file(path: Path) -> str:
-    safe = _validated_path(path)
+    safe = _reject_traversal(path)
     digest = hashlib.sha256()
     with safe.open("rb") as fh:
         for chunk in iter(lambda: fh.read(65536), b""):
@@ -76,7 +81,7 @@ def _sha256_file(path: Path) -> str:
 
 
 def _artifact_manifest(run_dir: Path, artifact_list: list[str]) -> dict[str, dict[str, Any]]:
-    safe_root = _validated_path(run_dir)
+    safe_root = _reject_traversal(run_dir)
     manifest: dict[str, dict[str, Any]] = {}
     for name in artifact_list:
         path = safe_root / name
@@ -324,7 +329,7 @@ def build_analysis_report(
     timestamp_now = datetime.now(timezone.utc)
     seed = int(sequence.metadata.get("seed", sequence.spec.seed if sequence.spec else 42))
     run_id = timestamp_now.strftime("run_%Y%m%dT%H%M%S_%fZ") + f"_s{seed}"
-    safe_root = _validated_path(output_root)
+    safe_root = _reject_traversal(output_root)
     run_dir = safe_root / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
 

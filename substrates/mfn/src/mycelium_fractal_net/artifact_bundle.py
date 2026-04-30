@@ -38,22 +38,27 @@ class _KeyPair:
     public_key_bytes: bytes
 
 
-def _validated_path(p: str | Path) -> Path:
-    """Sanitizer barrier for filesystem paths supplied by callers.
+def _reject_traversal(p: str | Path) -> Path:
+    """Defense-in-depth: reject paths with ``..`` segments.
 
-    Rejects ``..`` traversal segments before resolution and returns an
-    absolute path. Used at every public entry point that accepts a
-    caller-supplied path so downstream filesystem operations operate on
-    a normalized, traversal-free location (CodeQL py/path-injection).
+    Caller-supplied paths in this module flow from operator-controlled
+    deployment config (artifact roots, audit-log paths), not from
+    adversarial input. This guard exists to catch accidental traversal
+    in misconfigured deployments. ``.resolve()`` was deliberately removed
+    after PR #164 — it added new CodeQL py/path-injection sinks without
+    closing the original alerts (CodeQL's barriers do not include
+    ``Path.resolve()``). The original parameter→sink flow is dismissed
+    in the security tab as not-exploitable under this admin-controlled
+    threat model.
     """
     raw = os.fspath(p)
     if ".." in Path(raw).parts:
         raise ValueError(f"path traversal disallowed: {raw!r}")
-    return Path(raw).resolve()
+    return Path(raw)
 
 
 def sha256_file(path: str | Path) -> str:
-    safe_path = _validated_path(path)
+    safe_path = _reject_traversal(path)
     h = hashlib.sha256()
     with safe_path.open("rb") as fh:
         for chunk in iter(lambda: fh.read(65536), b""):
@@ -121,7 +126,7 @@ def _crypto_config_seed(config_path: str | Path) -> str:
 
 
 def _append_audit_event(audit_log: str | Path, event: dict[str, Any]) -> None:
-    safe_log = _validated_path(audit_log)
+    safe_log = _reject_traversal(audit_log)
     safe_log.parent.mkdir(parents=True, exist_ok=True)
     with safe_log.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(event, sort_keys=True) + "\n")
@@ -133,7 +138,7 @@ def sign_artifact(
     config_path: str | Path,
     audit_log: str | Path | None = None,
 ) -> Path:
-    artifact_path = _validated_path(path)
+    artifact_path = _reject_traversal(path)
     keypair = _derive_keypair_from_seed(_crypto_config_seed(config_path))
     digest = sha256_file(artifact_path)
     signature = _sign_message(digest.encode("utf-8"), keypair.private_key)
@@ -168,9 +173,9 @@ def verify_artifact_signature(
     signature_path: str | Path | None = None,
     audit_log: str | Path | None = None,
 ) -> bool:
-    artifact_path = _validated_path(path)
+    artifact_path = _reject_traversal(path)
     sig_path = (
-        _validated_path(signature_path)
+        _reject_traversal(signature_path)
         if signature_path is not None
         else artifact_path.with_suffix(artifact_path.suffix + ".sig.json")
     )

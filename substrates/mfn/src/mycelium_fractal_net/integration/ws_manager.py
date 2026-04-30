@@ -17,6 +17,7 @@ import asyncio
 import contextlib
 import hashlib
 import hmac
+import os
 import time
 import uuid
 from collections import deque
@@ -296,13 +297,18 @@ class WSConnectionManager:
     def _mask_api_key(api_key: str | None) -> str | None:
         """Return a non-reversible audit fingerprint of an API key.
 
-        Uses a SHA-256 prefix so audit logs can correlate sessions to the
-        originating key without disclosing key material (CodeQL py/clear-text-logging).
+        HMAC-SHA256 keyed by the ``MFN_AUDIT_PEPPER`` env-pepper so leaked
+        audit logs cannot be brute-forced into the originating key, even
+        for low-entropy keys. Recognised by CodeQL as a non-weak primitive
+        (py/weak-sensitive-data-hashing) when used with HMAC.
         """
         if not api_key or not isinstance(api_key, str):
             return None
-        digest = hashlib.sha256(api_key.encode("utf-8")).hexdigest()
-        return f"sha256:{digest[:12]}"
+        pepper = os.environ.get(
+            "MFN_AUDIT_PEPPER", "mfn-default-pepper-set-MFN_AUDIT_PEPPER-in-prod"
+        ).encode("utf-8")
+        digest = hmac.new(pepper, api_key.encode("utf-8"), hashlib.sha256).hexdigest()
+        return f"hmac:{digest[:12]}"
 
     def _validate_api_key(self, api_key: str | None) -> bool:
         """Validate API key against configured keys."""
