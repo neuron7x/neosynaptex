@@ -1,0 +1,109 @@
+name: HRV Real-Data Integration (scheduled)
+
+# Non-blocking integration lane for the HRV PhysioNet substrate.
+#
+# Runs the opt-in test gated by NEOSYNAPTEX_RUN_NETWORK_TESTS=1 so that
+# PhysioNet/wfdb drift is still detected without sitting on the PR
+# critical path. Triggers ONLY on schedule + workflow_dispatch — never
+# on pull_request or push, so a network outage cannot block merges.
+
+on:
+  schedule:
+    # 03:13 UTC daily — off the top-of-hour cron stampede.
+    - cron: "13 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: hrv-real-data-integration
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  hrv-real-data:
+    name: HRV Real-Data PhysioNet Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: pip install -e ".[dev]" --quiet
+      - name: Run real-data HRV integration
+        env:
+          NEOSYNAPTEX_RUN_NETWORK_TESTS: "1"
+        run: |
+          mkdir -p hrv-integration-artifacts
+          pytest \
+            tests/test_integrity_v2.py::TestHRV::test_real_data_gamma_in_range \
+            -v --tb=long --timeout=600 \
+            --junitxml=hrv-integration-artifacts/junit.xml \
+            2>&1 | tee hrv-integration-artifacts/pytest.log
+      - name: Upload diagnostic artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hrv-integration-artifacts-${{ github.run_id }}
+          path: hrv-integration-artifacts/
+          retention-days: 30
+      - name: Surface failure as a rolling drift issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          # Idempotently ensure the tracking label exists.
+          gh label create hrv-integration-failure \
+            --description "Scheduled HRV real-data integration drift" \
+            --color B60205 \
+            --force >/dev/null
+
+          # One rolling issue per stable label: comment if open, else create.
+          existing=$(gh issue list \
+            --label hrv-integration-failure --state open \
+            --json number --jq '.[0].number // empty')
+
+          ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          summary="HRV real-data integration failure on ${ts}"
+          body=$(cat <<MARKDOWN
+          Scheduled HRV real-data integration failed.
+
+          - Run: ${RUN_URL}
+          - Workflow: \`hrv_real_data_integration.yml\`
+          - Trigger: \`${{ github.event_name }}\`
+
+          Likely causes (descending probability):
+          1. Transient PhysioNet/wfdb network outage — re-run before investigating.
+          2. NSR2DB record list / annotation format drift.
+          3. \`HRVPhysioNetAdapter\` regression (PSD pipeline, VLF mask, floor).
+
+          Reproduce locally:
+          \`\`\`
+          NEOSYNAPTEX_RUN_NETWORK_TESTS=1 pytest \\
+            tests/test_integrity_v2.py::TestHRV::test_real_data_gamma_in_range -v
+          \`\`\`
+
+          This lane is **non-blocking** — PR throughput is not gated on it.
+          Investigate at human cadence; pin/cache records or update the
+          adapter as appropriate.
+          MARKDOWN
+          )
+
+          if [ -n "${existing}" ]; then
+            gh issue comment "${existing}" \
+              --body "${summary}"$'\n\n'"${body}"
+          else
+            gh issue create \
+              --title "${summary}" \
+              --label hrv-integration-failure \
+              --body "${body}"
+          fi
