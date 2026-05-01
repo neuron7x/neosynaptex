@@ -10,6 +10,7 @@ Tests verify:
 """
 
 import inspect
+import os
 import sys
 from pathlib import Path
 
@@ -19,6 +20,9 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.gamma import compute_gamma
+
+_RUN_NETWORK_TESTS = os.environ.get("NEOSYNAPTEX_RUN_NETWORK_TESTS") == "1"
+_HRV_FLOOR_MIN_SUBJECTS = 3
 
 
 def _try_import(module_name: str) -> bool:
@@ -125,14 +129,60 @@ class TestZebrafish:
 
 
 # ── HRV PhysioNet ──
+#
+# The substrate is validated on three orthogonal axes:
+#   1. test_compute_gamma_recovers_unity_from_synthetic_1f
+#        Pure math: compute_gamma on a synthetic 1/f PSD (the same VLF band
+#        the adapter uses) must recover γ ≈ 1.0. No network, no wfdb.
+#   2. test_floor_minimum_enforced
+#        Behaviour: _ensure_loaded raises when fewer than the floor of subjects
+#        survive. Driven via monkeypatch — no network.
+#   3. test_real_data_gamma_in_range
+#        Integration: wfdb / PhysioNet NSR2DB yield physiological γ.
+#        Opt-in via NEOSYNAPTEX_RUN_NETWORK_TESTS=1, since PhysioNet is an
+#        external dependency that flakes; this lane stays off the PR critical
+#        path and is exercised in a dedicated CI job.
 
 
 class TestHRV:
-    @pytest.mark.skipif(not _try_import("wfdb"), reason="wfdb not installed")
-    def test_gamma_in_range(self):
+    def test_compute_gamma_recovers_unity_from_synthetic_1f(self) -> None:
+        from scipy.signal import welch
+
+        rng = np.random.default_rng(42)
+        n = 2**14
+        fs = 4.0
+        white = rng.standard_normal(n)
+        spec = np.fft.rfft(white)
+        freqs_full = np.fft.rfftfreq(n, d=1.0 / fs)
+        amp = np.where(freqs_full > 0, freqs_full ** (-0.5), 0.0)
+        pink = np.fft.irfft(spec * amp, n=n)
+
+        f, psd = welch(pink, fs=fs, nperseg=1024)
+        mask = (f >= 0.003) & (f <= 0.04) & (psd > 0)
+        r = compute_gamma(f[mask], psd[mask])
+
+        assert 0.7 <= r.gamma <= 1.3, f"synthetic 1/f gamma={r.gamma:.3f}"
+
+    def test_floor_minimum_enforced(self, monkeypatch: pytest.MonkeyPatch) -> None:
         from substrates.hrv_physionet.adapter import HRVPhysioNetAdapter
 
-        adapter = HRVPhysioNetAdapter(n_subjects=3)
+        def _fake_load_below_floor(self_: HRVPhysioNetAdapter) -> None:
+            self_._loaded = True
+            self_._subj_gammas = [1.0] * (_HRV_FLOOR_MIN_SUBJECTS - 1)
+
+        monkeypatch.setattr(HRVPhysioNetAdapter, "_load", _fake_load_below_floor)
+        adapter = HRVPhysioNetAdapter(n_subjects=_HRV_FLOOR_MIN_SUBJECTS)
+        with pytest.raises(RuntimeError, match="Insufficient HRV data"):
+            adapter._ensure_loaded()
+
+    @pytest.mark.skipif(
+        not (_try_import("wfdb") and _RUN_NETWORK_TESTS),
+        reason="set NEOSYNAPTEX_RUN_NETWORK_TESTS=1 to exercise PhysioNet",
+    )
+    def test_real_data_gamma_in_range(self) -> None:
+        from substrates.hrv_physionet.adapter import HRVPhysioNetAdapter
+
+        adapter = HRVPhysioNetAdapter()
         result = adapter.get_gamma_result()
         assert 0.5 <= result["gamma"] <= 1.5, f"HRV gamma={result['gamma']}"
 
