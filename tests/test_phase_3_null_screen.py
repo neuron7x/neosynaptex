@@ -495,6 +495,38 @@ def test_eeg_resting_skipped_until_data_provisioned() -> None:  # pragma: no cov
 
 
 # ---------------------------------------------------------------------------
+# Codex P1 regression — kuramoto_iaaft phase wrap into target range
+# ---------------------------------------------------------------------------
+def test_kuramoto_iaaft_surrogate_stays_in_target_range() -> None:
+    """``kuramoto_iaaft`` returns angles in [-π, π] via arctan2, so the
+    inverse mapping must wrap modulo 2π before scaling back into the
+    target range, otherwise ~half the surrogates land below ``t_min``
+    (often below zero) and the null distribution is materially
+    distorted. This was reported as Codex P1 against PR #161.
+    """
+    from tools.phase_3.run_null_screen import _generate_one_surrogate
+
+    # Construct a target whose range is strictly positive so any
+    # negative output value is an unambiguous failure.
+    rng = np.random.default_rng(42)
+    target = np.linspace(1.0, 10.0, 32) + rng.normal(0.0, 0.05, size=32)
+    t_min, t_max = float(np.min(target)), float(np.max(target))
+
+    # Produce a few surrogates with different RNG draws.
+    for _ in range(8):
+        surr = _generate_one_surrogate("kuramoto_iaaft", target, rng)
+        assert surr.shape == target.shape
+        assert np.all(np.isfinite(surr)), "surrogate must be finite"
+        assert float(np.min(surr)) >= t_min - 1e-9, (
+            f"surrogate min {float(np.min(surr))} fell below t_min={t_min}; "
+            "P1 phase-wrap regression"
+        )
+        assert float(np.max(surr)) <= t_max + 1e-9, (
+            f"surrogate max {float(np.max(surr))} above t_max={t_max}"
+        )
+
+
+# ---------------------------------------------------------------------------
 # Bonferroni correction wiring
 # ---------------------------------------------------------------------------
 def test_bonferroni_alpha_matches_n_families() -> None:

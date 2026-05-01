@@ -56,3 +56,7 @@ core/rust/geosync-accel/target/
 
 # Semantic drift gate dry-run artefacts — ephemeral, regenerated per run.
 reports/semantic_drift/
+
+# Estimator admissibility trial JSON output — regenerated per CI run.
+# README.md inside the directory is kept under version control.
+evidence/estimator_admissibility/*.json

@@ -290,8 +290,14 @@ def _generate_one_surrogate(
         phases = ((target - t_min) / (t_max - t_min)) * (2.0 * np.pi)
         phase_mat = phases.reshape(1, n)
         surr_phase = _iaaft.kuramoto_iaaft(phase_mat, n_iter=200, seed=surrogate_seed)
-        # Map back to the target scale.
-        out = (surr_phase[0] / (2.0 * np.pi)) * (t_max - t_min) + t_min
+        # kuramoto_iaaft returns angles via arctan2, so the output range
+        # is [-π, π]. We mapped *into* [0, 2π) on the way in, so the
+        # inverse must wrap back into [0, 2π) before scaling. Without
+        # the modulo, ~half the surrogate values land below ``t_min``
+        # (often below zero), distorting the null distribution and
+        # making the per-family p-values unreliable. (Codex P1 fix.)
+        wrapped = np.mod(surr_phase[0], 2.0 * np.pi)
+        out = (wrapped / (2.0 * np.pi)) * (t_max - t_min) + t_min
         return np.asarray(out, dtype=np.float64)
     if family in _NULL_FAMILIES:
         gen = _NULL_FAMILIES[family]
