@@ -132,7 +132,11 @@ class TestHRV:
     def test_gamma_in_range(self):
         from substrates.hrv_physionet.adapter import HRVPhysioNetAdapter
 
-        adapter = HRVPhysioNetAdapter(n_subjects=3)
+        # Request 5 subjects: _ensure_loaded floor is 3, so a 5-request gives
+        # a margin of 2 against transient PhysioNet/wfdb load failures that
+        # caused intermittent 3.12 fails (run 25184505044, "Insufficient HRV
+        # data: 2 subjects"). At n=3 a single dropped record was fatal.
+        adapter = HRVPhysioNetAdapter(n_subjects=5)
         result = adapter.get_gamma_result()
         assert 0.5 <= result["gamma"] <= 1.5, f"HRV gamma={result['gamma']}"
 
