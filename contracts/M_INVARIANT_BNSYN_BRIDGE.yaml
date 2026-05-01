@@ -1,0 +1,157 @@
+contract_id: M_INVARIANT_BNSYN_MFN_BRIDGE_v1
+version: 1.2.0
+status: pre_registered
+created_utc: 2026-05-01T10:25:00Z
+revised_utc: 2026-05-01T10:55:00Z
+revision_reason: |
+  v1.0 -> v1.1: 2D-operator shape mismatch on 1D V vectors (caught in smoke, no
+  contracted M values observed). Reduced to 1D operator on histograms.
+
+  v1.1 -> v1.2: smoke run of v1.1 returned INVALID_HWI on every BN-Syn sample
+  (HWI inequality H <= W2 * sqrt(I) violated). Diagnosis: Otto-Villani HWI is
+  defined for absolutely continuous densities; with N=64 neurons the empirical
+  histogram has ~10/64 populated bins, so KL between barely-overlapping discrete
+  histograms inflates to ~25 nats while W2*sqrt(I) stays ~10 — by construction.
+  Per contract, INVALID_HWI explicitly authorises "investigate before retry";
+  acceptance threshold (THRESHOLD_REL=0.20) is NOT touched. Operator amended:
+  apply Gaussian KDE smoothing (Scott's rule bandwidth) on a fixed 256-point
+  evaluation grid over each substrate's pre-registered range, then compute
+  H/W2/I/M on the smoothed densities. This is the standard treatment of HWI
+  for finite-sample empirical measures. No contracted verdict was observed
+  before this revision.
+claim_status: hypothesis
+purpose: |
+  Pre-register the kill-criterion for the MFN<->BN-Syn M-invariant bridge BEFORE
+  running, so that thresholds cannot be widened post-hoc to absorb a
+  non-converging result.
+
+  Hypothesis: M = H/(W2*sqrt(I)) — the HWI saturation ratio defined by the
+  Otto-Villani inequality — when reduced to its 1D specialisation on a
+  meaningful metric axis (voltage in mV for BN-Syn, concentration value for MFN
+  Gray-Scott), gives a comparable value across the two substrates during their
+  respective metastable / pattern-formation phases. If yes AND nulls fail to
+  reach the same band, this is cross-substrate evidence of a shared regime.
+  If no, the hypothesis narrows to PDE-class and the result is recorded as is.
+
+reference_anchor:
+  source: substrates/mfn/src/mycelium_fractal_net/analytics/unified_score.py
+  M_REF_2D_published: 0.106
+  M_REF_2D_origin: "MFN N=32 Turing morphogenesis, 2D operator (compute_hwi_components)"
+  M_REF_1D_runtime: "re-measured in this experiment using 1D-histogram operator on the same MFN run"
+
+operator_1d_definition:
+  description: |
+    The 1D specialisation of the HWI components on a KDE-smoothed empirical
+    density. Each substrate snapshot is reduced to a kernel-density estimate
+    over a 1D position axis on a fixed evaluation grid; M is computed on the
+    resulting smooth probability vectors.
+  components:
+    H: "discrete KL divergence between current and reference densities on the eval grid"
+    W2: "1-D Wasserstein-2 distance between densities via inverse-CDF on the eval grid"
+    I: "Jensen-Shannon divergence between densities (bounded Fisher proxy, matches MFN convention)"
+    M: "H / (W2 * sqrt(I))  clamped to [0, 1]"
+  smoothing:
+    method: scipy.stats.gaussian_kde
+    bandwidth: "Scott's rule (gaussian_kde default)"
+    eval_grid_points: 256
+    rationale: |
+      KDE smoothing converts N empirical samples into a continuous density,
+      restoring HWI inequality validity. Scott's rule h ~ N^(-1/5) * std gives
+      bandwidth ~2 mV for BN-Syn (std ~5 mV, N=64), wide enough to overlap.
+  rationale_for_jsd_as_I: "matches MFN's unified_score.py choice (JSD has CV stability where chi-squared has near-zero-denominator instability)"
+
+field_extraction_rules:
+  bnsyn:
+    snapshot: "V_mV vector of length N at captured timestep"
+    density_axis: "voltage in mV"
+    eval_range_mV: [-90.0, 30.0]
+    eval_points: 256
+    rationale: "AdEx model: V_reset≈-58, V_T≈-50, spike clamp ~+20 to +30. Range covers full physiological span."
+  mfn_gray_scott:
+    snapshot: "concentration field, raveled to 1D vector of length N*N"
+    density_axis: "concentration (dimensionless [0, ~1])"
+    eval_range: [0.0, 1.0]
+    eval_points: 256
+    rationale: "Gray-Scott activator concentration is bounded [0,1]. 256 grid points matches BN-Syn for symmetry."
+
+bnsyn_run_config:
+  N: 64
+  steps: 2000
+  dt_ms: 0.1
+  external_current_pA: 400.0
+  backend: reference
+  seeds: [42, 43, 44, 45, 46]
+  voltage_capture_stride: 1
+
+mfn_run_config:
+  grid_size: 32
+  steps: 60
+  seeds: [42, 43, 44, 45, 46]
+  description: "matches the canonical Turing morphogenesis run that produced the 0.106 anchor"
+
+trajectory_window:
+  rule: "history shape [T_samples, ...]; reference = history[-1]; M trajectory at indices range(10, T_samples-1, max(1, (T_samples-10)//15))"
+  morphogenesis_window: "first half of the trajectory samples"
+  rationale: "Direct mirror of substrates/mfn/scripts/m_invariant_three_substrates.py — pre-existing convention"
+
+acceptance_criterion:
+  primary: "relative_diff = |M_morph(BN-Syn) - M_morph(MFN_1D)| / M_morph(MFN_1D)"
+  threshold_relative: 0.20
+  rationale: |
+    Mirrors the cross-substrate INVARIANT threshold of CV<20% used in
+    substrates/mfn/scripts/m_invariant_three_substrates.py. Two-substrate CV
+    is undefined for n=2; we use relative deviation from the MFN anchor as
+    the equivalent.
+
+null_band_test:
+  band_definition: "M_morph(MFN_1D) +/- 0.20 * M_morph(MFN_1D)"
+  white_noise_null:
+    description: "Independent N(0,1) Gaussian, same shape as BN-Syn V_history"
+    must_satisfy: "M_morph MUST fall OUTSIDE the band"
+    leak_means_invalid: "M cannot distinguish dynamics from noise on the BN-Syn substrate"
+  time_shuffled_null:
+    description: "BN-Syn V_history with rows permuted along the time axis"
+    must_satisfy: "M_morph MUST fall OUTSIDE the band"
+    leak_means_invalid: "M is insensitive to temporal order — not a dynamical witness"
+
+verdict_table:
+  - id: PASS
+    condition: "relative_diff <= 0.20 AND BOTH nulls outside band AND HWI inequality holds for >=95% of samples in all three configurations"
+    interpretation: "Cross-substrate M-invariant bridge confirmed for MFN<->BN-Syn under pre-registered tolerance and selectivity nulls"
+  - id: FAIL_OFFBAND
+    condition: "relative_diff > 0.20"
+    interpretation: "M is not invariant across these two substrates under the 1D operator. Hypothesis narrows to PDE-class; no widening of threshold."
+  - id: FAIL_NULL_LEAK
+    condition: "relative_diff <= 0.20 BUT a null also lands in band"
+    interpretation: "Operator is not selective enough on this input; positive-looking BN-Syn result is degenerate and not informative."
+  - id: INVALID_HWI
+    condition: "HWI inequality violated on >=5% of samples in any of the three configurations"
+    interpretation: "Operator failed sanity check on this data; experiment unusable; investigate before retry."
+
+forbidden_post_hoc_actions:
+  - widen acceptance_criterion.threshold_relative after observing contracted M values
+  - change trajectory_window definition after observing contracted M values
+  - drop seeds that disagree with the rest
+  - change KDE bandwidth rule, eval grid, or range after observing contracted M values
+  - re-define M_REF_1D_runtime by switching MFN run config
+  - replace JSD with another I-proxy after observing contracted M values
+  - reclassify smoke/diagnostic runs as contracted to avoid this list
+
+evidence_artifacts:
+  json_path: results/m_invariant_bridge/run_v1.json
+  contract_hash_field: contract_sha256
+  reproduction_command: "python experiments/m_invariant_bridge/run.py"
+  rationale_for_results_path: |
+    Per existing convention (substrates/mfn/scripts/m_invariant_three_substrates.py
+    writes to results/m_invariant_substrates.json), cross-substrate measurement
+    artifacts live under results/. evidence/ is reserved for the gamma_ledger
+    domain and is gated by tools/audit/gamma_ledger_integrity.py / a local
+    pre-commit hook that requires gamma_ledger.json to update on any change.
+    M-invariant is a separate measurement domain.
+
+reproducibility:
+  python: ">=3.11"
+  numpy: "as pinned in substrates/bn_syn/pyproject.toml (numpy==2.4.1)"
+  scipy: "scipy.stats.wasserstein_distance for 1D W2"
+  rng: "numpy default_rng with seed list above; bnsyn.rng.seed_all per seed"
+  determinism: "BN-Syn run_simulation uses explicit seeding contract; MFN simulate is deterministic; 1D operator is pure-numpy"
