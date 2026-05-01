@@ -1,8 +1,6 @@
 # Universal gamma-scaling at the edge of metastability: evidence from three independent biological substrates with simulation validation
 
-**Yaroslav Vasylenko**
-neuron7xLab, Poltava region, Ukraine
-Independent researcher (no institutional affiliation)
+Researcher
 Contact: github.com/neuron7xLab
 
 ---
@@ -456,4 +454,4 @@ All code, data processing pipelines, and proof bundles are available at github.c
 
 ## Acknowledgments
 
-This work was conducted independently during wartime in Poltava region, Ukraine, without institutional support or funding. The author acknowledges the use of AI language models (GPT-4o, Claude) as cognitive tools during the research process -- tools whose interaction with the researcher constitutes the sixth substrate measured in this study.
+The author acknowledges the use of AI language models (GPT-4o, Claude) as cognitive tools during the research process -- tools whose interaction with the researcher constitutes the sixth substrate measured in this study.

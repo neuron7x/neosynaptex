@@ -313,7 +313,7 @@ gamma = 1.0</text>
 <text x="500" y="375" text-anchor="middle" font-family="monospace" font-size="9" fill="#64748b">6 substrates | 8273 documents | p = 0.005 | 55/55 tests</text>
 
 <!-- Bottom signature -->
-<text x="500" y="400" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">Yaroslav Vasylenko | neuron7xLab | Poltava, Ukraine</text>
+<text x="500" y="400" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">Researcher · Architect · Engineer | neuron7xLab</text>
 
 <!-- Corner fractals for framing -->
 <g opacity="0.08" stroke="#7c3aed" stroke-width="0.5" fill="none">

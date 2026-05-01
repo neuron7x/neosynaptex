@@ -302,7 +302,7 @@ mypy src/
 
 ## Author
 
-**Yaroslav Vasylenko** · Independent researcher · Poltava region, Ukraine
+Researcher
 
 Building the cognitive infrastructure for the next generation of intelligent systems.
 

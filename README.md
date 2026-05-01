@@ -518,8 +518,12 @@ they form one circuit. Not a metaphor. A measured fact.
     *         .    .    .         *
 ```
 
-<b>Built by one researcher. Under fire. Three years. Six substrates. One law.</b><br>
-<sub>Yaroslav O. Vasylenko -- <a href="https://github.com/neuron7xLab">neuron7xLab</a> -- Poltava region, Ukraine</sub><br>
-<sub>AGPL-3.0-or-later</sub>
+<b>Six substrates. One law.</b><br>
+<br>
+<sub>⊛ ════════════════════ ⊛</sub><br>
+<b>𝙍𝙚𝙨𝙚𝙖𝙧𝙘𝙝𝙚𝙧 · 𝘼𝙧𝙘𝙝𝙞𝙩𝙚𝙘𝙩 · 𝙀𝙣𝙜𝙞𝙣𝙚𝙚𝙧</b><br>
+<sub>⊛ ════════════════════ ⊛</sub><br>
+<br>
+<sub><a href="https://github.com/neuron7xLab">neuron7xLab</a> · AGPL-3.0-or-later</sub>
 
 </p>

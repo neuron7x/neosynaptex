@@ -1,8 +1,6 @@
 # Universal gamma-scaling at the edge of metastability: evidence from three independent biological substrates with simulation validation
 
-**Yaroslav Vasylenko**
-neuron7xLab, Poltava region, Ukraine
-Independent researcher (no institutional affiliation)
+Researcher
 Contact: github.com/neuron7xLab
 
 ---
