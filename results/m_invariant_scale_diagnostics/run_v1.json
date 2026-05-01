@@ -1,0 +1,378 @@
+{
+  "schema": "m_invariant_scale_diagnostics_v1",
+  "source_sha256": "9f5dd81bff6e80fb10381659eb486734b787633c7f66198f8ad0e58ce32f3279",
+  "claim_status": "derived",
+  "scope": "synthetic distributions only; no substrate, no bridge claim",
+  "config": {
+    "EVAL_POINTS": 256,
+    "SCALES": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "SAMPLES_PER_DIST": 4096,
+    "SEED": 20260501,
+    "EPSILON_M_CHANGE": 0.05,
+    "HWI_VIOLATION_TOLERANCE": 0.05,
+    "CLAMP_THRESHOLD": 0.999
+  },
+  "cases": [
+    {
+      "name": "gaussian_shift",
+      "description": "p=N(0,1), q=N(2,1)",
+      "range_unit": [
+        -6.0,
+        6.0
+      ]
+    },
+    {
+      "name": "gaussian_variance",
+      "description": "p=N(0,1), q=N(0,4)",
+      "range_unit": [
+        -6.0,
+        6.0
+      ]
+    },
+    {
+      "name": "bimodal_shift",
+      "description": "p=0.5N(-1,1)+0.5N(1,1), q=shift+0.5",
+      "range_unit": [
+        -6.0,
+        6.0
+      ]
+    },
+    {
+      "name": "pde_like_wide",
+      "description": "uniform on [0,32] vs [4,28]",
+      "range_unit": [
+        0.0,
+        32.0
+      ]
+    },
+    {
+      "name": "bnsyn_like_narrow",
+      "description": "narrow value range similar to MFN activator",
+      "range_unit": [
+        -0.08,
+        0.01
+      ]
+    }
+  ],
+  "results": [
+    {
+      "name": "gaussian_shift",
+      "description": "p=N(0,1), q=N(2,1)",
+      "M_at_unit_scale": 1.0,
+      "M_spread_clamped": 0.9807439715453261,
+      "scale_sensitive": true,
+      "saturation_observed": true,
+      "n_saturated_scales": 3,
+      "n_hwi_violations": 3,
+      "rows": [
+        {
+          "scale": 0.01,
+          "H": 2.209430790998979,
+          "W2": 0.019860577235170852,
+          "I": 0.3296684111164654,
+          "M_clamped": 1.0,
+          "M_unclamped": 193.75363889459396,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 0.1,
+          "H": 2.209400315724472,
+          "W2": 0.1986057723517086,
+          "I": 0.32966841111064005,
+          "M_clamped": 1.0,
+          "M_unclamped": 19.375096641542505,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 1.0,
+          "H": 2.2091018284287993,
+          "W2": 1.9860577235170855,
+          "I": 0.32966841105842826,
+          "M_clamped": 1.0,
+          "M_unclamped": 1.9372479091236405,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 10.0,
+          "H": 2.206603549280792,
+          "W2": 19.860577235170854,
+          "I": 0.3296684105953773,
+          "M_clamped": 0.19350570716583468,
+          "M_unclamped": 0.19350570716583468,
+          "hwi_holds": true,
+          "saturated": false
+        },
+        {
+          "scale": 100.0,
+          "H": 2.195822598153202,
+          "W2": 198.60577235170857,
+          "I": 0.3296684064600728,
+          "M_clamped": 0.019256028454673852,
+          "M_unclamped": 0.019256028454673852,
+          "hwi_holds": true,
+          "saturated": false
+        }
+      ]
+    },
+    {
+      "name": "gaussian_variance",
+      "description": "p=N(0,1), q=N(0,4)",
+      "M_at_unit_scale": 1.0,
+      "M_spread_clamped": 0.9893546342157938,
+      "scale_sensitive": true,
+      "saturation_observed": true,
+      "n_saturated_scales": 3,
+      "n_hwi_violations": 3,
+      "rows": [
+        {
+          "scale": 0.01,
+          "H": 0.3269361933653584,
+          "W2": 0.009957242608439436,
+          "I": 0.09513200378167655,
+          "M_clamped": 1.0,
+          "M_unclamped": 106.45365825218084,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 0.1,
+          "H": 0.32693619335794466,
+          "W2": 0.09957242608439437,
+          "I": 0.0951320037781805,
+          "M_clamped": 1.0,
+          "M_unclamped": 10.645365828291903,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 1.0,
+          "H": 0.3269361932878818,
+          "W2": 0.9957242608439436,
+          "I": 0.09513200374525665,
+          "M_clamped": 1.0,
+          "M_unclamped": 1.0645365828164657,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 10.0,
+          "H": 0.32693619263072843,
+          "W2": 9.957242608439437,
+          "I": 0.09513200343775594,
+          "M_clamped": 0.10645365824003104,
+          "M_unclamped": 0.10645365824003104,
+          "hwi_holds": true,
+          "saturated": false
+        },
+        {
+          "scale": 100.0,
+          "H": 0.3269361865231223,
+          "W2": 99.57242608439438,
+          "I": 0.0951320005947131,
+          "M_clamped": 0.010645365784206188,
+          "M_unclamped": 0.010645365784206188,
+          "hwi_holds": true,
+          "saturated": false
+        }
+      ]
+    },
+    {
+      "name": "bimodal_shift",
+      "description": "p=0.5N(-1,1)+0.5N(1,1), q=shift+0.5",
+      "M_at_unit_scale": 1.0,
+      "M_spread_clamped": 0.9766920795306634,
+      "scale_sensitive": true,
+      "saturation_observed": true,
+      "n_saturated_scales": 3,
+      "n_hwi_violations": 3,
+      "rows": [
+        {
+          "scale": 0.01,
+          "H": 0.2767711162727742,
+          "W2": 0.004746401842430431,
+          "I": 0.06258959592471905,
+          "M_clamped": 1.0,
+          "M_unclamped": 233.0800954012804,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 0.1,
+          "H": 0.2767711147927997,
+          "W2": 0.04746401842430432,
+          "I": 0.06258959592210647,
+          "M_clamped": 1.0,
+          "M_unclamped": 23.308009433645633,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 1.0,
+          "H": 0.2767711001378267,
+          "W2": 0.47464018424304316,
+          "I": 0.06258959590387603,
+          "M_clamped": 1.0,
+          "M_unclamped": 2.3308008204652406,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 10.0,
+          "H": 0.2767709650356403,
+          "W2": 4.746401842430431,
+          "I": 0.06258959579242365,
+          "M_clamped": 0.23307996848082338,
+          "M_unclamped": 0.23307996848082338,
+          "hwi_holds": true,
+          "saturated": false
+        },
+        {
+          "scale": 100.0,
+          "H": 0.27677005640466146,
+          "W2": 47.46401842430431,
+          "I": 0.06258959503672651,
+          "M_clamped": 0.02330792046933656,
+          "M_unclamped": 0.02330792046933656,
+          "hwi_holds": true,
+          "saturated": false
+        }
+      ]
+    },
+    {
+      "name": "pde_like_wide",
+      "description": "uniform on [0,32] vs [4,28]",
+      "M_at_unit_scale": 0.91151988649328,
+      "M_spread_clamped": 0.9908848020090241,
+      "scale_sensitive": true,
+      "saturation_observed": true,
+      "n_saturated_scales": 2,
+      "n_hwi_violations": 2,
+      "rows": [
+        {
+          "scale": 0.01,
+          "H": 0.3801058057260394,
+          "W2": 0.018994829220109217,
+          "I": 0.04819543703097305,
+          "M_clamped": 1.0,
+          "M_unclamped": 91.15198871508568,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 0.1,
+          "H": 0.3801058056899696,
+          "W2": 0.18994829220109222,
+          "I": 0.048195437030228036,
+          "M_clamped": 1.0,
+          "M_unclamped": 9.11519887268134,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 1.0,
+          "H": 0.3801058053292714,
+          "W2": 1.899482922010922,
+          "I": 0.048195437022777926,
+          "M_clamped": 0.91151988649328,
+          "M_unclamped": 0.91151988649328,
+          "hwi_holds": true,
+          "saturated": false
+        },
+        {
+          "scale": 10.0,
+          "H": 0.380105801722294,
+          "W2": 18.994829220109217,
+          "I": 0.04819543694827706,
+          "M_clamped": 0.09115198785499844,
+          "M_unclamped": 0.09115198785499844,
+          "hwi_holds": true,
+          "saturated": false
+        },
+        {
+          "scale": 100.0,
+          "H": 0.3801057656525372,
+          "W2": 189.94829220109216,
+          "I": 0.0481954362032682,
+          "M_clamped": 0.009115197990975937,
+          "M_unclamped": 0.009115197990975937,
+          "hwi_holds": true,
+          "saturated": false
+        }
+      ]
+    },
+    {
+      "name": "bnsyn_like_narrow",
+      "description": "narrow value range similar to MFN activator",
+      "M_at_unit_scale": 1.0,
+      "M_spread_clamped": 0.2613723654637893,
+      "scale_sensitive": true,
+      "saturation_observed": true,
+      "n_saturated_scales": 4,
+      "n_hwi_violations": 4,
+      "rows": [
+        {
+          "scale": 0.01,
+          "H": 0.21113434990446875,
+          "W2": 0.0001170139502097298,
+          "I": 0.05967485951098025,
+          "M_clamped": 1.0,
+          "M_unclamped": 7386.276087095075,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 0.1,
+          "H": 0.21113434990446045,
+          "W2": 0.001170139502097298,
+          "I": 0.05967485951097726,
+          "M_clamped": 1.0,
+          "M_unclamped": 738.6276319654801,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 1.0,
+          "H": 0.21113434990438013,
+          "W2": 0.011701395020972978,
+          "I": 0.05967485951094722,
+          "M_clamped": 1.0,
+          "M_unclamped": 73.86276342909832,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 10.0,
+          "H": 0.2111343499035737,
+          "W2": 0.11701395020972978,
+          "I": 0.05967485951064704,
+          "M_clamped": 1.0,
+          "M_unclamped": 7.386276345225797,
+          "hwi_holds": false,
+          "saturated": true
+        },
+        {
+          "scale": 100.0,
+          "H": 0.211134349895512,
+          "W2": 1.1701395020972978,
+          "I": 0.059674859507645193,
+          "M_clamped": 0.7386276345362107,
+          "M_unclamped": 0.7386276345362107,
+          "hwi_holds": true,
+          "saturated": false
+        }
+      ]
+    }
+  ],
+  "scale_dependence_verdict": "INVALID_OPERATOR",
+  "scale_dependence_reason": "3 smooth-control case(s) violate HWI at unit scale \u2014 operator unusable on textbook input",
+  "compute_seconds": 0.6
+}
