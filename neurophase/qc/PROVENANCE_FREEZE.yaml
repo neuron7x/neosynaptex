@@ -1,0 +1,45 @@
+run_id: RUN1_ds003474_v1.0
+contract_sha256: e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49
+config_sha256: 3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4
+dataset:
+  openneuro_accession: ds003474
+  version_required: 1.0.1
+  bids_version_seen: 1.6.0
+  bids_version_min: 1.2.0
+  root_hashes:
+    dataset_description.json: 435d4b9fb05662f6e13e476bf4179d8c5072f62a4646cf9dab54a40b0f8947b0
+    participants.tsv: 153db422f9c3b0bb42f54971cb6838a27f1bebb69539c95fcf33d3c141a5ad8d
+    task-pst_eeg.json: 1da0b5ae3372691e213714cdfb65c62580f5e6a7ec1cacdbb1ecd8c7ea88abd2
+ingestion:
+  n_subjects_dirs: 4
+  n_subjects_participants: 4
+  n_ingestion_ok: 4
+  n_ingestion_excluded: 0
+  n_ingestion_flagged: 0
+provenance_risks:
+  n_subjects_with_eog_rule_fired: 4
+  n_subjects_with_interp_rule_fired: 0
+  n_subjects_with_bad_channels_upstream: 0
+provenance_artifacts:
+  ingestion_manifest:
+    path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/ingestion_manifest.json"
+    sha256: 42b0ddb959c031b277caad3921f4693db91ab0bf7200bd72c25f5462032e8c6b
+  subject_index:
+    path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/subject_index.csv"
+    sha256: 32317a100d421875a74068c30c5ed3aedfe61a90347022ca7950a07192889084
+  channel_provenance:
+    path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/channel_provenance.json"
+    sha256: 85d8f01b75fd7fdfcb8bb83f87639b9677d2d9b533d85cf693beb584f2504f04
+  events_provenance:
+    path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/events_provenance.json"
+    sha256: ed5057abd7949428c81493a0914a2250680d4f88e4c9fcbc9d9f91e85d4cb515
+  excluded_subjects:
+    path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/EXCLUDED_SUBJECTS.yaml"
+    sha256: b9b8605b544d51bd896265397c3b92f8a3fd9443ea8e51f194a9f7faa1fa0991
+frozen_at: '2026-04-15T10:47:12+00:00'
+provenance_lock: true

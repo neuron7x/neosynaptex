@@ -1,0 +1,31 @@
+2026-04-15 13:37:49,601 [INFO] ========================================================================
+2026-04-15 13:37:49,602 [INFO] Stage 01 — BIDS ingestion | run_id=RUN1_ds003474_v1.0
+2026-04-15 13:37:49,602 [INFO] bids_root : /nonexistent
+2026-04-15 13:37:49,602 [INFO] contract  : /home/neuro7/Desktop/Системи в системах /neosynaptex/contracts/neurophase_run1.yaml sha256=03a0a3ea3b47…
+2026-04-15 13:37:49,602 [INFO] ========================================================================
+2026-04-15 13:37:49,602 [CRITICAL] bids_root not found: /nonexistent
+2026-04-15 13:47:11,788 [INFO] ========================================================================
+2026-04-15 13:47:11,788 [INFO] Stage 01 — BIDS ingestion | run_id=RUN1_ds003474_v1.0
+2026-04-15 13:47:11,788 [INFO] bids_root : /tmp/synth_ds
+2026-04-15 13:47:11,788 [INFO] contract  : /home/neuro7/Desktop/Системи в системах /neosynaptex/contracts/neurophase_run1.yaml sha256=e404088f9463…
+2026-04-15 13:47:11,788 [INFO] ========================================================================
+2026-04-15 13:47:11,788 [INFO] Root: synth_ds003474_mimic | BIDS 1.6.0 | participants.tsv rows=4
+2026-04-15 13:47:11,789 [INFO] Discovered 4 subject directories.
+2026-04-15 13:47:11,864 [INFO] sub-001 AUDIT [EOG-R01] FLAG: No EOG-typed channels — Fp1/Fp2 proxy required | value=0
+2026-04-15 13:47:11,864 [INFO] sub-001: ok | fdt=125.5MB | ch=65 | ev=240 | eog_typed=0 | interp_upstream=0
+2026-04-15 13:47:11,938 [INFO] sub-002 AUDIT [EOG-R01] FLAG: No EOG-typed channels — Fp1/Fp2 proxy required | value=0
+2026-04-15 13:47:11,938 [INFO] sub-002: ok | fdt=123.8MB | ch=65 | ev=240 | eog_typed=0 | interp_upstream=0
+2026-04-15 13:47:12,011 [INFO] sub-003 AUDIT [EOG-R01] FLAG: No EOG-typed channels — Fp1/Fp2 proxy required | value=0
+2026-04-15 13:47:12,012 [INFO] sub-003: ok | fdt=126.1MB | ch=65 | ev=240 | eog_typed=0 | interp_upstream=0
+2026-04-15 13:47:12,083 [INFO] sub-004 AUDIT [EOG-R01] FLAG: No EOG-typed channels — Fp1/Fp2 proxy required | value=0
+2026-04-15 13:47:12,084 [INFO] sub-004: ok | fdt=124.5MB | ch=65 | ev=240 | eog_typed=0 | interp_upstream=0
+2026-04-15 13:47:12,084 [INFO] Ingestion: 4 OK | 0 excluded | 0 flagged | 0 resumed
+2026-04-15 13:47:12,084 [INFO] Manifest frozen: /home/neuro7/Desktop/Системи в системах /neosynaptex/neurophase/qc/ingestion_manifest.json sha256=42b0ddb959c0…
+2026-04-15 13:47:12,086 [INFO] Provenance freeze written: /home/neuro7/Desktop/Системи в системах /neosynaptex/neurophase/qc/PROVENANCE_FREEZE.yaml
+2026-04-15 13:47:12,088 [INFO] [01_ingest_bids] DONE — proceed to: python3 scripts/neurophase/02_qc.py
+2026-04-15 14:18:42,177 [INFO] ========================================================================
+2026-04-15 14:18:42,179 [INFO] Stage 01 — BIDS ingestion | run_id=RUN1_ds003474_v1.0
+2026-04-15 14:18:42,179 [INFO] bids_root : /home/neuro7/Desktop/Системи в системах /neosynaptex/data/ds003474
+2026-04-15 14:18:42,179 [INFO] contract  : /home/neuro7/Desktop/Системи в системах /neosynaptex/contracts/neurophase_run1.yaml sha256=e404088f9463…
+2026-04-15 14:18:42,179 [INFO] ========================================================================
+2026-04-15 14:18:42,179 [CRITICAL] bids_root not found: /home/neuro7/Desktop/Системи в системах /neosynaptex/data/ds003474

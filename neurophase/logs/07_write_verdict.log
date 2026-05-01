@@ -1,0 +1,9 @@
+2026-04-15 14:06:09,506 [INFO] ========================================================================
+2026-04-15 14:06:09,507 [INFO] FINAL VERDICT
+2026-04-15 14:06:09,507 [INFO]   H1 = REJECTED
+2026-04-15 14:06:09,507 [INFO]   H2 = REJECTED
+2026-04-15 14:06:09,507 [INFO]   Integration ceiling = EEG_TRACK_CLOSED
+2026-04-15 14:06:09,507 [INFO]   Rationale: Update CLAIMS.yaml: FMθ → REJECTED. No further EEG runs.
+2026-04-15 14:06:09,507 [INFO]   Next action: Update CLAIMS.yaml; neurophase EEG track closed.
+2026-04-15 14:06:09,507 [INFO] ========================================================================
+2026-04-15 14:06:09,507 [INFO] Wrote: /home/neuro7/Desktop/Системи в системах /neosynaptex/neurophase/results/RUN1_VERDICT.yaml  (verdict_locked still FALSE — set manually after review)

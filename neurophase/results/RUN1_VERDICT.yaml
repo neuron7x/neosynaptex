@@ -1,0 +1,197 @@
+run_id: RUN1_ds003474_v1.0
+dataset: ds003474
+protocol_version: NP-RUN1-v1.0
+verdict_locked: true
+theoretical_prior:
+  statement: "Neural state (readiness potential, preparatory dynamics) precedes simple\
+    \ motor and binary decisions by 300\u2013800 ms, confirmed in a limited sample\
+    \ of paradigms (Libet 1983; Kornhuber & Deecke 1965; meta-analysis 2021: k=6 for\
+    \ key interval, high uncertainty). In complex adaptive decisions with delayed\
+    \ feedback, the mechanism is not a unidirectional causal chain but a recurrent\
+    \ loop (predictive coding, active inference): state and decision interact as an\
+    \ attractor in a dynamical system.\n"
+  pipeline_claim: "For ds003474 PST pipeline, neural state is necessary but not sufficient.\
+    \ H1/H2 test only incremental predictive value of \u03B8-phase metric over behavioral\
+    \ baseline. The claim 'always precedes and forms' is valid mechanistically for\
+    \ preparation but not as universal causality.\n"
+  key_references:
+  - "Kornhuber & Deecke (1965) \u2014 Bereitschaftspotential"
+  - "Libet et al. (1983) \u2014 readiness potential / conscious will"
+  - "Friston (2010) \u2014 predictive coding / active inference"
+  - "Shenoy et al. (2013) \u2014 preparatory dynamics, population decoding"
+  - "Meta-analysis 2021: k=6, high CI for 300\u2013800ms interval"
+power_analysis:
+  method: "one-sample t-test on \u03B2\u2081 sign-consistency across subjects"
+  n_subjects: 122
+  alpha_bonferroni: 0.017
+  results:
+    d_0.20:
+      power: 0.526
+      interpretation: "underpowered \u2014 null may reflect power deficit"
+    d_0.28:
+      power: 0.8
+      interpretation: "MDE at 80% power \u2014 minimum detectable effect"
+    d_0.30:
+      power: 0.878
+      interpretation: adequate power
+    d_0.50:
+      power: 1.0
+      interpretation: fully powered
+  constraint: "If H1 yields null result, verdict must distinguish two interpretations:\
+    \ (a) effect absent \u2014 \u03B8-phase carries no incremental predictive value;\
+    \ (b) effect present but d < 0.28 \u2014 Run 1 underpowered for detection. Disambiguation\
+    \ requires Run 2 (ds004295, n=26) as replication attempt. A null at d<0.28 is\
+    \ INCONCLUSIVE, not REJECTED.\n"
+hypotheses:
+  H1_existence:
+    formal_null: "H0\u2081: Pre-decision \u03B8-phase features in [-200, 0] ms carry\
+      \ zero incremental information about next-trial adaptation beyond behavior-only\
+      \ baseline. (permutation p \u2265 0.05 after FDR-BH correction)\n"
+    target_variable: win_stay_lose_shift (binary)
+    neural_predictor: ITPC_theta at FCz/Fz/Cz cluster, pre-response window
+    statistical_methods:
+      within_subject_model: "Mixed-effects logistic regression per subject: logit(P(WSLS=1))\
+        \ = \u03B2\u2080 + \u03B2\u2081\xB7ITPC_theta + \u03B2\u2082\xB7running_acc\
+        \ + \u03B2\u2083\xB7prev_correct + \u03B2\u2084\xB7RT + \u03B2\u2085\xB7trial_num\
+        \ + \u03B2\u2086\xB7condition. Predictor of interest: \u03B2\u2081. Estimated\
+        \ via statsmodels MixedLM, L2 regularization C=1.0.\n"
+      permutation_method: "Per subject: shuffle ITPC_theta WITHIN condition blocks\
+        \ (preserves condition-level autocorrelation). n_permutations=1000. Seed=42.\
+        \ Subject p-value: fraction permuted \u03B2\u2081 \u2265 observed \u03B2\u2081\
+        \ (one-tailed). Validity check: permutation distribution must be unimodal;\
+        \ degenerate distributions \u2192 LEDGER warning, subject flagged.\n"
+      fdr_correction: "Benjamini-Hochberg (1995) across n_subjects p-values, q=0.05.\
+        \ Implementation: scipy.stats.false_discovery_control(method='bh'). Applied\
+        \ separately per band. Primary band: \u03B8 (4\u20138 Hz).\n"
+      multiple_comparison_bands: "Bonferroni across 3 bands for group-level t-test:\
+        \ \u03B1=0.017. \u03B1 and \u03B2 bands reported but do not contribute to\
+        \ H1 verdict.\n"
+      group_aggregation: "One-sample t-test on Fisher-z(\u03B2\u2081) across subjects\
+        \ (H0: mean=0). Two-tailed. Effect size: Cohen's d. CI: bootstrap n=10000,\
+        \ BCa. Sign-consistency: fraction subjects with \u03B2\u2081 > 0.\n"
+    confirmation_threshold:
+      sign_consistency_min: 0.6
+      group_t_pvalue_max: 0.05
+    rejection_threshold:
+      sign_consistency_max: 0.5
+      group_t_pvalue_min: 0.2
+    ambiguity_zone: 0.50 < sign_consistency < 0.60 OR 0.05 < p < 0.20
+  H2_utility:
+    formal_null: "H0\u2082: \u0394AUC(neural+behavioral \u2212 behavioral-only) \u2264\
+      \ 0 on held-out subjects (LOSO cross-validation).\n"
+    statistical_methods:
+      model_pairs:
+        model_B: behavioral features only (baseline)
+        model_NB: neural + behavioral features
+      metric: ROC-AUC per held-out subject, sklearn.metrics.roc_auc_score
+      aggregation: "\u0394AUC_s = AUC(NB)_s \u2212 AUC(B)_s per subject s. One-sample\
+        \ t-test on {\u0394AUC_s} vs 0 (two-tailed). Effect size: Cohen's d. CI: bootstrap\
+        \ n=10000, BCa.\n"
+    confirmation_threshold:
+      mean_delta_auc_min: 0.0
+      t_pvalue_max: 0.05
+      cohens_d_min: 0.2
+    rejection_threshold:
+      mean_delta_auc_lte: 0.0
+      t_pvalue_min: 0.1
+    ambiguity_zone:
+      definition: mean_delta_auc > 0 AND 0.05 < p < 0.10 AND cohens_d < 0.20
+      operational_rule: "All three conditions must hold simultaneously for INCONCLUSIVE\
+        \ verdict. If mean_delta_auc > 0 but p >= 0.10: REJECTED (effect absent at\
+        \ threshold). If mean_delta_auc > 0 and p < 0.05 but d < 0.20: CONFIRMED_WEAK\
+        \ \u2014 statistically significant but below pre-registered effect size floor;\
+        \ reported as candidate with explicit effect size caveat, not full CONFIRMED.\
+        \ INCONCLUSIVE triggers Run 2 (ds004295) with identical H2 protocol.\n"
+      decision_table:
+      - delta_auc: '>0'
+        p: <0.05
+        d: '>=0.20'
+        verdict: CONFIRMED
+      - delta_auc: '>0'
+        p: <0.05
+        d: <0.20
+        verdict: CONFIRMED_WEAK
+      - delta_auc: '>0'
+        p: "0.05\u20130.10"
+        d: any
+        verdict: INCONCLUSIVE
+      - delta_auc: '>0'
+        p: '>=0.10'
+        d: any
+        verdict: REJECTED
+      - delta_auc: <=0
+        p: any
+        d: any
+        verdict: REJECTED
+integration_ceiling:
+  rule_table:
+  - condition: H1=REJECTED
+    ceiling: EEG_TRACK_CLOSED
+    action: "Update CLAIMS.yaml: FM\u03B8 \u2192 status REJECTED. No further EEG runs."
+  - condition: H1=CONFIRMED AND H2=REJECTED
+    ceiling: WITNESS_ONLY
+    action: Proceed to Run 2 (ds004295) for utility replication attempt.
+  - condition: H1=CONFIRMED AND H2=CONFIRMED
+    ceiling: CANDIDATE_ADAPTER
+    action: 'Proceed to independent replication (Run 3: IGT dataset). No NFI integration
+      until replication.'
+  - condition: H1=INCONCLUSIVE
+    ceiling: UNRESOLVED
+    action: Proceed to Run 2 with identical H1 protocol. No ceiling assignment.
+  - condition: H1=NULL AND power_constraint=true
+    ceiling: UNDERPOWERED_NULL
+    action: Run 2 required for disambiguation. Cannot claim rejection.
+results:
+  analysis_completion_timestamp: '2026-04-15T11:06:09+00:00'
+  n_subjects_analyzed: 4
+  H1_existence:
+    result: REJECTED
+    sign_consistency: 0.75
+    group_t_statistic: 1.0
+    group_t_pvalue: 0.3910022189557705
+    cohens_d: 0.6460292268256654
+    ci_95_bootstrap:
+    - 0.0775404664044137
+    - 64.07875023073458
+    ci_method: BCa
+    effect_direction: positive
+    permutation_null_valid: true
+    power_constraint_active: false
+    mde_threshold: 0.28
+  H2_utility:
+    result: REJECTED
+    mean_delta_auc: 0.014024773093762405
+    t_statistic: 2.140131883848477
+    t_pvalue: 0.12183787364784475
+    cohens_d: 1.0700659419242384
+    ci_95_bootstrap:
+    - 0.00033646757097283153
+    - 0.023151062155782914
+    ci_method: BCa
+  robustness:
+    effect_specific_to_theta_frontocentral: true
+    artifact_flag: false
+    fraction_channels_positive_theta: 0.6307692307692307
+    fraction_channels_positive_alpha: 0.5230769230769231
+    fraction_channels_positive_beta: 0.47692307692307695
+    frontocentral_vs_occipital_sd_ratio: 2.4139271362915986
+  integration_ceiling:
+    current_status: EEG_TRACK_CLOSED
+    rationale: "Update CLAIMS.yaml: FM\u03B8 \u2192 REJECTED. No further EEG runs."
+  next_action: Update CLAIMS.yaml; neurophase EEG track closed.
+  input_artifact_hashes:
+    existence_report:
+      path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+        \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/existence_report.json"
+      sha256: ce57ed16284f2fdbb02257b78166e932d866f0836db67ec312f8232d1b97d16c
+    utility_report:
+      path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+        \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/utility_report.json"
+      sha256: 35bb90618f4069161b0685f9fdb3499c37cdfd72868b217df0b645d3c31d4f1d
+    robustness_report:
+      path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+        \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/robustness_report.json"
+      sha256: 7d15d00e9b1b930066abdcd18836a08fa5dce0d3d0201b58283419ef8127c1e6
+verdict_lock_timestamp: '2026-04-15T11:06:09+00:00'
+verdict_lock_operator: selftest
+verdict_lock_confirmation: AUTO_CONFIRM

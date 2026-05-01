@@ -1,0 +1,85 @@
+{
+  "run_id": "RUN1_ds003474_v1.0",
+  "contract_sha256": "e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49",
+  "config_sha256": "3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4",
+  "n_subjects_ok": 4,
+  "n_subjects_excluded": 0,
+  "sign_consistency": 0.75,
+  "beta_mean": 24.571724859493628,
+  "beta_sd": 38.03500497992863,
+  "beta_ci95_bootstrap": [
+    0.0775404664044137,
+    64.07875023073458
+  ],
+  "beta_ci_method": "BCa",
+  "group_t_statistic": 1.0,
+  "group_t_pvalue": 0.3910022189557705,
+  "group_bonferroni_alpha": 0.017,
+  "cohens_d": 0.6460292268256654,
+  "mde_cohens_d_threshold": 0.28,
+  "power_constraint_active": false,
+  "effect_direction": "positive",
+  "permutation_null_valid": true,
+  "n_fdr_pass": 1,
+  "fdr_qvalues": [
+    0.388,
+    0.296,
+    0.004,
+    0.296
+  ],
+  "verdict": "REJECTED",
+  "per_subject": [
+    {
+      "status": "ok",
+      "beta1": -8.200182084417976,
+      "se": 24.594999525464434,
+      "p_perm": 0.388,
+      "n_trials": 237,
+      "class_balance": 0.6540084388185654,
+      "permutation_null_valid": true,
+      "n_null_valid": 1000,
+      "null_std": 25.0106041326127,
+      "degeneracy_flags": [],
+      "subject_id": "sub-001"
+    },
+    {
+      "status": "ok",
+      "beta1": 19.040227296279337,
+      "se": 19.800090022881268,
+      "p_perm": 0.171,
+      "n_trials": 239,
+      "class_balance": 0.6485355648535565,
+      "permutation_null_valid": true,
+      "n_null_valid": 1000,
+      "null_std": 20.757063354774775,
+      "degeneracy_flags": [],
+      "subject_id": "sub-002"
+    },
+    {
+      "status": "ok",
+      "beta1": 79.09159120888634,
+      "se": 30.979254015629827,
+      "p_perm": 0.001,
+      "n_trials": 238,
+      "class_balance": 0.6092436974789915,
+      "permutation_null_valid": true,
+      "n_null_valid": 1000,
+      "null_std": 27.575132490727594,
+      "degeneracy_flags": [],
+      "subject_id": "sub-003"
+    },
+    {
+      "status": "ok",
+      "beta1": 8.355263017226804,
+      "se": 11.61628093218246,
+      "p_perm": 0.222,
+      "n_trials": 237,
+      "class_balance": 0.6244725738396625,
+      "permutation_null_valid": true,
+      "n_null_valid": 1000,
+      "null_std": 11.978118941206882,
+      "degeneracy_flags": [],
+      "subject_id": "sub-004"
+    }
+  ]
+}

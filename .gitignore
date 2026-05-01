@@ -60,3 +60,7 @@ reports/semantic_drift/
 # Estimator admissibility trial JSON output — regenerated per CI run.
 # README.md inside the directory is kept under version control.
 evidence/estimator_admissibility/*.json
+
+# Neurophase RUN1 preprocessed epoch artefacts — derivable from raw BIDS,
+# excluded from git; LEDGER + per-subject manifests carry the provenance.
+neurophase/preproc/*.fif

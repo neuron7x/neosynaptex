@@ -1,0 +1,98 @@
+{
+  "sub-001": {
+    "path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_channels.tsv",
+    "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+    "n_channels": 65,
+    "type_distribution": {
+      "EEG": 65
+    },
+    "eog_channels": [],
+    "n_eog_typed": 0,
+    "eog_name_eeg_type": [],
+    "interpolated_channels": [],
+    "n_interpolated": 0,
+    "bad_channels_upstream": [],
+    "needs_fp1fp2_proxy": true,
+    "eog_rules_fired": [
+      {
+        "rule_id": "EOG-R01",
+        "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+        "severity": "FLAG",
+        "value": 0
+      }
+    ],
+    "interp_rules_fired": []
+  },
+  "sub-002": {
+    "path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_channels.tsv",
+    "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+    "n_channels": 65,
+    "type_distribution": {
+      "EEG": 65
+    },
+    "eog_channels": [],
+    "n_eog_typed": 0,
+    "eog_name_eeg_type": [],
+    "interpolated_channels": [],
+    "n_interpolated": 0,
+    "bad_channels_upstream": [],
+    "needs_fp1fp2_proxy": true,
+    "eog_rules_fired": [
+      {
+        "rule_id": "EOG-R01",
+        "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+        "severity": "FLAG",
+        "value": 0
+      }
+    ],
+    "interp_rules_fired": []
+  },
+  "sub-003": {
+    "path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_channels.tsv",
+    "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+    "n_channels": 65,
+    "type_distribution": {
+      "EEG": 65
+    },
+    "eog_channels": [],
+    "n_eog_typed": 0,
+    "eog_name_eeg_type": [],
+    "interpolated_channels": [],
+    "n_interpolated": 0,
+    "bad_channels_upstream": [],
+    "needs_fp1fp2_proxy": true,
+    "eog_rules_fired": [
+      {
+        "rule_id": "EOG-R01",
+        "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+        "severity": "FLAG",
+        "value": 0
+      }
+    ],
+    "interp_rules_fired": []
+  },
+  "sub-004": {
+    "path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_channels.tsv",
+    "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+    "n_channels": 65,
+    "type_distribution": {
+      "EEG": 65
+    },
+    "eog_channels": [],
+    "n_eog_typed": 0,
+    "eog_name_eeg_type": [],
+    "interpolated_channels": [],
+    "n_interpolated": 0,
+    "bad_channels_upstream": [],
+    "needs_fp1fp2_proxy": true,
+    "eog_rules_fired": [
+      {
+        "rule_id": "EOG-R01",
+        "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+        "severity": "FLAG",
+        "value": 0
+      }
+    ],
+    "interp_rules_fired": []
+  }
+}

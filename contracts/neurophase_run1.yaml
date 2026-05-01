@@ -1,0 +1,107 @@
+protocol_id: NP-RUN1-v1.0
+status: ACTIVE
+falsification_mode: fail_closed
+
+dataset:
+  openneuro_accession: ds003474
+  version: "1.0.1"
+  authors: "Cavanagh J.F. et al."
+  task: "probabilistic_selection_task"
+  n_subjects: 122
+  eeg_system: "BrainProducts ActiCHamp 64ch"
+  sampling_rate_hz: 500
+  reference_online: Cz
+  reference_offline: average
+  license: CC0
+  bids_version_min: "1.2.0"
+  url: "https://openneuro.org/datasets/ds003474"
+  lock_rule: "All downstream analysis locked to snapshot 1.0.1. Version change invalidates pipeline."
+
+epistemic_scope:
+  claim_being_tested: "incremental_predictive_value"
+  what_we_do_NOT_claim:
+    - "neural state unidirectionally causes adaptive decision"
+    - "θ-phase is a universal mechanism of decision formation"
+    - "pre-response activity is sufficient for decision"
+  what_we_DO_test:
+    - "whether pre-response θ-phase carries information about next-trial adaptation that is NOT already in a behavior-only baseline"
+    - "whether that information generalizes to held-out subjects (LOSO)"
+  theoretical_frame: >-
+    In complex adaptive decisions with delayed feedback, neural state and
+    decision are coupled as a recurrent loop (predictive coding / active
+    inference), not a one-way causal chain. Readiness-style precedence
+    (Libet 1983; Kornhuber & Deecke 1965; k=6 meta-analytic evidence for
+    the 300–800 ms interval) is mechanistically supported for simple
+    binary/motor decisions but is NOT a universal law for adaptive choice.
+    H1 therefore tests incremental predictive value, not precedence qua
+    causality.
+  reading_of_null_result: >-
+    A null H1 falsifies the θ-phase gate as a candidate adaptive-decision
+    adapter for ds003474. It does NOT falsify readiness-potential-style
+    precedence for simpler paradigms, nor does it rule out other neural
+    signatures (β-desync, single-trial amplitude, cross-frequency coupling)
+    which remain open candidates.
+
+hypotheses:
+  H1:
+    name: neural_incremental_predictive_value_pre_decision
+    claim: "Pre-response EEG ([-200,0] ms) carries INCREMENTAL information about next-trial adaptation BEYOND a behavior-only baseline. Precedence-as-causality is NOT claimed — see epistemic_scope."
+    confirm_threshold:
+      sign_consistency_min: 0.60
+      group_t_pvalue_max: 0.05
+      permutation_correction: fdr_bh
+    reject_threshold:
+      sign_consistency_max: 0.50
+      group_t_pvalue_min: 0.20
+  H2:
+    name: utility_held_out
+    claim: "Neural model improves held-out (LOSO) prediction over behavior-only baseline."
+    confirm_threshold:
+      mean_delta_auc_min: 0.0
+      t_pvalue_max: 0.05
+      cohens_d_min: 0.2
+    reject_threshold:
+      mean_delta_auc_max: 0.0
+      t_pvalue_min: 0.10
+
+integration_ceiling:
+  H1_rejected:
+    status: formally_closed
+    action: "neurophase EEG track closed; FMθ claim → REJECTED"
+  H1_confirmed_H2_rejected:
+    status: witness
+    action: "no gate rights; proceed to Run 2 (ds004295) for utility replication"
+  H1_confirmed_H2_confirmed:
+    status: candidate_adapter
+    action: "requires independent replication (Run 3: IGT) before adapter activation"
+  inconclusive:
+    status: deferred
+    action: "proceed to Run 2 (ds004295) with same H1 protocol"
+
+multiple_comparison_correction:
+  within_subject_electrode: {method: fdr_bh, q: 0.05}
+  across_subject_bands: {method: bonferroni, k: 3, alpha_corrected: 0.017}
+  loso_delta_auc: none  # single planned comparison
+
+reporting_requirements:
+  mandatory_with_every_pvalue:
+    - cohens_d
+    - ci_95_bootstrap_n10000
+    - raw_beta_mean_sd
+
+manual_gates:
+  - stage: 04_qc_review
+    sets: analyst_lock
+    rule: "Must be true before any analysis script runs"
+  - stage: 06_feature_freeze
+    sets: feature_store_readonly
+    rule: "chmod -R a-w features/ after manifest verification"
+  - stage: 10_verdict_lock
+    sets: verdict_locked
+    rule: "Immutable after review"
+
+random_seed: 42
+contract_authors:
+  - neurophase_protocol_v1.0
+contract_sha256: null  # filled by _common.freeze_contract_hash() on first pipeline run
+frozen_at: null

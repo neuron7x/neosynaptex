@@ -1,0 +1,33 @@
+{
+  "run_id": "RUN1_ds003474_v1.0",
+  "contract_sha256": "e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49",
+  "config_sha256": "3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4",
+  "timestamp": "2026-04-15T11:04:52+00:00",
+  "n_subjects": 4,
+  "subjects": [
+    {
+      "subject_id": "sub-001",
+      "file": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/features/sub-001_features.h5",
+      "n_epochs": 238,
+      "sha256": "9645950d4e798314410dcb4c304ec8ddcc705d925fb779f3075c574505e717a8"
+    },
+    {
+      "subject_id": "sub-002",
+      "file": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/features/sub-002_features.h5",
+      "n_epochs": 240,
+      "sha256": "58f64634b3b1c71d380a29868f97450a035693fbb5e53b52ed335d47a8bf0537"
+    },
+    {
+      "subject_id": "sub-003",
+      "file": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/features/sub-003_features.h5",
+      "n_epochs": 239,
+      "sha256": "f3c62726cb588486aaf9882320f1bcc6885d539a9cd1c354447b6cbbe19e8148"
+    },
+    {
+      "subject_id": "sub-004",
+      "file": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/features/sub-004_features.h5",
+      "n_epochs": 238,
+      "sha256": "f7c0b364bfe3ccc499fb3a3366ec4a71df7648521b86e32c28569ed30388d31b"
+    }
+  ]
+}

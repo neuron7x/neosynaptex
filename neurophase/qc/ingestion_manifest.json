@@ -1,0 +1,295 @@
+{
+  "run_id": "RUN1_ds003474_v1.0",
+  "stage": "01_ingest_bids",
+  "contract_sha256": "e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49",
+  "config_sha256": "3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4",
+  "timestamp": "2026-04-15T10:47:12+00:00",
+  "bids_root": "/tmp/synth_ds",
+  "dataset_name": "synth_ds003474_mimic",
+  "bids_version": "1.6.0",
+  "root_hashes": {
+    "dataset_description.json": "435d4b9fb05662f6e13e476bf4179d8c5072f62a4646cf9dab54a40b0f8947b0",
+    "participants.tsv": "153db422f9c3b0bb42f54971cb6838a27f1bebb69539c95fcf33d3c141a5ad8d",
+    "task-pst_eeg.json": "1da0b5ae3372691e213714cdfb65c62580f5e6a7ec1cacdbb1ecd8c7ea88abd2"
+  },
+  "n_subjects_discovered": 4,
+  "n_ok": 4,
+  "n_excluded": 0,
+  "n_flagged": 0,
+  "n_resumed": 0,
+  "manifest_frozen": false,
+  "subjects": [
+    {
+      "subject_id": "sub-001",
+      "eeg_set_path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_eeg.set",
+      "eeg_fdt_path": null,
+      "events_path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_events.tsv",
+      "channels_path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_channels.tsv",
+      "electrodes_path": null,
+      "eeg_set_sha256": "d320070002584308b2a6d0caf22622059512a7f61b81744e84cd1094b91ede58",
+      "events_sha256": "a8645d81a79a03367fe1c47fdcb622b36ded6a09bf8aac9a1acf6b28dd00e714",
+      "channels_sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+      "fdt_size_bytes": 125519072,
+      "size_anomaly": false,
+      "status": "ok",
+      "exclusion_reason": null,
+      "flags": [],
+      "ingestion_timestamp": "2026-04-15T10:47:11+00:00",
+      "channels_audit": {
+        "path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_channels.tsv",
+        "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+        "n_channels": 65,
+        "type_distribution": {
+          "EEG": 65
+        },
+        "eog_channels": [],
+        "n_eog_typed": 0,
+        "eog_name_eeg_type": [],
+        "interpolated_channels": [],
+        "n_interpolated": 0,
+        "bad_channels_upstream": [],
+        "needs_fp1fp2_proxy": true,
+        "eog_rules_fired": [
+          {
+            "rule_id": "EOG-R01",
+            "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+            "severity": "FLAG",
+            "value": 0
+          }
+        ],
+        "interp_rules_fired": []
+      },
+      "events_audit": {
+        "path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_events.tsv",
+        "sha256": "a8645d81a79a03367fe1c47fdcb622b36ded6a09bf8aac9a1acf6b28dd00e714",
+        "n_rows": 240,
+        "columns_seen": [
+          "onset",
+          "duration",
+          "trial_type",
+          "response_time",
+          "correct",
+          "feedback",
+          "block"
+        ],
+        "mandatory_missing": [],
+        "missing_fraction_per_column": {
+          "onset": 0.0,
+          "duration": 0.0,
+          "trial_type": 0.0,
+          "response_time": 0.0,
+          "correct": 0.0,
+          "feedback": 0.0,
+          "block": 0.0
+        },
+        "over_10pct_missing": [],
+        "count_anomaly": false
+      },
+      "is_paired_set_fdt": false
+    },
+    {
+      "subject_id": "sub-002",
+      "eeg_set_path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_eeg.set",
+      "eeg_fdt_path": null,
+      "events_path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_events.tsv",
+      "channels_path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_channels.tsv",
+      "electrodes_path": null,
+      "eeg_set_sha256": "15087eab107b66b503608bff8c4f88e11e2273ccf4b76f2a466d5a1c3509d19f",
+      "events_sha256": "432266ed0a8e58f8565be1708791bb623f5073caf8f081f04f8de291e3f847b4",
+      "channels_sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+      "fdt_size_bytes": 123838688,
+      "size_anomaly": false,
+      "status": "ok",
+      "exclusion_reason": null,
+      "flags": [],
+      "ingestion_timestamp": "2026-04-15T10:47:11+00:00",
+      "channels_audit": {
+        "path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_channels.tsv",
+        "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+        "n_channels": 65,
+        "type_distribution": {
+          "EEG": 65
+        },
+        "eog_channels": [],
+        "n_eog_typed": 0,
+        "eog_name_eeg_type": [],
+        "interpolated_channels": [],
+        "n_interpolated": 0,
+        "bad_channels_upstream": [],
+        "needs_fp1fp2_proxy": true,
+        "eog_rules_fired": [
+          {
+            "rule_id": "EOG-R01",
+            "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+            "severity": "FLAG",
+            "value": 0
+          }
+        ],
+        "interp_rules_fired": []
+      },
+      "events_audit": {
+        "path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_events.tsv",
+        "sha256": "432266ed0a8e58f8565be1708791bb623f5073caf8f081f04f8de291e3f847b4",
+        "n_rows": 240,
+        "columns_seen": [
+          "onset",
+          "duration",
+          "trial_type",
+          "response_time",
+          "correct",
+          "feedback",
+          "block"
+        ],
+        "mandatory_missing": [],
+        "missing_fraction_per_column": {
+          "onset": 0.0,
+          "duration": 0.0,
+          "trial_type": 0.0,
+          "response_time": 0.0,
+          "correct": 0.0,
+          "feedback": 0.0,
+          "block": 0.0
+        },
+        "over_10pct_missing": [],
+        "count_anomaly": false
+      },
+      "is_paired_set_fdt": false
+    },
+    {
+      "subject_id": "sub-003",
+      "eeg_set_path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_eeg.set",
+      "eeg_fdt_path": null,
+      "events_path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_events.tsv",
+      "channels_path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_channels.tsv",
+      "electrodes_path": null,
+      "eeg_set_sha256": "801ddce59acf4b65f7530ae15ebe6e1033a864e36569a9ecb1740b7e16b8dbc3",
+      "events_sha256": "9517ead5478d6656e39bc8d88bcb1be2b968eed7b6a787dc112f702f4e675aeb",
+      "channels_sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+      "fdt_size_bytes": 126053368,
+      "size_anomaly": false,
+      "status": "ok",
+      "exclusion_reason": null,
+      "flags": [],
+      "ingestion_timestamp": "2026-04-15T10:47:11+00:00",
+      "channels_audit": {
+        "path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_channels.tsv",
+        "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+        "n_channels": 65,
+        "type_distribution": {
+          "EEG": 65
+        },
+        "eog_channels": [],
+        "n_eog_typed": 0,
+        "eog_name_eeg_type": [],
+        "interpolated_channels": [],
+        "n_interpolated": 0,
+        "bad_channels_upstream": [],
+        "needs_fp1fp2_proxy": true,
+        "eog_rules_fired": [
+          {
+            "rule_id": "EOG-R01",
+            "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+            "severity": "FLAG",
+            "value": 0
+          }
+        ],
+        "interp_rules_fired": []
+      },
+      "events_audit": {
+        "path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_events.tsv",
+        "sha256": "9517ead5478d6656e39bc8d88bcb1be2b968eed7b6a787dc112f702f4e675aeb",
+        "n_rows": 240,
+        "columns_seen": [
+          "onset",
+          "duration",
+          "trial_type",
+          "response_time",
+          "correct",
+          "feedback",
+          "block"
+        ],
+        "mandatory_missing": [],
+        "missing_fraction_per_column": {
+          "onset": 0.0,
+          "duration": 0.0,
+          "trial_type": 0.0,
+          "response_time": 0.0,
+          "correct": 0.0,
+          "feedback": 0.0,
+          "block": 0.0
+        },
+        "over_10pct_missing": [],
+        "count_anomaly": false
+      },
+      "is_paired_set_fdt": false
+    },
+    {
+      "subject_id": "sub-004",
+      "eeg_set_path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_eeg.set",
+      "eeg_fdt_path": null,
+      "events_path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_events.tsv",
+      "channels_path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_channels.tsv",
+      "electrodes_path": null,
+      "eeg_set_sha256": "418eae2f3ed0158a06760f0750c9d4de2cff71e3b5cf40a47d299e80fbd3e0ef",
+      "events_sha256": "0dcf69416a791442fcc1520351ea9dde0e1f33c569ad149a0a0f8c310411f994",
+      "channels_sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+      "fdt_size_bytes": 124510272,
+      "size_anomaly": false,
+      "status": "ok",
+      "exclusion_reason": null,
+      "flags": [],
+      "ingestion_timestamp": "2026-04-15T10:47:12+00:00",
+      "channels_audit": {
+        "path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_channels.tsv",
+        "sha256": "f2ad698d4cc387353f57a61c233d6b43d4fd93d16a18419e8962365345417138",
+        "n_channels": 65,
+        "type_distribution": {
+          "EEG": 65
+        },
+        "eog_channels": [],
+        "n_eog_typed": 0,
+        "eog_name_eeg_type": [],
+        "interpolated_channels": [],
+        "n_interpolated": 0,
+        "bad_channels_upstream": [],
+        "needs_fp1fp2_proxy": true,
+        "eog_rules_fired": [
+          {
+            "rule_id": "EOG-R01",
+            "description": "No EOG-typed channels \u2014 Fp1/Fp2 proxy required",
+            "severity": "FLAG",
+            "value": 0
+          }
+        ],
+        "interp_rules_fired": []
+      },
+      "events_audit": {
+        "path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_events.tsv",
+        "sha256": "0dcf69416a791442fcc1520351ea9dde0e1f33c569ad149a0a0f8c310411f994",
+        "n_rows": 240,
+        "columns_seen": [
+          "onset",
+          "duration",
+          "trial_type",
+          "response_time",
+          "correct",
+          "feedback",
+          "block"
+        ],
+        "mandatory_missing": [],
+        "missing_fraction_per_column": {
+          "onset": 0.0,
+          "duration": 0.0,
+          "trial_type": 0.0,
+          "response_time": 0.0,
+          "correct": 0.0,
+          "feedback": 0.0,
+          "block": 0.0
+        },
+        "over_10pct_missing": [],
+        "count_anomaly": false
+      },
+      "is_paired_set_fdt": false
+    }
+  ]
+}

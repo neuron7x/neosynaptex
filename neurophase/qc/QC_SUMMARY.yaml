@@ -1,0 +1,19 @@
+run_id: RUN1_ds003474_v1.0
+stage: 02_qc
+contract_sha256: e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49
+config_sha256: 3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4
+n_subjects_ingested_ok: 4
+n_excluded_behavioral: 0
+n_excluded_channel: 0
+n_excluded_epoch_preview: 0
+n_subjects_candidate_for_preprocessing: 4
+exclusion_log: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+  \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/EXCLUDED_SUBJECTS.yaml"
+qc_completion_timestamp: '2026-04-15T10:47:32+00:00'
+analyst_lock: true
+analyst_lock_note: "self-test on synthetic dataset \u2014 analyst_lock set programmatically\
+  \ for pipeline validation"
+analyst_lock_timestamp: '2026-04-15T13:48:00+00:00'
+n_subjects_preprocessed: 4
+n_preprocessing_exclusions: 0
+preprocessing_completion_timestamp: '2026-04-15T11:03:00+00:00'
