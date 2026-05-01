@@ -1,0 +1,24 @@
+2026-04-15 14:06:09,665 [INFO] ========================================================================
+2026-04-15 14:06:09,665 [INFO] Gate M3 — verdict lock (programmatic)
+2026-04-15 14:06:09,665 [INFO] ========================================================================
+2026-04-15 14:06:09,665 [INFO] assertion PASS: RUN1_VERDICT.yaml exists — /home/neuro7/Desktop/Системи в системах /neosynaptex/neurophase/results/RUN1_VERDICT.yaml
+2026-04-15 14:06:09,671 [INFO] assertion PASS: verdict_locked is False (not already locked) — value=False
+2026-04-15 14:06:09,671 [INFO] assertion PASS: H1 result is a recognized label — h1=REJECTED
+2026-04-15 14:06:09,671 [INFO] assertion PASS: H2 result is a recognized label — h2=REJECTED
+2026-04-15 14:06:09,671 [INFO] assertion PASS: integration_ceiling.current_status is set — ceiling=EEG_TRACK_CLOSED
+2026-04-15 14:06:09,671 [INFO] assertion PASS: existence_report SHA-256 stable since write_verdict — disk=ce57ed16284f… vs recorded=ce57ed16284f…
+2026-04-15 14:06:09,672 [INFO] assertion PASS: utility_report SHA-256 stable since write_verdict — disk=35bb90618f40… vs recorded=35bb90618f40…
+2026-04-15 14:06:09,672 [INFO] assertion PASS: robustness_report SHA-256 stable since write_verdict — disk=7d15d00e9b1b… vs recorded=7d15d00e9b1b…
+2026-04-15 14:06:09,679 [INFO] assertion PASS: LEDGER has 04_existence_test ok — recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test', 'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness', 'ok'), ('07_write_verdict', 'ok')]
+2026-04-15 14:06:09,679 [INFO] assertion PASS: LEDGER has 05_utility_test ok — recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test', 'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness', 'ok'), ('07_write_verdict', 'ok')]
+2026-04-15 14:06:09,679 [INFO] assertion PASS: LEDGER has 06_robustness ok — recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test', 'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness', 'ok'), ('07_write_verdict', 'ok')]
+2026-04-15 14:06:09,679 [INFO] assertion PASS: LEDGER has 07_write_verdict ok — recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test', 'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness', 'ok'), ('07_write_verdict', 'ok')]
+2026-04-15 14:06:09,679 [INFO] assertion PASS: artifact_flag is not True, or ceiling is INVALID — artifact_flag=False, ceiling=EEG_TRACK_CLOSED
+2026-04-15 14:06:09,679 [INFO] about to lock verdict for RUN1_ds003474_v1.0:
+2026-04-15 14:06:09,679 [INFO]     H1 = REJECTED
+2026-04-15 14:06:09,679 [INFO]     H2 = REJECTED
+2026-04-15 14:06:09,679 [INFO]     ceiling = EEG_TRACK_CLOSED
+2026-04-15 14:06:09,679 [INFO]     next_action = Update CLAIMS.yaml; neurophase EEG track closed.
+2026-04-15 14:06:09,679 [WARNING] --auto_confirm used — human prompt bypassed; logged in LEDGER
+2026-04-15 14:06:09,697 [INFO] verdict_locked: true written + file frozen (sha256=7069787af639d8fc…)
+2026-04-15 14:06:09,697 [INFO] END OF RUN 1.

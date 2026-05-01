@@ -1,0 +1,106 @@
+{
+  "sub-001": {
+    "path": "/tmp/synth_ds/sub-001/eeg/sub-001_task-pst_events.tsv",
+    "sha256": "a8645d81a79a03367fe1c47fdcb622b36ded6a09bf8aac9a1acf6b28dd00e714",
+    "n_rows": 240,
+    "columns_seen": [
+      "onset",
+      "duration",
+      "trial_type",
+      "response_time",
+      "correct",
+      "feedback",
+      "block"
+    ],
+    "mandatory_missing": [],
+    "missing_fraction_per_column": {
+      "onset": 0.0,
+      "duration": 0.0,
+      "trial_type": 0.0,
+      "response_time": 0.0,
+      "correct": 0.0,
+      "feedback": 0.0,
+      "block": 0.0
+    },
+    "over_10pct_missing": [],
+    "count_anomaly": false
+  },
+  "sub-002": {
+    "path": "/tmp/synth_ds/sub-002/eeg/sub-002_task-pst_events.tsv",
+    "sha256": "432266ed0a8e58f8565be1708791bb623f5073caf8f081f04f8de291e3f847b4",
+    "n_rows": 240,
+    "columns_seen": [
+      "onset",
+      "duration",
+      "trial_type",
+      "response_time",
+      "correct",
+      "feedback",
+      "block"
+    ],
+    "mandatory_missing": [],
+    "missing_fraction_per_column": {
+      "onset": 0.0,
+      "duration": 0.0,
+      "trial_type": 0.0,
+      "response_time": 0.0,
+      "correct": 0.0,
+      "feedback": 0.0,
+      "block": 0.0
+    },
+    "over_10pct_missing": [],
+    "count_anomaly": false
+  },
+  "sub-003": {
+    "path": "/tmp/synth_ds/sub-003/eeg/sub-003_task-pst_events.tsv",
+    "sha256": "9517ead5478d6656e39bc8d88bcb1be2b968eed7b6a787dc112f702f4e675aeb",
+    "n_rows": 240,
+    "columns_seen": [
+      "onset",
+      "duration",
+      "trial_type",
+      "response_time",
+      "correct",
+      "feedback",
+      "block"
+    ],
+    "mandatory_missing": [],
+    "missing_fraction_per_column": {
+      "onset": 0.0,
+      "duration": 0.0,
+      "trial_type": 0.0,
+      "response_time": 0.0,
+      "correct": 0.0,
+      "feedback": 0.0,
+      "block": 0.0
+    },
+    "over_10pct_missing": [],
+    "count_anomaly": false
+  },
+  "sub-004": {
+    "path": "/tmp/synth_ds/sub-004/eeg/sub-004_task-pst_events.tsv",
+    "sha256": "0dcf69416a791442fcc1520351ea9dde0e1f33c569ad149a0a0f8c310411f994",
+    "n_rows": 240,
+    "columns_seen": [
+      "onset",
+      "duration",
+      "trial_type",
+      "response_time",
+      "correct",
+      "feedback",
+      "block"
+    ],
+    "mandatory_missing": [],
+    "missing_fraction_per_column": {
+      "onset": 0.0,
+      "duration": 0.0,
+      "trial_type": 0.0,
+      "response_time": 0.0,
+      "correct": 0.0,
+      "feedback": 0.0,
+      "block": 0.0
+    },
+    "over_10pct_missing": [],
+    "count_anomaly": false
+  }
+}

@@ -1,0 +1,12 @@
+2026-04-15 14:06:00,562 [INFO] ========================================================================
+2026-04-15 14:06:00,562 [INFO] Stage 06 — robustness | n_subjects=4 | bands=('itpc_theta', 'itpc_alpha', 'itpc_beta')
+2026-04-15 14:06:00,562 [INFO] artifact_threshold frac_positive > 0.9 in ALL bands
+2026-04-15 14:06:00,562 [INFO] specificity margin: frontocentral > occipital + 0.5×SD
+2026-04-15 14:06:00,562 [INFO] ========================================================================
+2026-04-15 14:06:00,665 [INFO] sub-001: beta maps computed
+2026-04-15 14:06:00,767 [INFO] sub-002: beta maps computed
+2026-04-15 14:06:00,867 [INFO] sub-003: beta maps computed
+2026-04-15 14:06:00,969 [INFO] sub-004: beta maps computed
+2026-04-15 14:06:00,980 [INFO] frac_positive: θ=0.631  α=0.523  β=0.477
+2026-04-15 14:06:00,980 [INFO] θ frontocentral mean=13.177368164273775, occipital mean=2.009338467276813, FC-OC/SD=2.4139271362915986
+2026-04-15 14:06:00,980 [INFO] artifact_flag=False  topographic_specificity_ok=True

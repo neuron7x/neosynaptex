@@ -1,0 +1,301 @@
+- stage: 00_scaffold
+  run_id: RUN1_ds003474_v1.0
+  timestamp: '2026-04-15T12:54:00+00:00'
+  input:
+    contract: contracts/neurophase_run1.yaml
+    config: config/neurophase_run1.yaml
+  output:
+    scripts:
+    - scripts/neurophase/_common.py
+    - scripts/neurophase/01_ingest_bids.py
+    - scripts/neurophase/02_channel_qc.py
+    - scripts/neurophase/03_preprocess.py
+    - scripts/neurophase/03b_feature_extract.py
+    - scripts/neurophase/04_existence_test.py
+    - scripts/neurophase/05_utility_test.py
+    - scripts/neurophase/06_robustness.py
+    docs:
+    - docs/neurophase/RUN1_PROTOCOL.md
+    - docs/neurophase/RUN1_EXECUTION.md
+  status: ok
+  note: Scaffold only. Dataset ds003474 not yet acquired on this host. Subsequent
+    entries will be appended automatically by pipeline stages.
+- stage: 01_ingest_bids
+  input:
+    bids_root: /tmp/synth_ds
+    contract_sha256: e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49
+    config_sha256: 3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4
+  output:
+    manifest: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/ingestion_manifest.json"
+    manifest_sha256: 42b0ddb959c031b277caad3921f4693db91ab0bf7200bd72c25f5462032e8c6b
+    provenance_freeze: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438\
+      \ \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/PROVENANCE_FREEZE.yaml"
+    provenance_freeze_sha256: e59c88914c6b3635d0612de8035eb8cb37e88bc39b44d0ad5e6c7e267267c3dc
+    channel_provenance_sha256: 85d8f01b75fd7fdfcb8bb83f87639b9677d2d9b533d85cf693beb584f2504f04
+    events_provenance_sha256: ed5057abd7949428c81493a0914a2250680d4f88e4c9fcbc9d9f91e85d4cb515
+    n_ok: 4
+    n_excluded: 0
+    n_flagged: 0
+    eog_rule_flags: 4
+    interp_rule_flags: 0
+  status: ok
+  timestamp: '2026-04-15T10:47:12+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 02_qc
+  input:
+    manifest_sha256: 42b0ddb959c031b277caad3921f4693db91ab0bf7200bd72c25f5462032e8c6b
+  output:
+    aggregate: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/qc_aggregate.json"
+    aggregate_sha256: bf43a0d308a1db88961a9aca81551c51c6cb045fd068af0bd662cfe17c17600e
+    summary: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/QC_SUMMARY.yaml"
+    summary_sha256: daa043cdf0ceb2f51e54d2bf1d0bc323f2477ac3322726f5aa5262d13dad5976
+    n_candidate_preproc: 4
+    n_excluded_behavioral: 0
+    n_excluded_channel: 0
+    n_excluded_epoch_preview: 0
+  status: ok
+  timestamp: '2026-04-15T10:47:32+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 03_preprocess
+  output:
+    aggregate: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/qc/preprocess_aggregate.json"
+    sha256: f12a8e0c0fc9b51b611d4d59ee9c5b434c93092e0752bbb829e7f67b95b81a2c
+    preproc_dir: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438\
+      \ \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/preproc"
+    n_ok: 4
+    n_excluded: 0
+  status: ok
+  timestamp: '2026-04-15T11:03:00+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 03b_feature_extract
+  output:
+    features_dir: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438\
+      \ \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features"
+    manifest: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features/FEATURE_STORE_MANIFEST.json"
+    manifest_sha256: b514d29af448081cc1cd56e8d1f5589265069c6db690a0aee73f71f8e841c406
+    n_subjects: 0
+  status: ok
+  timestamp: '2026-04-15T11:03:31+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 03b_feature_extract
+  output:
+    features_dir: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438\
+      \ \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features"
+    manifest: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features/FEATURE_STORE_MANIFEST.json"
+    manifest_sha256: 89d926e614b852227d777a014d194d24f437600a3976171d884b5ac14a1c4cf6
+    n_subjects: 0
+  status: ok
+  timestamp: '2026-04-15T11:03:58+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 03b_feature_extract
+  output:
+    features_dir: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438\
+      \ \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features"
+    manifest: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features/FEATURE_STORE_MANIFEST.json"
+    manifest_sha256: 2bdea07bd94bbffd19653072c070fed1133dd1b923d2141c7de9f04ecd9ec088
+    n_subjects: 4
+  status: ok
+  timestamp: '2026-04-15T11:04:52+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: gate_m2_freeze_features
+  status: ok
+  assertions:
+  - check: features_dir exists
+    status: PASS
+    detail: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features"
+  - check: FEATURE_STORE_MANIFEST.json exists
+    status: PASS
+    detail: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/features/FEATURE_STORE_MANIFEST.json"
+  - check: no untracked *_features.h5 files
+    status: PASS
+    detail: unknown=[]
+  - check: no manifest entries missing on disk
+    status: PASS
+    detail: missing=[]
+  - check: hash match for sub-001
+    status: PASS
+    detail: "9645950d4e79\u2026 vs 9645950d4e79\u2026"
+  - check: hash match for sub-002
+    status: PASS
+    detail: "58f64634b3b1\u2026 vs 58f64634b3b1\u2026"
+  - check: hash match for sub-003
+    status: PASS
+    detail: "f3c62726cb58\u2026 vs f3c62726cb58\u2026"
+  - check: hash match for sub-004
+    status: PASS
+    detail: "f7c0b364bfe3\u2026 vs f7c0b364bfe3\u2026"
+  confirmation: AUTO_CONFIRM
+  operator: selftest
+  manifest_sha256_post_freeze: 2bdea07bd94bbffd19653072c070fed1133dd1b923d2141c7de9f04ecd9ec088
+  n_frozen: 4
+  timestamp: '2026-04-15T11:04:58+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 04_existence_test
+  output:
+    report: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/existence_report.json"
+    sha256: 3f082c4de8b5bc7a21d74da62fd0dc8aa0786ef366f0e6f2fe2b2008dd65485c
+    verdict: INCONCLUSIVE
+    cohens_d: 0.6460292268256654
+    sign_consistency: 0.75
+    group_p: .nan
+    power_constraint_active: false
+  status: ok
+  timestamp: '2026-04-15T11:05:05+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 04_existence_test
+  output:
+    report: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/existence_report.json"
+    sha256: ce57ed16284f2fdbb02257b78166e932d866f0836db67ec312f8232d1b97d16c
+    verdict: REJECTED
+    cohens_d: 0.6460292268256654
+    sign_consistency: 0.75
+    group_p: 0.3910022189557705
+    power_constraint_active: false
+  status: ok
+  timestamp: '2026-04-15T11:05:28+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 05_utility_test
+  output:
+    report: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/utility_report.json"
+    sha256: 35bb90618f4069161b0685f9fdb3499c37cdfd72868b217df0b645d3c31d4f1d
+    verdict: REJECTED
+    mean_delta_NB_B: 0.014024773093762405
+    t_p: 0.12183787364784475
+    cohens_d: 1.0700659419242384
+  status: ok
+  timestamp: '2026-04-15T11:05:51+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 06_robustness
+  output:
+    report: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/robustness_report.json"
+    sha256: 7d15d00e9b1b930066abdcd18836a08fa5dce0d3d0201b58283419ef8127c1e6
+    artifact_flag: false
+    fraction_positive_by_band:
+      itpc_theta: 0.6307692307692307
+      itpc_alpha: 0.5230769230769231
+      itpc_beta: 0.47692307692307695
+    topographic_specificity_ok: true
+    frontocentral_vs_occipital_sd_ratio: 2.4139271362915986
+  status: ok
+  timestamp: '2026-04-15T11:06:00+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: 07_write_verdict
+  output:
+    verdict_path: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438\
+      \ \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/RUN1_VERDICT.yaml"
+    verdict_sha256: 59cded6a76a5421051d998a4c22c041dbdbfce17b5d184ba76b29bb497e5eca6
+    ceiling: EEG_TRACK_CLOSED
+    h1: REJECTED
+    h2: REJECTED
+    artifact_flag: false
+  status: ok
+  timestamp: '2026-04-15T11:06:09+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: gate_m3_verdict_lock
+  status: ok
+  assertions:
+  - check: RUN1_VERDICT.yaml exists
+    status: PASS
+    detail: "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043C\u0438 \u0432\
+      \ \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0445 /neosynaptex/neurophase/results/RUN1_VERDICT.yaml"
+  - check: verdict_locked is False (not already locked)
+    status: PASS
+    detail: value=False
+  - check: H1 result is a recognized label
+    status: PASS
+    detail: h1=REJECTED
+  - check: H2 result is a recognized label
+    status: PASS
+    detail: h2=REJECTED
+  - check: integration_ceiling.current_status is set
+    status: PASS
+    detail: ceiling=EEG_TRACK_CLOSED
+  - check: existence_report SHA-256 stable since write_verdict
+    status: PASS
+    detail: "disk=ce57ed16284f\u2026 vs recorded=ce57ed16284f\u2026"
+  - check: utility_report SHA-256 stable since write_verdict
+    status: PASS
+    detail: "disk=35bb90618f40\u2026 vs recorded=35bb90618f40\u2026"
+  - check: robustness_report SHA-256 stable since write_verdict
+    status: PASS
+    detail: "disk=7d15d00e9b1b\u2026 vs recorded=7d15d00e9b1b\u2026"
+  - check: LEDGER has 04_existence_test ok
+    status: PASS
+    detail: recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test',
+      'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness',
+      'ok'), ('07_write_verdict', 'ok')]
+  - check: LEDGER has 05_utility_test ok
+    status: PASS
+    detail: recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test',
+      'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness',
+      'ok'), ('07_write_verdict', 'ok')]
+  - check: LEDGER has 06_robustness ok
+    status: PASS
+    detail: recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test',
+      'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness',
+      'ok'), ('07_write_verdict', 'ok')]
+  - check: LEDGER has 07_write_verdict ok
+    status: PASS
+    detail: recent_stages=[('gate_m2_freeze_features', 'ok'), ('04_existence_test',
+      'ok'), ('04_existence_test', 'ok'), ('05_utility_test', 'ok'), ('06_robustness',
+      'ok'), ('07_write_verdict', 'ok')]
+  - check: artifact_flag is not True, or ceiling is INVALID
+    status: PASS
+    detail: artifact_flag=False, ceiling=EEG_TRACK_CLOSED
+  confirmation: AUTO_CONFIRM
+  operator: selftest
+  verdict_sha256_post_lock: 7069787af639d8fcb9f3ef719a7255c2a522a92e35901011c97b2e303155bb4b
+  h1_final: REJECTED
+  h2_final: REJECTED
+  ceiling_final: EEG_TRACK_CLOSED
+  timestamp: '2026-04-15T11:06:09+00:00'
+  run_id: RUN1_ds003474_v1.0
+- stage: protocol_frozen
+  run_id: RUN1_ds003474_v1.0
+  timestamp: '2026-04-15T11:15:42+00:00'
+  input:
+    protocol_doc: docs/neurophase/RUN1_EXECUTION_PROTOCOL.md
+    protocol_sha256: 478c2762527477782e3412f47d9d562f638679b6638298a6b15339dad4c488f4
+    contract_sha256: e404088f9463fbdf50e9843387c6d60412cc35d3016ceb6109f27e53e6204a49
+    config_sha256: 3e809812032bc1f22b62435fdf6337754fd6f9deb34449a3db7c4df00a2770f4
+  audit:
+    threshold_checks: 35/35 PASS
+    scripts_verified:
+    - scripts/neurophase/01_ingest_bids.py
+    - scripts/neurophase/02_qc.py
+    - scripts/neurophase/03_preprocess.py
+    - scripts/neurophase/03b_feature_extract.py
+    - scripts/neurophase/04_existence_test.py
+    - scripts/neurophase/05_utility_test.py
+    - scripts/neurophase/06_robustness.py
+    - scripts/neurophase/07_write_verdict.py
+    - scripts/neurophase/gate_m1_qc_lock.py
+    - scripts/neurophase/gate_m2_freeze_features.py
+    - scripts/neurophase/gate_m3_verdict_lock.py
+    - scripts/neurophase/_common.py
+    - scripts/neurophase/tests/synth_bids.py
+    synth_self_test: "PASSED (n=4, 3 positive + 1 negative) \u2014 verdict artifact\
+      \ locked with SHA"
+    prohibitions:
+    - no threshold changes
+    - no feature definition changes
+    - no model changes
+    - no result-tuned adjustments
+    - no manual exclusions without ledger entry
+  status: ok
+  note: "Protocol NP-RUN1-EXEC-v1.0 frozen. Code thresholds verified against protocol\
+    \ document \u2014 35/35 PASS. Scripts are now immutable for Run 1. Any deviation\
+    \ requires a new run_id and full protocol republication."

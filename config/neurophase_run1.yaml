@@ -1,0 +1,99 @@
+run_id: RUN1_ds003474_v1.0
+contract: contracts/neurophase_run1.yaml
+random_seed: 42
+
+paths:
+  bids_root: data/ds003474            # set via CLI --bids_root if elsewhere
+  out_root: neurophase
+  qc_dir: neurophase/qc
+  preproc_dir: neurophase/preproc
+  features_dir: neurophase/features
+  results_dir: neurophase/results
+  ledger: neurophase/LEDGER.yaml
+
+required_files:
+  - "*_task-pst_eeg.set"
+  - "*_task-pst_eeg.fdt"
+  - "*_task-pst_events.tsv"
+  - "*_task-pst_channels.tsv"
+
+eeg_size_bounds_bytes:
+  min: 50_000_000
+  max: 2_000_000_000
+
+events_mandatory_columns:
+  - onset
+  - duration
+  - trial_type
+  - response_time
+  - correct
+  - feedback
+  - block
+
+channel_qc:
+  flat_threshold_uV: 0.5
+  noise_zscore: 3.5
+  bad_channel_fraction_max: 0.15   # >15% of 64 → exclude subject
+
+epoch_qc:
+  peak_to_peak_uV_max: 150
+  eog_proxy_amp_uV_max: 100
+  muscle_hf_band_hz: [75, 100]
+  muscle_sigma_multiple: 3.0
+  min_epochs_per_condition: 20
+  min_epochs_total: 100
+
+behavioral_qc:
+  ab_accuracy_last50_min: 0.55
+  ab_accuracy_last50_max: 0.95
+  rt_min_ms: 100
+  rt_max_ms: 4000
+  missing_responses_max_fraction: 0.20
+
+ica:
+  n_components: 20
+  fit_band_hz: [1.0, 40.0]
+  eog_correlation_threshold: 0.8
+  max_components_removed: 3
+
+preprocessing:
+  bandpass_hz: [0.1, 40.0]
+  notch_hz: 50
+  reference: average
+  montage: standard_1020
+  epoch_window_s: [-0.5, 1.0]
+  baseline_window_s: [-0.2, 0.0]
+  lock_event: response     # stimulus-lock done separately
+
+features:
+  wavelet:
+    kind: morlet
+    n_cycles: 5
+    freqs_hz: [4, 6, 8, 10, 13, 20, 30]
+  bands:
+    theta: [4, 8]
+    alpha: [8, 13]
+    beta:  [13, 30]
+  itpc_window_s: [-0.2, 0.0]
+  plv_rolling_trials: 5
+  frn_window_s: [0.20, 0.35]
+  p300_window_s: [0.30, 0.60]
+
+analysis:
+  existence:
+    target_primary: win_stay_lose_shift
+    target_secondary: correct_next
+    electrode_cluster: [Fz, FCz, Cz]
+    predictor_band: theta
+    permutations: 1000
+    confirm_sign_consistency: 0.60
+    confirm_group_t_p: 0.05
+  utility:
+    cv_scheme: loso
+    models:
+      - neural            # ITPC_theta FCz cluster + FRN + P300
+      - behavior          # baseline
+      - neural_plus_behavior
+    bootstrap_n: 10000
+  robustness:
+    artifact_flag_threshold: "all_channels_all_bands_beta_positive"

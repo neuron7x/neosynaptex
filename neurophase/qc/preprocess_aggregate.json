@@ -1,0 +1,84 @@
+[
+  {
+    "status": "ok",
+    "subject_id": "sub-001",
+    "resumed": true,
+    "n_epochs_kept": 238,
+    "cond_counts": {
+      "AB": 80,
+      "CD": 79,
+      "EF": 79
+    },
+    "under_total_min": false,
+    "under_condition_min": false,
+    "epo_path": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/preproc/sub-001_task-pst_response-locked-epo.fif",
+    "timestamp": "2026-04-15T10:57:00+00:00"
+  },
+  {
+    "status": "ok",
+    "subject_id": "sub-002",
+    "resumed": true,
+    "n_epochs_kept": 240,
+    "cond_counts": {
+      "AB": 80,
+      "CD": 80,
+      "EF": 80
+    },
+    "under_total_min": false,
+    "under_condition_min": false,
+    "epo_path": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/preproc/sub-002_task-pst_response-locked-epo.fif",
+    "timestamp": "2026-04-15T10:57:00+00:00"
+  },
+  {
+    "status": "ok",
+    "subject_id": "sub-003",
+    "n_epochs_total": 240,
+    "n_epochs_kept": 239,
+    "rejected_ptp": 0,
+    "rejected_eog": 0,
+    "rejected_muscle": 1,
+    "cond_counts": {
+      "AB": 79,
+      "CD": 80,
+      "EF": 80
+    },
+    "under_condition_min": false,
+    "under_total_min": false,
+    "ica_removed": [
+      2,
+      12,
+      16
+    ],
+    "ica_n_removed": 3,
+    "ica_flagged_over_max": true,
+    "bad_channels_used": [],
+    "epo_path": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/preproc/sub-003_task-pst_response-locked-epo.fif",
+    "timestamp": "2026-04-15T11:00:00+00:00"
+  },
+  {
+    "status": "ok",
+    "subject_id": "sub-004",
+    "n_epochs_total": 240,
+    "n_epochs_kept": 238,
+    "rejected_ptp": 0,
+    "rejected_eog": 0,
+    "rejected_muscle": 2,
+    "cond_counts": {
+      "AB": 79,
+      "CD": 79,
+      "EF": 80
+    },
+    "under_condition_min": false,
+    "under_total_min": false,
+    "ica_removed": [
+      13,
+      3,
+      1
+    ],
+    "ica_n_removed": 3,
+    "ica_flagged_over_max": true,
+    "bad_channels_used": [],
+    "epo_path": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/preproc/sub-004_task-pst_response-locked-epo.fif",
+    "timestamp": "2026-04-15T11:03:00+00:00"
+  }
+]

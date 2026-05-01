@@ -1,0 +1,9 @@
+{
+  "manifest_path": "/home/neuro7/Desktop/\u0421\u0438\u0441\u0442\u0435\u043c\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0430\u0445 /neosynaptex/neurophase/qc/ingestion_manifest.json",
+  "sha256": "42b0ddb959c031b277caad3921f4693db91ab0bf7200bd72c25f5462032e8c6b",
+  "frozen_at": "2026-04-15T10:47:12+00:00",
+  "n_subjects": 4,
+  "n_ok": 4,
+  "n_excluded": 0,
+  "n_flagged": 0
+}

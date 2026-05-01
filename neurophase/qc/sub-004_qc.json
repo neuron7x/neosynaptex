@@ -1,0 +1,54 @@
+{
+  "subject_id": "sub-004",
+  "behavioral": {
+    "n_trials": 240,
+    "missing_response_fraction": 0.0,
+    "ab_accuracy_last50": 0.7,
+    "ab_n_trials": 80,
+    "conditions_present": [
+      "AB",
+      "CD",
+      "EF"
+    ],
+    "n_per_condition": {
+      "AB": 80,
+      "CD": 80,
+      "EF": 80
+    },
+    "rules_fired": [],
+    "exclude": false,
+    "exclusion_reason": null
+  },
+  "channel": {
+    "n_channels_raw": 65,
+    "sampling_rate_hz": 500.0,
+    "duration_sec": 957.386,
+    "flat_channels": [],
+    "noisy_channels": [],
+    "upstream_bad": [],
+    "upstream_interpolated": [],
+    "bad_channels": [],
+    "n_bad_channels": 0,
+    "bad_fraction": 0.0,
+    "cz_present": true,
+    "rules_fired": [],
+    "exclude": false,
+    "exclusion_reason": null
+  },
+  "epoch_preview": {
+    "n_valid_events": 240,
+    "n_preview_surviving": 240,
+    "preview_cond_counts": {
+      "AB": 80,
+      "CD": 80,
+      "EF": 80
+    },
+    "under_total_min": false,
+    "under_condition_min": false,
+    "exclude": false,
+    "exclusion_reason": null
+  },
+  "qc_timestamp": "2026-04-15T10:47:32+00:00",
+  "exclude_stage": null,
+  "exclusion_reason": null
+}
