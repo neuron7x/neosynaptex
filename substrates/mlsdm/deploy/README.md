@@ -1,6 +1,6 @@
 # MLSDM Deployment Guide
 
-This directory contains production-ready deployment configurations for the MLSDM Governed Cognitive Memory system.
+This directory contains deployment configurations (Kubernetes, Docker Compose, Grafana, Prometheus) for the MLSDM Governed Cognitive Memory system. "Production-ready" status is asserted by the upstream MLSDM project; the parent neosynaptex canon makes no such claim.
 
 ## Directory Structure
 

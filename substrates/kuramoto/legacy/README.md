@@ -1,6 +1,6 @@
 # Legacy Code and Artifacts Directory
 
-This directory contains code, configurations, and scripts that are no longer actively used in the TradePulse system but are preserved for historical reference and potential future reuse.
+This directory contains TradePulse legacy code, configurations, and scripts retained for reference only. Verified at audit time (2026-05-04): no module under `substrates/kuramoto/` or the parent neosynaptex tree imports from `legacy/` (`rg "from.*kuramoto.legacy" --type py` returns zero matches).
 
 ## Structure
 
