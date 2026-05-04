@@ -1,21 +1,15 @@
-# Golden Datasets
+# Golden datasets — kuramoto
 
-This directory contains the minimal, versioned datasets that anchor
-regression checks for TradePulse. The files are intentionally small so they can
-be shipped with the repository and exercised in unit tests or CLI sanity checks
-without external dependencies.
+Small versioned fixtures for regression checks of indicator pipelines.
 
-## Available Baselines
+## Contents
 
-| Dataset | Description |
-| --- | --- |
-| `indicator_macd_baseline.csv` | Five minute OHLC close snapshots with pre-computed MACD components (MACD, signal, histogram). |
+- `indicator_macd_baseline.csv.meta.json` — metadata sidecar for the
+  baseline MACD output (`dataset_id: indicator-macd-baseline-v1`,
+  intended use: certification, forbidden use: live trading).
 
-## Usage
+## Notes
 
-* Run `python scripts/data_sanity.py data/golden` to verify duplicates, missing
-  values, spike counts, and timestamp gaps before making changes.
-* Use these files to validate indicator pipelines locally – results should match
-  expected MACD values exactly.
-* Add new golden files sparingly and prefer the smallest dataset that covers the
-  behaviour under test. Document each addition in this README.
+The companion CSV file is generated on demand from the curated baseline
+described in the metadata. New golden files should be added sparingly and
+only with a corresponding `.meta.json` sidecar.
