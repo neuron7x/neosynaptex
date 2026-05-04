@@ -1,6 +1,6 @@
 # TradePulse Cortex Service
 
-Enterprise-grade cognitive signal orchestration microservice for TradePulse portfolios.
+Cognitive signal orchestration microservice for TradePulse portfolios.
 
 ## Overview
 

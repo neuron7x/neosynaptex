@@ -1,6 +1,6 @@
-# NeuroTrade Pro — EMH-Inspired Neuroeconomic Controller (Production-Ready)
+# NeuroTrade Pro — EMH-Inspired Neuroeconomic Controller
 
-This package provides a fully formalized, validated, and runnable implementation of an extramedullary-hematopoiesis-inspired controller for trading systems:
+This package provides a runnable implementation of an extramedullary-hematopoiesis-inspired (EMH) controller scaffold for trading systems:
 - State-space model (SSM) with bounded states
 - EKF estimation
 - Basal-ganglia-like softmax action selection with Go/No-Go

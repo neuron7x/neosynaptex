@@ -36,7 +36,7 @@ The interfaces module provides multiple ways to interact with TradePulse:
 
 1. **Command-Line Interface (CLI)** - For scripting and automation
 2. **Streamlit Dashboard** - For interactive analysis and visualization
-3. **Web Application** - For production-grade UI (Next.js app in `/apps/web`)
+3. **Web Application** - Next.js UI in `/apps/web`
 4. **Programmatic API** - For direct Python integration
 
 ## Components
