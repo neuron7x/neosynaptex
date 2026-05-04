@@ -1,7 +1,6 @@
 # TradePulse EKS Infrastructure
 
-This Terraform configuration provisions a production-ready Amazon EKS foundation for TradePulse. It prioritises
-fault tolerance, security, and operational excellence for latency-sensitive trading workloads.
+This Terraform configuration provisions an Amazon EKS foundation for TradePulse. It targets fault tolerance, security, and operational excellence for latency-sensitive trading workloads.
 
 ## Features
 
