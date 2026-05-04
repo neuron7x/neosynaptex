@@ -4,10 +4,15 @@ This directory contains Coq proof obligations and formal proofs for the BNsyn th
 
 ## Status
 
-**🟢 ACTIVE - Initial proofs implemented**
+**📄 SPECIFICATION ONLY — no `.v` source files present in this directory at HEAD.**
 
-This directory contains formal proofs in Coq for critical BNsyn properties. Currently implemented:
-- `BNsyn_Sigma.v`: Criticality gain bounds preservation proofs (COMPLETE ✅, ALIGNED WITH CODE)
+This directory currently contains this README documenting intended proof obligations.
+The `BNsyn_Sigma.v` source file referenced below is **not** present in the repository
+at the current commit; treat the "Theorems" / "How Tested" sections as a specification
+of what the proof would assert, not as a record of an existing proof artifact.
+
+The scheduled `.github/workflows/formal-coq.yml` workflow (cron, not PR-gating) targets
+this directory; with no `.v` files, it cannot execute a real proof check.
 
 ## Code Mapping
 
@@ -19,9 +24,11 @@ This directory contains formal proofs in Coq for critical BNsyn properties. Curr
 
 ## Implemented Proofs
 
-### BNsyn_Sigma.v - Criticality Gain Bounds Preservation
+### BNsyn_Sigma.v - Criticality Gain Bounds Preservation (specification)
 
-**Status**: ✅ Complete, verified, and aligned with actual code constants
+**Status**: 📄 Specification only. The `BNsyn_Sigma.v` file is not present at HEAD.
+The theorem statements below describe the intended proof contract; no formally
+verified Coq artifact backs them in the repository at the current commit.
 
 **Code Contract**: `src/bnsyn/config.py:CriticalityParams` with `gain_min=0.2, gain_max=5.0`
 
@@ -185,14 +192,15 @@ When implementing proofs:
 
 ## Claims and Verification Status
 
-**Current Status**: 
-- ✅ Gain bounds preservation is formally proven and matches code
-- ⚠️ Temperature and gate properties are UNVERIFIED (proof obligations only)
-- ⚠️ Claims about "formal verification" are limited to gain bounds only
+**Current Status**:
+- 📄 No `.v` source files present in this directory; nothing is currently proven in Coq.
+- ⚠️ All theorems documented here (gain bounds, temperature, gates, phase transitions, numerical stability) are **proof obligations only**.
 
-**What is Verified**: Criticality gain clamping preserves [0.2, 5.0] bounds (maps to `CriticalityParams`)
+**What is Verified**: nothing in Coq at this commit. Property tests in
+`tests/properties/` and `tests/validation/test_criticality_validation.py` exercise
+the same invariants at the Python level.
 
-**What is NOT Verified**: Temperature dynamics, gate functions, phase transitions, numerical stability
+**What is NOT Verified**: any property listed in this README, in the Coq sense.
 
 ## Integration with CI/CD
 

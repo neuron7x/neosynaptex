@@ -1,6 +1,6 @@
 # MLSDM Observability Module
 
-Production-grade JSON structured logging system for the MLSDM Governed Cognitive Memory architecture.
+JSON structured logging utilities for the MLSDM Governed Cognitive Memory architecture.
 
 ## Overview
 
