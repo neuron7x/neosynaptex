@@ -1,211 +1,56 @@
-# Coq Formal Proofs for BNsyn
+# Coq formal proofs for BN-Syn
 
-This directory contains Coq proof obligations and formal proofs for the BNsyn thermostated bio-AI system.
+## What is here
 
-## Status
+Skeleton Coq specifications targeted at BN-Syn (the spiking-neural
+substrate under `substrates/bn_syn/`). The current scope is narrow.
 
-**🟢 ACTIVE - Initial proofs implemented**
+## Verified scope (current commit)
 
-This directory contains formal proofs in Coq for critical BNsyn properties. Currently implemented:
-- `BNsyn_Sigma.v`: Criticality gain bounds preservation proofs (COMPLETE ✅, ALIGNED WITH CODE)
+`BNsyn_Sigma.v` proves:
 
-## Code Mapping
+- `clamp_preserves_bounds` — generic clamp preserves `[lo, hi]`.
+- `gain_clamp_preserves_bounds` — clamping with `[0.2, 5.0]`
+  matches the Python constants in `src/bnsyn/config.py:CriticalityParams`.
+- `gain_update_bounded` — repeated clamped updates stay in bounds.
+- `clamp_idempotent` — `clamp(clamp(x)) = clamp(x)`.
 
-| Coq Definition | Code Location | Value |
-|----------------|---------------|-------|
-| `gain_min` | `src/bnsyn/config.py:CriticalityParams.gain_min` | 0.2 |
-| `gain_max` | `src/bnsyn/config.py:CriticalityParams.gain_max` | 5.0 |
-| `clamp` function | Generic clamping pattern used in criticality control | N/A |
+That is the entire current proof obligation set that has been
+discharged. Temperature schedule, gate-sigmoid bounds, determinism,
+and AdEx neuron dynamics are listed in this file as **proof
+obligations only** (`PO-1`, `PO-2`, `PO-3`); they are **not** proven.
 
-## Implemented Proofs
+## Contents
 
-### BNsyn_Sigma.v - Criticality Gain Bounds Preservation
+- `BNsyn_Sigma.v` — gain-bounds proofs (the verified scope above).
+- This README — narrative scope, code mapping, and the unverified
+  proof-obligation list retained for future work.
 
-**Status**: ✅ Complete, verified, and aligned with actual code constants
+## Requirements
 
-**Code Contract**: `src/bnsyn/config.py:CriticalityParams` with `gain_min=0.2, gain_max=5.0`
+- Coq 8.15 or later. Local install via `opam install coq` or system
+  package; CI runs against a pinned `coqorg/coq` container (see
+  `.github/workflows/formal-coq.yml` in the BN-Syn upstream tree).
 
-**Theorems**:
-1. `clamp_preserves_bounds`: General clamp function preserves min/max bounds for any values
-2. `gain_clamp_preserves_bounds`: Gain clamping preserves [0.2, 5.0] bounds (actual code values)
-3. `gain_update_bounded`: Any gain update using clamp stays in bounds
-4. `clamp_idempotent`: Clamp operation is idempotent (clamp(clamp(x)) = clamp(x))
+## Usage
 
-**How Tested**:
-- Coq compilation in CI: `.github/workflows/formal-coq.yml`
-- Property tests validate gain bounds: `tests/properties/` and `tests/validation/test_criticality_validation.py`
-
-**Compiling locally**:
 ```bash
-cd specs/coq
 coqc BNsyn_Sigma.v
 ```
 
-**CI Integration**: `.github/workflows/formal-coq.yml` runs on schedule with pinned Coq toolchain
+## Tests
 
-## Purpose
+Compilation under CI is the only check; there is no separate test
+runner.
 
-While TLA+ model checking explores a finite state space to find invariant violations, Coq provides:
-- **Theorem proving**: Mechanically verified proofs that hold for all possible inputs
-- **Functional correctness**: Prove that implementations match specifications
-- **Mathematical rigor**: Establish properties through constructive proofs
+## Output
 
-## Proof Obligations (Future Work)
+A successful `coqc` produces `.vo` artefacts. No claim, evidence row,
+or γ-program verdict depends on these artefacts at this commit.
 
-The following properties should be formally proven in Coq:
+## Notes
 
-### PO-1: Temperature Schedule Correctness
-
-**Theorem**: The geometric temperature schedule converges to Tmin and is monotonically decreasing.
-
-```coq
-Theorem temperature_convergence :
-  forall (T0 Tmin alpha : R) (n : nat),
-    0 < Tmin < T0 ->
-    0 < alpha < 1 ->
-    exists (N : nat),
-      forall (m : nat), m >= N ->
-        abs (temperature_at_step T0 alpha m - Tmin) < epsilon.
-```
-
-```coq
-Theorem temperature_monotone :
-  forall (T0 Tmin alpha : R) (n : nat),
-    0 < Tmin < T0 ->
-    0 < alpha <= 1 ->
-    temperature_at_step T0 alpha n > Tmin ->
-    temperature_at_step T0 alpha (S n) <= temperature_at_step T0 alpha n.
-```
-
-**Code mapping**: `src/bnsyn/temperature/schedule.py:TemperatureSchedule.step()`
-
-### PO-2: Plasticity Gate Bounds
-
-**Theorem**: The plasticity gate function always produces values in [0, 1].
-
-```coq
-Theorem gate_sigmoid_bounds :
-  forall (T Tc tau : R),
-    tau > 0 ->
-    0 <= gate_sigmoid T Tc tau <= 1.
-```
-
-**Code mapping**: `src/bnsyn/temperature/schedule.py:gate_sigmoid()`
-
-### PO-3: Determinism
-
-**Theorem**: Given the same initial state and random seed, the system produces identical outputs.
-
-```coq
-Theorem simulation_deterministic :
-  forall (state1 state2 : SystemState) (seed : nat) (steps : nat),
-    state1 = state2 ->
-    run_simulation state1 seed steps = run_simulation state2 seed steps.
-```
-
-**Code mapping**: Core simulation loop, tested extensively in `tests/test_determinism.py`
-
-## Implementation Roadmap
-
-### Phase 1: Setup ✅
-- [x] Define Coq environment and dependencies
-- [x] Create base type definitions (clamp function)
-- [x] Prove gain bounds preservation (aligned with actual code)
-
-### Phase 2: Core Proofs (PLANNED)
-- [ ] Prove PO-1 (Temperature schedule correctness) - map to `TemperatureParams`
-- [ ] Prove PO-2 (Gate bounds) - map to `gate_sigmoid`
-- [ ] Update constants to match code exactly
-
-### Phase 3: System Properties (PLANNED)
-- [ ] Prove PO-3 (Determinism)
-- [ ] Link proofs to validation test results
-
-## Development Environment
-
-### Using Pinned Container (Recommended for CI)
-
-The CI workflow uses a pinned Coq container to ensure reproducibility:
-
-```yaml
-container:
-  image: coqorg/coq:8.15-ocaml-4.14-flambda@sha256:<digest>
-```
-
-### Installing Coq Locally
-
-```bash
-# Using opam (OCaml package manager)
-opam install coq coq-ide
-
-# Or using system package manager
-sudo apt-get install coq coqide  # Debian/Ubuntu
-brew install coq                  # macOS
-```
-
-### Recommended Coq Version
-
-- Coq 8.15 or later (CI uses 8.15 with pinned container)
-- CoqIDE or Proof General for interactive development
-
-### Required Libraries
-
-```bash
-opam install coq-mathcomp-ssreflect
-opam install coq-mathcomp-algebra
-opam install coq-coquelicot  # Real analysis
-```
-
-## Resources
-
-### Coq Documentation
-- **Official Coq Manual**: https://coq.inria.fr/refman/
-- **Software Foundations**: https://softwarefoundations.cis.upenn.edu/
-- **Programs and Proofs**: https://ilyasergey.net/pnp/
-
-### Relevant Coq Projects
-- **CompCert**: Verified C compiler
-- **Flocq**: Floating-point arithmetic formalization
-- **Coquelicot**: Real analysis library
-
-### BNsyn Context
-- See `docs/SPEC.md` for system specification
-- See `specs/tla/BNsyn.tla` for TLA+ model
-- See `src/bnsyn/` for Python reference implementation
-
-## Contributing
-
-When implementing proofs:
-
-1. Start with the simplest properties (bounds preservation)
-2. **Always align constants with actual code** - check `src/bnsyn/config.py`
-3. Use Coq's standard library and mathcomp when possible
-4. Document code mapping in proof comments
-5. Update this README with mappings
-
-## Claims and Verification Status
-
-**Current Status**: 
-- ✅ Gain bounds preservation is formally proven and matches code
-- ⚠️ Temperature and gate properties are UNVERIFIED (proof obligations only)
-- ⚠️ Claims about "formal verification" are limited to gain bounds only
-
-**What is Verified**: Criticality gain clamping preserves [0.2, 5.0] bounds (maps to `CriticalityParams`)
-
-**What is NOT Verified**: Temperature dynamics, gate functions, phase transitions, numerical stability
-
-## Integration with CI/CD
-
-The `.github/workflows/formal-coq.yml` workflow:
-- Uses pinned Coq container for reproducibility
-- Compiles all `.v` files
-- Fails on compilation errors
-- Uploads compilation logs as artifacts
-
-## Future Work
-
-- Formalize the complete AdEx neuron dynamics with actual parameters
-- Prove temperature schedule convergence with `TemperatureParams` values
-- Establish gate bounds theorem for `gate_sigmoid` function
-- Verify error bounds for numerical integration schemes
-- Link all proofs to specific code locations
+- "Formal verification" in this directory means **only** the gain
+  clamp bounds. Phase, temperature, and gate dynamics are not proven.
+- The proof-obligation skeletons in this file (`PO-1`, `PO-2`,
+  `PO-3`) are roadmap items, not theorems.
