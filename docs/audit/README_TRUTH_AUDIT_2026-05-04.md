@@ -2,6 +2,42 @@
 
 Branch: `feat/phase-4-substrate-resolution`
 HEAD prior to audit: `c7f86f95`
+HEAD after audit: `7b3bb6b2` (5 README-pass commits) plus a follow-up
+red-team pass (this report) that added 2 targeted fixes on
+`substrates/bn_syn/specs/coq/README.md` and
+`substrates/mlsdm/src/mlsdm/observability/README.md`.
+
+## Red-team pass (canonical readiness audit)
+
+After the initial 5-commit truth-pass, a separate verification-first
+sweep ran the explicit overclaim and stale-metric grep gates from the
+Canonical Repository Readiness Protocol against the changed scope
+*and* the unchanged READMEs. Two surviving issues were found and
+fixed in-place:
+
+1. `substrates/mlsdm/src/mlsdm/observability/README.md` — the heading
+   line described the module as a "Production-grade JSON structured
+   logging system". Replaced with a neutral "JSON structured logging
+   utilities" framing. No code claims; the module's actual capabilities
+   (rotation, thread safety, correlation IDs) are listed below the
+   heading on their own merit.
+
+2. `substrates/bn_syn/specs/coq/README.md` — the README claimed
+   "🟢 ACTIVE — Initial proofs implemented", with `BNsyn_Sigma.v`
+   marked "✅ Complete, verified, and aligned with actual code
+   constants" and a "What is Verified: Criticality gain clamping
+   preserves [0.2, 5.0] bounds" line. **Repository state at HEAD
+   contains zero `.v` files anywhere under `substrates/bn_syn/`.**
+   The README has been downgraded to "📄 Specification only — no `.v`
+   source files present in this directory at HEAD." The theorem
+   statements are retained as the proof contract specification, not as
+   a record of an existing artefact. The scheduled
+   `formal-coq.yml` workflow is non-PR-gating (cron only) and was not
+   modified.
+
+The Coq-overclaim was the most consequential surviving issue from
+the initial pass: a falsifying claim about formal verification
+unsupported by repository contents.
 
 ## Summary
 
