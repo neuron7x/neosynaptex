@@ -1,25 +1,31 @@
 # Experiments
 
-Reproducible experimental outputs from NFI substrate validation.
+Reproducible experiment runners. Each subdirectory is self-contained and
+ships its own README and artefact set.
 
-## Index
+## Contents
 
-| Experiment | Status | Key Result |
-|------------|--------|------------|
-| [scaffolding_trap](scaffolding_trap/) | Complete | dskill/dt = 0.02 × gap × effort (R²=0.9999) |
-| [lm_substrate](lm_substrate/) | Complete | γ ≈ 0 (null — stateless API not a substrate) |
+- `lemma_1_verification/` — numerical verification of Lemma 1 (Kuramoto
+  on dense graphs). Single runner: `verify_kuramoto_gamma_unity.py`.
+  Output anchor: `evidence/lemma_1_numerical.json`.
+- `lm_substrate/` — stateless-LLM γ derivation (GPT-4o-mini). Within-
+  substrate falsification record (γ ≈ 0). See sub-README.
+- `probe_dialogue_null/` — archived null result for the cumulative
+  lexical/entropy dialogue adapter; AT battery rejects 0/5. Kept for
+  guard-rail purposes only.
+- `scaffolding_trap/` — agent-based-model dskill/dt analysis;
+  `scaffolding_trap_finding.md` plus raw JSON and figure.
+- `causal_topology/` — graph-similarity and motif analyses with
+  `run_topology_experiment.py` driving the pipeline.
+- `spectral_coherence/`, `spectral_coherence_v3/` — spectral battery
+  variants (Welch, multitaper, wavelet coherence). v3 supersedes v1.
+- `experiment_cards.py` — registry of experiment metadata used by other
+  tooling.
 
-## Scaffolding Trap
+## Notes
 
-ABM simulation (100 agents, 21 AI regimes) demonstrating that:
-1. CRR is invalid for ordered curricula (measurement artifact)
-2. dskill/dt is the clean learning rate metric
-3. Delegation suppresses learning: −9.5% per 10% delegation
-4. The law is linear: dskill/dt = α × gap × effort
-
-## LM Substrate
-
-GPT-4o-mini logprob analysis (200 prompts × 2 conditions):
-- Stateless calls → γ ≈ 0 (white noise, no temporal structure)
-- Feedback chain → γ ≈ 0 (API context window is stateless)
-- Confirms CFP thesis: γ ≠ 0 requires closed-loop dynamics
+- Status / verdict for any γ-row referenced from these experiments is
+  recorded canonically in `evidence/replications/registry.yaml`. If a
+  per-experiment README and the registry disagree, the registry wins.
+- Several experiments emit large JSON artefacts not committed to the
+  repo; rerun the corresponding `run_*.py` to regenerate.
