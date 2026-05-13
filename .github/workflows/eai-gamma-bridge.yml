@@ -1,0 +1,62 @@
+name: eai-gamma-bridge
+
+# Run the γ-ledger → EAI gate bridge on every PR + push.
+# Asserts byte-identical replay across two runs and uploads the
+# decision report as a workflow artifact (90-day retention). The
+# bridge itself is a measurement (always exits 0); regression
+# detection happens via pytest invariants + the determinism diff.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  gamma-bridge:
+    name: eai gamma ledger bridge
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package
+        run: pip install --quiet -e ".[dev]"
+      - name: Run γ-ledger bridge (deterministic)
+        run: |
+          PYTHONPATH=. python tools/eai/run_gamma_ledger_through_gate.py \
+            --ledger evidence/gamma_ledger.json \
+            --out artifacts/eai/benchmarks/gamma_ledger_gate_decisions_v1.json
+      - name: Determinism replay (byte-identical assertion)
+        run: |
+          cp artifacts/eai/benchmarks/gamma_ledger_gate_decisions_v1.json /tmp/bridge_a.json
+          PYTHONPATH=. python tools/eai/run_gamma_ledger_through_gate.py \
+            --ledger evidence/gamma_ledger.json \
+            --out /tmp/bridge_b.json
+          diff -q /tmp/bridge_a.json /tmp/bridge_b.json
+      - name: Bridge invariant tests
+        run: PYTHONPATH=. pytest tests/eai/integration/test_gamma_bridge.py -q
+      - name: Upload bridge report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eai-gamma-ledger-bridge-report
+          path: artifacts/eai/benchmarks/gamma_ledger_gate_decisions_v1.json
+          if-no-files-found: error
+          retention-days: 90

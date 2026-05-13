@@ -1,0 +1,158 @@
+{
+  "admissibility_rate": 0.285714,
+  "admissible_evidence": 2,
+  "bridge_module_sha256": "41df97871da0848797554fb43a290f87b5bfba11daad3320978f2f774799ebfd",
+  "candidate_total": 7,
+  "frozen_clock": "1970-01-01T00:00:00+00:00",
+  "gate_verdict_counts": {
+    "EVIDENCE": 2,
+    "KILLED": 4,
+    "QUARANTINED": 4
+  },
+  "hash_bound_count": 3,
+  "ledger_path": "evidence/gamma_ledger.json",
+  "ledger_sha256": "3f2ed37e86124b1bb43135ce03d111fe35248f9a11fb4c01f3eeaac9863afd67",
+  "ledger_version": "2.0.0",
+  "per_entry": [
+    {
+      "artifact_id": "KILL-GAMMA-BNSYN",
+      "gate_decision_reason": "contradiction_marker_hit",
+      "gate_failed_stage": "falsification",
+      "gate_status": "KILLED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "LOCAL_STRUCTURAL",
+      "ledger_key": "bnsyn",
+      "ledger_status": "LOCAL_STRUCTURAL_EVIDENCE_ONLY",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [
+        "local_structural_only"
+      ],
+      "substrate": "bn_syn"
+    },
+    {
+      "artifact_id": "EVD-GAMMA-EEG-PHYSIONET",
+      "gate_decision_reason": "promotion_allowed",
+      "gate_failed_stage": null,
+      "gate_status": "EVIDENCE",
+      "hash_bound": true,
+      "ledger_evidence_tier": "MEASURED_WITH_HASH",
+      "ledger_key": "eeg_physionet",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [],
+      "substrate": "eeg_physionet"
+    },
+    {
+      "artifact_id": "EVD-GAMMA-EEG-RESTING",
+      "gate_decision_reason": "promotion_allowed",
+      "gate_failed_stage": null,
+      "gate_status": "EVIDENCE",
+      "hash_bound": true,
+      "ledger_evidence_tier": "MEASURED_WITH_HASH",
+      "ledger_key": "eeg_resting",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [],
+      "substrate": "eeg_resting"
+    },
+    {
+      "artifact_id": "EVD-GAMMA-GRAY-SCOTT",
+      "gate_decision_reason": "revalidation_failed_or_hash_invalid",
+      "gate_failed_stage": "iev_gate",
+      "gate_status": "QUARANTINED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "MEASURED_NO_HASH",
+      "ledger_key": "gray_scott",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [],
+      "substrate": "gray_scott"
+    },
+    {
+      "artifact_id": "KILL-GAMMA-HRV-FANTASIA",
+      "gate_decision_reason": "contradiction_marker_hit",
+      "gate_failed_stage": "falsification",
+      "gate_status": "KILLED",
+      "hash_bound": true,
+      "ledger_evidence_tier": "MEASURED_WITH_HASH",
+      "ledger_key": "hrv_fantasia",
+      "ledger_status": "EVIDENCE_CANDIDATE_NULL_FAILED",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [
+        "null_screen_rejected"
+      ],
+      "substrate": "hrv_fantasia"
+    },
+    {
+      "artifact_id": "EVD-GAMMA-HRV-PHYSIONET",
+      "gate_decision_reason": "revalidation_failed_or_hash_invalid",
+      "gate_failed_stage": "iev_gate",
+      "gate_status": "QUARANTINED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "MEASURED_NO_HASH",
+      "ledger_key": "hrv_physionet",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [],
+      "substrate": "hrv_physionet"
+    },
+    {
+      "artifact_id": "EVD-GAMMA-KURAMOTO",
+      "gate_decision_reason": "revalidation_failed_or_hash_invalid",
+      "gate_failed_stage": "iev_gate",
+      "gate_status": "QUARANTINED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "MEASURED_NO_HASH",
+      "ledger_key": "kuramoto",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [],
+      "substrate": "kuramoto_market"
+    },
+    {
+      "artifact_id": "KILL-GAMMA-LEMMA-1-KURAMOTO-DENSE",
+      "gate_decision_reason": "contradiction_marker_hit",
+      "gate_failed_stage": "falsification",
+      "gate_status": "KILLED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "NUMERICAL_INTERNAL",
+      "ledger_key": "lemma_1_kuramoto_dense",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [
+        "numerical_internal_only"
+      ],
+      "substrate": "kuramoto_analytical"
+    },
+    {
+      "artifact_id": "KILL-GAMMA-SEROTONERGIC-KURAMOTO",
+      "gate_decision_reason": "contradiction_marker_hit",
+      "gate_failed_stage": "falsification",
+      "gate_status": "KILLED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "MEASURED_WITH_HASH",
+      "ledger_key": "serotonergic_kuramoto",
+      "ledger_status": "EVIDENCE_CANDIDATE_NULL_FAILED",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [
+        "null_screen_rejected"
+      ],
+      "substrate": "serotonergic_kuramoto"
+    },
+    {
+      "artifact_id": "EVD-GAMMA-ZEBRAFISH-WT",
+      "gate_decision_reason": "revalidation_failed_or_hash_invalid",
+      "gate_failed_stage": "iev_gate",
+      "gate_status": "QUARANTINED",
+      "hash_bound": false,
+      "ledger_evidence_tier": "MEASURED_NO_HASH",
+      "ledger_key": "zebrafish_wt",
+      "ledger_status": "EVIDENCE_CANDIDATE",
+      "retention_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status_tags": [],
+      "substrate": "zebrafish"
+    }
+  ],
+  "schema_version": "EAI-GAMMA-BRIDGE-v1",
+  "total_entries": 10
+}
