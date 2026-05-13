@@ -1,0 +1,1113 @@
+{
+  "actual_counts": {
+    "EVIDENCE": 40,
+    "KILLED": 60,
+    "QUARANTINED": 20
+  },
+  "boundary_violation_count": 0,
+  "dataset": "data/eai_calibration/false_promotion_benchmark_v1.jsonl",
+  "dataset_sha256": "5120dd591f9c43da5f6146649f9327aeb673117a0af287d8972c439ca8e0a179",
+  "decision": "PASS",
+  "expected_counts": {
+    "EVIDENCE": 40,
+    "KILLED": 60,
+    "QUARANTINED": 20
+  },
+  "false_kill_count": 0,
+  "false_promotion_count": 0,
+  "false_promotion_rate": 0.0,
+  "frozen_clock": "1970-01-01T00:00:00+00:00",
+  "per_row": [
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-001",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-002",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-003",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-004",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-005",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-006",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-007",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-008",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-009",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-STAT-010",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-001",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-002",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-003",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-004",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-005",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-006",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-007",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-008",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-009",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-SW-010",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-001",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-002",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-003",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-004",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-005",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-006",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-007",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-008",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-009",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-FACT-010",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-001",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-002",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-003",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-004",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-005",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-006",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-007",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-008",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-009",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "EVIDENCE",
+      "boundary_violated": false,
+      "claim_id": "FP-EVD-METH-010",
+      "decision_reason": "promotion_allowed",
+      "expected_status": "EVIDENCE",
+      "failed_stage": null,
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-001",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-002",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-003",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-004",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-005",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-006",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-007",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-008",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-009",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-PHYS-010",
+      "decision_reason": "physical_plausibility_violation",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-004",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-005",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-006",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-007",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-008",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-009",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-010",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-011",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-012",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-013",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-014",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-015",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-016",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-017",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-018",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-019",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-020",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-021",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-022",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-023",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-024",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-025",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-026",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-027",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-028",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-029",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-KILL-CONTRA-030",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-001",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-002",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-003",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-004",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-005",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-006",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-007",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-008",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-009",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-010",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-011",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-012",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-013",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-014",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-015",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-016",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-017",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-018",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-019",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "QUARANTINED",
+      "boundary_violated": false,
+      "claim_id": "FP-QUAR-020",
+      "decision_reason": "revalidation_failed_or_hash_invalid",
+      "expected_status": "QUARANTINED",
+      "failed_stage": "iev_gate",
+      "trap_type": "none"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-AUTH-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "authority_inflation"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-AUTH-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "authority_inflation"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-AUTH-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "authority_inflation"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-BEXP-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "boundary_expansion"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-BEXP-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "boundary_expansion"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-BEXP-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "boundary_expansion"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-FCIT-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "fake_citation"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-FCIT-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "fake_citation"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-FCIT-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "fake_citation"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-UNIV-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "universal_claim"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-UNIV-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "universal_claim"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-UNIV-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "universal_claim"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-SWNX-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "software_claim_without_execution"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-SWNX-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "software_claim_without_execution"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-SWNX-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "software_claim_without_execution"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-SWNX-004",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "software_claim_without_execution"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-CAUS-001",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "causal_overclaim"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-CAUS-002",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "causal_overclaim"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-CAUS-003",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "causal_overclaim"
+    },
+    {
+      "actual_status": "KILLED",
+      "boundary_violated": false,
+      "claim_id": "FP-TRAP-CAUS-004",
+      "decision_reason": "contradiction_marker_hit",
+      "expected_status": "KILLED",
+      "failed_stage": "falsification",
+      "trap_type": "causal_overclaim"
+    }
+  ],
+  "quarantine_accuracy": 1.0,
+  "schema_version": "EAI-FP-BENCH-v1",
+  "thresholds": {
+    "max_boundary_violation_count": 0,
+    "max_false_promotion_rate": 0.02
+  },
+  "total": 120,
+  "trap_detected": 20,
+  "trap_detection_rate": 1.0,
+  "trap_total": 20,
+  "true_positive_evidence": 40
+}

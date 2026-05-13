@@ -1,0 +1,11 @@
+{
+  "sbom_version": "0.1",
+  "scope": "EAI research slice",
+  "components": [
+    {"type": "code", "path": "core/eai"},
+    {"type": "contracts", "path": "contracts/eai"},
+    {"type": "schemas", "path": "schemas"},
+    {"type": "data", "path": "data/eai_calibration"}
+  ],
+  "notes": "Add exact versions and cryptographic hashes before compliance claim"
+}

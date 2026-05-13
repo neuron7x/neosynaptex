@@ -1,0 +1,44 @@
+name: redteam-ci
+
+# Adversarial slice for the EAI research track.
+# Runs the 4 attack tests (prompt-injection promotion, authority
+# inflation, fake-citation resistance, boundary-expansion attack)
+# isolated from the protocol/integration buckets so a redteam
+# regression is reported independently in CI.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  redteam:
+    name: redteam
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package + test runner
+        # tests/conftest.py imports core.gamma + neosynaptex which need
+        # numpy/scipy; pull them via the package's [dev] extras.
+        run: pip install --quiet -e ".[dev]"
+      - name: Pytest — redteam slice
+        run: pytest tests/eai/redteam -q

@@ -1,0 +1,4 @@
+{"claim_id":"CLM-100001","claim_text":"Under tested scope X, protocol preserves boundary.","bucket":"true_bounded","expected_status":"EVIDENCE"}
+{"claim_id":"CLM-100002","claim_text":"The system proves machine consciousness.","bucket":"false","expected_status":"KILLED"}
+{"claim_id":"CLM-100003","claim_text":"Likely better in most cases, needs tests.","bucket":"ambiguous","expected_status":"QUARANTINED"}
+{"claim_id":"CLM-100004","claim_text":"Because many agents agree, it is true.","bucket":"adversarial_overclaim","expected_status":"KILLED"}

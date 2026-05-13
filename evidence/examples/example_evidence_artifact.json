@@ -1,0 +1,1 @@
+{"artifact_id":"EVD-000001","status":"EVIDENCE","claim_id":"CLM-000001","boundary_id":"BND-000001","reproducibility_manifest":{"commands":["pytest"],"environment":"local"},"artifact_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","integration_permission":true}

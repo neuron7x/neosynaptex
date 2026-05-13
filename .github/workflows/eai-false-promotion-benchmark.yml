@@ -1,0 +1,64 @@
+name: eai-false-promotion-benchmark
+
+# Computational verification gate for the EAI research track.
+# Re-runs tools/eai/run_false_promotion_benchmark.py on every PR and
+# push to main; the runner exits non-zero on threshold violation
+# (false_promotion_rate > 0.02 or boundary_violation_count > 0), so
+# the workflow's pass/fail is the gate's PASS/FAIL.
+# The deterministic JSON report is uploaded as a workflow artifact
+# for reviewer download + replay.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  false-promotion-benchmark:
+    name: eai false-promotion benchmark
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package
+        run: pip install --quiet -e ".[dev]"
+      - name: Run benchmark (deterministic)
+        run: |
+          PYTHONPATH=. python tools/eai/run_false_promotion_benchmark.py \
+            --dataset data/eai_calibration/false_promotion_benchmark_v1.jsonl \
+            --out artifacts/eai/benchmarks/false_promotion_report_v1.json
+      - name: Determinism replay (byte-identical assertion)
+        run: |
+          cp artifacts/eai/benchmarks/false_promotion_report_v1.json /tmp/report_a.json
+          PYTHONPATH=. python tools/eai/run_false_promotion_benchmark.py \
+            --dataset data/eai_calibration/false_promotion_benchmark_v1.jsonl \
+            --out /tmp/report_b.json
+          diff -q /tmp/report_a.json /tmp/report_b.json
+      - name: Benchmark unit tests
+        run: PYTHONPATH=. pytest tests/eai/calibration/test_false_promotion_benchmark.py tests/eai/protocol/test_artifact_ledger_deterministic_clock.py -q
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eai-false-promotion-report
+          path: artifacts/eai/benchmarks/false_promotion_report_v1.json
+          if-no-files-found: error
+          retention-days: 90

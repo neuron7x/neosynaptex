@@ -1,0 +1,7 @@
+{
+  "manifest_version": "0.1",
+  "purpose": "EAI reproducibility baseline",
+  "python": "3.11",
+  "seed_policy": "fixed-seed required in all calibration runs",
+  "notes": "Populate commit hash, lockfile hash, and dataset SHA-256 before release"
+}

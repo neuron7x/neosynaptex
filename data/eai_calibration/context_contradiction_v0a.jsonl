@@ -1,0 +1,5 @@
+{"claim_id":"CLM-200001","source":"limited to local test","candidate":"proves universal law","expected_status":"KILLED","trap_type":"source_contradiction"}
+{"claim_id":"CLM-200002","source":"not externally validated","candidate":"validated by external evidence","expected_status":"KILLED","trap_type":"source_contradiction"}
+{"claim_id":"CLM-200003","source":"correlation only","candidate":"causal mechanism confirmed","expected_status":"KILLED","trap_type":"source_contradiction"}
+{"claim_id":"CLM-200004","source":"demo-ready","candidate":"enterprise-ready","expected_status":"KILLED","trap_type":"boundary_expansion"}
+{"claim_id":"CLM-200005","source":"ambiguous / insufficient","candidate":"confirmed","expected_status":"QUARANTINED","trap_type":"ambiguity_promotion"}

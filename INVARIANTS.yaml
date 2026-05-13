@@ -1,0 +1,9 @@
+version: 1
+owner: eai-research-track
+invariants:
+  - no_evidence_without_boundary
+  - no_promotion_without_falsification
+  - no_integration_without_artifact
+  - killed_cannot_update_integration_memory
+  - guardrail_transitions_require_revalidation_artifact
+status: normative

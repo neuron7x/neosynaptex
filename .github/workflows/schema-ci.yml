@@ -1,0 +1,44 @@
+name: schema-ci
+
+# JSON-Schema slice for the EAI research track.
+# Validates every artifact card schema (claim, boundary, evidence,
+# kill, ICU, IEV decision, ledger entry) on every PR + merge_group.
+# Isolated from protocol/integration so a schema-only regression is
+# diagnosable without unrelated test noise.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  schema:
+    name: schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package + test runner
+        # tests/conftest.py imports core.gamma + neosynaptex which need
+        # numpy/scipy; pull them and jsonschema via the [dev] extras.
+        run: pip install --quiet -e ".[dev]"
+      - name: Pytest — schema slice
+        run: pytest tests/eai/schemas -q

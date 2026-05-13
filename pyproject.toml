@@ -59,6 +59,10 @@ dev = [
     # Property-based adversarial tests under tests/audit/ (NEOSYNAPTEX_FORENSIC_HARDENING_v2.0):
     # Jacobian alignment, modulation stability, truth aggregation.
     "hypothesis>=6.0",
+    # Schema validation for the EAI research track (tests/eai/schemas/*,
+    # docs/protocols/iev-gate-v1.md). Required at collection time for any
+    # workflow that loads tests/ wholesale (Benchmarks, NFI CI).
+    "jsonschema>=4.0",
 ]
 security = [
     "pip-audit>=2.10.0",

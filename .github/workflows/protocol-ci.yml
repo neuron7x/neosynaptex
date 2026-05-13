@@ -1,0 +1,53 @@
+name: protocol-ci
+
+# EAI research-track protocol slice.
+# Runs ruff + mypy (strict, with --ignore-missing-imports so the
+# transitive scipy.stats pulled via core/__init__.py does not block
+# the EAI surface) and pytest over the protocol + integration
+# buckets. Schema + redteam slices live in separate workflows so
+# they can fail/retry independently.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  protocol:
+    name: protocol
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package + EAI tooling
+        # `pip install -e ".[dev]"` pulls numpy/scipy/jsonschema needed
+        # by tests/conftest.py (imports core.gamma + neosynaptex which
+        # transitively need both); pydantic + types-jsonschema added for
+        # EAI-specific surface only.
+        run: pip install --quiet -e ".[dev]" pydantic types-jsonschema
+      - name: Ruff lint
+        run: ruff check core/eai contracts/eai tests/eai
+      - name: Mypy (strict, EAI surface)
+        run: mypy --ignore-missing-imports core/eai contracts/eai tests/eai
+      - name: Pytest — protocol slice
+        run: pytest tests/eai/protocol -q
+      - name: Pytest — integration slice
+        run: pytest tests/eai/integration -q
