@@ -1,0 +1,84 @@
+name: eai-admissibility-tracker
+
+# Longitudinal admissibility regression gate.
+#
+# Trust model: the baseline history is ALWAYS read from origin/main
+# via ``git show``, NEVER from the PR's working tree. This blocks
+# the bypass where a PR rewrites the committed history file to
+# lower its own baseline and then passes ``--check-regression``
+# against that rewritten file.
+#
+# Regression failure modes caught:
+#  (a) gate logic change that lowers admissibility (different inputs
+#      → lower rate vs main's most-recent row);
+#  (b) ledger entry slips below threshold without compensating
+#      improvement;
+#  (c) determinism drift on identical inputs;
+#  (d) rollback to older input pair whose historical rate sits below
+#      main's most-recent row.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  admissibility-regression:
+    name: admissibility regression gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Need history depth to fetch origin/main:<path>
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package
+        run: pip install --quiet -e ".[dev]"
+      - name: Tracker tests
+        run: PYTHONPATH=. pytest tests/eai/integration/test_admissibility_tracker.py -q
+      - name: Fetch trusted baseline history from origin/main
+        # The PR working tree's history file is NOT trusted. We pull
+        # the committed baseline straight from origin/main; if the file
+        # does not exist on main yet (first-time bootstrap), we seed
+        # with an empty file so the new measurement records as
+        # ``first_row``.
+        run: |
+          git fetch origin main --depth=1 --quiet
+          if git cat-file -e origin/main:artifacts/eai/benchmarks/gamma_ledger_admissibility_history.jsonl 2>/dev/null; then
+            git show origin/main:artifacts/eai/benchmarks/gamma_ledger_admissibility_history.jsonl > /tmp/history_trusted.jsonl
+          else
+            : > /tmp/history_trusted.jsonl
+          fi
+          wc -l /tmp/history_trusted.jsonl
+      - name: Run regression check against trusted baseline
+        run: |
+          PYTHONPATH=. python tools/eai/track_admissibility.py \
+            --ledger evidence/gamma_ledger.json \
+            --history /tmp/history_trusted.jsonl \
+            --check-regression
+      - name: Upload forensic history artifact (post-CI snapshot)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eai-admissibility-history-ci-snapshot
+          path: /tmp/history_trusted.jsonl
+          if-no-files-found: error
+          retention-days: 90
