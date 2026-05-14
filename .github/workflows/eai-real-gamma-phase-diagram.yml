@@ -1,0 +1,133 @@
+name: eai-real-gamma-phase-diagram
+
+# Real-data phase-diagram diagnostic gate.
+#
+# Verdict is the artifact. CI blocks ONLY on invariant violations:
+#   1. nondeterministic output (byte-identical replay must hold)
+#   2. γ-ledger modified by this PR
+#   3. PR #193 gamma_bridge module modified by this PR
+#   4. PR #195 NULL_RESULT anchor modified by this PR
+#   5. PR #196 phase-diagram anchor modified by this PR
+#   6. production engine modified by this PR
+#   7. runner crash (exit 1 = Python uncaught exception)
+#
+# Verdict exit codes (logged, not blocked):
+#   0  = PHASE_REGION_FOUND       (real-data STN-analog has signal)
+#   22 = REGRESSION_REGION_FOUND  | INVALID_EXPERIMENT (blocks)
+#   33 = NO_SEPARABLE_REGION_FOUND (warning, build passes)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  real-gamma-phase-diagram:
+    name: eai real gamma phase diagram
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package
+        run: pip install --quiet -e ".[dev]"
+      - name: Read-only invariants (anchors + production engine + ledger)
+        run: |
+          git fetch origin main --depth=1 --quiet
+          changed=$(git diff --name-only origin/main...HEAD -- \
+            evidence/gamma_ledger.json \
+            core/eai/gamma_bridge.py \
+            core/eai/engine.py \
+            core/iev_gate.py \
+            core/eai/graded_gate.py \
+            core/eai/graded_phase_diagram.py \
+            core/falsification_engine.py \
+            tools/eai/run_falsifiability_test.py \
+            tools/eai/run_graded_falsification_phase_diagram.py \
+            artifacts/eai/benchmarks/falsifiability_test_v1_report.json \
+            artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_v1.json \
+            tests/eai/calibration/test_falsifiability_v1.py \
+            tests/eai/falsification/test_graded_phase_diagram.py)
+          if [ -n "$changed" ]; then
+            echo "::error::Read-only invariant violated. Files modified that must not be: $changed"
+            exit 22
+          fi
+          echo "anchors + production engine + ledger unchanged ✓"
+      - name: Real-data phase-diagram tests
+        run: PYTHONPATH=. pytest tests/eai/falsification/test_real_gamma_phase_diagram.py -q
+      - name: Run real-data phase-diagram tool
+        run: |
+          set +e
+          PYTHONPATH=. python tools/eai/run_real_gamma_phase_diagram.py \
+            --ledger evidence/gamma_ledger.json \
+            --out-json artifacts/eai/phase_diagrams/real_gamma_phase_diagram_v1.json \
+            --out-csv  artifacts/eai/phase_diagrams/real_gamma_phase_diagram_v1.csv \
+            --out-summary artifacts/eai/phase_diagrams/real_gamma_phase_diagram_summary.md
+          rc=$?
+          set -e
+          echo "verdict_exit_code=$rc"
+          case "$rc" in
+            0)
+              echo "::notice::PHASE_REGION_FOUND on real data — STN-analog has signal"
+              ;;
+            22)
+              echo "::error::REGRESSION_REGION_FOUND or INVALID_EXPERIMENT — build fails"
+              exit 22
+              ;;
+            33)
+              echo "::notice::NO_SEPARABLE_REGION_FOUND on real data — STN-analog is grid artifact; documented negative finding"
+              ;;
+            *)
+              echo "::error::real-data phase-diagram runner returned UNEXPECTED exit $rc"
+              exit "$rc"
+              ;;
+          esac
+      - name: Determinism replay (byte-identical assertion)
+        run: |
+          for f in \
+            artifacts/eai/phase_diagrams/real_gamma_phase_diagram_v1.json \
+            artifacts/eai/phase_diagrams/real_gamma_phase_diagram_v1.csv \
+            artifacts/eai/phase_diagrams/real_gamma_phase_diagram_summary.md
+          do
+            cp "$f" "/tmp/$(basename $f).a"
+          done
+          set +e
+          PYTHONPATH=. python tools/eai/run_real_gamma_phase_diagram.py \
+            --ledger evidence/gamma_ledger.json \
+            --out-json /tmp/real_gamma_phase_diagram_v1.json.b \
+            --out-csv  /tmp/real_gamma_phase_diagram_v1.csv.b \
+            --out-summary /tmp/real_gamma_phase_diagram_summary.md.b
+          set -e
+          diff -q /tmp/real_gamma_phase_diagram_v1.json.a \
+                  /tmp/real_gamma_phase_diagram_v1.json.b
+          diff -q /tmp/real_gamma_phase_diagram_v1.csv.a \
+                  /tmp/real_gamma_phase_diagram_v1.csv.b
+          diff -q /tmp/real_gamma_phase_diagram_summary.md.a \
+                  /tmp/real_gamma_phase_diagram_summary.md.b
+      - name: Upload real-data phase-diagram artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eai-real-gamma-phase-diagram-v1
+          path: artifacts/eai/phase_diagrams/real_gamma_*
+          if-no-files-found: error
+          retention-days: 90
