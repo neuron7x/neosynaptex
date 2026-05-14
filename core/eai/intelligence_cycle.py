@@ -72,6 +72,14 @@ class EvidenceArtifact:
     falsification_report: FalsificationReport | None
     reproducibility: ReproducibilityManifest | None
     integration_permission: bool = True
+    # Optional independent revalidation paths (e.g. multiple
+    # cross-validation seeds, multiple redteam agent confirmations).
+    # Default empty so existing callers see no behaviour change.
+    # The graded-threshold gate (see core/eai/graded_gate.py)
+    # requires len(revalidation_evidence_paths) to scale with
+    # conflict_strength when that gate is used. Standard
+    # decide_intent_update ignores this field.
+    revalidation_evidence_paths: list[str] = field(default_factory=list)
 
     def can_be_promoted(self) -> bool:
         return bool(

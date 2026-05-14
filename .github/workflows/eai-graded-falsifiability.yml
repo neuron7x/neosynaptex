@@ -1,0 +1,104 @@
+name: eai-graded-falsifiability
+
+# STN-analog falsifiability test gate.
+#
+# Runs the pre-registered binary-vs-graded comparison on v1_1 dataset
+# on every PR + push to main. Build FAILS only on HYPOTHESIS_FALSIFIED
+# (exit 2) — that is the only outcome that violates the gate
+# contract. NULL_RESULT (exit 1) is logged as warning but build
+# passes — this is the honest case where the hypothesis showed no
+# signal but did not actively fail.
+#
+# Why this asymmetry: per CC-META-001 ROOT-3 ("failure preserved as
+# artifact is superior to failure hidden as silence"), a NULL_RESULT
+# is a documented negative finding, not a regression. A FALSIFIED
+# result means the graded gate killed real evidence — that breaks the
+# backwards-compat guarantee and must block.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  falsifiability-test:
+    name: eai graded falsifiability
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package
+        run: pip install --quiet -e ".[dev]"
+      - name: Graded falsification + threshold unit tests
+        run: |
+          PYTHONPATH=. pytest \
+            tests/eai/protocol/test_graded_falsification.py \
+            tests/eai/protocol/test_graded_gate_threshold.py \
+            tests/eai/calibration/test_falsifiability_v1.py -q
+      - name: Run pre-registered falsifiability test
+        # Exit code policy (rare codes to avoid colliding with
+        # Python's default exception exit code 1):
+        #   0  = HYPOTHESIS_SUPPORTED
+        #   22 = HYPOTHESIS_FALSIFIED  (CI MUST block)
+        #   33 = NULL_RESULT           (CI warning, build passes)
+        #   1  = Python uncaught exception   (runner failure, CI blocks)
+        #   anything else = unknown verdict signal (CI blocks)
+        run: |
+          set +e
+          PYTHONPATH=. python tools/eai/run_falsifiability_test.py \
+            --dataset data/eai_calibration/false_promotion_benchmark_v1_1.jsonl \
+            --out artifacts/eai/benchmarks/falsifiability_test_v1_report.json
+          rc=$?
+          set -e
+          echo "verdict_exit_code=$rc"
+          case "$rc" in
+            0)
+              echo "::notice::HYPOTHESIS_SUPPORTED"
+              ;;
+            22)
+              echo "::error::HYPOTHESIS_FALSIFIED — graded gate regressed true evidence; build fails"
+              exit 22
+              ;;
+            33)
+              echo "::warning::NULL_RESULT — STN-analog showed no improvement signal at these constants; documented negative finding, build passes"
+              ;;
+            *)
+              echo "::error::Falsifiability runner returned UNEXPECTED exit code $rc (likely uncaught exception or unknown verdict); build fails"
+              exit "$rc"
+              ;;
+          esac
+      - name: Determinism replay (byte-identical assertion)
+        run: |
+          cp artifacts/eai/benchmarks/falsifiability_test_v1_report.json /tmp/falsifiability_a.json
+          set +e
+          PYTHONPATH=. python tools/eai/run_falsifiability_test.py \
+            --dataset data/eai_calibration/false_promotion_benchmark_v1_1.jsonl \
+            --out /tmp/falsifiability_b.json
+          set -e
+          diff -q /tmp/falsifiability_a.json /tmp/falsifiability_b.json
+      - name: Upload falsifiability report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eai-falsifiability-test-v1-report
+          path: artifacts/eai/benchmarks/falsifiability_test_v1_report.json
+          if-no-files-found: error
+          retention-days: 90
