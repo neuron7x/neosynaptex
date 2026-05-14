@@ -60,3 +60,4 @@ reports/semantic_drift/
 # Estimator admissibility trial JSON output — regenerated per CI run.
 # README.md inside the directory is kept under version control.
 evidence/estimator_admissibility/*.json
+!artifacts/eai/phase_diagrams/*.csv

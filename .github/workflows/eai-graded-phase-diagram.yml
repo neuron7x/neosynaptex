@@ -1,0 +1,132 @@
+name: eai-graded-phase-diagram
+
+# Phase-diagram diagnostic gate.
+#
+# Per the pre-registered task order, this CI does NOT block on the
+# phase-diagram verdict (PHASE_REGION_FOUND / NO_SEPARABLE_REGION_FOUND
+# / REGRESSION_REGION_FOUND). The verdict is the artifact — that is
+# the whole point of the experiment. CI blocks on **invariant
+# violations**:
+#
+#   1. nondeterministic output (byte-identical replay must hold)
+#   2. PR #195 NULL_RESULT anchor changed
+#   3. production engine (core/eai/engine.py, core/iev_gate.py)
+#      modified by this PR
+#   4. tests failing (covers anchor + axes + determinism)
+#
+# Exit code 1 from the runner (Python uncaught-exception default) is
+# treated as a runner crash (build blocks). Exit codes 0, 22, 33 are
+# verdict signals — logged, not blocked.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+jobs:
+  phase-diagram:
+    name: eai graded phase diagram
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install package
+        run: pip install --quiet -e ".[dev]"
+      - name: Production-engine-untouched invariant
+        # Hard invariant: this PR must not modify core/eai/engine.py
+        # or core/iev_gate.py. We diff against origin/main.
+        run: |
+          git fetch origin main --depth=1 --quiet
+          changed=$(git diff --name-only origin/main...HEAD -- core/eai/engine.py core/iev_gate.py)
+          if [ -n "$changed" ]; then
+            echo "::error::Production engine files were modified by this PR: $changed"
+            echo "::error::This violates the phase-diagram invariant (diagnostic only)"
+            exit 22
+          fi
+          echo "production engine unchanged ✓"
+      - name: PR #195 NULL_RESULT anchor invariant
+        run: |
+          if git diff --name-only origin/main...HEAD -- \
+               artifacts/eai/benchmarks/falsifiability_test_v1_report.json \
+               tests/eai/calibration/test_falsifiability_v1.py | grep -q .; then
+            echo "::error::PR #195 anchor files were modified by this PR"
+            exit 22
+          fi
+          echo "PR #195 anchor unchanged ✓"
+      - name: Phase-diagram tests
+        run: |
+          PYTHONPATH=. pytest tests/eai/falsification/test_graded_phase_diagram.py -q
+      - name: Run phase-diagram tool
+        run: |
+          set +e
+          PYTHONPATH=. python tools/eai/run_graded_falsification_phase_diagram.py \
+            --out-json artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_v1.json \
+            --out-csv  artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_v1.csv \
+            --out-summary artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_summary.md
+          rc=$?
+          set -e
+          echo "verdict_exit_code=$rc"
+          case "$rc" in
+            0)
+              echo "::notice::PHASE_REGION_FOUND — graded gate has useful region without true-evidence regression"
+              ;;
+            22)
+              echo "::notice::REGRESSION_REGION_FOUND or INVALID_EXPERIMENT — diagnostic preserved, no production change"
+              ;;
+            33)
+              echo "::notice::NO_SEPARABLE_REGION_FOUND — graded gate offers no separable improvement"
+              ;;
+            *)
+              echo "::error::phase-diagram runner returned UNEXPECTED exit code $rc (likely uncaught exception)"
+              exit "$rc"
+              ;;
+          esac
+      - name: Determinism replay (byte-identical assertion)
+        run: |
+          for f in \
+            artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_v1.json \
+            artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_v1.csv \
+            artifacts/eai/phase_diagrams/graded_falsification_phase_diagram_summary.md
+          do
+            cp "$f" "/tmp/$(basename $f).a"
+          done
+          set +e
+          PYTHONPATH=. python tools/eai/run_graded_falsification_phase_diagram.py \
+            --out-json /tmp/graded_falsification_phase_diagram_v1.json.b \
+            --out-csv  /tmp/graded_falsification_phase_diagram_v1.csv.b \
+            --out-summary /tmp/graded_falsification_phase_diagram_summary.md.b
+          set -e
+          diff -q /tmp/graded_falsification_phase_diagram_v1.json.a \
+                  /tmp/graded_falsification_phase_diagram_v1.json.b
+          diff -q /tmp/graded_falsification_phase_diagram_v1.csv.a \
+                  /tmp/graded_falsification_phase_diagram_v1.csv.b
+          diff -q /tmp/graded_falsification_phase_diagram_summary.md.a \
+                  /tmp/graded_falsification_phase_diagram_summary.md.b
+      - name: Upload phase-diagram artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eai-graded-falsification-phase-diagram-v1
+          path: artifacts/eai/phase_diagrams/
+          if-no-files-found: error
+          retention-days: 90
