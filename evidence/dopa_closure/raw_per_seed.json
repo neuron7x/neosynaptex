@@ -1,0 +1,346 @@
+{
+  "constants": {
+    "DELTA_MIN": 0.05,
+    "EPS": 0.02,
+    "K_CONF": 8.0,
+    "NOISE_SCALE": 0.05,
+    "N_VERIFY": 8,
+    "SEED_SWEEP": [
+      11,
+      23,
+      42,
+      101,
+      202,
+      303,
+      404,
+      505,
+      606,
+      707
+    ],
+    "SIGN_FRAC": 0.7,
+    "TAU": 0.35,
+    "THRESHOLD": 0.0
+  },
+  "per_seed": {
+    "101": {
+      "cheap_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 0.0,
+        "fp_rate": 0.75
+      },
+      "dopa": {
+        "accuracy": 0.4,
+        "extra_cost": 87.0,
+        "fp_rate": 0.875
+      },
+      "dopa_inverted": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 87.0,
+        "fp_rate": 0.75
+      },
+      "fixed_full": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 120.0,
+        "fp_rate": 0.75
+      },
+      "random_gate": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 80.0,
+        "fp_rate": 0.625
+      },
+      "uncertainty_only": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 80.0,
+        "fp_rate": 0.625
+      }
+    },
+    "11": {
+      "cheap_only": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 0.0,
+        "fp_rate": 0.625
+      },
+      "dopa": {
+        "accuracy": 0.4,
+        "extra_cost": 55.0,
+        "fp_rate": 0.875
+      },
+      "dopa_inverted": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 55.0,
+        "fp_rate": 0.75
+      },
+      "fixed_full": {
+        "accuracy": 0.3333333333333333,
+        "extra_cost": 120.0,
+        "fp_rate": 1.0
+      },
+      "random_gate": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 48.0,
+        "fp_rate": 0.75
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4,
+        "extra_cost": 48.0,
+        "fp_rate": 0.875
+      }
+    },
+    "202": {
+      "cheap_only": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 0.0,
+        "fp_rate": 0.625
+      },
+      "dopa": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 79.0,
+        "fp_rate": 0.75
+      },
+      "dopa_inverted": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 79.0,
+        "fp_rate": 0.625
+      },
+      "fixed_full": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 120.0,
+        "fp_rate": 0.75
+      },
+      "random_gate": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 72.0,
+        "fp_rate": 0.625
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 72.0,
+        "fp_rate": 0.75
+      }
+    },
+    "23": {
+      "cheap_only": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 0.0,
+        "fp_rate": 0.625
+      },
+      "dopa": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 39.0,
+        "fp_rate": 0.75
+      },
+      "dopa_inverted": {
+        "accuracy": 0.6,
+        "extra_cost": 39.0,
+        "fp_rate": 0.5
+      },
+      "fixed_full": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 120.0,
+        "fp_rate": 0.625
+      },
+      "random_gate": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 32.0,
+        "fp_rate": 0.625
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 32.0,
+        "fp_rate": 0.75
+      }
+    },
+    "303": {
+      "cheap_only": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 0.0,
+        "fp_rate": 0.75
+      },
+      "dopa": {
+        "accuracy": 0.6,
+        "extra_cost": 71.0,
+        "fp_rate": 0.625
+      },
+      "dopa_inverted": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 71.0,
+        "fp_rate": 0.75
+      },
+      "fixed_full": {
+        "accuracy": 0.6666666666666666,
+        "extra_cost": 120.0,
+        "fp_rate": 0.5
+      },
+      "random_gate": {
+        "accuracy": 0.6,
+        "extra_cost": 64.0,
+        "fp_rate": 0.625
+      },
+      "uncertainty_only": {
+        "accuracy": 0.6666666666666666,
+        "extra_cost": 64.0,
+        "fp_rate": 0.5
+      }
+    },
+    "404": {
+      "cheap_only": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 0.0,
+        "fp_rate": 0.625
+      },
+      "dopa": {
+        "accuracy": 0.3333333333333333,
+        "extra_cost": 95.0,
+        "fp_rate": 1.0
+      },
+      "dopa_inverted": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 95.0,
+        "fp_rate": 0.625
+      },
+      "fixed_full": {
+        "accuracy": 0.3333333333333333,
+        "extra_cost": 120.0,
+        "fp_rate": 1.0
+      },
+      "random_gate": {
+        "accuracy": 0.4,
+        "extra_cost": 88.0,
+        "fp_rate": 0.875
+      },
+      "uncertainty_only": {
+        "accuracy": 0.3333333333333333,
+        "extra_cost": 88.0,
+        "fp_rate": 1.0
+      }
+    },
+    "42": {
+      "cheap_only": {
+        "accuracy": 0.6,
+        "extra_cost": 0.0,
+        "fp_rate": 0.625
+      },
+      "dopa": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 55.0,
+        "fp_rate": 0.75
+      },
+      "dopa_inverted": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 55.0,
+        "fp_rate": 0.75
+      },
+      "fixed_full": {
+        "accuracy": 0.4,
+        "extra_cost": 120.0,
+        "fp_rate": 0.875
+      },
+      "random_gate": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 48.0,
+        "fp_rate": 0.75
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 48.0,
+        "fp_rate": 0.75
+      }
+    },
+    "505": {
+      "cheap_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 0.0,
+        "fp_rate": 0.625
+      },
+      "dopa": {
+        "accuracy": 0.4,
+        "extra_cost": 79.0,
+        "fp_rate": 0.875
+      },
+      "dopa_inverted": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 79.0,
+        "fp_rate": 0.625
+      },
+      "fixed_full": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 120.0,
+        "fp_rate": 0.875
+      },
+      "random_gate": {
+        "accuracy": 0.4,
+        "extra_cost": 72.0,
+        "fp_rate": 0.75
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 72.0,
+        "fp_rate": 0.875
+      }
+    },
+    "606": {
+      "cheap_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 0.0,
+        "fp_rate": 0.75
+      },
+      "dopa": {
+        "accuracy": 0.4,
+        "extra_cost": 63.0,
+        "fp_rate": 0.875
+      },
+      "dopa_inverted": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 63.0,
+        "fp_rate": 0.75
+      },
+      "fixed_full": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 120.0,
+        "fp_rate": 0.625
+      },
+      "random_gate": {
+        "accuracy": 0.6,
+        "extra_cost": 56.0,
+        "fp_rate": 0.5
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 56.0,
+        "fp_rate": 0.75
+      }
+    },
+    "707": {
+      "cheap_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 0.0,
+        "fp_rate": 0.75
+      },
+      "dopa": {
+        "accuracy": 0.3333333333333333,
+        "extra_cost": 79.0,
+        "fp_rate": 1.0
+      },
+      "dopa_inverted": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 79.0,
+        "fp_rate": 0.75
+      },
+      "fixed_full": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 120.0,
+        "fp_rate": 0.75
+      },
+      "random_gate": {
+        "accuracy": 0.5333333333333333,
+        "extra_cost": 72.0,
+        "fp_rate": 0.625
+      },
+      "uncertainty_only": {
+        "accuracy": 0.4666666666666667,
+        "extra_cost": 72.0,
+        "fp_rate": 0.75
+      }
+    }
+  }
+}

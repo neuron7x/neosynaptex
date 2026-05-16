@@ -1,0 +1,52 @@
+{
+  "aggregate": {
+    "cheap_only": {
+      "mean_accuracy": 0.5133333333333333,
+      "mean_extra_cost": 0.0,
+      "mean_fp_rate": 0.675
+    },
+    "dopa": {
+      "mean_accuracy": 0.4266666666666667,
+      "mean_extra_cost": 70.2,
+      "mean_fp_rate": 0.8375
+    },
+    "dopa_inverted": {
+      "mean_accuracy": 0.5133333333333333,
+      "mean_extra_cost": 70.2,
+      "mean_fp_rate": 0.6875
+    },
+    "fixed_full": {
+      "mean_accuracy": 0.4666666666666667,
+      "mean_extra_cost": 120.0,
+      "mean_fp_rate": 0.775
+    },
+    "random_gate": {
+      "mean_accuracy": 0.5133333333333333,
+      "mean_extra_cost": 63.2,
+      "mean_fp_rate": 0.675
+    },
+    "uncertainty_only": {
+      "mean_accuracy": 0.47333333333333333,
+      "mean_extra_cost": 63.2,
+      "mean_fp_rate": 0.7625
+    }
+  },
+  "artifact_id": "f08f6984-20c0-43cb-9c9c-6d226f51cb0d",
+  "boundary": "ONE deterministic benchmark, 15 ground-truth scenarios, 10-seed sweep. Admissibility/engineering signal only \u2014 not a science claim about dopamine or cognition. Low scenario-N (15).",
+  "claim": "vRPE single-probe gate beats raw-margin (no_vRPE) budget allocation at equal extra-rollout budget on HallucinationBenchmark, and the advantage collapses under vRPE sign inversion.",
+  "created_at": "2026-05-16T11:15:47.387281+00:00",
+  "future_guardrail": "Do NOT use Gaussian-input-perturbation + majority-vote as the verification primitive for a cumulative-\u0394S threshold detector: perturbation reruns flip the verdict away from truth. Any DOPA-CLOSURE restart MUST pre-register a verification ACTION shown (independently) to be truth-correlated on the target benchmark BEFORE re-testing any gate. No gate can rescue a harmful action.",
+  "kill_condition": {
+    "1_delta_vs_uncertainty>=DELTA_MIN": false,
+    "2_sign_consistency>=SIGN_FRAC": false,
+    "3_dopa>random": false,
+    "4_inverted<=random+EPS": true
+  },
+  "kind": "KillArtifact",
+  "minimal_counterexample": "cheap_only acc=0.5133 (0 budget) > dopa acc=0.4267 (budget B); fixed_full acc=0.4667 < cheap_only. Spending ANY perturbation-verification budget strictly degrades the \u0394S-threshold detector; the gate signal is irrelevant because the verification ACTION is anti-correlated with ground truth.",
+  "preregistration": "experiments/dopa_closure/PREREGISTRATION.md",
+  "reason": "Pre-registered kill condition not met; the vRPE single-probe term carries no allocation advantage beyond the raw confidence margin (RFC 13.3 / H0.6: decorative component). Object filed to graveyard.",
+  "reproducibility_hash": "88397c02b05ee2f89bdc4b1abb001f1c77f5ae09b347cae2207c98dc09b84c9f",
+  "sign_fraction": 0,
+  "status": "KILLED_OR_RESCOPED"
+}
