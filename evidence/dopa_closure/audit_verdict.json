@@ -1,0 +1,20 @@
+{
+  "audit": "DOPA_CLOSURE_DEATH_TEST",
+  "verdict": "PASS_WITH_LIMITATIONS",
+  "result_under_audit": "KILLED",
+  "checks": {
+    "budget_fairness": "PASS (dopa spends >= matched policies, still loses)",
+    "no_posthoc_tuning": "PASS (constants hashed, predicate pre-registered)",
+    "true_negative_control": "PASS (inverted distinct; conds 3&4 pass)",
+    "vcr_not_gamed_by_accuracy_level": "PASS (relative predicate, identical items)",
+    "no_label_leakage": "PASS (labels only at scoring; train/dev disjoint)",
+    "dataset_tests_claim_verification": "PASS (SciFact SUPPORT/CONTRADICT)",
+    "identical_examples_all_policies": "PASS (shared Substrate)",
+    "deterministic_seeds": "PASS (run_seed reproducible; repro_hash stable)",
+    "category_breakdown": "NOT_COMPUTED (not in predicate; limitation)",
+    "random_router_competitive": "PASS-FOR-KILL (random ~ dopa ~ unc; full >= all)"
+  },
+  "material_limitation": "All policies below majority-class baseline (0.66): weak TF-IDF verifier. Relative predicate still valid; scope of kill is narrow.",
+  "blocking_issues": [],
+  "minimal_patch_instructions": "None required. Verdict stands. Any restart must pre-register a verifier independently shown above majority-class AND a vRPE estimator shown more budget-efficient than margin."
+}
