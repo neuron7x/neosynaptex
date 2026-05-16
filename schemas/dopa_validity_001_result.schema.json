@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/dopa_validity_001_result.schema.json",
+  "title": "DOPA-VALIDITY-001 result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "verdict",
+    "claim",
+    "boundary",
+    "dnca_signal_source",
+    "dopamine_signal_source",
+    "signed_vrpe_definition",
+    "verifier_admissibility",
+    "majority_baseline",
+    "random_baseline",
+    "verified_closure_definition",
+    "policy_scores",
+    "delta_dopa_vs_uncertainty",
+    "p_value",
+    "effect_size",
+    "negative_control_result",
+    "config_hash",
+    "data_hash",
+    "repro_hash"
+  ],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "INADMISSIBLE_MISSING_DNCA_EXECUTABLE_SIGNAL",
+        "INADMISSIBLE_WEAK_VERIFIER",
+        "INADMISSIBLE_METRIC_COLLAPSE",
+        "KILLED",
+        "SURVIVED_INITIAL"
+      ]
+    },
+    "claim": { "type": "string", "minLength": 1 },
+    "boundary": { "type": "string", "minLength": 1 },
+    "dnca_signal_source": { "type": "string", "minLength": 1 },
+    "dopamine_signal_source": { "type": "string", "minLength": 1 },
+    "signed_vrpe_definition": { "type": "string", "minLength": 1 },
+    "verifier_admissibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verifier_accuracy",
+        "beats_majority",
+        "beats_random",
+        "signed_vrpe_truth_correlation",
+        "signed_vrpe_truth_corr_p",
+        "signal_is_truth_correlated",
+        "b2_seeds_passing",
+        "b2_seeds_total"
+      ],
+      "properties": {
+        "verifier_accuracy": { "type": "number" },
+        "beats_majority": { "type": "boolean" },
+        "beats_random": { "type": "boolean" },
+        "signed_vrpe_truth_correlation": { "type": ["number", "null"] },
+        "signed_vrpe_truth_corr_p": { "type": ["number", "null"] },
+        "signal_is_truth_correlated": { "type": "boolean" },
+        "b2_seeds_passing": { "type": "integer", "minimum": 0 },
+        "b2_seeds_total": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "majority_baseline": { "type": "number" },
+    "random_baseline": { "type": "number" },
+    "verified_closure_definition": { "type": "string", "minLength": 1 },
+    "policy_scores": {
+      "type": "object",
+      "additionalProperties": { "type": ["number", "null"] }
+    },
+    "delta_dopa_vs_uncertainty": { "type": ["number", "null"] },
+    "p_value": { "type": ["number", "null"] },
+    "effect_size": { "type": ["number", "null"] },
+    "negative_control_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["is_true_sign_flip", "inverted_loses_advantage", "detail"],
+      "properties": {
+        "is_true_sign_flip": { "type": "boolean" },
+        "inverted_loses_advantage": { "type": ["boolean", "null"] },
+        "detail": { "type": "string" }
+      }
+    },
+    "config_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "data_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "repro_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
