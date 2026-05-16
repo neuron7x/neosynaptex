@@ -1,0 +1,9 @@
+{
+  "schema": "dopa_signal_validity/INVALIDATED",
+  "verdict": "INADMISSIBLE_CONFOUNDED",
+  "note": "The v1 run self-reported SIGNAL_ADMISSIBLE with mismatch AUC=1.000, but a raw-input-magnitude detector scored AUC~0.99 on the same data: the N(0,4) shock was trivially magnitude-detectable. The result is confounded and carries no DNCA-specific information. This file is intentionally overwritten so the confounded number cannot be cited as a verdict.",
+  "authoritative_record": "evidence/dopa_closure/KILL-0979B_DNCA_vRPE_ROUTING_TEST.json",
+  "v1_repro_hash": "600d1cf17059b2c319550a6d240c218beee4db33d3649f8694b0a77c21ce7b54",
+  "instrument_status": "code patched to v2 (variance-matched shock + mandatory trivial-baseline gate); v2 has NOT been run — no v2 verdict exists.",
+  "theory_status": "DOPA-CLOSURE UNTESTED."
+}
