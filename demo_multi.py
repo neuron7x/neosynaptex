@@ -18,6 +18,8 @@ The CNS-AI substrate is deliberately absent; its claim_status is
 ``downgraded`` and it has no place in either demo.
 """
 
+import os
+
 import numpy as np
 
 from neosynaptex import Neosynaptex
@@ -35,12 +37,26 @@ def main() -> None:
     nx = Neosynaptex(window=16, mode="demo")
 
     # Admissible substrates across real + synthetic provenance.
+    # Zebrafish requires local data files; on CI runners where those
+    # files are absent, degrade gracefully to synthetic-only demo so
+    # pipeline smoke checks remain deterministic.
     nx.register(ZebrafishAdapter("WT"))
     nx.register(GrayScottAdapter())
     nx.register(KuramotoAdapter())
     nx.register(BnSynAdapter())
 
-    s = nx.observe()
+    allow_synthetic_fallback = os.getenv("NEOSYNAPTEX_DEMO_SYNTHETIC_ONLY") == "1"
+    try:
+        s = nx.observe()
+    except RuntimeError as exc:
+        if "Cannot load zebrafish data" not in str(exc) or not allow_synthetic_fallback:
+            raise
+        print("WARN: zebrafish data missing; running explicit synthetic-only demo mode.")
+        nx = Neosynaptex(window=16, mode="demo")
+        nx.register(GrayScottAdapter())
+        nx.register(KuramotoAdapter())
+        nx.register(BnSynAdapter())
+        s = nx.observe()
     for _ in range(49):
         s = nx.observe()
         print(

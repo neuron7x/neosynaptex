@@ -1,0 +1,633 @@
+{
+  "count": 157,
+  "files": [
+    {
+      "path": "evidence/.gitkeep",
+      "size": 0
+    },
+    {
+      "path": "evidence/EVIDENCE_INDEX.md",
+      "size": 2603
+    },
+    {
+      "path": "evidence/IMMACULATE_REPORT.md",
+      "size": 11210
+    },
+    {
+      "path": "evidence/PREREG.md",
+      "size": 8038
+    },
+    {
+      "path": "evidence/__init__.py",
+      "size": 509
+    },
+    {
+      "path": "evidence/alternative_model_tests.json",
+      "size": 3301
+    },
+    {
+      "path": "evidence/data_hashes.json",
+      "size": 6487
+    },
+    {
+      "path": "evidence/data_merkle_roots.json",
+      "size": 644
+    },
+    {
+      "path": "evidence/dopa_closure/INADMISSIBLE_DOPA_VALIDITY_001.json",
+      "size": 2710
+    },
+    {
+      "path": "evidence/dopa_closure/RETRACTION.md",
+      "size": 2556
+    },
+    {
+      "path": "evidence/dopa_closure/dopa_validity_001_result.json",
+      "size": 2710
+    },
+    {
+      "path": "evidence/estimator_admissibility/README.md",
+      "size": 4077
+    },
+    {
+      "path": "evidence/examples/example_boundary_card.json",
+      "size": 159
+    },
+    {
+      "path": "evidence/examples/example_claim_card.json",
+      "size": 86
+    },
+    {
+      "path": "evidence/examples/example_evidence_artifact.json",
+      "size": 286
+    },
+    {
+      "path": "evidence/examples/example_kill_artifact.json",
+      "size": 450
+    },
+    {
+      "path": "evidence/examples/example_quarantined_claim.json",
+      "size": 76
+    },
+    {
+      "path": "evidence/failure_regimes.json",
+      "size": 5143
+    },
+    {
+      "path": "evidence/final_proof_bundle.json",
+      "size": 2638
+    },
+    {
+      "path": "evidence/gamma_ledger.json",
+      "size": 22232
+    },
+    {
+      "path": "evidence/gamma_provenance.md",
+      "size": 21097
+    },
+    {
+      "path": "evidence/ledger_schema.py",
+      "size": 16895
+    },
+    {
+      "path": "evidence/ledgers/evidence_artifact_ledger.jsonl",
+      "size": 0
+    },
+    {
+      "path": "evidence/ledgers/intelligence_cycle_ledger.jsonl",
+      "size": 0
+    },
+    {
+      "path": "evidence/ledgers/kill_artifact_ledger.jsonl",
+      "size": 0
+    },
+    {
+      "path": "evidence/ledgers/quarantined_claim_ledger.jsonl",
+      "size": 0
+    },
+    {
+      "path": "evidence/lemma_1_numerical.json",
+      "size": 6413
+    },
+    {
+      "path": "evidence/levin_bridge/README.md",
+      "size": 1328
+    },
+    {
+      "path": "evidence/levin_bridge/controls.yaml",
+      "size": 2221
+    },
+    {
+      "path": "evidence/levin_bridge/cross_substrate_horizon_metrics.csv",
+      "size": 138
+    },
+    {
+      "path": "evidence/levin_bridge/horizon_knobs.md",
+      "size": 11050
+    },
+    {
+      "path": "evidence/levin_bridge/hypotheses.yaml",
+      "size": 7541
+    },
+    {
+      "path": "evidence/levin_bridge/mfn_plus_contract_report.md",
+      "size": 4330
+    },
+    {
+      "path": "evidence/manifest_sha256.txt",
+      "size": 1474
+    },
+    {
+      "path": "evidence/manifests/manifest_20260331_172218.json",
+      "size": 407
+    },
+    {
+      "path": "evidence/manifests/manifest_20260331_172457.json",
+      "size": 718
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2025-12-26/2a6b52dd6fd4/manifest.json",
+      "size": 2453
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2026-01-03/cdee44faaa66/manifest.json",
+      "size": 1793
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2026-01-03/d4e93193c484/manifest.json",
+      "size": 1798
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2026-01-04/7b8d8dd100ca/manifest.json",
+      "size": 1797
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2026-01-06/4c70717c2473/manifest.json",
+      "size": 1795
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2026-01-07/c30c21445ac8/manifest.json",
+      "size": 1791
+    },
+    {
+      "path": "evidence/mlsdm/manifests/substrates/mlsdm/artifacts/evidence/2026-03-28/53e12f950a3e/manifest.json",
+      "size": 1751
+    },
+    {
+      "path": "evidence/power_analysis.json",
+      "size": 3734
+    },
+    {
+      "path": "evidence/priors/eeg_resting_literature_prior.yaml",
+      "size": 7246
+    },
+    {
+      "path": "evidence/proxy_sensitivity.json",
+      "size": 2498
+    },
+    {
+      "path": "evidence/registry.json",
+      "size": 5219
+    },
+    {
+      "path": "evidence/replications/README.md",
+      "size": 2645
+    },
+    {
+      "path": "evidence/replications/binance_btcusdt_1h/REPLICATION_REPORT_BTCUSDT.md",
+      "size": 9434
+    },
+    {
+      "path": "evidence/replications/binance_btcusdt_1h/btcusdt_1h_year.json",
+      "size": 1690409
+    },
+    {
+      "path": "evidence/replications/binance_btcusdt_1h/prereg.yaml",
+      "size": 7065
+    },
+    {
+      "path": "evidence/replications/binance_btcusdt_1h/result.json",
+      "size": 2684
+    },
+    {
+      "path": "evidence/replications/eegbci_dh_replication/REPLICATION_REPORT_EEG_DH.md",
+      "size": 7401
+    },
+    {
+      "path": "evidence/replications/eegbci_dh_replication/convergence.json",
+      "size": 800
+    },
+    {
+      "path": "evidence/replications/eegbci_dh_replication/convergence_analysis.py",
+      "size": 5612
+    },
+    {
+      "path": "evidence/replications/eegbci_dh_replication/results.json",
+      "size": 20210
+    },
+    {
+      "path": "evidence/replications/fred_indpro/REPLICATION_REPORT_FRED.md",
+      "size": 8428
+    },
+    {
+      "path": "evidence/replications/fred_indpro/prereg.yaml",
+      "size": 7940
+    },
+    {
+      "path": "evidence/replications/fred_indpro/result.json",
+      "size": 2297
+    },
+    {
+      "path": "evidence/replications/hrv_iaaft_calibration/CALIBRATION_REPORT.md",
+      "size": 7295
+    },
+    {
+      "path": "evidence/replications/hrv_iaaft_calibration/IAAFT_REPAIR_REPORT.md",
+      "size": 10803
+    },
+    {
+      "path": "evidence/replications/hrv_iaaft_calibration/diagnostic.json",
+      "size": 2769
+    },
+    {
+      "path": "evidence/replications/hrv_iaaft_calibration/results.json",
+      "size": 4880
+    },
+    {
+      "path": "evidence/replications/hrv_iaaft_calibration/sign_flip_diag.json",
+      "size": 6126
+    },
+    {
+      "path": "evidence/replications/hrv_null_screening/NULL_SCREENING_REPORT.md",
+      "size": 6285
+    },
+    {
+      "path": "evidence/replications/hrv_null_screening/null_screening_results.json",
+      "size": 20494
+    },
+    {
+      "path": "evidence/replications/nsr_chf_descriptive/DISCRIMINATOR_REPORT.md",
+      "size": 3094
+    },
+    {
+      "path": "evidence/replications/nsr_chf_descriptive/results.json",
+      "size": 12215
+    },
+    {
+      "path": "evidence/replications/physionet_chf2db_contrast/REPLICATION_REPORT_HRV_PATHOLOGY_CONTRAST.md",
+      "size": 7609
+    },
+    {
+      "path": "evidence/replications/physionet_chf2db_contrast/prereg.yaml",
+      "size": 4437
+    },
+    {
+      "path": "evidence/replications/physionet_chf2db_contrast/result.json",
+      "size": 7348
+    },
+    {
+      "path": "evidence/replications/physionet_nsr2db/REPLICATION_REPORT_HRV_NSR2DB.md",
+      "size": 6899
+    },
+    {
+      "path": "evidence/replications/physionet_nsr2db/prereg.yaml",
+      "size": 5648
+    },
+    {
+      "path": "evidence/replications/physionet_nsr2db/result.json",
+      "size": 2399
+    },
+    {
+      "path": "evidence/replications/physionet_nsr2db_multifractal/REPLICATION_REPORT_HRV_MULTIFRACTAL.md",
+      "size": 7256
+    },
+    {
+      "path": "evidence/replications/physionet_nsr2db_multifractal/prereg.yaml",
+      "size": 5123
+    },
+    {
+      "path": "evidence/replications/physionet_nsr2db_multifractal/result.json",
+      "size": 7266
+    },
+    {
+      "path": "evidence/replications/registry.yaml",
+      "size": 5468
+    },
+    {
+      "path": "evidence/run_alternative_model_tests.py",
+      "size": 6916
+    },
+    {
+      "path": "evidence/run_invariant_hardening.py",
+      "size": 18241
+    },
+    {
+      "path": "evidence/scale_invariance.json",
+      "size": 1044
+    },
+    {
+      "path": "evidence/semantic_drift_registry.json",
+      "size": 4335
+    },
+    {
+      "path": "evidence/sessions/session_20260331_172218/events.jsonl",
+      "size": 280
+    },
+    {
+      "path": "evidence/sessions/session_20260331_172457/events.jsonl",
+      "size": 283
+    },
+    {
+      "path": "evidence/shuffling_controls.json",
+      "size": 926
+    },
+    {
+      "path": "evidence/surrogate_evidence.json",
+      "size": 2151
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf01/null_suite.json",
+      "size": 2395
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf02/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf03/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf04/null_suite.json",
+      "size": 2397
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf05/null_suite.json",
+      "size": 2400
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf06/null_suite.json",
+      "size": 2415
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf07/null_suite.json",
+      "size": 2402
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf08/null_suite.json",
+      "size": 2407
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf09/null_suite.json",
+      "size": 2393
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf10/null_suite.json",
+      "size": 2401
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf11/null_suite.json",
+      "size": 2395
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf12/null_suite.json",
+      "size": 2398
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf13/null_suite.json",
+      "size": 2400
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf14/null_suite.json",
+      "size": 2398
+    },
+    {
+      "path": "evidence/surrogates/chfdb__chf15/null_suite.json",
+      "size": 2389
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr001/null_suite.json",
+      "size": 2399
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr002/null_suite.json",
+      "size": 2408
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr003/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr004/null_suite.json",
+      "size": 2409
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr005/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr006/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr007/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr008/null_suite.json",
+      "size": 2397
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr009/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr010/null_suite.json",
+      "size": 2401
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr011/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr012/null_suite.json",
+      "size": 2402
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr013/null_suite.json",
+      "size": 2399
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr014/null_suite.json",
+      "size": 2402
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr015/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr016/null_suite.json",
+      "size": 2400
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr017/null_suite.json",
+      "size": 2401
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr018/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr019/null_suite.json",
+      "size": 2402
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr020/null_suite.json",
+      "size": 2406
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr021/null_suite.json",
+      "size": 2402
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr022/null_suite.json",
+      "size": 2397
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr023/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr024/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr025/null_suite.json",
+      "size": 2410
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr026/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr027/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr028/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr029/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr030/null_suite.json",
+      "size": 2398
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr031/null_suite.json",
+      "size": 2408
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr032/null_suite.json",
+      "size": 2400
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr033/null_suite.json",
+      "size": 2406
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr034/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr035/null_suite.json",
+      "size": 2407
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr036/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr037/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr038/null_suite.json",
+      "size": 2409
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr039/null_suite.json",
+      "size": 2419
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr040/null_suite.json",
+      "size": 2399
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr041/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr042/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr043/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr044/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr045/null_suite.json",
+      "size": 2404
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr046/null_suite.json",
+      "size": 2399
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr047/null_suite.json",
+      "size": 2401
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr048/null_suite.json",
+      "size": 2406
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr049/null_suite.json",
+      "size": 2396
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr050/null_suite.json",
+      "size": 2401
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr051/null_suite.json",
+      "size": 2407
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr052/null_suite.json",
+      "size": 2407
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr053/null_suite.json",
+      "size": 2405
+    },
+    {
+      "path": "evidence/surrogates/nsr2db__nsr054/null_suite.json",
+      "size": 2403
+    },
+    {
+      "path": "evidence/surrogates/null_suite_summary.json",
+      "size": 40853
+    },
+    {
+      "path": "evidence/unified_space_gamma.json",
+      "size": 1868
+    }
+  ]
+}

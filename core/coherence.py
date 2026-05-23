@@ -108,9 +108,7 @@ def transfer_entropy_gamma(
     y_past = target[: n - k]
     x_past = source[: n - k]
 
-    # H(Y_future | Y_past)
     h_y_given_ypast = _conditional_entropy(y_future, y_past, bins)
-    # H(Y_future | Y_past, X_past) -- approximate as H(Y_future | combined)
     combined_past = y_past + x_past * 1e3  # hash-like combination for histogram
     h_y_given_both = _conditional_entropy(y_future, combined_past, bins)
 

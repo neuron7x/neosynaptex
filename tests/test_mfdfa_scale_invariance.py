@@ -72,8 +72,7 @@ def fgn_spectral(n: int, H: float, seed: int) -> np.ndarray:
     spectrum = amp * np.exp(1j * phases)
     x = np.fft.irfft(spectrum, n=n)
     # Normalise to unit variance (monofractality invariant under affine rescale).
-    x = (x - x.mean()) / (x.std() + 1e-12)
-    return x
+    return (x - x.mean()) / (x.std() + 1e-12)
 
 
 # ---------------------------------------------------------------------------

@@ -340,7 +340,7 @@ class CoherenceStateSpace:
         dv_dE = 0.0
         dv_dv = 1.0 - p.rho
 
-        J = np.array(
+        return np.array(
             [
                 [dS_dS, dS_dg, dS_dE, dS_dv],
                 [dg_dS, dg_dg, dg_dE, dg_dv],
@@ -349,7 +349,6 @@ class CoherenceStateSpace:
             ],
             dtype=np.float64,
         )
-        return J
 
     def stability(self, fixed_point: CoherenceState) -> StabilityReport:
         """Linear-stability analysis around ``fixed_point``.

@@ -65,8 +65,10 @@ jobs:
           if git cat-file -e origin/main:artifacts/eai/benchmarks/gamma_ledger_admissibility_history.jsonl 2>/dev/null; then
             git show origin/main:artifacts/eai/benchmarks/gamma_ledger_admissibility_history.jsonl > /tmp/history_trusted.jsonl
           else
-            : > /tmp/history_trusted.jsonl
+            echo "ERROR: trusted baseline missing on origin/main"
+            exit 1
           fi
+          test -s /tmp/history_trusted.jsonl
           wc -l /tmp/history_trusted.jsonl
       - name: Run regression check against trusted baseline
         run: |

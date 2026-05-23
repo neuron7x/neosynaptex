@@ -180,13 +180,11 @@ def recurrence_quantification(
     total_pairs = n * (n - 1)
     rr = float(R.sum() / total_pairs) if total_pairs > 0 else 0.0
 
-    # DET: determinism
     diag_lengths = _diagonal_lines(R)
     diag_total = sum(diag_lengths)
     rec_total = R.sum()
     det = float(diag_total / rec_total) if rec_total > 0 else 0.0
 
-    # LAM: laminarity
     vert_lengths = _vertical_lines(R)
     vert_total = sum(vert_lengths)
     lam = float(vert_total / rec_total) if rec_total > 0 else 0.0

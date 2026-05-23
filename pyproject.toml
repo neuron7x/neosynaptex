@@ -37,9 +37,16 @@ classifiers = [
 dependencies = [
     "numpy>=2.2.6",
     "scipy>=1.15.3",
+    "PyWavelets>=1.8",
+    "networkx>=3.2.1",
 ]
 
 [project.optional-dependencies]
+test = [
+    "pytest>=9.0.3",
+    "hypothesis>=6.0",
+    "pytest-cov>=7.1.0",
+]
 dev = [
     "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
@@ -48,6 +55,7 @@ dev = [
     "ruff>=0.15.10",
     "import-linter>=2.11",
     "pyyaml>=6.0",
+    "pydantic>=2.0",
     # Required by core/nulls/wavelet_phase.py (N2 null family, NULL-SCREEN-v1.1).
     "PyWavelets>=1.8",
     # Chained via run_null_family_screening.py → substrates/physionet_hrv/nsr2db_client.py
@@ -103,6 +111,7 @@ filterwarnings = ["ignore::RuntimeWarning"]
 addopts = "-v --tb=short"
 markers = [
     "slow: marks tests as slow (>30 s); run explicitly or in full CI only",
+    "trace_eq(eq_id): binds a test to a formal equation identifier",
 ]
 
 [tool.mypy]
@@ -116,7 +125,7 @@ target-version = "py310"
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "N", "UP", "B", "SIM"]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "FIX", "ERA", "RET"]
 ignore = [
     "N803",  # H is a standard mathematical symbol (Hurst exponent)
     "N806",  # T, X, Y, H, N are standard scientific variable names
@@ -137,3 +146,8 @@ ignore = [
 # accepted locally but rejected by ``ruff check`` on CI due to import-
 # group disagreement (or vice versa).
 known-third-party = ["pywt"]
+
+
+
+[tool.ruff.lint.per-file-ignores]
+"core/eai/gamma_bridge.py" = ["ERA001"]

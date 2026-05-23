@@ -141,7 +141,6 @@ class HallucinationBenchmark:
 
         # --- 5 ambiguous scenarios: γ near boundary, moderate noise ---
         ambig_params: list[tuple[float, float, float, float, bool]] = [
-            # (S0, gamma0, E_obj0, sigma2, expected)
             (0.40, 0.90, 0.10, 5e-3, False),
             (0.35, 0.85, 0.15, 8e-3, True),
             (0.50, 1.10, 0.05, 4e-3, False),

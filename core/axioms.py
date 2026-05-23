@@ -173,12 +173,11 @@ def classify_regime(gamma: float) -> str:
     dist = abs(gamma - 1.0)
     if dist < GAMMA_THRESHOLD_METASTABLE:
         return "METASTABLE"
-    elif dist < GAMMA_THRESHOLD_WARNING:
+    if dist < GAMMA_THRESHOLD_WARNING:
         return "WARNING"
-    elif dist < GAMMA_THRESHOLD_CRITICAL:
+    if dist < GAMMA_THRESHOLD_CRITICAL:
         return "CRITICAL"
-    else:
-        return "COLLAPSE"
+    return "COLLAPSE"
 
 
 # ─── VALIDATED SUBSTRATES (derived from gamma_ledger.json) ──────────────

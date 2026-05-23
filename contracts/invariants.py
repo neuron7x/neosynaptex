@@ -95,9 +95,6 @@ def enforce_gamma_derived(gamma_source: str) -> None:
         )
 
 
-# ---------------------------------------------------------------------------
-# INVARIANT_II: STATE != PROOF
-# ---------------------------------------------------------------------------
 def enforce_state_not_proof(state_source: str, proof_source: str) -> None:
     """Gate: state and proof must come from independent sources.
 

@@ -7,6 +7,7 @@ and the neosynaptex observation loop. All modulation bounded |Δ| ≤ 0.05.
 from __future__ import annotations
 
 import logging
+import os
 from dataclasses import dataclass
 from typing import Any
 
@@ -41,6 +42,9 @@ class DncaBridge:
         self._dnca = dnca
         self._engine = engine
         self._sync_history: list[DivergenceReport] = []
+
+    def _fail_closed(self) -> bool:
+        return os.getenv("NFI_FAIL_CLOSED") == "1"
 
     def sync_gamma(self) -> dict[str, float]:
         """Read gamma from DNCA probes, compare with neosynaptex gamma.
@@ -144,8 +148,9 @@ class DncaBridge:
                 return float(self._dnca.get_gamma())
             if hasattr(self._dnca, "gamma"):
                 return float(self._dnca.gamma)
-        except Exception:  # nosec B110 — graceful degradation: DNCA subsystem optional
-            pass
+        except Exception as exc:  # nosec B110 — graceful degradation: DNCA subsystem optional
+            if self._fail_closed():
+                raise RuntimeError("DNCA gamma query failed under fail-closed mode") from exc
         return float("nan")
 
     def _get_neosynaptex_gamma(self) -> float:
@@ -155,8 +160,9 @@ class DncaBridge:
             history = self._engine.history()
             if history:
                 return float(history[-1].gamma_mean)
-        except Exception:  # nosec B110 — graceful degradation: engine history may be empty
-            pass
+        except Exception as exc:  # nosec B110 — graceful degradation: engine history may be empty
+            if self._fail_closed():
+                raise RuntimeError("Neosynaptex gamma query failed under fail-closed mode") from exc
         return float("nan")
 
     def _get_dnca_regime(self) -> str:
@@ -164,13 +170,12 @@ class DncaBridge:
             return "unknown"
         try:
             if hasattr(self._dnca, "get_regime"):
-                result: str = str(self._dnca.get_regime())
-                return result
+                return str(self._dnca.get_regime())
             if hasattr(self._dnca, "regime"):
-                result = str(self._dnca.regime)
-                return result
-        except Exception:  # nosec B110 — graceful degradation: DNCA regime query optional
-            pass
+                return str(self._dnca.regime)
+        except Exception as exc:  # nosec B110 — graceful degradation: DNCA regime query optional
+            if self._fail_closed():
+                raise RuntimeError("DNCA regime query failed under fail-closed mode") from exc
         return "unknown"
 
     def _get_neosynaptex_phase(self) -> str:
@@ -180,8 +185,9 @@ class DncaBridge:
             history = self._engine.history()
             if history:
                 return str(history[-1].phase)
-        except Exception:  # nosec B110 — graceful degradation: engine phase query optional
-            pass
+        except Exception as exc:  # nosec B110 — graceful degradation: engine phase query optional
+            if self._fail_closed():
+                raise RuntimeError("Neosynaptex phase query failed under fail-closed mode") from exc
         return "INITIALIZING"
 
     def _get_dnca_neuromod(self) -> dict[str, float]:
@@ -192,6 +198,7 @@ class DncaBridge:
                 return dict(self._dnca.get_neuromodulation())
             if hasattr(self._dnca, "neuromod_levels"):
                 return dict(self._dnca.neuromod_levels)
-        except Exception:  # nosec B110 — graceful degradation: DNCA neuromod optional
-            pass
+        except Exception as exc:  # nosec B110 — graceful degradation: DNCA neuromod optional
+            if self._fail_closed():
+                raise RuntimeError("DNCA neuromod query failed under fail-closed mode") from exc
         return {}

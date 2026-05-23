@@ -368,7 +368,6 @@ def fisher_information_gamma(
 
     n_eff = n / max(tau_int, 1.0)
 
-    # Precision: 1/sqrt(n_eff * I_F)
     precision = 1.0 / np.sqrt(max(n_eff * fisher, _EPS))
 
     return FisherInformationResult(

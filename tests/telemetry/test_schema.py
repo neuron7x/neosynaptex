@@ -171,11 +171,6 @@ def test_hex_id_rejects_too_short(field):
     assert any(e.field == field for e in errors)
 
 
-# ---------------------------------------------------------------------------
-# parent_span_id (nullable)
-# ---------------------------------------------------------------------------
-
-
 def test_parent_span_id_null_is_valid():
     event = dict(_GOLDEN_EVENT)
     event["parent_span_id"] = None

@@ -1,0 +1,19 @@
+version: "1.0"
+scope: "cross-substrate-metastability"
+
+physics_invariants:
+  spectral_scaling:
+    symbol: "gamma"
+    target_value: 1.0
+    tolerance: 0.15
+    description: "Bounded candidate metastability-scaling observable for γ-emitting substrates; not a universal intelligence law or validation claim."
+    falsification_condition: "abs(measured_gamma - 1.0) > 0.15 consistently across >3 topologies."
+
+thermodynamic_bounds:
+  energy_dissipation_rate:
+    max_threshold: "status: unresolved"
+    fail_state: "system_halt"
+
+architecture_rules:
+  fail_closed: true
+  allow_silent_exceptions: false

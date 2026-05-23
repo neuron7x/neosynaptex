@@ -1090,8 +1090,7 @@ class Neosynaptex:
             if self._degenerate_count >= _DEGENERATE_COUNT:
                 return DEGENERATE
             return DIVERGING
-        else:
-            self._degenerate_count = 0
+        self._degenerate_count = 0
 
         if sr > _SR_METASTABLE_HI:
             return DIVERGING
@@ -1117,7 +1116,7 @@ class Neosynaptex:
 
     def need_vector(self) -> None:
         """Placeholder for v2. Returns None."""
-        return None
+        return
 
     def history(self) -> list[NeosynaptexState]:
         """Return list of past snapshots (oldest first)."""

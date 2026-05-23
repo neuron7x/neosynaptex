@@ -3,9 +3,6 @@
 # Provides transparent fallback between Rust-accelerated and pure-Python
 # implementations of gamma-scaling computation kernels.
 #
-# Usage:
-#     from core.accel import compute_gamma_accel, hilbert_sort, simd_info
-#
 # If the Rust extension `geosync_accel` is installed (via `maturin develop`),
 # calls are routed to SIMD-accelerated Rust kernels with GIL release.
 # Otherwise, falls back to numpy/scipy with identical semantics.

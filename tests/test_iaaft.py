@@ -105,8 +105,7 @@ def _hrv_like_signal(n: int = 4096, seed: int = 0) -> np.ndarray:
     for i in range(2, n):
         x[i] = 0.7 * x[i - 1] - 0.2 * x[i - 2] + 0.1 * rng.standard_normal()
     # Re-centre and scale to a physiological-looking RR-mean band.
-    x = 0.85 + 0.05 * (x - x.mean()) / (x.std() + 1e-12)
-    return x
+    return 0.85 + 0.05 * (x - x.mean()) / (x.std() + 1e-12)
 
 
 def test_length_preservation() -> None:

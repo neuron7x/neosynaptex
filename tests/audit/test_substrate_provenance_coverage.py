@@ -42,7 +42,6 @@ _VALID_CLASSES = {pc.value for pc in ProvenanceClass}
 _VALID_STATUSES = {cs.value for cs in ClaimStatus}
 
 _EXPECTED: list[tuple[_Factory, ProvenanceClass, ClaimStatus]] = [
-    # (factory, expected_class, expected_status)
     (lambda: ZebrafishAdapter("WT"), ProvenanceClass.REAL, ClaimStatus.ADMISSIBLE),
     (lambda: GrayScottAdapter(), ProvenanceClass.SYNTHETIC, ClaimStatus.ADMISSIBLE),
     (lambda: KuramotoAdapter(), ProvenanceClass.SYNTHETIC, ClaimStatus.ADMISSIBLE),
