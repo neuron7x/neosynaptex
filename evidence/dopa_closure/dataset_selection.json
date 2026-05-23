@@ -1,0 +1,14 @@
+{
+  "selected": "scifact",
+  "rationale": "Smallest real dataset with true ground-truth claim-verification labels and evidence; binary SUPPORT/CONTRADICT gives direct VCR; no LLM judge, no subjective grading; deterministic offline run in seconds; supports a real cheap-vs-expensive budget axis without any model API.",
+  "evaluated": ["HaluEval", "TruthfulQA", "FEVER", "SciFact", "SciClaimEval2026"],
+  "rejected_for_first_run": {
+    "HaluEval": "needs answer generator (LLM) for the cheap pass",
+    "TruthfulQA": "generative QA item; first pass must avoid generation",
+    "SciClaimEval2026": "cross-modal; adds complexity, reserved as future branch"
+  },
+  "fallback": "FEVER (same task shape, 185445 claims) if SciFact signal degenerate; not needed.",
+  "binary_vcr_justification": "label SUPPORT->1, CONTRADICT->0, NOINFO dropped; VCR = correct_final_labels / total_items, exact binary scoring against gold annotations.",
+  "license": "CC BY-NC 2.0 (research/non-commercial); full data git-ignored, only a transformed 50-item smoke fixture committed.",
+  "no_valid_dataset": false
+}

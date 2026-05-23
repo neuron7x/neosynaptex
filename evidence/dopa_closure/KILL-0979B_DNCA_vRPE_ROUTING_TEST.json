@@ -1,0 +1,21 @@
+{
+  "kill_id": "KILL-0979B_DNCA_vRPE_ROUTING_TEST",
+  "scope": "EXACT IMPLEMENTATION ONLY — signal_validity.py v1 (real-DNCA precondition #3 probe). NOT a kill of DOPA-CLOSURE; the theory remains UNTESTED.",
+  "killed_claim": "DNCA mismatch/dopamine_signal is non-trivially truth-correlated with prediction-violation (instrument self-reported SIGNAL_ADMISSIBLE, mismatch AUC=1.000, p=0.0021).",
+  "reason": "Confounded task by construction. The SHOCK regime injects N(0, SHOCK_GAIN=4.0) vs unit-scale AR(1); the shock is therefore detectable by raw input magnitude alone. Adversarial control: AUC(raw_input_norm) = 0.992/0.981/0.982 and AUC(raw_input_var) ~ identical across seeds 1/2/3 — essentially the same ceiling as DNCA mismatch AUC=1.000. The perfect AUC carries no DNCA-specific information; it is an artifact of the task generator, not evidence the dopaminergic signal is non-trivially informative.",
+  "decision_rule_applied": "TASK 5: DNCA signal does not exceed a trivial baseline -> INADMISSIBLE, neither KILLED nor SURVIVED. The instrument's own SIGNAL_ADMISSIBLE verdict is overridden: it lacked the mandatory trivial-baseline negative control (a repeat of the GAP_AUDIT construct-validity defect class).",
+  "verdict": "INADMISSIBLE_CONFOUNDED",
+  "minimal_counterexample": "raw_input_norm AUC ~= 0.99 ~= DNCA_mismatch AUC 1.00 on all 3 seeds; no separation attributable to DNCA.",
+  "trivial_baseline_auc": {"seed1": 0.9917, "seed2": 0.9806, "seed3": 0.9820},
+  "dnca_mismatch_auc": {"seed1": 1.0, "seed2": 1.0, "seed3": 1.0},
+  "sapolsky_vector_breach": "SV7 (confident clean number from an uncontrolled instrument) and SV6 (perfect AUC treated as signal without trivial-baseline gate).",
+  "required_redesign_v2_preregistered": [
+    "Variance-matched shock: violate AR(1) temporal structure while preserving marginal scale (e.g. phase-scrambled or sign-permuted dynamics at identical variance) so raw magnitude cannot separate.",
+    "Mandatory trivial-baseline negative control (raw input norm/var) computed every run; verdict ADMISSIBLE requires DNCA AUC to exceed trivial-baseline AUC by >= TRIVIAL_MARGIN with non-overlapping null.",
+    "Compute feasibility: ~30+ min for 1800 DNCA steps on CPU is itself a finding — v2 must bound runtime or justify scale.",
+    "Re-pre-register before running; no verdict from v1."
+  ],
+  "theory_status": "DOPA-CLOSURE UNTESTED. Two retracted proxies (#198/#199) + one confounded real-object probe (this). No admissible measurement exists yet.",
+  "reproducibility_hash": "600d1cf17059b2c319550a6d240c218beee4db33d3649f8694b0a77c21ce7b54",
+  "created_at": "2026-05-16"
+}

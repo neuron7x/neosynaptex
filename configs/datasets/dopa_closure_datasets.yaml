@@ -1,0 +1,39 @@
+# DOPA-CLOSURE dataset registry (DATASET-SCOUT output). Frozen pre-run.
+version: 1
+selected: scifact
+datasets:
+  scifact:
+    name: SciFact
+    source: https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz
+    upstream: https://github.com/allenai/scifact
+    license: CC BY-NC 2.0
+    task: scientific_claim_verification
+    labels: [SUPPORT, CONTRADICT, NOINFO]
+    binary_map: {SUPPORT: 1, CONTRADICT: 0}   # NOINFO dropped
+    ground_truth: true
+    supports_binary_vcr: true
+    needs_llm_judge: false
+    local_path: data/scifact/data
+    loader: experiments.dopa_closure_death_test.load_items
+    smoke_fixture: tests/fixtures/scifact_smoke.jsonl
+    smoke_n: 50
+  fever:
+    name: FEVER
+    source: https://fever.ai/dataset/fever.html
+    license: CC BY-SA 3.0
+    task: claim_verification
+    labels: [SUPPORTED, REFUTED, NOT_ENOUGH_INFO]
+    ground_truth: true
+    supports_binary_vcr: true
+    needs_llm_judge: false
+    role: documented_fallback_only
+  halueval:
+    name: HaluEval
+    source: https://arxiv.org/abs/2305.11747
+    license: MIT
+    role: future_branch_requires_generator
+  truthfulqa:
+    name: TruthfulQA
+    source: https://arxiv.org/abs/2109.07958
+    license: Apache-2.0
+    role: future_branch_generative

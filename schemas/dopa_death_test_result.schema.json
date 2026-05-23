@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "dopa_death_test_result",
+  "type": "object",
+  "required": [
+    "schema",
+    "dataset_name",
+    "seed_sweep",
+    "sample_count",
+    "policy_scores",
+    "delta_dopa_vs_uncertainty",
+    "delta_dopa_vs_inverted",
+    "sign_fraction",
+    "survival_predicate",
+    "verdict",
+    "kill_reason",
+    "config_hash",
+    "dataset_hash",
+    "reproducibility_hash"
+  ],
+  "properties": {
+    "schema": {"const": "dopa_death_test_result/1"},
+    "dataset_name": {"type": "string"},
+    "dataset_source_tag": {"type": "string"},
+    "seed_sweep": {"type": "array", "items": {"type": "integer"}, "minItems": 1},
+    "sample_count": {"type": "integer", "minimum": 1},
+    "train_count": {"type": "integer", "minimum": 1},
+    "policy_scores": {
+      "type": "object",
+      "required": [
+        "dopa_vrpe",
+        "uncertainty_only",
+        "dopa_vrpe_inverted",
+        "random_gate",
+        "cheap_only",
+        "fixed_full"
+      ],
+      "additionalProperties": {"type": "number"}
+    },
+    "policy_std": {"type": "object", "additionalProperties": {"type": "number"}},
+    "delta_dopa_vs_uncertainty": {"type": "number"},
+    "delta_dopa_vs_inverted": {"type": "number"},
+    "sign_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+    "equal_budget_extra_calls": {"type": "number"},
+    "survival_predicate": {
+      "type": "object",
+      "additionalProperties": {"type": "boolean"}
+    },
+    "verdict": {"enum": ["SURVIVED_INITIAL", "KILLED"]},
+    "kill_reason": {"type": ["string", "null"]},
+    "config_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "dataset_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reproducibility_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "per_seed": {"type": "object"},
+    "created_at": {"type": "string"},
+    "preregistration": {"type": "string"},
+    "artifact_id": {"type": "string"},
+    "claim": {"type": "string"},
+    "boundary": {"type": "string"},
+    "aggregate": {"type": "object"}
+  },
+  "additionalProperties": true
+}

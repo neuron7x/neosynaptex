@@ -1,0 +1,28 @@
+# DOPA-CLOSURE death-test config. Frozen by
+# docs/experiments/DOPA_CLOSURE_DEATH_TEST_CONTRACT.md — DO NOT tune post-hoc.
+version: 1
+dataset: scifact
+label_map: {SUPPORT: 1, CONTRADICT: 0}   # NOINFO dropped
+cheap_predictor:
+  vectorizer: tfidf
+  ngram_range: [1, 2]
+  min_df: 2
+  sublinear_tf: true
+  classifier: logistic_regression
+  C: 4.0
+  max_iter: 2000
+verification:
+  action: bootstrap_ensemble_majority
+  k_verify: 8
+gate:
+  k_conf: 1.5
+  tau: 0.30
+budget:
+  unit: bootstrap_model_prediction_call
+  match: dopa_total_extra_calls
+seeds: [11, 23, 42, 101, 202, 303, 404, 505, 606, 707]
+survival_predicate:
+  delta_min: 0.02
+  sign_frac: 0.70
+  eps: 0.01
+policies: [dopa_vrpe, uncertainty_only, dopa_vrpe_inverted, random_gate, cheap_only, fixed_full]

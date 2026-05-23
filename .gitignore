@@ -62,3 +62,6 @@ reports/semantic_drift/
 evidence/estimator_admissibility/*.json
 !artifacts/eai/phase_diagrams/*.csv
 .pr_body.txt
+
+# DOPA-CLOSURE: large external dataset, not committed
+data/scifact/

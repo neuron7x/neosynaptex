@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-05-16T11:54:42.526619+00:00",
+  "dataset": "SciFact (allenai) binary SUPPORT/CONTRADICT",
+  "delta_dopa_vs_uncertainty": -0.006914893617021245,
+  "future_guardrail": "On real claim-verification data the vRPE signal carries no routing advantage over raw classifier-margin ranking. Any restart must pre-register a vRPE estimator independently shown to be more budget-efficient than margin BEFORE re-testing.",
+  "kill_id": "KILL-0979",
+  "killed_claim": "vRPE-gated routing beats uncertainty_only (no_vRPE) on Verified Closure Rate under equal budget, advantage gone under inverted vRPE.",
+  "minimal_counterexample": "dopa_vrpe=0.5160 <= uncertainty_only=0.5229 at equal budget across 10 seeds (sign_frac=0.00).",
+  "policy_scores": {
+    "cheap_only": 0.4946808510638298,
+    "dopa_vrpe": 0.5159574468085106,
+    "dopa_vrpe_inverted": 0.5037234042553191,
+    "fixed_full": 0.525,
+    "random_gate": 0.5058510638297873,
+    "uncertainty_only": 0.5228723404255319
+  },
+  "reason": "Pre-registered survival predicate not met under equal budget.",
+  "reproducibility_hash": "61a06bc873bf4a990e59053c57b885f0995d10510fe454bd573950ee53d53578",
+  "sign_fraction": 0
+}
