@@ -1,0 +1,43 @@
+version: cognitive-immune-os.v0.1
+claim_status: derived
+conflict_types:
+  SELF_CONTRADICTION:
+    severity: P0
+    meaning: Internal repository state disagreement.
+    required_resolution:
+      - STATE_DEMOTION
+      - STATE_HOLD
+  INVALID_INSTRUMENT:
+    severity: P1
+    meaning: Measurement, verifier, or null instrument cannot support the claim.
+    required_resolution:
+      - UNTESTED_MARKER
+      - STATE_RECHECK
+  PUBLIC_SURFACE_OVERREACH:
+    severity: P2
+    meaning: Public text exceeds verified state capability.
+    required_resolution:
+      - SCOPE_NARROWING
+      - STATE_DEMOTION
+  EXTERNAL_REPLICATION_FAILURE:
+    severity: P3
+    meaning: External or independent replication conflicts with stored state.
+    required_resolution:
+      - STATE_RECHECK
+      - STATE_DEMOTION
+  POLICY_BIAS:
+    severity: P4
+    meaning: Admission policy appears to block reality or admit polished falsehood.
+    required_resolution:
+      - POLICY_REVISION
+      - STATE_RECHECK
+  STALE_EVIDENCE:
+    severity: P5
+    meaning: Evidence requires revalidation because dependency, data, or context changed.
+    required_resolution:
+      - STATE_RECHECK
+  DOCUMENTATION_AMBIGUITY:
+    severity: P6
+    meaning: Textual ambiguity could be read as a stronger claim than admitted.
+    required_resolution:
+      - SCOPE_NARROWING

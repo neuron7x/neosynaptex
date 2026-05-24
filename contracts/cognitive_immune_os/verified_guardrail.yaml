@@ -1,0 +1,85 @@
+version: cognitive-immune-os.verified-guardrail.v0.1
+claim_status: derived
+principle: "Critical invariants must be derived, not declared."
+
+parameters:
+  min_agent_value: 1.0
+  max_observation_entropy: 0.35
+  min_evidence_confidence: 0.80
+  min_critical_confidence: 0.85
+  max_impact_for_unresolved_status: 0.05
+  max_trust_damage_for_allow: 0.50
+  max_adversarial_pressure: 0.55
+  min_quorum_ratio: 1.0
+  max_repeated_escalations: 2
+  punitive_requires_verified_status: true
+  irreversible_requires_verified_status: true
+  fail_closed_on_unknown: true
+
+non_admissible_agent_supplied_flags:
+  - role_reversal_acceptable
+  - preserves_distal_self
+  - preserves_target_value
+  - known_innocent
+  - verified_guilty
+  - is_utilitarian_optimization
+
+derived_invariants:
+  PROVENANCE_INTEGRITY:
+    severity: CRITICAL
+    fail_closed_on:
+      - missing_evidence_refs
+      - corrupted_payload_hash
+      - missing_evidence_ref
+      - evidence_cycle
+      - low_evidence_confidence
+  OBSERVATION_ENTROPY_BOUND:
+    severity: HIGH
+    fail_closed_on:
+      - entropy_above_threshold
+      - missing_entropy_for_high_risk_action
+  ROLE_SYMMETRY:
+    severity: CRITICAL
+    fail_closed_on:
+      - missing_role_symmetry_evidence
+      - failed_role_reversal
+  INNOCENCE_PROTECTION:
+    severity: CRITICAL
+    fail_closed_on:
+      - punitive_without_verified_status
+      - irreversible_without_verified_status
+      - impact_under_unresolved_status
+  PROPORTIONALITY:
+    severity: HIGH
+    fail_closed_on:
+      - high_impact_low_reversibility
+      - trust_damage_above_threshold
+      - invalid_risk_benefit_ratio
+  HUMAN_VALUE_PRESERVATION:
+    severity: CRITICAL
+    fail_closed_on:
+      - target_value_below_minimum
+      - target_value_erasure_action
+  DISTAL_SELF_CONSISTENCY:
+    severity: HIGH
+    fail_closed_on:
+      - actor_self_contradiction_history
+  MEMORY_CONSISTENCY:
+    severity: HIGH
+    fail_closed_on:
+      - repeated_escalation_pattern
+  ADVERSARIAL_PRESSURE:
+    severity: HIGH
+    fail_closed_on:
+      - adversarial_pressure_above_threshold
+
+decision_policy:
+  allowed_only_if:
+    - all_verifiers_pass
+    - critical_quorum_pass
+    - no_unknown_critical_invariant
+    - no_failures
+  unknown: QUARANTINE
+  missing_provenance: REQUEST_RESYNC
+  status_violation: HARD_BLOCK
+  human_value_violation: BOUNDARY_WITHOUT_ERASURE

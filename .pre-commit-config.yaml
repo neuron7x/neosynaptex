@@ -17,11 +17,11 @@ repos:
     rev: v0.14.0
     hooks:
       - id: ruff
-        name: ruff check (CI paths)
+        name: ruff check --fix (CI paths)
+        args: ["--fix"]
         files: ^(neosynaptex\.py|core/|contracts/|evl/|tests/).*\.py$
       - id: ruff-format
-        name: ruff format --check (CI paths)
-        args: ["--check"]
+        name: ruff format (CI paths)
         files: ^(neosynaptex\.py|core/|contracts/|evl/|tests/).*\.py$
 
   # ------------------------------------------------------------------
@@ -61,6 +61,7 @@ repos:
           - tests/test_mathematical_core.py
           - tests/test_neosynaptex_engine.py
           - tests/test_new_substrates.py
+          - tests/cognitive_immune_os
           - -x
           - -q
           - --timeout=60

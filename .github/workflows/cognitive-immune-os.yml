@@ -1,0 +1,37 @@
+name: Cognitive Immune OS
+
+on:
+  pull_request:
+    paths:
+      - 'cognitive_immune_os/**'
+      - 'contracts/cognitive_immune_os/**'
+      - 'tests/cognitive_immune_os/**'
+      - '.github/workflows/cognitive-immune-os.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'cognitive_immune_os/**'
+      - 'contracts/cognitive_immune_os/**'
+      - 'tests/cognitive_immune_os/**'
+      - '.github/workflows/cognitive-immune-os.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cognitive-immune-os-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cognitive-immune-os:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install pytest pyyaml
+      - name: Run Cognitive Immune OS invariant tests
+        run: python -m pytest tests/cognitive_immune_os -q --noconftest -p no:cacheprovider
