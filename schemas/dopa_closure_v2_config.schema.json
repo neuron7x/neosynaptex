@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/dopa_closure_v2_config.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "construct",
+    "priority_gate",
+    "budget",
+    "modes",
+    "negative_controls",
+    "construct_validity_gate"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "construct": {
+      "type": "string"
+    },
+    "priority_gate": {
+      "type": "object",
+      "required": [
+        "load_center",
+        "load_spread",
+        "weights",
+        "thresholds"
+      ],
+      "properties": {
+        "load_center": {
+          "type": "number"
+        },
+        "load_spread": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "weights": {
+          "type": "object",
+          "required": [
+            "prediction_error",
+            "uncertainty",
+            "novelty",
+            "evidence_risk",
+            "reversibility"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "prediction_error": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "uncertainty": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "novelty": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "evidence_risk": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "reversibility": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            }
+          }
+        },
+        "thresholds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": [
+        "envelope",
+        "action_costs"
+      ],
+      "properties": {
+        "envelope": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "probe_tax": {
+          "type": "number",
+          "minimum": 0
+        },
+        "action_costs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "burn_rate_lambda": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "modes": {
+      "type": "object"
+    },
+    "negative_controls": {
+      "type": "object"
+    },
+    "construct_validity_gate": {
+      "type": "object"
+    }
+  }
+}

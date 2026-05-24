@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/dopa_closure_v2_result.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "commit_sha",
+    "final_verdict",
+    "failure_reasons",
+    "config_hash",
+    "construct_gate",
+    "controls",
+    "budget_ledger",
+    "routes",
+    "artifact_hashes",
+    "provenance",
+    "deferred_due_budget"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "commit_sha": {
+      "type": "string",
+      "minLength": 7
+    },
+    "final_verdict": {
+      "type": "string",
+      "enum": [
+        "ADMISSIBLE",
+        "INADMISSIBLE",
+        "INSTRUMENT_INADMISSIBLE"
+      ]
+    },
+    "failure_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "config_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "construct_gate": {
+      "type": "object",
+      "required": [
+        "admissible",
+        "verdict",
+        "reasons"
+      ]
+    },
+    "controls": {
+      "type": "object",
+      "required": [
+        "passed"
+      ]
+    },
+    "budget_ledger": {
+      "type": "object",
+      "required": [
+        "envelope",
+        "probe_tax",
+        "spent",
+        "remaining",
+        "conserved"
+      ]
+    },
+    "routes": {
+      "type": "array"
+    },
+    "artifact_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "timestamp_utc",
+        "config_path"
+      ]
+    },
+    "deferred_due_budget": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

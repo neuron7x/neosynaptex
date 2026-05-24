@@ -1,0 +1,48 @@
+version: dopa-closure-v2
+construct: verification_allocator
+priority_gate:
+  load_center: 0.55
+  load_spread: 0.45
+  weights:
+    prediction_error: 0.34
+    uncertainty: 0.24
+    novelty: 0.17
+    evidence_risk: 0.20
+    reversibility: 0.05
+  thresholds:
+    triage: 0.20
+    verify: 0.44
+    escalate: 0.62
+    reject_evidence_risk: 0.95
+    close_evidence_risk_max: 0.25
+budget:
+  envelope: 100.0
+  probe_tax: 1.0
+  burn_rate_lambda: 0.35
+  action_costs:
+    cheap_triage: 1.0
+    verify: 8.0
+    escalate: 15.0
+    quarantine: 2.0
+    reject: 2.5
+    close: 3.0
+modes:
+  cheap_triage: {artifact: closure_artifact.json}
+  verify: {artifact: closure_artifact.json}
+  escalate: {artifact: escalation_trace.json}
+  quarantine: {artifact: quarantine_artifact.json}
+  reject: {artifact: rejection_artifact.json}
+  close: {artifact: closure_artifact.json}
+negative_controls:
+  mathematically_constructable: permutation_break
+  random_routing_seed: 731
+  margin_baseline: enabled
+  trivial_baseline: majority_claim_status
+  no_dopamine_ablation: enabled
+  overactivation_regime: load_1_0
+construct_validity_gate:
+  require_dnca_substrate: true
+  require_dopamine_like_mechanism: true
+  predictive_utility_beyond_trivial: true
+  closure_not_accuracy_only: true
+  disallow_sklearn_proxy_path: true
