@@ -1,0 +1,76 @@
+{
+  "protocol_id": "NEOSYNAPTEX-PROTOCOL-v1.1",
+  "status": "ACTIVE",
+  "source": "docs/research/ENGINEERING_CHECKLIST_V1_2026_UA.md",
+  "purpose": "Machine-readable PR/CI governance contract for research and engineering changes.",
+  "severity_levels": {
+    "BLOCKER": "Must pass before merge.",
+    "ADVISORY": "Requires explicit override rationale if violated.",
+    "DECORATIVE": "Non-functional context; must not be used as validation evidence."
+  },
+  "six_file_methodology": {
+    "required_files": [
+      "docs/research/01_problem.md",
+      "docs/research/02_contract.yaml",
+      "docs/research/03_invariants.yaml",
+      "docs/research/04_test_plan.md",
+      "docs/research/05_governance.md",
+      "docs/research/06_change_plan.md"
+    ],
+    "presence_report": "artifacts/audit/six_file_presence_report.json",
+    "semantic_report": "artifacts/audit/six_file_semantics_report.json"
+  },
+  "cost_function_constraints": [
+    "estimator_definition",
+    "uncertainty_or_confidence_interval",
+    "null_or_surrogate_baseline",
+    "applicability_boundary"
+  ],
+  "merge_condition": {
+    "all_blockers_pass": true,
+    "advisory_override_required_when_violated": true,
+    "decorative_claims_allowed_as_evidence": false,
+    "human_readable_and_json_must_align": true
+  },
+  "ci_failure_protocol": {
+    "halt_on_failure": true,
+    "required_mapping_fields": [
+      "failure",
+      "checklist_id",
+      "severity",
+      "fix_plan"
+    ],
+    "accepted_gov_03_sources": [
+      "commit_message",
+      "pr_note"
+    ],
+    "fix_before_mapping_allowed": false
+  },
+  "required_reports": [
+    {
+      "check_id": "PRE-03",
+      "path": "artifacts/audit/six_file_presence_report.json",
+      "required_status": "PASS"
+    },
+    {
+      "check_id": "SEM-01",
+      "path": "artifacts/audit/six_file_semantics_report.json",
+      "required_status": "PASS"
+    },
+    {
+      "check_id": "MATH-01",
+      "path": "artifacts/audit/dimension_check_report.json",
+      "required_status": "PASS"
+    },
+    {
+      "check_id": "ARCH-01",
+      "path": "artifacts/audit/value_architecture_report.json",
+      "required_status": "PASS"
+    }
+  ],
+  "decorative_non_gates": [
+    "metaphorical_principle_of_least_action",
+    "seven_as_stability_marker_without_metric",
+    "gamma_approx_1_as_universal_golden_mode_without_estimator_ci_null_boundary"
+  ]
+}

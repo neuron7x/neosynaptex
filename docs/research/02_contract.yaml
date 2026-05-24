@@ -1,0 +1,14 @@
+protocol_id: NEOSYNAPTEX-PROTOCOL-v1.1
+scope: pr_ci_governance
+inputs:
+  - pull_request_body: markdown
+  - ci_status: integer
+  - repository_tree: filesystem
+outputs:
+  - checklist_verdict: enum[PASS, FAIL]
+  - audit_reports:
+      - artifacts/audit/six_file_presence_report.json
+      - artifacts/audit/dimension_check_report.json
+boundaries:
+  - CI failure must halt fix workflow until checklist_id mapping is declared.
+  - Merge is forbidden when any BLOCKER invariant is FAIL.

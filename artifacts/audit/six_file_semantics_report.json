@@ -1,0 +1,59 @@
+{
+  "check_id": "SEM-01",
+  "protocol_id": "NEOSYNAPTEX-PROTOCOL-v1.1",
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "PRE-01.problem_statement",
+      "status": "PASS"
+    },
+    {
+      "check": "PRE-01.falsification_condition",
+      "status": "PASS"
+    },
+    {
+      "check": "PRE-02.inputs",
+      "status": "PASS"
+    },
+    {
+      "check": "PRE-02.outputs",
+      "status": "PASS"
+    },
+    {
+      "check": "PRE-02.boundaries",
+      "status": "PASS"
+    },
+    {
+      "check": "INVARIANTS.required_ids",
+      "status": "PASS"
+    },
+    {
+      "check": "INVARIANTS.pass_condition",
+      "status": "PASS"
+    },
+    {
+      "check": "VAL-01.red_green",
+      "status": "PASS"
+    },
+    {
+      "check": "VAL-03.adversarial",
+      "status": "PASS"
+    },
+    {
+      "check": "GOV-01.human_impact",
+      "status": "PASS"
+    },
+    {
+      "check": "GOV-02.rollback",
+      "status": "PASS"
+    },
+    {
+      "check": "GOV-03.ci_mapping",
+      "status": "PASS"
+    },
+    {
+      "check": "IMPL-PLAN.min_steps_3",
+      "status": "PASS"
+    }
+  ]
+}

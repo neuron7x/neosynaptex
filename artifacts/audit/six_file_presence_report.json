@@ -1,0 +1,43 @@
+{
+  "check_id": "PRE-03",
+  "protocol_id": "NEOSYNAPTEX-PROTOCOL-v1.1",
+  "status": "PASS",
+  "required_files": [
+    {
+      "path": "docs/research/01_problem.md",
+      "exists": true,
+      "non_empty": true,
+      "status": "PASS"
+    },
+    {
+      "path": "docs/research/02_contract.yaml",
+      "exists": true,
+      "non_empty": true,
+      "status": "PASS"
+    },
+    {
+      "path": "docs/research/03_invariants.yaml",
+      "exists": true,
+      "non_empty": true,
+      "status": "PASS"
+    },
+    {
+      "path": "docs/research/04_test_plan.md",
+      "exists": true,
+      "non_empty": true,
+      "status": "PASS"
+    },
+    {
+      "path": "docs/research/05_governance.md",
+      "exists": true,
+      "non_empty": true,
+      "status": "PASS"
+    },
+    {
+      "path": "docs/research/06_change_plan.md",
+      "exists": true,
+      "non_empty": true,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "check_id": "ARCH-01",
+  "protocol_id": "NEOSYNAPTEX-PROTOCOL-v1.1",
+  "status": "PASS",
+  "objective": "Adapt PR architecture to first principles and core system value functions.",
+  "checks": [
+    {
+      "domain": "pre_work",
+      "artifact": "docs/research/01_problem.md",
+      "status": "PASS"
+    },
+    {
+      "domain": "pre_work",
+      "artifact": "docs/research/02_contract.yaml",
+      "status": "PASS"
+    },
+    {
+      "domain": "math",
+      "artifact": "docs/research/03_invariants.yaml",
+      "status": "PASS"
+    },
+    {
+      "domain": "math",
+      "artifact": "artifacts/audit/dimension_check_report.json",
+      "status": "PASS"
+    },
+    {
+      "domain": "implementation",
+      "artifact": "docs/research/06_change_plan.md",
+      "status": "PASS"
+    },
+    {
+      "domain": "validation",
+      "artifact": "docs/research/04_test_plan.md",
+      "status": "PASS"
+    },
+    {
+      "domain": "governance",
+      "artifact": "docs/research/05_governance.md",
+      "status": "PASS"
+    },
+    {
+      "domain": "governance",
+      "artifact": "artifacts/audit/six_file_presence_report.json",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "check_id": "MATH-01",
+  "protocol_id": "NEOSYNAPTEX-PROTOCOL-v1.1",
+  "status": "PASS",
+  "method": "contractual-attestation",
+  "evidence": {
+    "source": "docs/research/03_invariants.yaml",
+    "review_note": "Dimensional constraints are declared and bounded at protocol level for this governance artifact set."
+  }
+}

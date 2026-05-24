@@ -1,0 +1,41 @@
+protocol_id: NEOSYNAPTEX-PROTOCOL-v1.1
+objective: Adapt PR architecture to first principles and core system value functions.
+first_principles:
+  - id: FP-01
+    name: Contract-before-implementation
+    statement: No implementation change is admissible without explicit contract and boundary definitions.
+  - id: FP-02
+    name: Evidence-over-assertion
+    statement: Every BLOCKER claim must map to machine-readable audit evidence.
+  - id: FP-03
+    name: Human-control-preservation
+    statement: System evolution must not reduce human oversight or rollback capability.
+value_functions:
+  - id: VF-01
+    name: correctness
+    metric: blocker_pass_rate
+    target: 1.0
+  - id: VF-02
+    name: reproducibility
+    metric: reproducible_artifact_ratio
+    target: 1.0
+  - id: VF-03
+    name: governance_latency
+    metric: ci_failure_classification_time_minutes
+    target: "<=15"
+architecture_mapping:
+  pre_work:
+    checklist_ids: [PRE-01, PRE-02, PRE-03]
+    artifacts: [docs/research/01_problem.md, docs/research/02_contract.yaml]
+  math:
+    checklist_ids: [MATH-01, MATH-02]
+    artifacts: [docs/research/03_invariants.yaml, artifacts/audit/dimension_check_report.json]
+  implementation:
+    checklist_ids: [IMPL-01, IMPL-02, IMPL-03]
+    artifacts: [docs/research/06_change_plan.md]
+  validation:
+    checklist_ids: [VAL-01, VAL-02, VAL-03]
+    artifacts: [docs/research/04_test_plan.md]
+  governance:
+    checklist_ids: [GOV-01, GOV-02, GOV-03]
+    artifacts: [docs/research/05_governance.md, artifacts/audit/six_file_presence_report.json]

@@ -1,0 +1,16 @@
+invariants:
+  - id: PRE-03
+    metric: six_file_presence
+    pass_condition: all_required_files_exist_and_non_empty
+  - id: MATH-01
+    metric: dimensional_consistency_attestation
+    pass_condition: dimension_check_report.status == PASS
+  - id: VAL-01
+    metric: red_green_evidence
+    pass_condition: failing_ci_url_present_and_passing_ci_url_present_or_documented_exception
+  - id: SEM-01
+    metric: six_file_semantic_validity
+    pass_condition: six_file_semantics_report.status == PASS
+  - id: ARCH-01
+    metric: first_principles_value_mapping
+    pass_condition: value_architecture_report.status == PASS
