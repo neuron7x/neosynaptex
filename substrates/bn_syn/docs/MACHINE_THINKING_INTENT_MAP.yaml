@@ -1,0 +1,42 @@
+version: 1
+intent_to_action:
+  PRE-WORK:
+    objective: "Freeze problem boundary before implementation."
+    actions:
+      - "Write one-sentence problem statement."
+      - "Declare falsification condition."
+      - "Record invariant and I/O contract."
+  MATH:
+    objective: "Remove hidden numeric ambiguity."
+    actions:
+      - "Run numeric sanity checks on formulas."
+      - "Verify dimensions and boundary cases manually."
+  IMPLEMENTATION:
+    objective: "Preserve architectural orthogonality."
+    actions:
+      - "Keep single responsibility per module."
+      - "Isolate side effects from pure logic."
+  VALIDATION:
+    objective: "Verify contracts under stress, not only happy path."
+    actions:
+      - "Run red→green contract tests."
+      - "Run adversarial and property-based tests where applicable."
+  FALSIFICATION:
+    objective: "Actively attempt to break your own result."
+    actions:
+      - "Test alternative explanations and isolate confounders."
+      - "Document negative outcomes as signal, not noise."
+  ARTIFACT:
+    objective: "Make output reproducible and operational."
+    actions:
+      - "Provide one-command run path and UTC-structured logs."
+      - "Bind artifact to owner and version surface."
+  GOVERNANCE:
+    objective: "Align technical claim with organizational control."
+    actions:
+      - "Ensure PR claim and evidence match."
+      - "Validate rollback and emergency exit path."
+  FINAL TEST:
+    objective: "Pressure-test minimality of architecture."
+    actions:
+      - "Check that removing/adding components degrades quality."

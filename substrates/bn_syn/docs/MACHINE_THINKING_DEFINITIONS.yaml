@@ -1,0 +1,20 @@
+version: 1
+scope: machine_thinking_validator
+terms:
+  completion_ratio:
+    is: "Fraction of checked checklist items among all checklist items."
+    is_not: "Evidence quality estimator."
+  value_score:
+    is: "Weighted completion score using section risk weights."
+    is_not: "Scientific truth score."
+  capital_index:
+    is: "Composite readiness index used for governance gating."
+    is_not: "Financial valuation metric."
+  pass_verdict:
+    is: "Selected profile/threshold gate satisfied."
+    is_not: "Proof that real-world hypothesis is correct."
+profiles:
+  research_v1:
+    intent: "Strict canonical structure + full closure."
+  basic:
+    intent: "Draft-phase completion threshold gate."

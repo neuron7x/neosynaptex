@@ -1,4 +1,4 @@
-.PHONY: all clean lock sync_locked init validate_contracts test_dynamic verify verify_pr verify_full audit_internal governance_brake unicode_scan secrets_scan sast dependency_audit sbom security package_manifest package_scan test lint format install typecheck reproduce report demo demo_full demo_synthetic_ci
+.PHONY: all clean lock sync_locked init validate_contracts test_dynamic verify verify_pr verify_full audit_internal governance_brake unicode_scan secrets_scan sast dependency_audit sbom security package_manifest package_scan test lint format install typecheck reproduce report demo demo_full demo_synthetic_ci thinking_product_report test_thinking_product thinking_compile_artifact test_thinking_compile test_thinking_pipeline thinking_world_class_artifact
 
 PR_BODY_FILE ?= /tmp/pr_body.txt
 PYTHON ?= python3
@@ -113,3 +113,40 @@ package_manifest:
 package_scan:
 	mkdir -p artifacts/package
 	uv run python scripts/security/evidence_leakage_scan.py
+
+
+thinking_product_report:
+	python substrates/bn_syn/scripts/generate_thinking_product_report.py \
+	  --checklist substrates/bn_syn/docs/MACHINE_THINKING_SHOWCASE_CHECKLIST.md \
+	  --profile research_v1 \
+	  --min-capital-index 0.9 \
+	  --out-dir proof_bundle/reports
+
+
+test_thinking_product:
+	python -m pytest substrates/bn_syn/tests/test_validate_thinking_checklist.py substrates/bn_syn/tests/test_generate_thinking_product_report.py -q
+
+
+thinking_compile_artifact:
+	python substrates/bn_syn/scripts/compile_thinking_artifact.py \
+	  --report-json proof_bundle/reports/thinking_capital_report.json \
+	  --out-json proof_bundle/reports/thinking_operational_artifact.json \
+	  --top-k 5
+
+test_thinking_compile:
+	python -m pytest substrates/bn_syn/tests/test_compile_thinking_artifact.py -q
+
+
+test_thinking_pipeline:
+	python -m pytest substrates/bn_syn/tests/test_thinking_pipeline_e2e.py -q
+
+thinking_world_class_artifact:
+	python substrates/bn_syn/scripts/generate_thinking_product_report.py \
+	  --checklist substrates/bn_syn/docs/MACHINE_THINKING_SHOWCASE_CHECKLIST.md \
+	  --profile research_v1 \
+	  --min-capital-index 0.9 \
+	  --out-dir proof_bundle/reports
+	python substrates/bn_syn/scripts/compile_thinking_artifact.py \
+	  --report-json proof_bundle/reports/thinking_capital_report.json \
+	  --out-json proof_bundle/reports/thinking_operational_artifact.json \
+	  --top-k 5
