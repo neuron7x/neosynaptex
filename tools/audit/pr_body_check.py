@@ -51,16 +51,19 @@ _LABEL_ALT = "|".join(re.escape(label) for label in CANONICAL_LABELS)
 #   Claim_Status: derived
 #   claim status: hypothesized
 #   claim_status: `unverified analogy`
+#   `claim_status: derived`
 #   claim_status: "falsified"
 #
 # but not a prose mention like "we measured the gamma exponent".
-_PR_BODY_PATTERN = re.compile(rf"(?mi)^\s*claim[_\s]*status\s*:\s*[`'\"]?({_LABEL_ALT})[`'\"]?\s*$")
+_PR_BODY_PATTERN = re.compile(
+    rf"(?mi)^\s*`?\s*claim[_\s]*status\s*:\s*[`'\"]?({_LABEL_ALT})[`'\"]?\s*`?\s*$"
+)
 
 # Weaker pattern — "there is a claim_status line of SOME kind" — used only
 # to distinguish "no block at all" from "block with an unknown label",
 # so the error message can point the reviewer at the right failure mode.
 _PR_BODY_ANY_LABEL_LINE = re.compile(
-    r"(?mi)^\s*claim[_\s]*status\s*:\s*[`'\"]?([^`'\"\s][^`'\"]*?)[`'\"]?\s*$"
+    r"(?mi)^\s*`?\s*claim[_\s]*status\s*:\s*[`'\"]?([^`'\"\s][^`'\"]*?)[`'\"]?\s*`?\s*$"
 )
 
 

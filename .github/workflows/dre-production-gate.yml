@@ -1,0 +1,62 @@
+name: dre-production-gate
+
+on:
+  pull_request:
+    paths:
+      - 'core/dre*.py'
+      - 'core/truth_guard.py'
+      - 'core/value_gate.py'
+      - 'core/deliberation.py'
+      - 'tools/verify_authorship_compiler.py'
+      - 'tests/test_dre*.py'
+      - 'tests/test_truth_guard.py'
+      - 'tests/test_value_gate.py'
+      - 'tests/test_deliberation.py'
+      - 'tests/tools/test_verify_authorship_compiler.py'
+      - '.repo/**'
+      - '.github/workflows/dre-production-gate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'core/dre*.py'
+      - 'core/truth_guard.py'
+      - 'core/value_gate.py'
+      - 'core/deliberation.py'
+      - 'tools/verify_authorship_compiler.py'
+      - 'tests/test_dre*.py'
+      - 'tests/test_truth_guard.py'
+      - 'tests/test_value_gate.py'
+      - 'tests/test_deliberation.py'
+      - 'tests/tools/test_verify_authorship_compiler.py'
+      - '.repo/**'
+      - '.github/workflows/dre-production-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  dre-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy pyyaml types-PyYAML ruff mypy pytest pytest-asyncio
+      - name: Lint
+        run: |
+          ruff check core/dre.py core/truth_guard.py core/value_gate.py core/deliberation.py core/dre_runtime.py tools/verify_authorship_compiler.py tests/test_dre*.py tests/test_truth_guard.py tests/test_value_gate.py tests/test_deliberation.py tests/test_dre_runtime.py tests/tools/test_verify_authorship_compiler.py
+      - name: Type-check
+        run: |
+          mypy core/dre.py core/truth_guard.py core/value_gate.py core/deliberation.py core/dre_runtime.py tools/verify_authorship_compiler.py --strict --config-file pyproject.toml --ignore-missing-imports
+      - name: Unit tests
+        run: |
+          pytest -q tests/test_dre*.py tests/test_truth_guard.py tests/test_value_gate.py tests/test_deliberation.py tests/test_dre_runtime.py tests/tools/test_verify_authorship_compiler.py
+      - name: Authorship compiler gate
+        run: python tools/verify_authorship_compiler.py --base-ref origin/main

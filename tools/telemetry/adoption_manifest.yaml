@@ -44,8 +44,8 @@ emit_sites:
     line: 428
     symbol: span
   - path: tools/audit/pr_body_check.py
-    line: 120
+    line: 123
     symbol: emit_event
   - path: tools/audit/pr_body_check.py
-    line: 140
+    line: 143
     symbol: span

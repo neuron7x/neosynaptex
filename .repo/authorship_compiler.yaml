@@ -1,0 +1,35 @@
+version: 1
+invariants:
+  i1_top_level_allowlist:
+    allowed_top_level:
+      - README.md
+      - pyproject.toml
+      - core/
+      - contracts/
+      - agents/
+      - evidence/
+      - evidence_bundle_v1/
+      - substrates/
+      - tests/
+      - tools/
+      - .repo/
+      - .github/
+  i2_token_signature_regex:
+    forbidden_patterns:
+      - '(?i)lorem ipsum'
+      - '(?i)seamless integration'
+      - '(?i)ai-generated'
+  i6_semantic_compression:
+    min_verified_edges: 1
+    max_public_tokens: 4000
+    public_token_exclude_paths:
+      - tests/
+  i7_api_snapshot_hash_integrity:
+    snapshot_file: .repo/public_symbols.sha256
+    runtime_risk_paths:
+      - core/
+      - contracts/
+    hygiene_allowed_paths:
+      - README.md
+      - docs/
+      - .github/

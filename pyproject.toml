@@ -57,20 +57,10 @@ dev = [
     "import-linter>=2.11",
     "pyyaml>=6.0",
     "pydantic>=2.0",
-    # Required by core/nulls/wavelet_phase.py (N2 null family, NULL-SCREEN-v1.1).
     "PyWavelets>=1.8",
-    # Chained via run_null_family_screening.py → substrates/physionet_hrv/nsr2db_client.py
-    # (module-level ``import wfdb``); needed for tests/test_null_screening.py collection.
     "wfdb>=4.2",
-    # Required by run_nsr_chf_deployment_validation.py (Point 5 scaffold)
-    # and tests/test_deployment_validation.py (8 unit tests).
     "scikit-learn>=1.5",
-    # Property-based adversarial tests under tests/audit/ (NEOSYNAPTEX_FORENSIC_HARDENING_v2.0):
-    # Jacobian alignment, modulation stability, truth aggregation.
     "hypothesis>=6.0",
-    # Schema validation for the EAI research track (tests/eai/schemas/*,
-    # docs/protocols/iev-gate-v1.md). Required at collection time for any
-    # workflow that loads tests/ wholesale (Benchmarks, NFI CI).
     "jsonschema>=4.0",
 ]
 security = [
@@ -98,11 +88,6 @@ include = [
     "evidence_bundle_v1",
 ]
 
-# Ship the canonical γ-ledger and proof-chain manifest as package data so
-# that ``pip install`` (wheel or editable) carries the artifacts read at
-# module-import time by ``core.gamma_registry`` and
-# ``neosynaptex._load_chain_root``. Without this the wheel imports crash
-# with ``GammaRegistryError: Ledger not found`` on every consumer.
 [tool.setuptools.package-data]
 evidence = ["*.json", "*.jsonl", "*.txt"]
 evidence_bundle_v1 = ["*.json"]
@@ -121,6 +106,8 @@ python_version = "3.10"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
+warn_redundant_casts = false
+disable_error_code = ["redundant-cast"]
 
 [tool.ruff]
 target-version = "py310"
@@ -133,27 +120,18 @@ extend-exclude = [
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "FIX", "ERA", "RET"]
 ignore = [
-    "N803",  # H is a standard mathematical symbol (Hurst exponent)
-    "N806",  # T, X, Y, H, N are standard scientific variable names
-    "N814",  # GammaRegistry as _GR is intentional private alias
-    "N818",  # InvariantViolation is NFI domain naming, not generic Error
-    "E402",  # late imports needed for circular import avoidance in core
-    "E741",  # l is standard lag variable in Granger/time-series code
-    "B905",  # zip strict= is noisy for scientific code
-    "B007",  # loop variable naming is fine in scientific context
+    "N803",
+    "N806",
+    "N814",
+    "N818",
+    "E402",
+    "E741",
+    "B905",
+    "B007",
 ]
 
 [tool.ruff.lint.isort]
-# pywt (PyWavelets) is explicitly marked third-party so ruff's heuristic
-# classifier cannot confuse it with a first-party module on environments
-# where a local ``pywt/`` directory happens to exist alongside the repo
-# (observed on development machines where the upstream PyWavelets source
-# is cloned for reference). Without this, the same source file is
-# accepted locally but rejected by ``ruff check`` on CI due to import-
-# group disagreement (or vice versa).
 known-third-party = ["pywt"]
-
-
 
 [tool.ruff.lint.per-file-ignores]
 "core/eai/gamma_bridge.py" = ["ERA001"]

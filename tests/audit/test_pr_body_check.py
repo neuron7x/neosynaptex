@@ -7,10 +7,6 @@ import pytest
 from tools.audit.claim_status_applied import CANONICAL_LABELS
 from tools.audit.pr_body_check import validate
 
-# ---------------------------------------------------------------------------
-# Positive cases
-# ---------------------------------------------------------------------------
-
 
 @pytest.mark.parametrize("label", CANONICAL_LABELS)
 def test_every_canonical_label_passes(label):
@@ -20,7 +16,7 @@ def test_every_canonical_label_passes(label):
 
 
 def test_case_insensitive_label_passes():
-    ok, reason = validate("claim_status: MEASURED\n")
+    ok, _ = validate("claim_status: MEASURED\n")
     assert ok
 
 
@@ -31,6 +27,11 @@ def test_underscore_or_space_in_key_passes():
 
 def test_claim_status_with_backticks_passes():
     ok, _ = validate("claim_status: `hypothesized`\n")
+    assert ok
+
+
+def test_entire_claim_status_line_wrapped_in_backticks_passes():
+    ok, _ = validate("`claim_status: derived`\n")
     assert ok
 
 
@@ -61,11 +62,6 @@ claim_status: measured
     assert ok
 
 
-# ---------------------------------------------------------------------------
-# Negative cases — missing block
-# ---------------------------------------------------------------------------
-
-
 def test_empty_body_fails_with_missing_message():
     ok, reason = validate("")
     assert not ok
@@ -81,8 +77,6 @@ def test_body_without_claim_status_line_fails():
 
 
 def test_prose_mention_does_not_count():
-    """'We measured X' must not satisfy the check."""
-
     body = "We measured the gamma exponent across four substrates.\n"
     ok, reason = validate(body)
     assert not ok
@@ -94,11 +88,6 @@ def test_label_word_alone_without_claim_status_prefix_does_not_count():
     ok, reason = validate(body)
     assert not ok
     assert "missing" in reason.lower()
-
-
-# ---------------------------------------------------------------------------
-# Negative cases — unknown label
-# ---------------------------------------------------------------------------
 
 
 def test_unknown_label_fails_with_unknown_message():
@@ -116,17 +105,9 @@ def test_unknown_label_keeps_pointer_to_valid_set():
 
 
 def test_mixed_unknown_and_canonical_passes_on_canonical():
-    """If any canonical label is present, the check passes —
-    the tool is a presence gate, not a style gate."""
-
     body = "claim_status: confirmed\nclaim_status: measured\n"
     ok, _ = validate(body)
     assert ok
-
-
-# ---------------------------------------------------------------------------
-# Format resilience
-# ---------------------------------------------------------------------------
 
 
 def test_leading_whitespace_allowed():
@@ -145,7 +126,6 @@ def test_crlf_line_endings_allowed():
 
 
 def test_label_with_internal_extra_space_not_counted():
-    """`unverified  analogy` (two spaces) is NOT the canonical label."""
-
     ok, reason = validate("claim_status: unverified  analogy\n")
     assert not ok
+    assert "outside the canonical taxonomy" in reason

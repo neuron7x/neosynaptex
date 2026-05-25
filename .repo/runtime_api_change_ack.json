@@ -1,0 +1,1 @@
+{"ack_id":"DRE-RUNTIME-API-CHANGE-2026-05-25","base_ref":"origin/main","runtime_surface":["core/dre.py","core/truth_guard.py","core/value_gate.py","core/deliberation.py","core/dre_runtime.py"],"reason":"Intentional bounded DRE runtime API surface introduction; I7 hash drift is acknowledged as review-visible runtime change, not hygiene-only drift.","claim_status":"derived"}
