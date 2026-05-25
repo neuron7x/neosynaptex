@@ -1,0 +1,129 @@
+version: 1
+claim_status: hypothesized
+scope: neosynaptex_value_engine
+boundary: >-
+  This roadmap defines auditable conditions for increasing product and platform value.
+  It does not assert a current financial valuation.
+
+north_star:
+  statement: >-
+    Convert neosynaptex from a research-heavy repository into an evidence-native
+    cognitive-systems engineering platform with measurable user value and
+    reproducible governance outputs.
+  falsification_condition: >-
+    If the system cannot demonstrate measurable improvement over manual or
+    LLM-only baselines in time, error reduction, reproducibility, or governance
+    quality, valuation language must remain quarantined.
+
+value_surfaces:
+  evidence_engine:
+    buyer_problem: "Research and AI teams cannot trust smooth claims without reproducibility evidence."
+    product_artifacts:
+      - preregistration template
+      - evidence ledger
+      - claim-status validator
+      - reproducibility manifest
+      - audit report compiler
+    measurable_outcomes:
+      - review_time_reduction
+      - false_promotion_prevention
+      - evidence_gap_detection_rate
+  orchestration_runtime:
+    buyer_problem: "Teams use multiple LLMs without deterministic role contracts or closure."
+    product_artifacts:
+      - role protocol
+      - adversarial review loop
+      - convergence gate
+      - negative memory ledger
+    measurable_outcomes:
+      - hallucination_acceptance_reduction
+      - decision_rework_reduction
+      - artifact_completion_rate
+  measurement_toolkit:
+    buyer_problem: "Adaptive-system signals are easy to overinterpret."
+    product_artifacts:
+      - estimator contracts
+      - null-model battery
+      - surrogate controls
+      - confidence interval reports
+    measurable_outcomes:
+      - false_signal_rejection_rate
+      - reproducible_estimator_runs
+      - boundary_violation_detection
+  governance_as_code:
+    buyer_problem: "AI claims ship faster than organizations can verify them."
+    product_artifacts:
+      - overclaim gate
+      - claim-evidence matrix
+      - release boundary validator
+      - rollback checklist
+    measurable_outcomes:
+      - blocked_overclaims
+      - audit_preparation_time_reduction
+      - release_claim_traceability
+  product_interface:
+    buyer_problem: "Deep technical systems are not valuable until operators can use them."
+    product_artifacts:
+      - one-command demo
+      - report viewer
+      - claim/evidence graph
+      - exportable audit packet
+    measurable_outcomes:
+      - time_to_first_success
+      - demo_completion_rate
+      - user_retention_signal
+
+milestones:
+  A_repository_trust_floor:
+    required:
+      - default_branch_ci_green
+      - deterministic_local_run
+      - reproducibility_manifest
+      - claim_status_ledger
+      - zero_critical_governance_bypass
+    promotion_status: blocked_until_measured
+  B_product_usability_floor:
+    required:
+      - one_command_install
+      - one_command_demo
+      - sample_audit_packet
+      - documented_io_contracts
+      - benchmark_against_baseline
+    promotion_status: blocked_until_measured
+  C_market_proof_floor:
+    required:
+      - three_real_users_or_teams
+      - measured_time_cost_or_risk_reduction
+      - case_study_or_private_testimonial
+      - pricing_hypothesis_test
+    promotion_status: blocked_until_external_signal
+  D_platform_proof_floor:
+    required:
+      - repeatable_onboarding
+      - multiple_domain_templates
+      - stable_api_or_cli_contract
+      - ci_cd_integration
+      - security_review_pass
+    promotion_status: blocked_until_measured
+  E_institutional_diligence_floor:
+    required:
+      - architecture_decision_records
+      - threat_model
+      - data_model
+      - evaluation_protocol
+      - safety_boundary
+      - compliance_mapping
+      - reproducibility_packet
+    promotion_status: blocked_until_audited
+
+valuation_language_gate:
+  required_fields:
+    - claim_status
+    - evidence_artifacts
+    - market_surface
+    - buyer_problem
+    - measured_outcome
+    - reproducibility_packet
+    - limitations
+    - falsification_condition
+  fail_closed: true
