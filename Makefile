@@ -1,4 +1,4 @@
-.PHONY: all clean lock sync_locked init validate_contracts test_dynamic verify verify_pr verify_full audit_internal governance_brake unicode_scan secrets_scan sast dependency_audit sbom security package_manifest package_scan test lint format install typecheck reproduce report demo demo_full demo_synthetic_ci thinking_product_report test_thinking_product thinking_compile_artifact test_thinking_compile test_thinking_pipeline thinking_world_class_artifact
+.PHONY: all clean lock sync_locked init validate_contracts test_dynamic verify verify_pr verify_full audit_internal governance_brake unicode_scan secrets_scan sast dependency_audit sbom security package_manifest package_scan test lint format install typecheck reproduce report demo demo_full demo_synthetic_ci thinking_product_report test_thinking_product thinking_compile_artifact test_thinking_compile test_thinking_pipeline thinking_world_class_artifact thinking_finalize thinking_run_pipeline
 
 PR_BODY_FILE ?= /tmp/pr_body.txt
 PYTHON ?= python3
@@ -140,6 +140,11 @@ test_thinking_compile:
 test_thinking_pipeline:
 	python -m pytest substrates/bn_syn/tests/test_thinking_pipeline_e2e.py -q
 
+thinking_finalize:
+	python -m pytest substrates/bn_syn/tests/test_validate_thinking_checklist.py substrates/bn_syn/tests/test_generate_thinking_product_report.py substrates/bn_syn/tests/test_compile_thinking_artifact.py substrates/bn_syn/tests/test_thinking_pipeline_e2e.py substrates/bn_syn/tests/test_run_thinking_pipeline.py substrates/bn_syn/tests/test_finalize_target_contract.py -q
+	python substrates/bn_syn/scripts/generate_thinking_product_report.py --checklist substrates/bn_syn/docs/MACHINE_THINKING_SHOWCASE_CHECKLIST.md --profile research_v1 --min-capital-index 0.9 --out-dir proof_bundle/reports
+	python substrates/bn_syn/scripts/compile_thinking_artifact.py --report-json proof_bundle/reports/thinking_capital_report.json --out-json proof_bundle/reports/thinking_operational_artifact.json --top-k 5
+
 thinking_world_class_artifact:
 	python substrates/bn_syn/scripts/generate_thinking_product_report.py \
 	  --checklist substrates/bn_syn/docs/MACHINE_THINKING_SHOWCASE_CHECKLIST.md \
@@ -150,3 +155,6 @@ thinking_world_class_artifact:
 	  --report-json proof_bundle/reports/thinking_capital_report.json \
 	  --out-json proof_bundle/reports/thinking_operational_artifact.json \
 	  --top-k 5
+
+thinking_run_pipeline:
+	python substrates/bn_syn/scripts/run_thinking_pipeline.py --checklist substrates/bn_syn/docs/MACHINE_THINKING_SHOWCASE_CHECKLIST.md --profile research_v1 --min-capital-index 0.9 --top-k 5 --out-dir proof_bundle/reports
