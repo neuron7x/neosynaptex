@@ -19,10 +19,7 @@
 #   * Re-exports that do not themselves call the primitives are not
 #     listed.
 #
-# Current state: 7 emit sites across bridge + adversarial + audit
-# tools, landed by stacked PRs #84 → #85 → #86 → #93 → #94.
-# Manifest updated in PR #98 to reflect the post-merge state of
-# main (previous manifest was empty at scaffold time).
+# Current state: emit sites across bridge + adversarial + audit tools.
 
 schema_version: 1
 spec: docs/protocols/telemetry_spine_spec.md
@@ -44,8 +41,8 @@ emit_sites:
     line: 428
     symbol: span
   - path: tools/audit/pr_body_check.py
-    line: 123
+    line: 194
     symbol: emit_event
   - path: tools/audit/pr_body_check.py
-    line: 143
+    line: 215
     symbol: span

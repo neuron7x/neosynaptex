@@ -15,6 +15,14 @@ Contract
   ``^claim_status: <label>$`` (case-insensitive, whitespace-tolerant,
   optional backticks / quotes) where ``<label>`` is one of
   ``CANONICAL_LABELS`` from ``tools.audit.claim_status_applied``.
+* **Dependabot exception.** Exit 0 for narrowly-scoped dependency-only
+  PRs opened by ``dependabot[bot]`` when the title, head ref, and body
+  all match Dependabot's machine-generated dependency-update shape.
+  These PRs are treated as ``claim_status: measured`` because the claim
+  is only a dependency metadata update, not a scientific or product
+  claim. Human-authored PRs never receive this exception. An explicit
+  non-canonical ``claim_status`` line is always rejected before this
+  exception is considered.
 * **Failure.** Exit 2 in either of two cases:
 
   1. No ``claim_status:`` line is present — the PR has not applied the
@@ -35,15 +43,18 @@ has one single source of truth.
 
 from __future__ import annotations
 
+import argparse
 import pathlib
 import re
 import sys
+from dataclasses import dataclass
 
 from tools.audit.claim_status_applied import CANONICAL_LABELS
 
-__all__ = ["main", "validate"]
+__all__ = ["ValidationContext", "main", "validate"]
 
 _LABEL_ALT = "|".join(re.escape(label) for label in CANONICAL_LABELS)
+DEPENDABOT_ACTOR = "dependabot[bot]"
 
 # Strict line-anchored pattern for the PR-body check. Matches any of:
 #
@@ -66,8 +77,61 @@ _PR_BODY_ANY_LABEL_LINE = re.compile(
     r"(?mi)^\s*`?\s*claim[_\s]*status\s*:\s*[`'\"]?([^`'\"\s][^`'\"]*?)[`'\"]?\s*`?\s*$"
 )
 
+_DEPENDABOT_TITLE_PATTERN = re.compile(
+    r"(?i)^(?:deps|build|ci)(?:\([^)]*\))?:\s+bump\s+.+\s+(?:from\s+.+\s+to\s+.+|with\s+\d+\s+updates?)"
+)
+_DEPENDABOT_BODY_PATTERN = re.compile(
+    r"(?is)(?:\bBumps\b.+\bfrom\b.+\bto\b.+\bDependabot\b|"
+    r"\bBumps the .+ group\b.+\bUpdates\b.+\bfrom\b.+\bto\b.+\bDependabot\b)"
+)
+_DEPENDABOT_HEAD_PATTERN = re.compile(r"(?i)^dependabot/")
 
-def validate(text: str) -> tuple[bool, str]:
+
+@dataclass(frozen=True)
+class ValidationContext:
+    """Optional GitHub event context for narrow machine-generated exceptions."""
+
+    actor: str = ""
+    title: str = ""
+    head_ref: str = ""
+
+
+def _is_dependabot_dependency_pr(text: str, context: ValidationContext | None) -> bool:
+    """Return True only for machine-generated dependency-only Dependabot PRs.
+
+    The exception is intentionally conjunctive. It requires the GitHub actor,
+    branch namespace, PR title, and body shape to agree. This avoids turning the
+    governance gate into a broad "bot == pass" bypass, which would be a charming
+    way to reintroduce the exact security theater this repository is allergic to.
+    """
+
+    if context is None:
+        return False
+    if context.actor != DEPENDABOT_ACTOR:
+        return False
+    if not _DEPENDABOT_HEAD_PATTERN.search(context.head_ref):
+        return False
+    if not _DEPENDABOT_TITLE_PATTERN.search(context.title):
+        return False
+    return bool(_DEPENDABOT_BODY_PATTERN.search(text))
+
+
+def _unknown_claim_status_reason(text: str) -> str | None:
+    any_lines = [m.group(1).strip() for m in _PR_BODY_ANY_LABEL_LINE.finditer(text)]
+    if not any_lines:
+        return None
+    unknown = sorted({v.lower() for v in any_lines})
+    return (
+        "claim_status block is present but its label(s) are outside the "
+        "canonical taxonomy: "
+        + ", ".join(repr(u) for u in unknown)
+        + ". Valid labels: "
+        + ", ".join(CANONICAL_LABELS)
+        + ". See docs/SYSTEM_PROTOCOL.md §Barrier rule (item 4)."
+    )
+
+
+def validate(text: str, context: ValidationContext | None = None) -> tuple[bool, str]:
     """Return ``(ok, reason)`` for a PR body text blob.
 
     ``reason`` is always a single line suitable for a CI log and, on
@@ -81,16 +145,14 @@ def validate(text: str) -> tuple[bool, str]:
             + ", ".join(sorted(set(canonical_hits)))
         )
 
-    any_lines = [m.group(1).strip() for m in _PR_BODY_ANY_LABEL_LINE.finditer(text)]
-    if any_lines:
-        unknown = sorted({v.lower() for v in any_lines})
-        return False, (
-            "claim_status block is present but its label(s) are outside the "
-            "canonical taxonomy: "
-            + ", ".join(repr(u) for u in unknown)
-            + ". Valid labels: "
-            + ", ".join(CANONICAL_LABELS)
-            + ". See docs/SYSTEM_PROTOCOL.md §Barrier rule (item 4)."
+    unknown_reason = _unknown_claim_status_reason(text)
+    if unknown_reason is not None:
+        return False, unknown_reason
+
+    if _is_dependabot_dependency_pr(text, context):
+        return True, (
+            "dependency-only Dependabot PR accepted as claim_status: measured "
+            "under the narrow machine-generated dependency-update exception"
         )
 
     return False, (
@@ -103,9 +165,18 @@ def validate(text: str) -> tuple[bool, str]:
     )
 
 
-def _read_input(argv: list[str]) -> str:
-    if argv and argv[0] not in {"-"}:
-        return pathlib.Path(argv[0]).read_text(encoding="utf-8")
+def _parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("path", nargs="?", default="-", help="PR body file path, or '-' for stdin.")
+    parser.add_argument("--actor", default="", help="GitHub actor from github.actor.")
+    parser.add_argument("--title", default="", help="Pull request title from the GitHub event.")
+    parser.add_argument("--head-ref", default="", help="Pull request head ref from the GitHub event.")
+    return parser.parse_args(argv)
+
+
+def _read_input(path: str) -> str:
+    if path != "-":
+        return pathlib.Path(path).read_text(encoding="utf-8")
     return sys.stdin.read()
 
 
@@ -126,7 +197,8 @@ def _emit_safely(event_type: str, **kwargs: object) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    argv = list(sys.argv[1:] if argv is None else argv)
+    args = _parse_args(list(sys.argv[1:] if argv is None else argv))
+    context = ValidationContext(actor=args.actor, title=args.title, head_ref=args.head_ref)
 
     try:
         from tools.telemetry.emit import span
@@ -134,15 +206,15 @@ def main(argv: list[str] | None = None) -> int:
         span = None  # type: ignore[assignment]
 
     if span is None:
-        text = _read_input(argv)
-        ok, reason = validate(text)
+        text = _read_input(args.path)
+        ok, reason = validate(text, context)
         stream = sys.stdout if ok else sys.stderr
         print(reason, file=stream)
         return 0 if ok else 2
 
     with span("audit.pr_body_check.run", "audit.pr_body_check"):
-        text = _read_input(argv)
-        ok, reason = validate(text)
+        text = _read_input(args.path)
+        ok, reason = validate(text, context)
         stream = sys.stdout if ok else sys.stderr
         print(reason, file=stream)
         _emit_safely(

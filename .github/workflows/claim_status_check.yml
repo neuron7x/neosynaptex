@@ -1,15 +1,5 @@
 name: claim_status_check
 
-# Adoption-loop enforcement for SYSTEM_PROTOCOL v1.1 kill-signal
-# "taxonomy_disuse". Every PR body MUST carry a claim_status block whose
-# label is in the canonical taxonomy. Rejection is syntactic only —
-# semantic correctness of the chosen label is the reviewer's job.
-#
-# The python tool (tools/audit/pr_body_check.py) imports
-# CANONICAL_LABELS from tools/audit/claim_status_applied.py so the
-# taxonomy has a single source of truth; changes to the taxonomy do
-# not require this workflow to be updated.
-
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
@@ -37,4 +27,12 @@ jobs:
           printf '%s' "${PR_BODY:-}" > .pr_body.txt
 
       - name: Validate claim_status block
-        run: python -m tools.audit.pr_body_check .pr_body.txt
+        env:
+          PR_ACTOR: ${{ github.actor }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          python -m tools.audit.pr_body_check .pr_body.txt \
+            --actor "$PR_ACTOR" \
+            --title "$PR_TITLE" \
+            --head-ref "$PR_HEAD_REF"
