@@ -1,0 +1,81 @@
+{
+  "classification": "ADMISSIBILITY",
+  "target_band": [
+    88,
+    92
+  ],
+  "S_total": 100.0,
+  "in_target_band": false,
+  "axes": [
+    {
+      "id": "S1_math_object",
+      "value": 100.0,
+      "weight": 0.12,
+      "threshold": 80,
+      "passed": true
+    },
+    {
+      "id": "S2_dimensional",
+      "value": 100.0,
+      "weight": 0.08,
+      "threshold": 100,
+      "passed": true
+    },
+    {
+      "id": "S3_numerical_stability",
+      "value": 100.0,
+      "weight": 0.1,
+      "threshold": 80,
+      "passed": true
+    },
+    {
+      "id": "S4_invariants",
+      "value": 100.0,
+      "weight": 0.12,
+      "threshold": 90,
+      "passed": true
+    },
+    {
+      "id": "S5_falsifiability",
+      "value": 100.0,
+      "weight": 0.12,
+      "threshold": 80,
+      "passed": true
+    },
+    {
+      "id": "S6_baseline_models",
+      "value": 100.0,
+      "weight": 0.1,
+      "threshold": 90,
+      "passed": true
+    },
+    {
+      "id": "S7_UQ",
+      "value": 100.0,
+      "weight": 0.08,
+      "threshold": 80,
+      "passed": true
+    },
+    {
+      "id": "S8_reproducibility",
+      "value": 100.0,
+      "weight": 0.1,
+      "threshold": 100,
+      "passed": true
+    },
+    {
+      "id": "S9_interfaces",
+      "value": 100.0,
+      "weight": 0.08,
+      "threshold": 90,
+      "passed": true
+    },
+    {
+      "id": "S10_traceability",
+      "value": 100.0,
+      "weight": 0.1,
+      "threshold": 90,
+      "passed": true
+    }
+  ]
+}

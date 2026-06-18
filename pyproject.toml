@@ -135,3 +135,7 @@ known-third-party = ["pywt"]
 
 [tool.ruff.lint.per-file-ignores]
 "core/eai/gamma_bridge.py" = ["ERA001"]
+# AdEx uses canonical physical symbols as dataclass fields (C, g_L, V_T, Delta_T,
+# E_L, V_reset, V_peak); N815 mixedCase is the physics convention, consistent
+# with the already-ignored N803/N806 for physical-symbol naming.
+"physical_fidelity/pf/adex_q10.py" = ["N815"]

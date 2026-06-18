@@ -1,0 +1,24 @@
+{
+  "protocol": "NFI-PROMPT-002 physical fidelity verification",
+  "classification": "ADMISSIBILITY",
+  "base_commit": "9e5001f0",
+  "branch": "feat/nfi-gap-001-fidelity-protocol",
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1"
+  },
+  "determinism": {
+    "rng": "numpy.random.default_rng with fixed integer seeds per call",
+    "forbidden": ["Date.now equivalents", "unseeded global RNG"],
+    "primary_solver": "hand-rolled fixed-step RK4 (pf.dynamics.integrate_kuramoto)",
+    "secondary_solver": "scipy.integrate.solve_ivp DOP853 (pf.replication)",
+    "replication_tolerance_linf": 1e-4
+  },
+  "entry_points": {
+    "oracle": "python -m physical_fidelity.physics_score",
+    "baseline": "python -m physical_fidelity.pf.baseline",
+    "full_pipeline": "physical_fidelity/reproducibility/run_physics_validation.sh"
+  },
+  "scope_boundary": "Scores the reference verification apparatus and the protocol deliverables. It does NOT bind to the live substrates/{kuramoto,bn_syn,mfn} production code; binding those is the next phase and is the only place a substrate-fidelity (not apparatus-admissibility) number can be produced."
+}

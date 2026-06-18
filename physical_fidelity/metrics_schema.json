@@ -1,0 +1,18 @@
+{
+  "schema": "NFI-PROMPT-002 physics scoring oracle",
+  "classification": "ADMISSIBILITY",
+  "note": "S measures whether the verification apparatus reproduces known physics and whether the protocol's deliverables exist and pass. It is NOT a validation of the live trading/neuro substrates and is never to be reported as a science claim.",
+  "target_band": [88, 92],
+  "axes": [
+    {"id": "S1_math_object", "weight": 0.12, "metric": "fraction of subsystems with a fixed canonical object + analytic K_c/SS + primary-observable test", "measurement_fn": "physics_score.score_math_object", "pass_threshold": 80, "target": 95},
+    {"id": "S2_dimensional", "weight": 0.08, "metric": "fraction of governing equations dimensionally homogeneous (symbolic)", "measurement_fn": "physics_score.score_dimensional", "pass_threshold": 100, "target": 100},
+    {"id": "S3_numerical_stability", "weight": 0.10, "metric": "convergence order >= 3.5 (RK4) and parabolic/hyperbolic dt scaling correct", "measurement_fn": "physics_score.score_numerical_stability", "pass_threshold": 80, "target": 100},
+    {"id": "S4_invariants", "weight": 0.12, "metric": "fraction of conservation/range invariants holding (R in [0,1], weight conservation, energy<1%)", "measurement_fn": "physics_score.score_invariants", "pass_threshold": 90, "target": 100},
+    {"id": "S5_falsifiability", "weight": 0.12, "metric": "fraction of null models that behave as required (fail where they must, pass where they must)", "measurement_fn": "physics_score.score_falsifiability", "pass_threshold": 80, "target": 100},
+    {"id": "S6_baseline_models", "weight": 0.10, "metric": "fraction of analytic baselines correct (Kc Lorentzian, Schnakenberg SS, gamma=2H+1)", "measurement_fn": "physics_score.score_baseline_models", "pass_threshold": 90, "target": 100},
+    {"id": "S7_UQ", "weight": 0.08, "metric": "stochastic source defined (non-degenerate CI) and Sobol estimator validated on Ishigami", "measurement_fn": "physics_score.score_uq", "pass_threshold": 80, "target": 100},
+    {"id": "S8_reproducibility", "weight": 0.10, "metric": "independent dual-solver replication rel Linf <= 1e-4", "measurement_fn": "physics_score.score_reproducibility", "pass_threshold": 100, "target": 100},
+    {"id": "S9_interfaces", "weight": 0.08, "metric": "inter-layer contracts defined and validated against live signal", "measurement_fn": "physics_score.score_interfaces", "pass_threshold": 90, "target": 100},
+    {"id": "S10_traceability", "weight": 0.10, "metric": "fraction of governing equations traceable to (code_path, test)", "measurement_fn": "physics_score.score_traceability", "pass_threshold": 90, "target": 100}
+  ]
+}

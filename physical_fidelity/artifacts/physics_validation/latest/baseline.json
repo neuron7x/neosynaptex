@@ -1,0 +1,110 @@
+{
+  "classification": "ADMISSIBILITY",
+  "S_admissibility": 99.88,
+  "n_metrics": 10,
+  "metrics": [
+    {
+      "key": "order_param_bound",
+      "measured": 0.3409089254920395,
+      "reference": 1.0,
+      "score": 100.0,
+      "weight": 1.0,
+      "tier": "ANCHORED",
+      "note": "r in [0,1] triangle-inequality invariant"
+    },
+    {
+      "key": "sync_identical",
+      "measured": 0.9999999999999998,
+      "reference": 1.0,
+      "score": 100.0,
+      "weight": 1.0,
+      "tier": "ANCHORED",
+      "note": "identical-frequency locked state r->1"
+    },
+    {
+      "key": "incoherent_floor",
+      "measured": 0.10307513824338338,
+      "reference": 0.11077836568159474,
+      "score": 98.67,
+      "weight": 0.7,
+      "tier": "ANCHORED",
+      "note": "K=0 null model finite-size order parameter"
+    },
+    {
+      "key": "incoherent_scaling_slope",
+      "measured": -0.5392658073723032,
+      "reference": -0.5,
+      "score": 100.0,
+      "weight": 0.8,
+      "tier": "ANCHORED",
+      "note": "O(1/sqrt N) finite-size scaling law"
+    },
+    {
+      "key": "sync_falsification",
+      "measured": 1.7800590868057611e-307,
+      "reference": 0.05,
+      "score": 100.0,
+      "weight": 0.6,
+      "tier": "ANCHORED",
+      "note": "KS rejection of r~U(0,1) incoherent null"
+    },
+    {
+      "key": "ricci_weight_conservation",
+      "measured": 5.609547913895527e-16,
+      "reference": 0.0,
+      "score": 100.0,
+      "weight": 1.0,
+      "tier": "ANCHORED",
+      "note": "normalized Ricci flow conserves total weight"
+    },
+    {
+      "key": "gamma_2H_plus_1",
+      "measured": 0.753058609111033,
+      "reference": 0.75,
+      "score": 99.96,
+      "weight": 1.0,
+      "tier": "ANCHORED",
+      "note": "gamma=2.506 -> H_rec=0.753 (NFI canonical contract)"
+    },
+    {
+      "key": "turing_schnakenberg",
+      "measured": 0.41101083139149175,
+      "reference": 0.0,
+      "score": 100.0,
+      "weight": 1.0,
+      "tier": "ANCHORED",
+      "note": "Schnakenberg: unstable at D_v/D_u=40, stable at ratio=1"
+    },
+    {
+      "key": "stability_dt_scaling",
+      "measured": 1.0000000000000004,
+      "reference": 1.0,
+      "score": 100.0,
+      "weight": 0.5,
+      "tier": "ANCHORED",
+      "note": "dt_parabolic/dt_hyperbolic ~ dx^1.00 (parabolic!=hyperbolic)"
+    },
+    {
+      "key": "mle_regime_conditioned",
+      "measured": -2.199279149665145e-06,
+      "reference": 0.0,
+      "score": 100.0,
+      "weight": 0.6,
+      "tier": "ANCHORED",
+      "note": "locked MLE=-0.000<incoherent MLE=0.027"
+    }
+  ]
+}
+
+=== NFI-GAP-001 baseline S0 (ADMISSIBILITY, not a science claim) ===
+S0 = 99.88/100  over 10 metrics
+  [PASS] order_param_bound            score=100.00 w=1.0  (ANCHORED)
+  [PASS] sync_identical               score=100.00 w=1.0  (ANCHORED)
+  [PASS] incoherent_floor             score= 98.67 w=0.7  (ANCHORED)
+  [PASS] incoherent_scaling_slope     score=100.00 w=0.8  (ANCHORED)
+  [PASS] sync_falsification           score=100.00 w=0.6  (ANCHORED)
+  [PASS] ricci_weight_conservation    score=100.00 w=1.0  (ANCHORED)
+  [PASS] gamma_2H_plus_1              score= 99.96 w=1.0  (ANCHORED)
+  [PASS] turing_schnakenberg          score=100.00 w=1.0  (ANCHORED)
+  [PASS] stability_dt_scaling         score=100.00 w=0.5  (ANCHORED)
+  [PASS] mle_regime_conditioned       score=100.00 w=0.6  (ANCHORED)
