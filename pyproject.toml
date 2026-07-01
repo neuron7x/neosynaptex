@@ -101,8 +101,15 @@ markers = [
     "trace_eq(eq_id): binds a test to a formal equation identifier",
 ]
 
+# Analysis target is 3.12: recent numpy ships PEP 695 `type` statements in its
+# bundled stubs (e.g. numpy/__init__.pyi), which mypy rejects with a syntax
+# error under python_version < 3.12. Skipping numpy's stubs instead is not an
+# option — that types numpy as Any and cascades 130+ strict errors through
+# first-party array code. The 3.10 support floor (requires-python = ">=3.10")
+# is guarded by the Verify CI matrix, which executes the suite on real 3.10 /
+# 3.11 / 3.12 interpreters; mypy stays a pure type gate.
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
