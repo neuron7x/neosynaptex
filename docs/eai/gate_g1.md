@@ -38,29 +38,37 @@ raw chaotic input
   → EVIDENCE | KILLED | QUARANTINED
 ```
 
-## Deterministic identity
+## Identity model — semantic vs provenance
 
-`packet_hash` is a SHA-256 digest over a canonical, key-sorted JSON pre-image of
-`(intent, claim_type, error_state, subtasks, raw_input_hash, context_hash)`. It
-is a lowercase 64-hex digest, so it satisfies the runtime's retention-hash
-contract (Invariant 8 of the EAI spec) and doubles as the reproducible
-`artifact_hash`. `raw_input_hash` preserves the **exact original bytes** — two
-inputs that differ only in whitespace share a normalized `intent` but keep
-distinct provenance and distinct `packet_hash`.
+Two orthogonal hashes:
 
-## Hard invariants (enforced by tests)
+- **`packet_hash`** — the *semantic replay identity*. SHA-256 over a canonical,
+  key-sorted, **schema-versioned** JSON pre-image of
+  `(schema_version, intent, claim_type, error_state, subtasks, context_hash)`.
+  The compiled `intent` is whitespace-collapsed and **Unicode NFC**-normalized,
+  so byte-different encodings of the same request (extra spaces, NFC vs NFD
+  accents) map to **one** `packet_hash` — they are the same unit of work. It is
+  a lowercase 64-hex digest, satisfying the runtime retention-hash contract
+  (EAI spec Invariant 8) and doubling as the reproducible `artifact_hash`.
+  `schema_version` is bound into the pre-image, so a future compiler revision
+  yields a distinct identity for the same input (no cross-version aliasing).
+- **`raw_input_hash`** — the *exact-byte provenance*. SHA-256 of the original
+  input verbatim; it distinguishes encodings that `packet_hash` intentionally
+  unifies. It is **not** part of the replay identity.
+
+## Hard invariants (enforced by example + property tests)
 
 | Invariant | Enforcement |
 |---|---|
 | No clarification questions | `emits_clarification` is always `False` |
-| No randomness | no RNG in the module |
-| No wall-clock dependence | no `time` / `datetime` use |
-| No network / hidden mutable state | pure function over frozen dataclasses |
-| Frozen dataclasses | `@dataclass(frozen=True)` on every type |
-| Stable replay | same `(raw_input, context)` → identical `packet_hash` |
+| No randomness / wall-clock / network | pure function; no `random` / `time` / I/O |
+| No hidden mutable state | every dataclass is `frozen=True, slots=True` |
+| Stable replay | same `(raw_input, context)` → identical packet (property test) |
+| Semantic identity | whitespace/NFC variants share one `packet_hash` (property test) |
 | Deterministic ordering | sub-tasks preserve first-appearance order, de-duplicated |
-| Fail-closed | empty input or missing context raises `GateG1CompileError` |
-| Bounded decomposition | any non-empty input compiles into ≥ 1 testable sub-task |
+| Bounded work | `1 ≤ len(subtasks) ≤ 256`; input capped at 20 000 chars |
+| Fail-closed | empty / non-`str` / over-length input or missing context raises `GateG1CompileError` — no silent truncation |
+| No fabricated evidence | `to_boundary_card().tested_conditions == []` (the compiler tested nothing) |
 | Claim boundary preserved | `failure_boundary` forbids scientific/consciousness claims |
 
 ## Usage

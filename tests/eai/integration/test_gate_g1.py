@@ -92,11 +92,59 @@ def test_normalized_intent_collapses_whitespace() -> None:
     assert _compile("a  b").intent == _compile("a b").intent == "a b"
 
 
-def test_raw_provenance_distinguishes_whitespace() -> None:
-    # ...but raw_input_hash preserves the exact original bytes, so the audit
-    # identity (packet_hash) still distinguishes them. Provenance is exact.
+def test_semantic_identity_ignores_whitespace_but_provenance_does_not() -> None:
+    # packet_hash is a *semantic* replay identity: byte-different encodings of
+    # the same request share it. raw_input_hash keeps exact-byte provenance.
+    assert _compile("a  b").packet_hash == _compile("a b").packet_hash
     assert _compile("a  b").raw_input_hash != _compile("a b").raw_input_hash
-    assert _compile("a  b").packet_hash != _compile("a b").packet_hash
+
+
+def test_nfc_canonical_equivalence() -> None:
+    composed = "caf\u00e9"  # 'é' as one pre-composed code point
+    decomposed = "cafe\u0301"  # 'e' + U+0301 combining acute
+    assert composed != decomposed  # distinct code-point sequences
+    a, b = _compile(composed), _compile(decomposed)
+    assert a.intent == b.intent  # NFC folds them to one intent
+    assert a.packet_hash == b.packet_hash  # ...and one replay identity
+    assert a.raw_input_hash != b.raw_input_hash  # provenance still separates them
+
+
+def test_non_str_input_fails_closed() -> None:
+    with pytest.raises(GateG1CompileError):
+        compile_execution_packet(None, _context())  # type: ignore[arg-type]
+    with pytest.raises(GateG1CompileError):
+        compile_execution_packet(b"bytes not str", _context())  # type: ignore[arg-type]
+
+
+def test_over_length_input_fails_closed() -> None:
+    with pytest.raises(GateG1CompileError):
+        _compile("x" * 20_001)
+
+
+def test_subtask_ceiling_fails_closed_without_silent_truncation() -> None:
+    # 300 distinct '.'-separated units exceeds the 256 ceiling -> refuse.
+    payload = ".".join(f"task{i}" for i in range(300))
+    with pytest.raises(GateG1CompileError):
+        _compile(payload)
+
+
+def test_boundary_records_nothing_as_tested() -> None:
+    # F1: the compiler ran no falsification, so it fabricates no test record.
+    boundary = _compile("compile me").to_boundary_card()
+    assert boundary.tested_conditions == []
+    assert "ingress_compilation" in boundary.untested_conditions
+
+
+def test_schema_version_is_bound() -> None:
+    packet = _compile("versioned")
+    assert packet.schema_version == "gate_g1/v1"
+
+
+def test_reproducibility_defaults_environment_from_context() -> None:
+    packet = _compile("default env")
+    manifest = packet.to_reproducibility()
+    assert manifest.environment == "linux-ci"
+    assert manifest.artifact_hash == packet.packet_hash
 
 
 def test_punctuation_only_input_yields_one_unit() -> None:
