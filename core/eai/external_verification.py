@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import subprocess  # nosec B404 — argv-list runner for verifier protocols; no shell.
+import subprocess  # nosec B404  # argv-list runner for verifier protocols; no shell.
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 
@@ -47,7 +47,7 @@ def run_local_command(
     timeout_sec: int = 10,
 ) -> VerificationReport:
     try:
-        proc = subprocess.run(  # nosec B603 — argv list, shell=False, deterministic local verifier
+        proc = subprocess.run(  # nosec B603  # argv list, shell=False, deterministic local verifier
             command,
             capture_output=True,
             text=True,

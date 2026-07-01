@@ -19,11 +19,11 @@ from __future__ import annotations
 
 import dataclasses
 import hashlib
+import warnings
 from collections.abc import Callable
 from typing import Final
 
 import numpy as np
-from scipy import odr as _odr  # type: ignore[import-untyped]
 from scipy import stats as _stats
 
 __all__ = [
@@ -265,6 +265,15 @@ def odr_log_log(log_c: np.ndarray, log_k: np.ndarray) -> EstimatorResult:
     # initial conditions and the linear LS is the natural starting
     # point on log-axis data.
     slope_seed, intercept_seed, *_ = _stats.linregress(log_c, log_k)
+    # scipy.odr is deprecated (SciPy 1.17) and slated for removal in 1.19, but
+    # odr_log_log's γ̂ is byte-frozen into the trial verdict-hash, so the
+    # ODRPACK engine cannot be swapped without breaking that contract. Import it
+    # lazily and silence only this one known, tracked deprecation so it does not
+    # pollute otherwise-clean test logs. The import will fail loudly — not
+    # silently — once SciPy actually removes the module, surfacing the migration.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        from scipy import odr as _odr
     model = _odr.Model(_odr_linear)
     data = _odr.RealData(log_c, log_k, sx=np.ones(n), sy=np.ones(n))
     odr = _odr.ODR(data, model, beta0=[float(slope_seed), float(intercept_seed)])

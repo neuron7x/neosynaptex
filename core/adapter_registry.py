@@ -138,7 +138,7 @@ class AdapterRegistry:
                         try:
                             instance = obj()
                             adapters.append(instance)
-                        except Exception:  # nosec B110 — auto-discovery: skip adapters that fail to instantiate
+                        except Exception:  # nosec B110  # auto-discovery: skip adapters that fail to instantiate
                             pass
             except Exception as e:
                 logger.debug("Failed to import %s: %s", module_path, e)

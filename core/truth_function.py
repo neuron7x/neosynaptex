@@ -335,7 +335,7 @@ def assess_truth(
             if np.isfinite(rqa_det):
                 has_structure = rqa_det > _RQA_DET_THRESHOLD
         except Exception:  # noqa: BLE001 — RQA failure is non-fatal
-            pass  # nosec B110 — graceful degradation, axis remains NaN
+            pass  # nosec B110  # graceful degradation, axis remains NaN
 
         axes_tested += 1
         if has_structure:

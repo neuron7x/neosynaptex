@@ -148,7 +148,7 @@ class DncaBridge:
                 return float(self._dnca.get_gamma())
             if hasattr(self._dnca, "gamma"):
                 return float(self._dnca.gamma)
-        except Exception as exc:  # nosec B110 — graceful degradation: DNCA subsystem optional
+        except Exception as exc:  # nosec B110  # graceful degradation: DNCA subsystem optional
             if self._fail_closed():
                 raise RuntimeError("DNCA gamma query failed under fail-closed mode") from exc
         return float("nan")
@@ -160,7 +160,7 @@ class DncaBridge:
             history = self._engine.history()
             if history:
                 return float(history[-1].gamma_mean)
-        except Exception as exc:  # nosec B110 — graceful degradation: engine history may be empty
+        except Exception as exc:  # nosec B110  # graceful degradation: engine history may be empty
             if self._fail_closed():
                 raise RuntimeError("Neosynaptex gamma query failed under fail-closed mode") from exc
         return float("nan")
@@ -173,7 +173,7 @@ class DncaBridge:
                 return str(self._dnca.get_regime())
             if hasattr(self._dnca, "regime"):
                 return str(self._dnca.regime)
-        except Exception as exc:  # nosec B110 — graceful degradation: DNCA regime query optional
+        except Exception as exc:  # nosec B110  # graceful degradation: DNCA regime query optional
             if self._fail_closed():
                 raise RuntimeError("DNCA regime query failed under fail-closed mode") from exc
         return "unknown"
@@ -185,7 +185,7 @@ class DncaBridge:
             history = self._engine.history()
             if history:
                 return str(history[-1].phase)
-        except Exception as exc:  # nosec B110 — graceful degradation: engine phase query optional
+        except Exception as exc:  # nosec B110  # graceful degradation: engine phase query optional
             if self._fail_closed():
                 raise RuntimeError("Neosynaptex phase query failed under fail-closed mode") from exc
         return "INITIALIZING"
@@ -198,7 +198,7 @@ class DncaBridge:
                 return dict(self._dnca.get_neuromodulation())
             if hasattr(self._dnca, "neuromod_levels"):
                 return dict(self._dnca.neuromod_levels)
-        except Exception as exc:  # nosec B110 — graceful degradation: DNCA neuromod optional
+        except Exception as exc:  # nosec B110  # graceful degradation: DNCA neuromod optional
             if self._fail_closed():
                 raise RuntimeError("DNCA neuromod query failed under fail-closed mode") from exc
         return {}

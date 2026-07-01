@@ -7,7 +7,7 @@ Registry is append-only. Invalid evidence rejected with reason.
 from __future__ import annotations
 
 import json
-import subprocess  # nosec B404 — used only for hardcoded git command
+import subprocess  # nosec B404  # used only for hardcoded git command
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -132,7 +132,7 @@ class EvidencePipeline:
     @staticmethod
     def _get_git_sha() -> str:
         try:
-            result = subprocess.run(  # nosec B603 B607 — hardcoded git command, no user input
+            result = subprocess.run(  # nosec B603 B607  # hardcoded git command, no user input
                 ["git", "rev-parse", "--short", "HEAD"],
                 capture_output=True,
                 text=True,

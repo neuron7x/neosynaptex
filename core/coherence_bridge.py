@@ -27,7 +27,7 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess  # nosec B404 — only behind NEOSYNAPTEX_ALLOW_SUBPROCESS_GIT gate
+import subprocess  # nosec B404  # only behind NEOSYNAPTEX_ALLOW_SUBPROCESS_GIT gate
 import time
 from collections.abc import Callable, Generator
 from dataclasses import dataclass, field
@@ -93,7 +93,7 @@ def _subprocess_git_sha() -> str:
     if os.environ.get(ALLOW_SUBPROCESS_GIT_ENV) != "1":
         return "unknown"
     try:
-        result = subprocess.run(  # nosec B603 B607 — hardcoded git command, no user input
+        result = subprocess.run(  # nosec B603 B607  # hardcoded git command, no user input
             ["git", "rev-parse", "--short", "HEAD"],
             capture_output=True,
             text=True,

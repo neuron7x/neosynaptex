@@ -26,7 +26,7 @@ def run_controls(
     if not claims or not priorities:
         return ControlResults(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, False)
 
-    rng = random.Random(seed)  # nosec B311: deterministic simulation control, not crypto.
+    rng = random.Random(seed)  # nosec B311  # deterministic simulation control, not crypto.
     n = len(claims)
     main_mean = sum(priorities) / n
     random_mean = sum(rng.random() for _ in claims) / n
