@@ -23,6 +23,7 @@ If the IEV-gated evidence/kill/quarantine flow with guardrail revalidation is en
 - Revalidation decisions: `SCOPED_DOWN | RETIRED | SUPERSEDED | STRENGTHENED | UNCHANGED`
 
 ## 5. Architecture
+- `Ingress -> Gate G1 -> ClaimCard candidate` (raw input compiler, see [`gate_g1.md`](gate_g1.md); compiles only, promotion authority stays with the gates below)
 - `Evidence -> IntegrationMemory`
 - `Killed -> GuardrailRegistry`
 - `Quarantined -> OpenQuestionsQueue`

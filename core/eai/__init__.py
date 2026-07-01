@@ -1,4 +1,13 @@
 from .engine import CycleTelemetry, EAIEngine, EngineOutcome
+from .gate_g1 import (
+    AgentRoute,
+    ErrorState,
+    ExecutionPacket,
+    GateG1CompileError,
+    GateG1Context,
+    SubTask,
+    compile_execution_packet,
+)
 from .integrator import LoopArchitecture, LoopIntegrator
 from .intelligence_cycle import (
     BoundaryCard,
@@ -24,6 +33,7 @@ from .psychophysiology import (
 )
 
 __all__ = [
+    "AgentRoute",
     "BoundaryCard",
     "ClaimCard",
     "ClaimStatus",
@@ -31,8 +41,12 @@ __all__ = [
     "CycleTelemetry",
     "EAIEngine",
     "EngineOutcome",
+    "ErrorState",
     "EvidenceArtifact",
+    "ExecutionPacket",
     "FalsificationReport",
+    "GateG1CompileError",
+    "GateG1Context",
     "IntelligenceClosureUnit",
     "KillArtifact",
     "LatentPsychophysiologyState",
@@ -43,6 +57,8 @@ __all__ = [
     "PsychophysiologyParameters",
     "QuarantinedClaim",
     "ReproducibilityManifest",
+    "SubTask",
+    "compile_execution_packet",
     "estimate_gate_leverage",
     "inference_seals_future_lie",
     "may_update_intent",
