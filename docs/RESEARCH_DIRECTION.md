@@ -48,6 +48,8 @@ Thresholds, seeds and sample sizes are committed before the first run.
 *Kill:* no candidate passes both halves → the programme stops at G0 and the
 result is published as a negative.
 
+*Outcome (2026-10-11):* **G0_FAIL** — see §3.1.
+
 **G1 — nonlinear structure in the existing HRV cohort.**
 Already run: negative for DFA α and for sample entropy (F2). Closed. No further
 HRV γ work.
@@ -59,6 +61,49 @@ leave-subject-out ΔAUC over the exponent alone.
 *Kill:* the ΔAUC interval includes 0 → the markers add nothing beyond the
 spectrum. Status: **hypothesized**; no dataset has been acquired or inspected,
 and G2 does not start before G0 passes.
+
+### 3.1 G0 outcome — G0_FAIL (measured, 2026-10-11)
+
+Pre-registration `experiments/g0_ground_truth/PREREGISTRATION.md` (commit
+`aa9b3455`, before the harness existed); evidence
+`results/g0_ground_truth/run_v1.json`, byte-reproducible, bound to both the
+harness and the pre-registration by sha256. 10 seeds, 99 IAAFT surrogates.
+
+| statistic | (a) tracks distance, median abs ρ — Kuramoto / branching | (b) IAAFT rejections at p/p_c = 0.98 — Kuramoto / branching | passes |
+|---|---|---|---|
+| time-reversal asymmetry | 0.09 / 0.39 — fail | 0/10 / 1/10 | no |
+| permutation entropy | 0.80 / 0.89 — fail | 0/10 / 1/10 | no |
+| Lempel–Ziv complexity | 0.99 / 0.96 — pass | 0/10 / 0/10 | no |
+| γ̂ (method control) | 0.91 / 0.96 — pass | 0/10 / 0/10 | — |
+
+Criterion (c) held everywhere (at most 1/10 rejections on the linear
+generators). The method control behaved as required (γ̂ never passed (b)), and
+the harness's own liveness test shows the same procedure does reject a known
+time-irreversible series, so "no rejection" is a result and not a dead
+instrument.
+
+What this says:
+
+1. Distance to the critical point **is** trackable in both simulators — by
+   Lempel–Ziv complexity and by γ̂ itself.
+2. Near the critical point neither is distinguishable from an IAAFT surrogate.
+   In these two systems, at this size, the approach to criticality from below is
+   visible only through the power spectrum; it is the lengthening of a
+   correlation time, which a linear process has too.
+3. γ̂ does not sit at 1 near the critical point. Mean γ̂ along the grid
+   p/p_c = 0.50 … 0.98: Kuramoto 0.77, 0.99, 1.22, 1.45, 1.67, 1.70, 1.80;
+   branching 0.04, 0.05, 0.15, 0.25, 0.83, 1.30, 1.88. It crosses the METASTABLE
+   band at p/p_c ≈ 0.6 (Kuramoto) and between 0.90 and 0.95 (branching), and is
+   ≈ 1.8–1.9 at 0.98. Where it crosses depends on where the fit band lies
+   relative to the correlation time (derived, not separately tested).
+
+By the kill rule fixed in §3, **the programme stops at G0.** G2 is not started.
+
+Limits, as pre-registered: subcritical side only; mean-field systems with
+N = 500, n = 4096; three candidate statistics; two simulators are not critical
+systems in general. A different candidate set or a supercritical/finite-size
+design is a new experiment with its own pre-registration, reported beside this
+one.
 
 ## 4. Rules that apply from now on
 
@@ -82,8 +127,8 @@ and G2 does not start before G0 passes.
 
 ## 6. Not known
 
-- Whether any critical simulator yields γ̂ ≈ 1 under these estimators — G0 has not
-  been run.
+- Whether the G0 negative holds on the supercritical side, at larger N, or for
+  spatially extended (non-mean-field) critical systems.
 - Whether F1 holds for the other estimators in the tree (FDT, DFA-based); only
   `fit_hrv_gamma` and `core.gamma.compute_gamma` were probed.
 - Which open EEG datasets are usable for G2.
