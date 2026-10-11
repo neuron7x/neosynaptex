@@ -1,0 +1,78 @@
+claim_family: m_invariant_bridge
+schema_version: 1.0.0
+created_utc: 2026-05-01T11:30:00Z
+authority_doc: docs/reports/M_INVARIANT_BRIDGE_STATUS.md
+
+current_status: OPEN_NARROWED
+status_definitions:
+  CLOSED_PASS: a pre-registered bridge operator passed all contracted gates
+  CLOSED_FAIL: a pre-registered bridge operator failed FAIL_OFFBAND under a valid sanity bound
+  OPEN_NARROWED: at least one bridge operator was eliminated by INVALID_OPERATOR/INVALID_HWI; the broader hypothesis remains untested under a valid operator
+  OPEN_INITIAL: no bridge operator has been contracted yet
+
+last_experiment:
+  pr: 171
+  merge_commit: 27fc29a3f4caae173c7448d4c99298c8ed400d51
+  contract: contracts/M_INVARIANT_BNSYN_BRIDGE.yaml
+  contract_version: 1.2.0
+  verdict: INVALID_HWI
+  operator: H/(W2*sqrt(I))
+  axis: 1D value-axis KDE density (Scott bandwidth, 256 eval points)
+  reason: HWI sanity bound H<=W2*sqrt(I) violated on 94-100% of substrate samples
+  results_path: results/m_invariant_bridge/run_v1.json
+
+allowed_claims:
+  - "1D value-axis M operator is invalid for the MFN-BN-Syn bridge as contracted"
+  - "PDE-coordinate M remains valid only inside its original 2D pixel-coordinate operator domain"
+  - "Cross-substrate metastable-regime bridge hypothesis remains open"
+  - "HWI inequality is scale-dependent on the position axis"
+  - "The clamp M=min(M,1) saturates when HWI fails and must not be read as agreement"
+
+forbidden_claims:
+  - "M is universal"
+  - "Turing Gap closed"
+  - "MFN and BN-Syn share M invariant"
+  - "M=1.0 proves convergence"
+  - "INVALID_HWI supports the bridge"
+  - "MFN BN-Syn bridge confirmed"
+
+disavowal_contexts:
+  description: |
+    A documentation file may quote a forbidden claim VERBATIM only when the
+    surrounding scope explicitly disavows it. Recognised disavowal markers
+    (case-insensitive substring on the same line or in a clearly enclosing
+    heading): "forbidden", "rejected", "disavowed", "must not", "do not claim",
+    "anti-pattern".
+  rationale: |
+    Without this carve-out, the forbidden_claims list cannot itself appear
+    in any rejection document. The lint tool MUST read the structure (headings
+    or context line) and only fail when a forbidden claim is asserted
+    positively.
+
+next_candidate_paths:
+  spatial_embedding_2d:
+    status: candidate
+    pr_target: M2.3 (design) -> M2.6 (prototype) -> M2.7 (contracted measurement)
+    required_before_measurement:
+      - define neuron coordinates (topology declared, not invented post-hoc)
+      - justify topology against null geometry baseline
+      - pre-register operator (the original 2-D HWI applied via the new coordinates)
+      - define positive control (synthetic 2-D PDE on the same coordinates)
+      - define negative control (random coordinates with no dynamical meaning)
+      - declare nulls (white noise, time-shuffle) and acceptance band BEFORE measurement
+  scale_invariant_operator:
+    status: candidate
+    pr_target: M2.4 (design) -> M2.6 (prototype) -> M2.7 (contracted measurement)
+    required_before_measurement:
+      - prove operator scale-invariance on analytic distributions (closed-form check)
+      - define positive control (two distributions known to share regime)
+      - define negative control (two distributions known not to share regime)
+      - pre-register threshold and nulls BEFORE measurement
+      - run scale-rescaling sanity check from PR M2.2 diagnostics
+
+forbidden_post_hoc_actions:
+  - changing current_status to CLOSED_PASS without a passing pre-registered contract
+  - widening any threshold after observing measured M values
+  - reclassifying INVALID_HWI as PASS or FAIL_OFFBAND
+  - adding new allowed_claims without corresponding evidence PR
+  - removing any item from forbidden_claims without an evidence PR that supersedes it

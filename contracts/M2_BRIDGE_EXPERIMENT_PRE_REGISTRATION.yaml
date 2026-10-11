@@ -1,0 +1,174 @@
+contract_id: M2_BRIDGE_EXPERIMENT_PRE_REGISTRATION
+schema_version: 1.0.0
+created_utc: 2026-05-01T12:00:00Z
+status: pre_registered
+claim_status: derived
+parent_doc: docs/roadmap/M_INVARIANT_M2_ROADMAP.md
+prior:
+  - PR #171 — INVALID_HWI verdict on the 1-D value-axis HWI bridge.
+  - PR M2.2 — INVALID_OPERATOR finding (JSD-as-Fisher proxy underestimates HWI bound on smooth Gaussian shift).
+  - PR M2.3 — BN-Syn spatial embedding design space.
+  - PR M2.4 — scale-invariant operator candidates design space.
+
+purpose: |
+  Pre-register the **next** bridge experiment so that thresholds, nulls, and
+  forbidden post-hoc actions are locked BEFORE any substrate measurement
+  occurs. Two mutually exclusive paths are documented; PR M2.5 only locks
+  the contract — no measurement runs here. The implementation is in PR M2.6
+  (controls only) and the contracted measurement in PR M2.7.
+
+global_rules:
+  thresholds_locked_before_measurement: true
+  no_threshold_field_may_be_TBD: true
+  forbidden_post_hoc_actions:
+    - widening any acceptance threshold after observing measured score
+    - dropping seeds that disagree with the rest
+    - re-snapshotting the spectral Laplacian or the spatial embedding mid-run
+    - changing the operator's auto-bandwidth coefficient after observing scores
+    - reclassifying INVALID_OPERATOR or INVALID_PRECONDITION as PASS
+    - merging measurement and design in the same PR
+  global_seed_list: [42, 43, 44, 45, 46]
+  global_n_seeds: 5
+  contract_hash_field: contract_sha256
+  forbidden_substrate_modification:
+    - any change to substrates/bn_syn/src/bnsyn/ that alters dynamics
+    - any change to substrates/mfn/src/mycelium_fractal_net/ that alters dynamics
+
+paths:
+  - id: BNSYN_2D_SPATIAL_HWI
+    purpose: Apply the original 2-D HWI operator after honest BN-Syn spatial embedding.
+    primary_design_doc: docs/design/BNSYN_SPATIAL_EMBEDDING_FOR_HWI.md
+    chosen_embedding: spectral_laplacian_2d
+    fallback_embedding: cortical_sheet_2d
+    null_embedding: random_geometric_2d
+    operator: substrates/mfn/src/mycelium_fractal_net/analytics/unified_score.compute_hwi_components
+    operator_modification: forbidden
+    preconditions:
+      - chosen_embedding declared and frozen before measurement
+      - coordinates of all neurons frozen at run start (no mid-run re-snapshot)
+      - 2-D coupling topology declared and locked
+      - positive control passes: a 2-D Gray-Scott PDE on the same lattice produces M within band of MFN's published reference
+      - null embedding (random_geometric_2d) measured alongside; M(spectral) must beat M(random_geometric) by at least delta_null = 0.10 absolute
+    config:
+      lattice_size: 8
+      lattice_total_neurons: 64
+      laplacian_eigenvector_indices: [1, 2]
+      coupling_kernel: gaussian
+      coupling_kernel_sigma_lattice_units: 1.5
+    acceptance_band:
+      reference_M_published: 0.106
+      epsilon_relative: 0.20
+      band_low: 0.0848
+      band_high: 0.1272
+    null_band_test:
+      white_noise_null:
+        description: Independent N(0,1) Gaussian on the same lattice; pass through 2-D HWI operator unchanged.
+        must_satisfy: M_morph MUST fall OUTSIDE [0.0848, 0.1272]
+      time_shuffled_null:
+        description: BN-Syn V history with timestep order permuted.
+        must_satisfy: M_morph MUST fall OUTSIDE [0.0848, 0.1272]
+      embedding_null:
+        description: Random geometric 2-D coordinates assigned before dynamics; pass through the same 2-D operator.
+        must_satisfy: |
+          M(random_geometric_2d) MUST be at least 0.10 below M(spectral) in absolute units;
+          if it lies inside [0.0848, 0.1272] OR within 0.10 of M(spectral), the embedding adds no information.
+    verdicts:
+      PASS:
+        condition: M(spectral) in [0.0848, 0.1272] AND all three nulls fall outside the acceptance band AND embedding_null is 0.10 below M(spectral) AND HWI inequality holds on >=95% of samples for the substrate, the spectral run, and the positive control
+        interpretation: 2-D spatial-embedding bridge confirmed under the M2.5 contract
+      FAIL_OFFBAND:
+        condition: M(spectral) outside [0.0848, 0.1272]
+        interpretation: substrate does not converge to the published M under this embedding
+      FAIL_NULL_LEAK:
+        condition: M(spectral) in band BUT a null lands in band
+        interpretation: operator non-selective on this embedding
+      INVALID_OPERATOR:
+        condition: HWI inequality violated on >=5% of samples in any of substrate / nulls / positive control
+        interpretation: operator unsuitable; investigate before retry; threshold not relaxed
+      INVALID_PRECONDITION:
+        condition: any precondition not met (coordinates not frozen, positive control fails, embedding_null too close)
+        interpretation: contract not satisfied; result not contracted
+
+  - id: SCALE_INVARIANT_OPERATOR_BRIDGE
+    purpose: Replace HWI with a scale-invariant bridge metric whose sanity bound does not depend on coordinate units.
+    primary_design_doc: docs/design/SCALE_INVARIANT_BRIDGE_OPERATORS.md
+    primary_operator: sinkhorn_debiased
+    secondary_operator: js_trajectory_divergence
+    operator_pair_rationale: geometry-preserving (Sinkhorn) plus manifold-free (JS) for orthogonal coverage
+    preconditions:
+      - primary operator passes the analytic scale invariance check from PR M2.2 harness on synthetic distributions
+      - secondary operator passes JS_traj(P, P) = 0 within numerical tolerance on identical trajectories
+      - thresholds frozen for both operators
+      - nulls declared
+      - no substrate data observed before threshold freeze
+    config:
+      sinkhorn:
+        epsilon_rule: "eps = c * W2(p, q)^2"
+        c_locked_value: 0.1
+        c_locked_rationale: "to be measured on synthetic Gaussians during PR M2.6 controls; lock value here is a placeholder requiring confirmation in M2.6"
+        max_iter: 200
+        tol: 1.0e-9
+      js_trajectory:
+        kde_bandwidth: scott
+        eval_points: 256
+        time_window: full_trajectory
+    acceptance_band:
+      sinkhorn_score:
+        reference_pde_self_match: 0.0
+        epsilon_absolute: 0.05
+      js_trajectory_score:
+        reference_substrate_match_threshold: 0.10
+        rationale: pre-registered upper bound; lower JS = closer regime
+    null_band_test:
+      white_noise_null:
+        description: White noise trajectory on each substrate.
+        must_satisfy: |
+          Sinkhorn(white_noise, MFN) AND JS_traj(white_noise, MFN) BOTH must lie outside their respective acceptance bands
+      time_shuffled_null:
+        description: BN-Syn trajectory with timesteps permuted.
+        must_satisfy: |
+          JS_traj(shuffled_BNSyn, MFN) MUST exceed reference_substrate_match_threshold;
+          this enforces that the bridge is dynamics-aware, not density-only
+    verdicts:
+      PASS:
+        condition: Sinkhorn(BN-Syn, MFN) within band AND JS_traj(BN-Syn, MFN) below threshold AND nulls outside bands AND positive control on synthetic-PDE-pair returns Sinkhorn near zero
+        interpretation: scale-invariant bridge confirmed under the M2.5 contract
+      FAIL_OFFBAND:
+        condition: either operator's score outside its band
+        interpretation: substrates do not converge under this operator pair
+      FAIL_NULL_LEAK:
+        condition: a null falls inside an acceptance band
+        interpretation: operator non-selective; bridge claim degenerate
+      INVALID_OPERATOR:
+        condition: |
+          Sinkhorn fails Sinkhorn(p, p) = 0 within tolerance, OR
+          JS_traj(P, P) > tolerance on identical trajectory, OR
+          c-locked-value requires substrate-specific tuning to match analytic targets
+        interpretation: operator unsuitable; investigate before retry
+      INVALID_PRECONDITION:
+        condition: thresholds not frozen, nulls not declared, or substrate data observed pre-freeze
+        interpretation: contract not satisfied; result not contracted
+
+evidence_artifacts:
+  reproduction_command_path_a: python experiments/m2_bridge_path_a/run.py
+  reproduction_command_path_b: python experiments/m2_bridge_path_b/run.py
+  json_path_path_a: results/m2_bridge_path_a/run_v1.json
+  json_path_path_b: results/m2_bridge_path_b/run_v1.json
+
+implementation_gates:
+  before_M2_6_prototype:
+    - PR M2.5 (this contract) merged
+    - chosen_embedding declared frozen for Path A
+    - c_locked_value confirmed for Path B (or revised in a contract amendment PR before M2.6)
+  before_M2_7_contracted_measurement:
+    - PR M2.6 (prototype + controls) merged
+    - all preconditions met for the chosen path
+    - contract_sha256 binds the YAML hash to the experiment run
+
+reproducibility:
+  python: ">=3.11"
+  numpy: as pinned in repo
+  scipy: as pinned in repo
+  POT: required for Sinkhorn (ot.sinkhorn2_debiased)
+  rng: numpy.random.default_rng with global_seed_list above
+  determinism: all operators must be deterministic given samples and contract config
