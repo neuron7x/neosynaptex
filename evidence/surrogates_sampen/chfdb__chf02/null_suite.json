@@ -1,0 +1,86 @@
+{
+  "cohort": "chfdb",
+  "config": {
+    "dfa_scales": [
+      16,
+      22,
+      30,
+      40,
+      54,
+      64
+    ],
+    "families": [
+      "shuffled",
+      "iaaft",
+      "ar1",
+      "poisson",
+      "latent_gmm"
+    ],
+    "n_beats_cap": 10000,
+    "n_surrogates_per_layer": 200,
+    "required_separable_layers": 3,
+    "sampen_m": 2,
+    "sampen_max_n": 2000,
+    "sampen_r_frac": 0.2,
+    "statistic": "sample_entropy",
+    "z_borderline_low": 2.0,
+    "z_separable": 3.0
+  },
+  "n_beats_used": 10000,
+  "overall_verdict": "SEPARABLE",
+  "per_layer": [
+    {
+      "family": "shuffled",
+      "statistic_null_mean": 1.920087736961235,
+      "statistic_null_p05": 1.8858474715235107,
+      "statistic_null_p50": 1.9208706439350194,
+      "statistic_null_p95": 1.9494129805800935,
+      "statistic_null_std": 0.019902389436345952,
+      "verdict": "SEPARABLE",
+      "z_score": -57.385001148111684
+    },
+    {
+      "family": "iaaft",
+      "statistic_null_mean": 1.4955328472089127,
+      "statistic_null_p05": 1.2440223740855665,
+      "statistic_null_p50": 1.3092414505033765,
+      "statistic_null_p95": 2.405003315591446,
+      "statistic_null_std": 0.4217297253884101,
+      "verdict": "NOT_SEPARABLE",
+      "z_score": -1.701430342008032
+    },
+    {
+      "family": "ar1",
+      "statistic_null_mean": 1.7511441872512927,
+      "statistic_null_p05": 1.6997457836895606,
+      "statistic_null_p50": 1.7507877446523956,
+      "statistic_null_p95": 1.802722500057678,
+      "statistic_null_std": 0.03086398272113809,
+      "verdict": "SEPARABLE",
+      "z_score": -31.53044439331035
+    },
+    {
+      "family": "poisson",
+      "statistic_null_mean": 1.7104778053870329,
+      "statistic_null_p05": 1.658373693207398,
+      "statistic_null_p50": 1.706348668818117,
+      "statistic_null_p95": 1.773458941318724,
+      "statistic_null_std": 0.03611487456997205,
+      "verdict": "SEPARABLE",
+      "z_score": -25.820073312839362
+    },
+    {
+      "family": "latent_gmm",
+      "statistic_null_mean": 2.041054821455761,
+      "statistic_null_p05": 2.000190278535147,
+      "statistic_null_p50": 2.041446230072773,
+      "statistic_null_p95": 2.079521096191448,
+      "statistic_null_std": 0.026923335453492934,
+      "verdict": "SEPARABLE",
+      "z_score": -46.913419302419264
+    }
+  ],
+  "rr_sha256": "64777a7a716b92e2eda36412908ba9edf313a25fe21aecbb8fc7198b27d4f56a",
+  "statistic_real": 0.7779890963063567,
+  "subject_record": "chf02"
+}

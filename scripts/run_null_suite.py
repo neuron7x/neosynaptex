@@ -35,8 +35,14 @@ def _log(msg: str) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument(
+        "--statistic",
+        choices=["dfa_alpha_16_64", "sample_entropy"],
+        default=DEFAULT_CONFIG.statistic,
+    )
     ap.add_argument("--n-surrogates", type=int, default=DEFAULT_CONFIG.n_surrogates_per_layer)
     ap.add_argument("--n-beats-cap", type=int, default=DEFAULT_CONFIG.n_beats_cap)
+    ap.add_argument("--sampen-max-n", type=int, default=DEFAULT_CONFIG.sampen_max_n)
     ap.add_argument("--seed-base", type=int, default=42)
     ap.add_argument(
         "--subjects",
@@ -44,13 +50,26 @@ def main(argv: list[str] | None = None) -> int:
         help="Specific subjects in 'cohort:record' form (overrides dev split).",
     )
     ap.add_argument("--cache-dir", type=Path, default=Path("data/raw"))
-    ap.add_argument("--out-dir", type=Path, default=Path("evidence/surrogates"))
+    ap.add_argument(
+        "--out-dir",
+        type=Path,
+        default=None,
+        help="Defaults to evidence/surrogates (α₂) or evidence/surrogates_sampen.",
+    )
     args = ap.parse_args(argv)
 
     cfg = NullSuiteConfig(
+        statistic=args.statistic,
         n_surrogates_per_layer=args.n_surrogates,
         n_beats_cap=args.n_beats_cap,
+        sampen_max_n=args.sampen_max_n,
     )
+    if args.out_dir is None:
+        args.out_dir = (
+            Path("evidence/surrogates")
+            if args.statistic == "dfa_alpha_16_64"
+            else Path("evidence/surrogates_sampen")
+        )
 
     split = load_split()
     if args.subjects:
@@ -112,13 +131,16 @@ def main(argv: list[str] | None = None) -> int:
     summary = {
         "schema_version": 1,
         "config": {
+            "statistic": cfg.statistic,
             "n_surrogates_per_layer": cfg.n_surrogates_per_layer,
             "dfa_scales": list(cfg.dfa_scales),
+            "sampen_m": cfg.sampen_m,
+            "sampen_r_frac": cfg.sampen_r_frac,
+            "sampen_max_n": cfg.sampen_max_n,
             "n_beats_cap": cfg.n_beats_cap,
             "z_separable": cfg.z_separable,
             "z_borderline_low": cfg.z_borderline_low,
             "required_separable_layers": cfg.required_separable_layers,
-            "statistic": "DFA_alpha_16_64_beats",
         },
         "split_scope": "development_only",
         "subjects": summary_entries,

@@ -1,0 +1,19 @@
+# γ-program evidence-branch registry
+#
+# Task 5 of the remediation protocol. Splits HRV evidence into two
+# independent branches. Combined scores across branches are FORBIDDEN
+# until both pass their own Task 6 null suite AND survive Task 8
+# blind external validation — a discipline enforced by the Task 12
+# claim gate.
+
+schema_version: 1
+
+branches:
+  branch_a_spectral:
+    description: "Frequency-domain evidence (Welch PSD bands + time-domain variance surface)"
+    claim_status: measured_but_bounded
+    metrics: [sdnn_ms, total_power_ms2, lf_power_ms2, hf_power_ms2, lf_hf_ratio]
+  branch_b_nonlinear:
+    description: "Scaling / fractal / complexity evidence (DFA α, Poincaré, sample entropy)"
+    claim_status: measured_but_bounded
+    metrics: [rmssd_ms, dfa_alpha1, dfa_alpha2, poincare_sd1_ms, poincare_sd2_ms, sample_entropy]

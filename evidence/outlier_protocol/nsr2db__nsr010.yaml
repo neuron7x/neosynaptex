@@ -1,0 +1,43 @@
+# Outlier-protocol report — γ-program Task 7
+#
+# Generated from tools/hrv/outlier_protocol.py. Editing here
+# without updating the generator is a protocol violation.
+
+cohort: nsr2db
+record: nsr010
+n_total_annotations: 96291
+n_normal_beats: 96045
+decision: EXPLAINED
+decision_reason: "flags=0 (< 3) and ectopy=0.003 < 0.150"
+
+stages:
+  - name: signal_quality
+    value: 0.997445
+    threshold: 0.900000
+    flag: false
+    note: "fraction of annotations with symbol=='N'; flag if < min"
+  - name: ectopy_burden
+    value: 0.002555
+    threshold: 0.080000
+    flag: false
+    note: "fraction of non-'N' annotations; flag if ≥ threshold"
+  - name: missing_beat_gaps
+    value: 0.000000
+    threshold: 0.000000
+    flag: false
+    note: "count of RR > 2.0 s; max_rr=1.71s"
+  - name: stationarity
+    value: 0.369361
+    threshold: 0.400000
+    flag: false
+    note: "CoV of SDNN across 187 non-overlapping 512-beat windows"
+  - name: window_sensitivity
+    value: 0.124834
+    threshold: 0.300000
+    flag: false
+    note: "|α₂(first half) − α₂(second half)|; α₁=0.867 α₂=0.992"
+  - name: day_night_segmentation
+    value: 0.124834
+    threshold: 0.300000
+    flag: false
+    note: "|α₂(first half) − α₂(second half)| over ≥20h recording"

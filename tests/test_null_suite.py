@@ -119,6 +119,23 @@ def test_compute_null_suite_runs_on_synthetic() -> None:
         assert lr.family in SURROGATE_FAMILIES
 
 
+def test_compute_null_suite_accepts_sample_entropy_statistic() -> None:
+    """Parametric statistic — SampEn path must produce five finite z-scores on a
+    non-degenerate RR series."""
+    rng = np.random.default_rng(77)
+    rr = 0.8 + 0.05 * rng.normal(size=1500)
+    cfg = NullSuiteConfig(
+        statistic="sample_entropy",
+        n_surrogates_per_layer=20,
+        n_beats_cap=1500,
+        sampen_max_n=1500,
+    )
+    r = compute_null_suite(rr, cohort="synthetic", subject_record="se01", seed=1, cfg=cfg)
+    assert r.config["statistic"] == "sample_entropy"
+    assert len(r.per_layer) == 5
+    assert np.isfinite(r.statistic_real)
+
+
 def test_compute_null_suite_raises_on_too_short_input() -> None:
     rng = np.random.default_rng(1)
     rr = rng.normal(size=50)
@@ -137,7 +154,7 @@ def test_null_suite_summary_present_if_evidence_committed() -> None:
     summary = json.loads(summary_path.read_text("utf-8"))
     assert summary["schema_version"] == 1
     assert summary["split_scope"] == "development_only"
-    assert summary["config"]["statistic"] == "DFA_alpha_16_64_beats"
+    assert summary["config"]["statistic"] in {"dfa_alpha_16_64", "sample_entropy"}
 
 
 def test_every_committed_subject_has_five_layers() -> None:

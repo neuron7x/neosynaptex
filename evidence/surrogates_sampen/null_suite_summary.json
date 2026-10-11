@@ -1,0 +1,1488 @@
+{
+  "aggregate": {
+    "layer_separable_counts": {
+      "ar1": 38,
+      "iaaft": 7,
+      "latent_gmm": 67,
+      "poisson": 67,
+      "shuffled": 66
+    },
+    "n_subjects": 69,
+    "overall_verdict_counts": {
+      "BORDERLINE": 3,
+      "SEPARABLE": 66
+    }
+  },
+  "config": {
+    "dfa_scales": [
+      16,
+      22,
+      30,
+      40,
+      54,
+      64
+    ],
+    "n_beats_cap": 10000,
+    "n_surrogates_per_layer": 200,
+    "required_separable_layers": 3,
+    "sampen_m": 2,
+    "sampen_max_n": 2000,
+    "sampen_r_frac": 0.2,
+    "statistic": "sample_entropy",
+    "z_borderline_low": 2.0,
+    "z_separable": 3.0
+  },
+  "schema_version": 1,
+  "split_scope": "development_only",
+  "subjects": [
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr001",
+      "statistic_real": 0.6884618115927738,
+      "z_scores": {
+        "ar1": -1.085329064405636,
+        "iaaft": -0.3443317665494393,
+        "latent_gmm": -36.294521054133284,
+        "poisson": -28.97909106914689,
+        "shuffled": -63.29224339199311
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr002",
+      "statistic_real": 0.9519423654459386,
+      "z_scores": {
+        "ar1": 3.3794216648445263,
+        "iaaft": 1.2683846867110928,
+        "latent_gmm": -25.626332534907753,
+        "poisson": -21.208661875183385,
+        "shuffled": -57.94171248373662
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr003",
+      "statistic_real": 0.8014948792184704,
+      "z_scores": {
+        "ar1": -5.358659185693596,
+        "iaaft": -0.5668725479717929,
+        "latent_gmm": -21.39831447750073,
+        "poisson": -25.801896471738363,
+        "shuffled": -37.8055112072254
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr004",
+      "statistic_real": 0.8058210872923947,
+      "z_scores": {
+        "ar1": -1.122646300393292,
+        "iaaft": -0.15537946010204992,
+        "latent_gmm": -27.68365662583464,
+        "poisson": -25.664793508338875,
+        "shuffled": -68.28746880080263
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr005",
+      "statistic_real": 0.47391654893207386,
+      "z_scores": {
+        "ar1": -1.611394789457332,
+        "iaaft": -0.14561648399581428,
+        "latent_gmm": -16.64006738800308,
+        "poisson": -31.015264439703824,
+        "shuffled": -61.72454058272217
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr006",
+      "statistic_real": 0.4725855012006552,
+      "z_scores": {
+        "ar1": -3.246109532640429,
+        "iaaft": -1.0446576672950416,
+        "latent_gmm": -33.40558209583711,
+        "poisson": -36.52888802486208,
+        "shuffled": -9.73639432665145
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr007",
+      "statistic_real": 0.8492951753009633,
+      "z_scores": {
+        "ar1": -0.5378485621224428,
+        "iaaft": 0.7260215942132402,
+        "latent_gmm": -38.736202867685535,
+        "poisson": -25.509312833830272,
+        "shuffled": -47.929554353373604
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr008",
+      "statistic_real": 0.6832887837905853,
+      "z_scores": {
+        "ar1": -1.1471341492108869,
+        "iaaft": -0.25142455145130543,
+        "latent_gmm": -27.855252142594313,
+        "poisson": -30.788698238530717,
+        "shuffled": -53.212221028662945
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr009",
+      "statistic_real": 0.2549978846715531,
+      "z_scores": {
+        "ar1": -10.137642749384261,
+        "iaaft": -3.414896431233945,
+        "latent_gmm": -47.69352540397758,
+        "poisson": -41.04124595537696,
+        "shuffled": -68.0275391291711
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr010",
+      "statistic_real": 0.667826296816635,
+      "z_scores": {
+        "ar1": 2.155626733272325,
+        "iaaft": 0.604591562474093,
+        "latent_gmm": -7.224274019998545,
+        "poisson": -31.46276655520796,
+        "shuffled": -67.41199733533061
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr011",
+      "statistic_real": 1.135938428829688,
+      "z_scores": {
+        "ar1": -1.8265469638128686,
+        "iaaft": -0.378159914778003,
+        "latent_gmm": -30.004334576709773,
+        "poisson": -15.850409375453554,
+        "shuffled": -40.42889240217454
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr012",
+      "statistic_real": 0.37148877572054845,
+      "z_scores": {
+        "ar1": -0.2043733646616054,
+        "iaaft": -0.19502671183239378,
+        "latent_gmm": -8.807319161186365,
+        "poisson": -38.10943071287126,
+        "shuffled": -49.05427095018513
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr013",
+      "statistic_real": 0.705854177921762,
+      "z_scores": {
+        "ar1": 0.6339411709229873,
+        "iaaft": 0.48102252417276975,
+        "latent_gmm": 7.5141788975616945,
+        "poisson": -29.97216536080331,
+        "shuffled": -14.89171835003752
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr014",
+      "statistic_real": 0.5560311120743308,
+      "z_scores": {
+        "ar1": -28.177125309829048,
+        "iaaft": -3.1266379576201366,
+        "latent_gmm": -26.71036623241023,
+        "poisson": -30.2960821161563,
+        "shuffled": -58.93390935683967
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr015",
+      "statistic_real": 0.7646696332684393,
+      "z_scores": {
+        "ar1": -8.141219252768137,
+        "iaaft": -1.0042299454827888,
+        "latent_gmm": -33.58199561245807,
+        "poisson": -27.887846261134776,
+        "shuffled": -48.21765383986748
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr016",
+      "statistic_real": 0.5348144822657411,
+      "z_scores": {
+        "ar1": -2.479005322991963,
+        "iaaft": -0.8351182085590833,
+        "latent_gmm": -45.29636371618571,
+        "poisson": -34.899568247130176,
+        "shuffled": -56.21617197565058
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr017",
+      "statistic_real": 0.8332661176571126,
+      "z_scores": {
+        "ar1": -14.529643398270085,
+        "iaaft": -2.241195730744802,
+        "latent_gmm": -28.885626802275976,
+        "poisson": -25.333584582350994,
+        "shuffled": -37.786091089576445
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr018",
+      "statistic_real": 0.6013799604848097,
+      "z_scores": {
+        "ar1": -6.251876282049407,
+        "iaaft": -1.1189957787587945,
+        "latent_gmm": -27.174662880427785,
+        "poisson": -30.532224010680007,
+        "shuffled": -34.16061057277199
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr019",
+      "statistic_real": 0.39939825614137087,
+      "z_scores": {
+        "ar1": -3.900889831215546,
+        "iaaft": -1.085034226525431,
+        "latent_gmm": -61.24263413278686,
+        "poisson": -36.02190617446126,
+        "shuffled": -73.72138535261303
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr020",
+      "statistic_real": 1.1573531586330967,
+      "z_scores": {
+        "ar1": 2.013240704195442,
+        "iaaft": 0.7592585582734009,
+        "latent_gmm": -8.992613956460925,
+        "poisson": -14.611215433527128,
+        "shuffled": -28.84740428641077
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr021",
+      "statistic_real": 1.0852018151381553,
+      "z_scores": {
+        "ar1": -3.4477978955464885,
+        "iaaft": -3.90534895739699,
+        "latent_gmm": -37.2995477051083,
+        "poisson": -18.650456321797215,
+        "shuffled": -41.703662236504215
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr022",
+      "statistic_real": 1.1724457910803974,
+      "z_scores": {
+        "ar1": 0.9968952382860703,
+        "iaaft": 1.2122735993142109,
+        "latent_gmm": -44.30287527556484,
+        "poisson": -15.192617582995762,
+        "shuffled": -36.65617701118415
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr023",
+      "statistic_real": 0.5315154181103041,
+      "z_scores": {
+        "ar1": -2.455243973504787,
+        "iaaft": -0.8727792768926305,
+        "latent_gmm": -63.3569506221875,
+        "poisson": -34.924614464184316,
+        "shuffled": -67.81385957395626
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr024",
+      "statistic_real": 0.6928954547848014,
+      "z_scores": {
+        "ar1": -13.662845632971328,
+        "iaaft": -1.9215631477182311,
+        "latent_gmm": -41.532564973256996,
+        "poisson": -27.79198098313583,
+        "shuffled": -45.295934585376074
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr025",
+      "statistic_real": 1.1582579116402816,
+      "z_scores": {
+        "ar1": -1.0682616552016087,
+        "iaaft": 0.004473358464598971,
+        "latent_gmm": -15.073945119765137,
+        "poisson": -15.04821729765821,
+        "shuffled": -46.78134008629744
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr026",
+      "statistic_real": 0.6046940705031942,
+      "z_scores": {
+        "ar1": -2.883920372616364,
+        "iaaft": -0.41432789673269926,
+        "latent_gmm": -55.54202856286468,
+        "poisson": -34.065321465143256,
+        "shuffled": -61.372880425446574
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr027",
+      "statistic_real": 0.27328024305114645,
+      "z_scores": {
+        "ar1": -1.3925930308224248,
+        "iaaft": -0.5660971462797811,
+        "latent_gmm": -19.874319013433627,
+        "poisson": -39.639546638332426,
+        "shuffled": -52.86282977263237
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr028",
+      "statistic_real": 0.5525903006341388,
+      "z_scores": {
+        "ar1": -5.206164781134802,
+        "iaaft": -7.753597083247528,
+        "latent_gmm": -58.25633476223931,
+        "poisson": -32.249056990706926,
+        "shuffled": -59.3355010953774
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr029",
+      "statistic_real": 0.23972586343928287,
+      "z_scores": {
+        "ar1": -11.532920540980555,
+        "iaaft": -3.1246011379348073,
+        "latent_gmm": -48.935020198779554,
+        "poisson": -39.9988675413398,
+        "shuffled": -61.762284621868716
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr030",
+      "statistic_real": 0.7511937953439489,
+      "z_scores": {
+        "ar1": 0.5469955336168619,
+        "iaaft": -0.41467261995312954,
+        "latent_gmm": -34.16569025889798,
+        "poisson": -29.015790103656272,
+        "shuffled": -71.47679948588303
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr031",
+      "statistic_real": 0.7837030224099121,
+      "z_scores": {
+        "ar1": -3.9535684719486,
+        "iaaft": -2.3745411789005546,
+        "latent_gmm": -51.63241887403698,
+        "poisson": -24.692091277750297,
+        "shuffled": -55.58911639406155
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr032",
+      "statistic_real": 0.3701564011486507,
+      "z_scores": {
+        "ar1": -1.978577164438456,
+        "iaaft": -0.6343395483003331,
+        "latent_gmm": -17.84519891107181,
+        "poisson": -38.07096310037416,
+        "shuffled": -10.385313022941377
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr033",
+      "statistic_real": 0.5201289790479278,
+      "z_scores": {
+        "ar1": -5.1748017284573455,
+        "iaaft": -1.8599080607295764,
+        "latent_gmm": -46.63068810121674,
+        "poisson": -32.99151464959757,
+        "shuffled": -64.02770350711086
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr034",
+      "statistic_real": 0.38594929758139246,
+      "z_scores": {
+        "ar1": -4.112404543959955,
+        "iaaft": -1.6678180396392959,
+        "latent_gmm": -49.9124517966713,
+        "poisson": -37.113569422068444,
+        "shuffled": -49.41871202810266
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr035",
+      "statistic_real": 0.7109392553063301,
+      "z_scores": {
+        "ar1": -9.957000877736576,
+        "iaaft": -1.3221041997061134,
+        "latent_gmm": -61.35869809444026,
+        "poisson": -28.427217716232768,
+        "shuffled": -59.253536653280506
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr036",
+      "statistic_real": 1.5626226773572622,
+      "z_scores": {
+        "ar1": 10.413330553743707,
+        "iaaft": 2.0258246308952867,
+        "latent_gmm": 3.0485184512597963,
+        "poisson": -4.091331138955385,
+        "shuffled": -26.062620491389076
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr037",
+      "statistic_real": 0.7647408337469541,
+      "z_scores": {
+        "ar1": -2.1254154377214562,
+        "iaaft": -0.30882360452378305,
+        "latent_gmm": -41.157643025972604,
+        "poisson": -28.414812190318997,
+        "shuffled": -57.400682945096
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr038",
+      "statistic_real": 0.5266545150972821,
+      "z_scores": {
+        "ar1": -4.752309210450384,
+        "iaaft": -0.9796977734875952,
+        "latent_gmm": -17.32966643730212,
+        "poisson": -34.30616596352348,
+        "shuffled": -76.08464675670012
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "NOT_SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "BORDERLINE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "BORDERLINE",
+      "record": "nsr039",
+      "statistic_real": 0.3413666324380296,
+      "z_scores": {
+        "ar1": -89.92886899294824,
+        "iaaft": -1.5466632833923732,
+        "latent_gmm": -1.1403335302092785,
+        "poisson": -40.89123170743746,
+        "shuffled": -2.3595011895388125
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr040",
+      "statistic_real": 1.4049259247801167,
+      "z_scores": {
+        "ar1": 8.308188921961117,
+        "iaaft": 1.4287230907347628,
+        "latent_gmm": -9.421426938198387,
+        "poisson": -9.06286273100729,
+        "shuffled": -36.01860301028015
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr041",
+      "statistic_real": 1.2635438589595502,
+      "z_scores": {
+        "ar1": 2.6321550546080874,
+        "iaaft": 1.0309927139028183,
+        "latent_gmm": -16.976104834941893,
+        "poisson": -11.75346000833844,
+        "shuffled": -4.880274531407085
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr042",
+      "statistic_real": 0.8176823564253406,
+      "z_scores": {
+        "ar1": -0.9449536196430427,
+        "iaaft": -0.6223833009281492,
+        "latent_gmm": -33.02628989594983,
+        "poisson": -26.77240525314841,
+        "shuffled": -51.34052247584074
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr043",
+      "statistic_real": 0.5925840934958784,
+      "z_scores": {
+        "ar1": -2.7097407305288805,
+        "iaaft": -0.36742606127155686,
+        "latent_gmm": -35.87157738846383,
+        "poisson": -31.49044538583038,
+        "shuffled": -63.30883634707943
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr044",
+      "statistic_real": 1.4586302125344794,
+      "z_scores": {
+        "ar1": 8.19369525432458,
+        "iaaft": 0.9606448110927158,
+        "latent_gmm": -7.355393263653138,
+        "poisson": -7.441620238366745,
+        "shuffled": -36.736538690414335
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr045",
+      "statistic_real": 1.1787178123848843,
+      "z_scores": {
+        "ar1": -2.6557383895324356,
+        "iaaft": -0.6268708728642555,
+        "latent_gmm": -28.281036790812582,
+        "poisson": -14.291510854285542,
+        "shuffled": -41.795686597248235
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr046",
+      "statistic_real": 0.558766650866045,
+      "z_scores": {
+        "ar1": 0.3351545402866536,
+        "iaaft": 0.061255509902492886,
+        "latent_gmm": -17.435430829007107,
+        "poisson": -32.297773501894426,
+        "shuffled": -87.4338427059028
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr047",
+      "statistic_real": 0.9370996530635077,
+      "z_scores": {
+        "ar1": -0.14216909349450593,
+        "iaaft": -1.2877115112404869,
+        "latent_gmm": -52.74164161687054,
+        "poisson": -21.29849346198001,
+        "shuffled": -5.439221225525899
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr048",
+      "statistic_real": 1.1153360194851412,
+      "z_scores": {
+        "ar1": -0.8777258451143645,
+        "iaaft": -2.7231154936188022,
+        "latent_gmm": -33.35202598572516,
+        "poisson": -18.145287672863052,
+        "shuffled": -44.47780819678554
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr049",
+      "statistic_real": 0.9389482791000988,
+      "z_scores": {
+        "ar1": -1.9474148781081755,
+        "iaaft": 0.027898845581334132,
+        "latent_gmm": -47.07847795865507,
+        "poisson": -21.159243035029217,
+        "shuffled": -44.41088584324992
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr050",
+      "statistic_real": 0.69907902152778,
+      "z_scores": {
+        "ar1": -3.0671205257494054,
+        "iaaft": -0.706277953860662,
+        "latent_gmm": -38.33298961542244,
+        "poisson": -28.953414504755752,
+        "shuffled": -63.079840704042695
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr051",
+      "statistic_real": 1.0508546656419249,
+      "z_scores": {
+        "ar1": -2.7175590474840674,
+        "iaaft": -1.318920272173008,
+        "latent_gmm": -39.95423844017809,
+        "poisson": -18.93211198371206,
+        "shuffled": -43.53348637953855
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "BORDERLINE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr052",
+      "statistic_real": 0.531411185716903,
+      "z_scores": {
+        "ar1": -2.2110973026630103,
+        "iaaft": -1.1078401258378507,
+        "latent_gmm": -51.9744875207783,
+        "poisson": -32.37323529497389,
+        "shuffled": -72.40427131240921
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr053",
+      "statistic_real": 0.9665224579806613,
+      "z_scores": {
+        "ar1": -6.180765213320833,
+        "iaaft": -2.0635096380737434,
+        "latent_gmm": -56.620923393949795,
+        "poisson": -22.46488571108575,
+        "shuffled": -4.93228457291932
+      }
+    },
+    {
+      "cohort": "nsr2db",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "nsr054",
+      "statistic_real": 0.7604833277268676,
+      "z_scores": {
+        "ar1": -12.218529785107846,
+        "iaaft": -7.233029854179515,
+        "latent_gmm": -37.04147468907094,
+        "poisson": -26.116159338284763,
+        "shuffled": -47.53574194880009
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf01",
+      "statistic_real": 0.8567377126099851,
+      "z_scores": {
+        "ar1": 0.7427907794130335,
+        "iaaft": 1.176426027246039,
+        "latent_gmm": -30.933373844602645,
+        "poisson": -24.65201503962343,
+        "shuffled": -43.33157791077636
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf02",
+      "statistic_real": 0.7779890963063567,
+      "z_scores": {
+        "ar1": -31.53044439331035,
+        "iaaft": -1.701430342008032,
+        "latent_gmm": -46.913419302419264,
+        "poisson": -25.820073312839362,
+        "shuffled": -57.385001148111684
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf03",
+      "statistic_real": 0.5606196934890422,
+      "z_scores": {
+        "ar1": -57.41361928547055,
+        "iaaft": -2.9866192954535906,
+        "latent_gmm": -36.35763636756119,
+        "poisson": -31.75134968582917,
+        "shuffled": -8.559558833671439
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf04",
+      "statistic_real": 0.9968753680521999,
+      "z_scores": {
+        "ar1": -22.15330162575963,
+        "iaaft": -1.4200622489741805,
+        "latent_gmm": -19.32038581285716,
+        "poisson": -19.78338084754343,
+        "shuffled": -48.715092904583116
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "NOT_SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf05",
+      "statistic_real": 1.8264166368306747,
+      "z_scores": {
+        "ar1": 8.57299679241495,
+        "iaaft": 0.6230871001768336,
+        "latent_gmm": -16.453064078149122,
+        "poisson": 3.1124791544584345,
+        "shuffled": 0.21541639882236477
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf06",
+      "statistic_real": 1.3429136096216758,
+      "z_scores": {
+        "ar1": -37.24979321882336,
+        "iaaft": -11.405950629349416,
+        "latent_gmm": -27.96356493745637,
+        "poisson": -10.770533715562456,
+        "shuffled": -9.856561373482828
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf07",
+      "statistic_real": 1.3494628640304487,
+      "z_scores": {
+        "ar1": -11.279057432598565,
+        "iaaft": -0.08630133750256166,
+        "latent_gmm": -10.685943395142578,
+        "poisson": -9.42033541601153,
+        "shuffled": -17.460388327773018
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf08",
+      "statistic_real": 0.7408054327210414,
+      "z_scores": {
+        "ar1": -7.757847327843776,
+        "iaaft": -2.5067551277272915,
+        "latent_gmm": -28.95514287856187,
+        "poisson": -28.519817431931134,
+        "shuffled": -51.75957376263454
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf09",
+      "statistic_real": 2.266640307235916,
+      "z_scores": {
+        "ar1": 17.89547503878087,
+        "iaaft": 1.7662242950631402,
+        "latent_gmm": 7.419727542988664,
+        "poisson": 16.680706129999518,
+        "shuffled": 46.0974324392443
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "NOT_SEPARABLE",
+        "poisson": "BORDERLINE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "BORDERLINE",
+      "record": "chf10",
+      "statistic_real": 1.6298275351312166,
+      "z_scores": {
+        "ar1": -4.638550839526623,
+        "iaaft": 0.5493267981558297,
+        "latent_gmm": -1.3040706228189118,
+        "poisson": -2.1968712238232335,
+        "shuffled": -17.29337221676606
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf11",
+      "statistic_real": 0.552223924177729,
+      "z_scores": {
+        "ar1": -6.221573508567037,
+        "iaaft": -0.9128660212363481,
+        "latent_gmm": -38.4646446107661,
+        "poisson": -34.94468995775955,
+        "shuffled": -44.844841670643596
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "NOT_SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf12",
+      "statistic_real": 0.6623132189570223,
+      "z_scores": {
+        "ar1": 0.05756184507986255,
+        "iaaft": -0.03756196744768919,
+        "latent_gmm": -27.04245180931815,
+        "poisson": -27.348719715662096,
+        "shuffled": -5.840623597665251
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "NOT_SEPARABLE",
+        "shuffled": "NOT_SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "BORDERLINE",
+      "record": "chf13",
+      "statistic_real": 1.7283540171622858,
+      "z_scores": {
+        "ar1": 7.820147438915911,
+        "iaaft": 0.1381056331742585,
+        "latent_gmm": -6.0814391393191745,
+        "poisson": 0.47527755433954416,
+        "shuffled": -0.6837028991986983
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "NOT_SEPARABLE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf14",
+      "statistic_real": 2.34390079278229,
+      "z_scores": {
+        "ar1": 21.250616333141775,
+        "iaaft": 1.961308262186323,
+        "latent_gmm": 14.957882618318513,
+        "poisson": 17.801539648432904,
+        "shuffled": 12.885847642622993
+      }
+    },
+    {
+      "cohort": "chfdb",
+      "layers": {
+        "ar1": "SEPARABLE",
+        "iaaft": "BORDERLINE",
+        "latent_gmm": "SEPARABLE",
+        "poisson": "SEPARABLE",
+        "shuffled": "SEPARABLE"
+      },
+      "n_beats_used": 10000,
+      "overall_verdict": "SEPARABLE",
+      "record": "chf15",
+      "statistic_real": 0.22921529474510643,
+      "z_scores": {
+        "ar1": -38.93527924837982,
+        "iaaft": -2.8634125900407192,
+        "latent_gmm": -46.29390311574977,
+        "poisson": -41.37554632867301,
+        "shuffled": -10.760577026170635
+      }
+    }
+  ]
+}

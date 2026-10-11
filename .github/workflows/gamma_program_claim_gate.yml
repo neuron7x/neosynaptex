@@ -1,0 +1,32 @@
+name: gamma_program_claim_gate
+
+# γ-program claim-status gate — Task 12 of the remediation protocol.
+# Fails the build if any of the 11 Task-N scoreboard flags reports FALSE
+# while a PR tries to ship a cardiac γ claim. See
+# tools/audit/claim_status_gate.py for the full scoreboard.
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install minimal stack (matches STACK.lock)
+        run: |
+          python -m pip install --upgrade pip
+          pip install "numpy>=2.2.6,<3.0" "scipy>=1.15.3,<2.0" "wfdb>=4.3.1,<5.0"
+      - name: Run claim-status gate
+        run: python -m tools.audit.claim_status_gate

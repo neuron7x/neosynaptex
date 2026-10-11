@@ -1,0 +1,608 @@
+{
+  "decision_counts": {
+    "EXPLAINED": 108,
+    "PRE_REGISTERED_EXCLUDED": 8
+  },
+  "n_subjects": 116,
+  "per_cohort": {
+    "chf2db": {
+      "EXPLAINED": 25,
+      "PRE_REGISTERED_EXCLUDED": 4
+    },
+    "chfdb": {
+      "EXPLAINED": 13,
+      "PRE_REGISTERED_EXCLUDED": 2
+    },
+    "nsr2db": {
+      "EXPLAINED": 54,
+      "PRE_REGISTERED_EXCLUDED": 0
+    },
+    "nsrdb": {
+      "EXPLAINED": 16,
+      "PRE_REGISTERED_EXCLUDED": 2
+    }
+  },
+  "schema_version": 1,
+  "subjects": [
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf201"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf202"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf203"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf204"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf205"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf206"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "chf207"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf208"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf209"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf210"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf211"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf212"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "chf213"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "chf214"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf215"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf216"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf217"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf218"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf219"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf220"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "chf221"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf222"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf223"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf224"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf225"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf226"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf227"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf228"
+    },
+    {
+      "cohort": "chf2db",
+      "decision": "EXPLAINED",
+      "record": "chf229"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "chf01"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "chf02"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf03"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf04"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf05"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf06"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf07"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf08"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf09"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf10"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf11"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf12"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf13"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf14"
+    },
+    {
+      "cohort": "chfdb",
+      "decision": "EXPLAINED",
+      "record": "chf15"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr001"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr002"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr003"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr004"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr005"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr006"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr007"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr008"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr009"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr010"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr011"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr012"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr013"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr014"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr015"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr016"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr017"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr018"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr019"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr020"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr021"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr022"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr023"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr024"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr025"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr026"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr027"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr028"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr029"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr030"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr031"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr032"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr033"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr034"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr035"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr036"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr037"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr038"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr039"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr040"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr041"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr042"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr043"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr044"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr045"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr046"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr047"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr048"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr049"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr050"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr051"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr052"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr053"
+    },
+    {
+      "cohort": "nsr2db",
+      "decision": "EXPLAINED",
+      "record": "nsr054"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16265"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16272"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16273"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16420"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16483"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16539"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "16773"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16786"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "16795"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "17052"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "17453"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "18177"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "18184"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "PRE_REGISTERED_EXCLUDED",
+      "record": "19088"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "19090"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "19093"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "19140"
+    },
+    {
+      "cohort": "nsrdb",
+      "decision": "EXPLAINED",
+      "record": "19830"
+    }
+  ]
+}

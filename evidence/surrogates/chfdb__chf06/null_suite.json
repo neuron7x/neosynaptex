@@ -19,7 +19,7 @@
     "n_beats_cap": 10000,
     "n_surrogates_per_layer": 200,
     "required_separable_layers": 3,
-    "statistic": "DFA_alpha_16_64_beats",
+    "statistic": "dfa_alpha_16_64",
     "z_borderline_low": 2.0,
     "z_separable": 3.0
   },

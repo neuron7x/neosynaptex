@@ -1,0 +1,274 @@
+{
+  "frozen_utc": "2026-04-14T14:27:09Z",
+  "n_dev_subjects": 69,
+  "n_external_subjects": 47,
+  "per_metric": {
+    "dfa_alpha1": {
+      "development": {
+        "auc": 0.9333333333333333,
+        "auc_raw_pathology_over_healthy": 0.06666666666666667,
+        "cohens_d": 2.5691011574617453,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.8666666666666667,
+        "specificity": 0.8888888888888888,
+        "threshold": 1.109515325390469
+      },
+      "external": {
+        "auc": 0.7145593869731801,
+        "auc_raw_pathology_over_healthy": 0.28544061302681994,
+        "cohens_d": 0.8199274486778133,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.6551724137931034,
+        "specificity": 0.6666666666666666,
+        "threshold_applied": 1.109515
+      }
+    },
+    "dfa_alpha2": {
+      "development": {
+        "auc": 0.6493827160493827,
+        "auc_raw_pathology_over_healthy": 0.6493827160493827,
+        "cohens_d": -0.21648259504197587,
+        "direction": "healthy_low",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.7333333333333333,
+        "specificity": 0.6296296296296297,
+        "threshold": 1.0907525566363854
+      },
+      "external": {
+        "auc": 0.9386973180076629,
+        "auc_raw_pathology_over_healthy": 0.9386973180076629,
+        "cohens_d": -1.9127452686050532,
+        "direction_applied": "healthy_low",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.8620689655172413,
+        "specificity": 0.9444444444444444,
+        "threshold_applied": 1.090753
+      }
+    },
+    "hf_power_ms2": {
+      "development": {
+        "auc": 0.7098765432098766,
+        "auc_raw_pathology_over_healthy": 0.29012345679012347,
+        "cohens_d": 0.1986196896105403,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.6666666666666666,
+        "specificity": 0.8148148148148148,
+        "threshold": 60.2284351597651
+      },
+      "external": {
+        "auc": 0.9157088122605364,
+        "auc_raw_pathology_over_healthy": 0.0842911877394636,
+        "cohens_d": 1.1598412058993877,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.6551724137931034,
+        "specificity": 0.9444444444444444,
+        "threshold_applied": 60.228435
+      }
+    },
+    "lf_hf_ratio": {
+      "development": {
+        "auc": 0.9358024691358025,
+        "auc_raw_pathology_over_healthy": 0.06419753086419754,
+        "cohens_d": 1.3328378274492576,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.8666666666666667,
+        "specificity": 0.9444444444444444,
+        "threshold": 1.6238743849543615
+      },
+      "external": {
+        "auc": 0.685823754789272,
+        "auc_raw_pathology_over_healthy": 0.31417624521072796,
+        "cohens_d": 0.7306542655877468,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.4827586206896552,
+        "specificity": 0.7777777777777778,
+        "threshold_applied": 1.623874
+      }
+    },
+    "lf_power_ms2": {
+      "development": {
+        "auc": 0.9209876543209876,
+        "auc_raw_pathology_over_healthy": 0.07901234567901234,
+        "cohens_d": 1.3431915721402106,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 1.0,
+        "specificity": 0.6851851851851852,
+        "threshold": 331.57172357072733
+      },
+      "external": {
+        "auc": 0.9444444444444444,
+        "auc_raw_pathology_over_healthy": 0.05555555555555555,
+        "cohens_d": 1.8000330291844397,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.7931034482758621,
+        "specificity": 1.0,
+        "threshold_applied": 331.571724
+      }
+    },
+    "poincare_sd1_ms": {
+      "development": {
+        "auc": 0.6666666666666667,
+        "auc_raw_pathology_over_healthy": 0.3333333333333333,
+        "cohens_d": 0.00578452761980725,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.6,
+        "specificity": 0.9444444444444444,
+        "threshold": 11.494965885216637
+      },
+      "external": {
+        "auc": 0.9022988505747126,
+        "auc_raw_pathology_over_healthy": 0.09770114942528736,
+        "cohens_d": 1.7592191291013781,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.4827586206896552,
+        "specificity": 1.0,
+        "threshold_applied": 11.494966
+      }
+    },
+    "poincare_sd2_ms": {
+      "development": {
+        "auc": 0.9925925925925926,
+        "auc_raw_pathology_over_healthy": 0.007407407407407408,
+        "cohens_d": 2.8237952077809854,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.9333333333333333,
+        "specificity": 1.0,
+        "threshold": 120.31738640953816
+      },
+      "external": {
+        "auc": 0.8659003831417624,
+        "auc_raw_pathology_over_healthy": 0.13409961685823754,
+        "cohens_d": 1.4050935122890011,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.7241379310344828,
+        "specificity": 1.0,
+        "threshold_applied": 120.317386
+      }
+    },
+    "rmssd_ms": {
+      "development": {
+        "auc": 0.6666666666666667,
+        "auc_raw_pathology_over_healthy": 0.3333333333333333,
+        "cohens_d": 0.005785055128073111,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.6,
+        "specificity": 0.9444444444444444,
+        "threshold": 16.256256829359423
+      },
+      "external": {
+        "auc": 0.9022988505747126,
+        "auc_raw_pathology_over_healthy": 0.09770114942528736,
+        "cohens_d": 1.7592179067818474,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.4827586206896552,
+        "specificity": 1.0,
+        "threshold_applied": 16.256257
+      }
+    },
+    "sample_entropy": {
+      "development": {
+        "auc": 0.7358024691358025,
+        "auc_raw_pathology_over_healthy": 0.7358024691358025,
+        "cohens_d": -0.9642152105519582,
+        "direction": "healthy_low",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.6666666666666666,
+        "specificity": 0.7222222222222222,
+        "threshold": 0.8325288933996771
+      },
+      "external": {
+        "auc": 0.5881226053639846,
+        "auc_raw_pathology_over_healthy": 0.5881226053639846,
+        "cohens_d": -0.29787103998499936,
+        "direction_applied": "healthy_low",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.6551724137931034,
+        "specificity": 0.4444444444444444,
+        "threshold_applied": 0.832529
+      }
+    },
+    "sdnn_ms": {
+      "development": {
+        "auc": 0.9925925925925926,
+        "auc_raw_pathology_over_healthy": 0.007407407407407408,
+        "cohens_d": 2.7457800411190663,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.9333333333333333,
+        "specificity": 0.9814814814814815,
+        "threshold": 97.35076255921251
+      },
+      "external": {
+        "auc": 0.8659003831417624,
+        "auc_raw_pathology_over_healthy": 0.13409961685823754,
+        "cohens_d": 1.4256895313225533,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.7931034482758621,
+        "specificity": 0.9444444444444444,
+        "threshold_applied": 97.350763
+      }
+    },
+    "total_power_ms2": {
+      "development": {
+        "auc": 0.9530864197530864,
+        "auc_raw_pathology_over_healthy": 0.04691358024691358,
+        "cohens_d": 1.6447740872377967,
+        "direction": "healthy_high",
+        "n_healthy": 54,
+        "n_pathology": 15,
+        "sensitivity": 0.9333333333333333,
+        "specificity": 0.8888888888888888,
+        "threshold": 1081.5532187780934
+      },
+      "external": {
+        "auc": 0.8984674329501916,
+        "auc_raw_pathology_over_healthy": 0.10153256704980843,
+        "cohens_d": 1.4910589874420108,
+        "direction_applied": "healthy_high",
+        "n_healthy": 18,
+        "n_pathology": 29,
+        "sensitivity": 0.7586206896551724,
+        "specificity": 1.0,
+        "threshold_applied": 1081.553219
+      }
+    }
+  },
+  "schema_version": 1,
+  "split_sha256": "119c29c80a99553e36d2b6a8144a27831902ec08a7a706968d9ae553f508b103",
+  "thresholds_yaml_sha256": "2f35e58d29584db3ad9193038c1f7fb04cd7c1ac61359e039ab292f6cf77b2e4"
+}

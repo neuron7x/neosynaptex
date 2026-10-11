@@ -47,7 +47,7 @@ from typing import Any, Literal
 
 import numpy as np
 
-from tools.hrv.baseline_panel import dfa_alpha
+from tools.hrv.baseline_panel import dfa_alpha, sample_entropy
 from tools.hrv.surrogates import SURROGATE_FAMILIES, SurrogateFamily, generate_family
 
 __all__ = [
@@ -72,11 +72,22 @@ _Verdict = Literal["SEPARABLE", "BORDERLINE", "NOT_SEPARABLE"]
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
+StatisticName = Literal["dfa_alpha_16_64", "sample_entropy"]
+
+
 @dataclasses.dataclass(frozen=True)
 class NullSuiteConfig:
+    statistic: StatisticName = "dfa_alpha_16_64"
     n_surrogates_per_layer: int = 200
     dfa_scales: tuple[int, ...] = (16, 22, 30, 40, 54, 64)
     n_beats_cap: int = 10_000
+    # SampEn params — IAAFT destroys template recurrence, so this is the
+    # statistic that should give Branch B a path past the 4/69 DFA α₂
+    # non-separation. m, r per Richman & Moorman 2000; cap below 10k cap
+    # because SampEn is O(N²).
+    sampen_m: int = 2
+    sampen_r_frac: float = 0.2
+    sampen_max_n: int = 2000
     z_separable: float = 3.0
     z_borderline_low: float = 2.0
     required_separable_layers: int = 3
@@ -145,7 +156,16 @@ class NullSuiteResult:
 # Runner
 # ---------------------------------------------------------------------------
 def _compute_statistic(rr: np.ndarray, cfg: NullSuiteConfig) -> float:
-    return dfa_alpha(rr, np.asarray(cfg.dfa_scales, dtype=np.int64))
+    if cfg.statistic == "dfa_alpha_16_64":
+        return dfa_alpha(rr, np.asarray(cfg.dfa_scales, dtype=np.int64))
+    if cfg.statistic == "sample_entropy":
+        return sample_entropy(
+            rr,
+            m=cfg.sampen_m,
+            r_frac=cfg.sampen_r_frac,
+            max_n=cfg.sampen_max_n,
+        )
+    raise ValueError(f"unknown statistic: {cfg.statistic!r}")
 
 
 def compute_null_suite(
@@ -160,9 +180,10 @@ def compute_null_suite(
     rr = np.asarray(rr, dtype=np.float64)
     if rr.size > cfg.n_beats_cap:
         rr = rr[: cfg.n_beats_cap]
-    if rr.size < max(cfg.dfa_scales) * 4:
+    min_beats = max(cfg.dfa_scales) * 4 if cfg.statistic == "dfa_alpha_16_64" else cfg.sampen_m + 4
+    if rr.size < min_beats:
         raise ValueError(
-            f"rr too short for null suite: {rr.size} beats, need ≥ {max(cfg.dfa_scales) * 4}"
+            f"rr too short for null suite ({cfg.statistic}): {rr.size} beats, need ≥ {min_beats}"
         )
 
     stat_real = _compute_statistic(rr, cfg)
@@ -213,14 +234,17 @@ def compute_null_suite(
         rr_sha256=hashlib.sha256(rr.astype(np.float64).tobytes()).hexdigest(),
         statistic_real=float(stat_real),
         config={
+            "statistic": cfg.statistic,
             "n_surrogates_per_layer": cfg.n_surrogates_per_layer,
             "dfa_scales": list(cfg.dfa_scales),
+            "sampen_m": cfg.sampen_m,
+            "sampen_r_frac": cfg.sampen_r_frac,
+            "sampen_max_n": cfg.sampen_max_n,
             "n_beats_cap": cfg.n_beats_cap,
             "z_separable": cfg.z_separable,
             "z_borderline_low": cfg.z_borderline_low,
             "required_separable_layers": cfg.required_separable_layers,
             "families": list(SURROGATE_FAMILIES),
-            "statistic": "DFA_alpha_16_64_beats",
         },
         per_layer=per_layer,
         overall_verdict=overall,

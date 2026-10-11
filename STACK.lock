@@ -1,0 +1,36 @@
+# γ-program toolchain lock — Task 11 of the remediation protocol.
+#
+# Pinned versions of every runtime dependency that any γ-program
+# artefact depends on. The CI check at ``tools/audit/stack_lock_check.py``
+# fails if installed versions differ from this file.
+#
+# Bumping a pin is a reviewed protocol event: it requires a fresh
+# γ-program run report (Task 10) to confirm the bumped toolchain
+# produces equivalent artefacts.
+#
+# Scope
+#   * wfdb         — PhysioNet annotation I/O (Task 1, Task 7)
+#   * numpy        — numerical core (all tasks)
+#   * scipy        — Welch PSD, stats (Task 3, Task 8)
+#
+# Out of scope (not pinned here):
+#   * NeuroKit2 / pyHRV — optional cross-check stacks; Task 3 uses
+#     pure numpy/scipy by design (see PR #105 body). Pin via a
+#     separate PR if and when they are wired in.
+#   * powerlaw          — not used by γ-program cardiac stack;
+#     restricted to explicit heavy-tail claims per
+#     SYSTEM_PROTOCOL §Gamma Program Discipline.
+
+schema_version: 1
+canonical_stack_version: "1.0.0"
+
+required:
+  wfdb: ">=4.3.1,<5.0"
+  numpy: ">=2.2.6,<3.0"
+  scipy: ">=1.15.3,<2.0"
+
+# Exact versions that produced the committed artefacts in this PR:
+frozen_at_commit:
+  wfdb: "4.3.1"
+  numpy: "2.4.3"
+  scipy: "1.17.1"

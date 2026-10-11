@@ -1,0 +1,44 @@
+# Frozen thresholds — Task 8 blind external validation
+#
+# Calibrated on development split only (Task 2). Applied to
+# external split without modification. Editing this file after
+# external evaluation is a protocol violation (audit E-02 / E-03).
+
+schema_version: 1
+frozen_utc: "2026-04-14T14:27:09Z"
+split_sha256: "119c29c80a99553e36d2b6a8144a27831902ec08a7a706968d9ae553f508b103"
+
+thresholds:
+  dfa_alpha1:
+    threshold: 1.109515
+    direction: healthy_high
+  dfa_alpha2:
+    threshold: 1.090753
+    direction: healthy_low
+  hf_power_ms2:
+    threshold: 60.228435
+    direction: healthy_high
+  lf_hf_ratio:
+    threshold: 1.623874
+    direction: healthy_high
+  lf_power_ms2:
+    threshold: 331.571724
+    direction: healthy_high
+  poincare_sd1_ms:
+    threshold: 11.494966
+    direction: healthy_high
+  poincare_sd2_ms:
+    threshold: 120.317386
+    direction: healthy_high
+  rmssd_ms:
+    threshold: 16.256257
+    direction: healthy_high
+  sample_entropy:
+    threshold: 0.832529
+    direction: healthy_low
+  sdnn_ms:
+    threshold: 97.350763
+    direction: healthy_high
+  total_power_ms2:
+    threshold: 1081.553219
+    direction: healthy_high
