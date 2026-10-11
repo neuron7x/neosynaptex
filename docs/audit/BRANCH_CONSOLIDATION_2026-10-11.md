@@ -77,8 +77,9 @@ and matched against the SHA in the table, (b) tagged `archive/2026-10-11/<branch
 and (c) the tag confirmed on the remote. Restore any of them with
 `git push origin refs/tags/archive/2026-10-11/<branch>:refs/heads/<branch>`.
 
-Six branches remain besides `main`: the two OPEN, the PARTIAL / OPEN, the REJECTED,
-the NOT MERGED and the OWNER DECISION rows.
+Five branches remain besides `main`: the two OPEN, the PARTIAL / OPEN, the REJECTED
+`docs/sync-test-counts-20260420` and the NOT MERGED row. The author-name removal
+branch was rejected by the owner and deleted the same way (79 deletions in total).
 
 ## Disposition of all 84 branches
 
@@ -90,9 +91,8 @@ the NOT MERGED and the OWNER DECISION rows.
 | PORTED | 2 |
 | PARTIAL / OPEN | 1 |
 | OPEN | 2 |
-| REJECTED | 1 |
+| REJECTED | 2 |
 | NOT MERGED | 1 |
-| OWNER DECISION | 1 |
 
 | branch | tip | disposition | basis |
 |---|---|---|---|
@@ -179,4 +179,4 @@ the NOT MERGED and the OWNER DECISION rows.
 | `feat/neurophase-run1-pipeline` | `99a4a6705` | OPEN | NOT merged. (1) neurophase/results/RUN1_VERDICT.yaml is `verdict_locked: true`, H1 REJECTED, EEG_TRACK_CLOSED — produced from a 4-subject synthetic fixture (/tmp/synth_ds, operator=selftest, AUTO_CONFIRM) against a contract of n=122; it is a selftest output carrying a real-run label. (2) pipeline has no tests and needs mne/eeglabio, absent from the environment: not executed here. (3) results/full_cohort_null: 40 files, summary says n=69, nothing references it. Needed before merge: selftest output root separate from the canonical results path, gate_m3 refusing to lock on synthetic input, tests. |
 | `docs/sync-test-counts-20260420` | `f07f28426` | REJECTED | adds evidence/semantic_drift_registry.json entry `gamma-universal-v1` with status=validated, generalization_authorized=true — contradicts canon commit 113caaa1 (claim surface C-001..C-004 closed). README counts are stale. |
 | `audit/branch-recovery-2026-10-11` | `2e9973913` | NOT MERGED | ledger measured against stale base 181353a7 (62 commits behind canon); replaced by this document. |
-| `archive/desktop-stash-0-drift-rescue-2026-05-01` | `af810b7a3` | OWNER DECISION | replaces author name/location with a role line in banners, README, manuscript. Identity/branding choice, not a correctness change. |
+| `archive/desktop-stash-0-drift-rescue-2026-05-01` | `af810b7a3` | REJECTED | replaces author name/location with a role line in banners, README, manuscript. Rejected by the owner 2026-10-11: attribution stays. Branch deleted, tip kept under tag `archive/2026-10-11/<branch>`. |
