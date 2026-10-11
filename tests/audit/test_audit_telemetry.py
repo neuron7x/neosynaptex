@@ -131,7 +131,9 @@ def test_claim_status_applied_emits_three_events_and_maps_verdict_outcome(
     # Payload contains the verdict name and the window width.
     assert verdict["payload"]["n_windows"] == 3
     assert verdict["payload"]["window_days"] == 30
-    assert verdict["payload"]["verdict"] in {"applied", "at_risk", "stopped"}
+    # ``no_signal`` is a legitimate verdict of decide_verdict (latest
+    # window has zero commits); a quiet month must not fail this test.
+    assert verdict["payload"]["verdict"] in {"applied", "at_risk", "stopped", "no_signal"}
 
     assert validate_events(events).ok
 

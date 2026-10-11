@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import pathlib
+import shutil
 import subprocess
 import sys
 
@@ -51,14 +52,24 @@ def test_seed_is_pre_registered() -> None:
 
 
 def test_full_run_produces_json_with_required_keys(tmp_path: pathlib.Path) -> None:
+    # The harness derives its output path from its own location. Run a
+    # byte-identical copy under tmp_path so the committed evidence file
+    # (with its wall-clock ``compute_seconds``) is never rewritten by a
+    # test run, and run.py itself — whose sha256 is bound into the
+    # evidence — stays untouched.
+    sandbox_run = tmp_path / RUN_PATH.relative_to(REPO_ROOT)
+    sandbox_run.parent.mkdir(parents=True)
+    shutil.copyfile(RUN_PATH, sandbox_run)
+    committed_before = EVIDENCE_PATH.read_bytes()
     rc = subprocess.run(
-        [sys.executable, str(RUN_PATH)],
-        cwd=REPO_ROOT,
+        [sys.executable, str(sandbox_run)],
+        cwd=tmp_path,
         capture_output=True,
         text=True,
     ).returncode
     assert rc == 0
-    payload = json.loads(EVIDENCE_PATH.read_text())
+    assert EVIDENCE_PATH.read_bytes() == committed_before
+    payload = json.loads((tmp_path / EVIDENCE_PATH.relative_to(REPO_ROOT)).read_text())
     for key in (
         "schema",
         "source_sha256",
@@ -79,7 +90,13 @@ def test_full_run_produces_json_with_required_keys(tmp_path: pathlib.Path) -> No
         "SCALE_STABLE",
         "INVALID_OPERATOR",
     }
-    _ = tmp_path  # unused; the run writes to repo path
+    # Reproducibility: a fresh run must match the committed evidence in
+    # everything except the wall-clock field.
+    committed = json.loads(committed_before)
+    for volatile in ("compute_seconds",):
+        payload.pop(volatile)
+        committed.pop(volatile)
+    assert payload == committed
 
 
 def test_at_least_one_case_is_scale_sensitive() -> None:
