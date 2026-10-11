@@ -28,6 +28,17 @@
 3. **Adversarial controls** — shuffle, matched-noise, overcoupled-collapse, undercoupled-fragmentation (see `evidence/levin_bridge/controls.yaml`).
 4. **Counter-example search** — active attempt to find substrates or regimes where the correlate breaks.
 
+## Measured limit of the estimator (2026-10-11)
+
+γ̂ ≈ 1 is reproduced by linear, non-critical processes. Under the estimators in this
+tree, linear 1/f noise gives γ̂ = 1.016 ± 0.058, AR(1) with φ = 0.9 gives
+0.863 ± 0.107, and `cost := 1/topo` gives exactly 1.0 with verdict METASTABLE
+(`results/gamma_specificity/run_v1.json`, verdict NOT_SPECIFIC). An observed
+γ̂ ≈ 1 is therefore **not, by itself, evidence of a critical or metastable
+regime**. This limits what a measurement can show; it does not decide whether
+critical systems produce γ ≈ 1. The programme that follows from it is
+`docs/RESEARCH_DIRECTION.md`.
+
 ## Governance
 
 Any change to the wording above is a structural claim-level change. It MUST be made in a commit whose diff is reviewed specifically against these constraints, not swept into a larger PR.
