@@ -1,0 +1,295 @@
+{
+  "schema": "gamma_specificity_v1",
+  "source_sha256": "8ca4ed50520fa75b93af4140968f884c241845132d498c29b85aefa46b9e5da6",
+  "claim_status": "measured",
+  "scope": "synthetic non-critical generators only; no substrate data, no substrate claim",
+  "hypothesis": "gamma in the METASTABLE band is specific to critical dynamics",
+  "falsifier": "any non-critical generator with mean gamma inside the band",
+  "config": {
+    "SEED": 20261011,
+    "N_SEEDS": 10,
+    "N_BEATS": 20000,
+    "BAND_HALF_WIDTH": 0.15,
+    "AR1_PHIS": [
+      0.5,
+      0.8,
+      0.9,
+      0.95,
+      0.98
+    ],
+    "POWERLAW_BETAS": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "N_PAIRS": 400
+  },
+  "spectral_cases": [
+    {
+      "name": "ar1_phi_0.5",
+      "generator": "ar1",
+      "parameter": 0.5,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        -0.043,
+        0.0541,
+        0.0867,
+        -0.1319,
+        0.0214,
+        0.0855,
+        -0.0353,
+        0.0944,
+        -0.0489,
+        0.1092
+      ],
+      "gamma_mean": 0.01922,
+      "gamma_sd": 0.076314,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "ar1_phi_0.8",
+      "generator": "ar1",
+      "parameter": 0.8,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        0.2026,
+        0.3654,
+        0.2294,
+        0.2703,
+        0.3599,
+        0.0992,
+        0.3461,
+        0.2732,
+        0.3574,
+        0.2251
+      ],
+      "gamma_mean": 0.27286,
+      "gamma_sd": 0.082414,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "ar1_phi_0.9",
+      "generator": "ar1",
+      "parameter": 0.9,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        0.8778,
+        0.7989,
+        0.7755,
+        1.0421,
+        0.8954,
+        0.8745,
+        0.8057,
+        0.7867,
+        1.0575,
+        0.715
+      ],
+      "gamma_mean": 0.86291,
+      "gamma_sd": 0.106809,
+      "n_seeds_in_band": 5,
+      "mean_in_metastable_band": true
+    },
+    {
+      "name": "ar1_phi_0.95",
+      "generator": "ar1",
+      "parameter": 0.95,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        1.3769,
+        1.4767,
+        1.4773,
+        1.2518,
+        1.2324,
+        1.5476,
+        1.4043,
+        1.5009,
+        1.3534,
+        1.4
+      ],
+      "gamma_mean": 1.40213,
+      "gamma_sd": 0.098263,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "ar1_phi_0.98",
+      "generator": "ar1",
+      "parameter": 0.98,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        1.9553,
+        1.7986,
+        1.9362,
+        1.8497,
+        1.9817,
+        1.9624,
+        1.9058,
+        1.8684,
+        1.913,
+        2.0544
+      ],
+      "gamma_mean": 1.92255,
+      "gamma_sd": 0.069069,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "powerlaw_beta_0.0",
+      "generator": "powerlaw",
+      "parameter": 0.0,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        -0.0236,
+        -0.0535,
+        -0.0417,
+        -0.1539,
+        0.0347,
+        -0.0099,
+        -0.0636,
+        0.0489,
+        -0.0805,
+        -0.0367
+      ],
+      "gamma_mean": -0.03798,
+      "gamma_sd": 0.054758,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "powerlaw_beta_0.5",
+      "generator": "powerlaw",
+      "parameter": 0.5,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        0.4568,
+        0.5754,
+        0.5011,
+        0.4627,
+        0.4091,
+        0.4975,
+        0.5143,
+        0.4927,
+        0.3973,
+        0.4941
+      ],
+      "gamma_mean": 0.4801,
+      "gamma_sd": 0.049084,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "powerlaw_beta_1.0",
+      "generator": "powerlaw",
+      "parameter": 1.0,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        1.0117,
+        1.08,
+        1.0047,
+        0.9793,
+        1.1022,
+        0.9849,
+        1.0566,
+        0.9846,
+        0.8951,
+        1.0659
+      ],
+      "gamma_mean": 1.0165,
+      "gamma_sd": 0.058074,
+      "n_seeds_in_band": 10,
+      "mean_in_metastable_band": true
+    },
+    {
+      "name": "powerlaw_beta_1.5",
+      "generator": "powerlaw",
+      "parameter": 1.5,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        1.5457,
+        1.4694,
+        1.5184,
+        1.5018,
+        1.674,
+        1.654,
+        1.4655,
+        1.401,
+        1.6651,
+        1.5309
+      ],
+      "gamma_mean": 1.54258,
+      "gamma_sd": 0.088562,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "powerlaw_beta_2.0",
+      "generator": "powerlaw",
+      "parameter": 2.0,
+      "critical_by_construction": false,
+      "estimator": "fit_hrv_gamma",
+      "gammas": [
+        2.166,
+        2.1206,
+        2.0915,
+        2.2769,
+        2.2206,
+        2.0787,
+        2.0137,
+        2.0757,
+        1.9701,
+        2.1279
+      ],
+      "gamma_mean": 2.11417,
+      "gamma_sd": 0.086503,
+      "n_seeds_in_band": 0,
+      "mean_in_metastable_band": false
+    }
+  ],
+  "pair_cases": [
+    {
+      "name": "cost_is_reciprocal_of_topo",
+      "note": "cost := 1/topo \u2014 algebraic identity",
+      "critical_by_construction": false,
+      "estimator": "core.gamma.compute_gamma",
+      "gamma": 1.0,
+      "r2": 1.0,
+      "verdict": "METASTABLE",
+      "mean_in_metastable_band": true
+    },
+    {
+      "name": "cost_is_reciprocal_of_shuffled_topo",
+      "note": "same marginals, pairing destroyed",
+      "critical_by_construction": false,
+      "estimator": "core.gamma.compute_gamma",
+      "gamma": -0.059819,
+      "r2": -0.010456,
+      "verdict": "LOW_R2",
+      "mean_in_metastable_band": false
+    },
+    {
+      "name": "independent_lognormal",
+      "note": "independent draws",
+      "critical_by_construction": false,
+      "estimator": "core.gamma.compute_gamma",
+      "gamma": 0.010294,
+      "r2": -0.002739,
+      "verdict": "LOW_R2",
+      "mean_in_metastable_band": false
+    }
+  ],
+  "specificity_verdict": "NOT_SPECIFIC",
+  "specificity_reason": "3 non-critical generator(s) land in the METASTABLE band: ar1_phi_0.9, powerlaw_beta_1.0, cost_is_reciprocal_of_topo"
+}
