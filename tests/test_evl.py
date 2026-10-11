@@ -295,8 +295,8 @@ def _can_import(module: str) -> bool:
 
 
 @pytest.mark.skipif(
-    not _can_import("bn_syn.transfer_entropy"),
-    reason="bn_syn root stubs removed — truth criterion requires transfer_entropy",
+    not _can_import("substrates.bn_syn.transfer_entropy"),
+    reason="substrates.bn_syn.transfer_entropy unavailable",
 )
 class TestTruthCriterionIntegration:
     def test_synchronized_channels(self):
