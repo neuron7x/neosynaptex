@@ -76,3 +76,13 @@ For `feat/phase-3-null-screen`, `.github/workflows/phase_3_null_screen.yml` and 
 ## Remaining verification boundary
 
 No local runnable clone/network-dependent datasets were accessible for test execution in this environment. Actions runs/statuses could not be verified. Draft PRs are **not merge approvals**. Remaining branch dispositions in the 81-ref ledger are conservative holds pending complete code/evidence parity and executable validation.
+
+## Additional branch parity results
+
+- `feat/expelliarmus`: `core/expelliarmus.py` exactly matches `main`; verify all remaining files before archive.
+- `feat/intelligence-certificate`: `core/intelligence_certificate.py` matches `main`.
+- `feat/mathematical-precision`: `core/mathematical_precision.py` matches `main`.
+- `feat/measurement-contract-verifier`: `tools/adversarial/verifier.py` matches `main`.
+- `feat/evidence-hardening`, `feat/architecture-aesthetics` and `feat/gamma-ledger-integrity`: sampled core/audit files have different blob SHAs from `main`, requiring hunk-level review rather than blanket merge.
+- `feat/gamma-program-toolchain-freeze`: `STACK.lock` is absent from `main`; a 2026-04 pinned toolchain snapshot exists on this historical branch, but needs current dependency validation.
+- `feat/gamma-program-sampen-null-suite`: 9,780 branch blobs versus 10,009 in main. Of branch blob paths, 9,409 are identical, 139 differ and 232 exist only on branch; current main has 461 other paths absent from this branch. Branch-only files include outdated manuscripts, outlier protocols, old claim workflows and `STACK.lock`. Recover scientifically valid unique evidence selectively; direct bulk merge is blocked.
