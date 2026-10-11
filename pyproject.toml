@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "neosynaptex"
 version = "3.0.0"
-description = "NFI — Neuromodulatory Field Intelligence. γ ≈ 1.0 across independent substrates. Intelligence as regime property."
+description = "NFI research toolkit for falsifiable Kuramoto and cross-substrate scaling hypotheses."
 readme = "README.md"
 authors = [{ name = "Yaroslav Vasylenko", email = "neuron7x@proton.me" }]
 license = { text = "AGPL-3.0-or-later" }
@@ -66,8 +66,8 @@ security = [
 ]
 
 [project.urls]
-Repository = "https://github.com/neuron7xLab/neosynaptex"
-Issues = "https://github.com/neuron7xLab/neosynaptex/issues"
+Repository = "https://github.com/neuron7x/neosynaptex"
+Issues = "https://github.com/neuron7x/neosynaptex/issues"
 
 [tool.setuptools]
 py-modules = ["neosynaptex"]
