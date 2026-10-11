@@ -60,14 +60,12 @@ mypy; ruff; `make all`; anything under `substrates/*/tests`.
 
 ## Open debt
 
-- Adapter v2 for `serotonergic_kuramoto` (Phase 4c/4d) — unmerged, see table.
-- Neurophase RUN1 pipeline — unmerged, see table.
+- Adapter v2 for `serotonergic_kuramoto` and the Neurophase RUN1 pipeline — set aside, see `docs/RESEARCH_DIRECTION.md` §5.
 - 7 `TestCoherenceBridge` tests in `tests/test_protocol_v2.py` still skip
   (`tradepulse.coherence_bridge` has no in-tree target).
 - 34 references in 22 files still point at `neuron7xLab/neosynaptex`; several are
   frozen records (prereg, validation logs), so they were not bulk-rewritten.
 - No branch protection on `main`; no executing CI.
-- GitLab `neuron7x-group/neosynaptex` still carries its own 59 side branches; only `main` was mirrored.
 
 ## Branch deletion (owner-approved, 2026-10-11)
 
@@ -77,9 +75,24 @@ and matched against the SHA in the table, (b) tagged `archive/2026-10-11/<branch
 and (c) the tag confirmed on the remote. Restore any of them with
 `git push origin refs/tags/archive/2026-10-11/<branch>:refs/heads/<branch>`.
 
-Five branches remain besides `main`: the two OPEN, the PARTIAL / OPEN, the REJECTED
-`docs/sync-test-counts-20260420` and the NOT MERGED row. The author-name removal
-branch was rejected by the owner and deleted the same way (79 deletions in total).
+### Final state
+
+After `docs/RESEARCH_DIRECTION.md` set aside the adapter-v2 and Neurophase RUN1
+tracks, the last five side branches were tagged and deleted the same way
+(84 deletions on GitHub in total). `main` is the only branch.
+
+GitLab `neuron7x-group/neosynaptex` carried 59 side branches. 57 had the same tip
+as a branch already handled above. `feat/gamma-program-run-reporting` had a
+different tip (`f373f8d5`, an ancestor of `main`; tagged with a `-gitlab` suffix).
+Two existed only on GitLab:
+
+| branch | tip | disposition | basis |
+|---|---|---|---|
+| `feat/dopa-closure-real-death-test` | `373250f5` | SUPERSEDED | main carries the squash (#199, retraction); only `.gitignore` differs. |
+| `feat/dopa-closure-kill-ablation` | `511799a1` | NOT MERGED | harness and raw output of the pre-registered kill-ablation (#198). `evidence/dopa_closure/RETRACTION.md` in main declares that instrument invalid; the retracted code is kept under its tag, not in the tree. |
+
+All 59 were tagged and deleted; `main` is the only branch on GitLab. Both remotes
+hold the same 87 tags under `archive/2026-10-11/`.
 
 ## Disposition of all 84 branches
 
