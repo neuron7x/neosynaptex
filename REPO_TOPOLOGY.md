@@ -1,4 +1,14 @@
-# NeoSynaptex Repository Topology (v3.0)
+# NeoSynaptex Repository Topology (historical v3.0 inventory)
+
+> **CANONICAL STATUS OVERRIDE — 2026-10-11.** This is a historical architecture inventory, **not** an authoritative inventory of current test counts, validation status, or established scientific results. In this file, older labels such as `VALIDATED`, `SURVIVES`, `proof`, and `all green` describe **past project assertions**, not independently verified current status.
+>
+> **Live authority:** `evidence/gamma_ledger.json` v2.0.0; `docs/CLAIM_BOUNDARY.md` (C-001–C-004 and §5.1); `CANONICAL_POSITION.md`; `docs/audit/PHASE_4B_CANONICAL_KURAMOTO_OBSERVABLES.md`. The scientific evidence gate has **zero** substrates certified `VALIDATED` under all six current §5.1 conditions. Do not count BN-Syn structural κ as γ or null-failed candidates as validations. Phase 4b deprecates legacy `topo`/`thermo_cost` for canonical Kuramoto γ-claims.
+>
+> **CI truth:** The 2026-10-11 PR #1/#2 Actions runs failed before runner allocation (`steps=[]`, `runner_id=0`). This is infrastructure-observed failure, **not** a successfully run test suite and **not** proof that source code failed. See <https://github.com/neuron7x/neosynaptex/pull/1> for evidence. Runtime/test counts below are historical and unverified for this repository state.
+>
+> **Traceability:** Historical values and design notes remain below unchanged in substance; do not erase failed or superseded measurements. Any future validation promotion requires evidence-bound PR and all six gates, not a README or topology edit.
+
+
 
 ## Zeroth Axiom (INV-YV1: Gradient Ontology)
 
@@ -28,7 +38,7 @@ neosynaptex/
 │   ├── proofs.py           ← 3 machine-verifiable theorems (γ=2H+1, susceptibility, INV-YV1)
 │   ├── falsification_protocol.py ← 8 conditions (F1–F8), Verdict: SURVIVES
 │   └── substrate_diversity.py    ← Universality evidence across 3+ domains
-├── substrates/             ← 16 substrate adapters (8 VALIDATED)
+├── substrates/             ← substrate adapters (status per evidence/gamma_ledger.json)
 ├── evl/                    ← Evidence Verification Ledger
 ├── experiments/            ← experiment_cards.py + reproducible outputs
 ├── tests/                  ← 651 tests, 50 test files
@@ -37,12 +47,12 @@ neosynaptex/
 ├── data/golden/            ← Benchmark anchors
 ├── docs/                   ← Science, manuscripts
 ├── agents/                 ← Agent subsystem
-└── .github/workflows/      ← CI (6 workflows, all green)
+└── .github/workflows/      ← CI (workflows configured; current execution unverified)
 ```
 
 ## Substrate Map (from gamma_ledger.json)
 
-### VALIDATED (8 substrates, 4 scientific domains)
+### Previously reported as VALIDATED (historical, statuses superseded)
 
 | Substrate | γ | CI | Domain | Source |
 |-----------|---|-----|--------|--------|
@@ -59,7 +69,7 @@ neosynaptex/
 
 | Substrate | γ | Status | Note |
 |-----------|---|--------|------|
-| HRV PhysioNet | 0.885 | VALIDATED | Near boundary |
+| HRV PhysioNet | 0.885 | EVIDENCE_CANDIDATE (current ledger) | Historical estimate; missing real-data hash |
 | CNS-AI Loop | 1.059 | PENDING | Awaiting real cognitive data |
 | NFI Unified | 0.899 | PENDING | Cross-substrate aggregate |
 | CFP/ДІЙ | 1.832 | CONSTRUCTED | Outlier — ABM, not γ ≈ 1 |
