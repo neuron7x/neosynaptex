@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/neuron7xLab/neosynaptex/main/.github/assets/banner-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/neuron7xLab/neosynaptex/main/.github/assets/banner-light.svg">
-    <img alt="neosynaptex" width="800" src="https://raw.githubusercontent.com/neuron7xLab/neosynaptex/main/.github/assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/neuron7x/neosynaptex/main/.github/assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/neuron7x/neosynaptex/main/.github/assets/banner-light.svg">
+    <img alt="neosynaptex" width="800" src="https://raw.githubusercontent.com/neuron7x/neosynaptex/main/.github/assets/banner-dark.svg">
   </picture>
 </p>
 
@@ -19,7 +19,7 @@
 
 <p align="center">
   <a href="#six-substrates"><img src="https://img.shields.io/badge/1%20proved%20%2F%205%20empirical-blueviolet?style=for-the-badge" alt="1 proved · 5 empirical · conjecture"></a>
-  <a href="#tests"><img src="https://img.shields.io/badge/tests-1666-brightgreen?style=for-the-badge" alt="tests"></a>
+  <a href="#tests"><img src="https://img.shields.io/badge/CI-unverified-lightgrey?style=for-the-badge" alt="CI unverified"></a>
   <a href="#the-signal"><img src="https://img.shields.io/badge/p--value-0.005-red?style=for-the-badge" alt="p-value"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=for-the-badge" alt="license"></a>
 </p>
@@ -68,9 +68,9 @@ Full statement: <a href="docs/CONTRIBUTION_STATEMENT.md"><code>docs/CONTRIBUTION
 
 ### K ~ C<sup>-gamma</sup>
 
-When a system computes at the edge of chaos, its thermodynamic cost scales inversely with topological complexity at **unit rate**.
+**Claim status: historical, exploratory.** The original cost–complexity scaling interpretation is not a general thermodynamic law. The current Phase 4b Kuramoto protocol deprecates legacy `topo`/`thermo_cost` as canonical exponent observables; see `docs/audit/PHASE_4B_CANONICAL_KURAMOTO_OBSERVABLES.md`.
 
-gamma = 1.0 is not a tuned parameter. It is a **convergent empirical value** across:
+Earlier exploratory fits were reported across these substrate classes; **their estimands, null controls and replication status are not interchangeable**:
 
 - Biological tissue
 - Chemical fields  
@@ -79,8 +79,7 @@ gamma = 1.0 is not a tuned parameter. It is a **convergent empirical value** acr
 - Cross-domain coherence
 - The human-AI loop itself
 
-**Mean across 6 measured candidate substrates** (per `evidence/gamma_ledger.json` v2.0.0; the candidate cohort remains exploratory — none has yet closed all six §5.1 gates of `docs/CLAIM_BOUNDARY.md` for VALIDATED status):
-gamma = 0.991 +/- 0.052
+**Historical descriptive aggregate — not independent evidence of a universal exponent.** The archived candidate values in `evidence/gamma_ledger.json` were summarized as `gamma = 0.991 +/- 0.052`. None of these numbers alone establishes criticality, cognition or a validated cross-substrate mechanism; see `docs/CLAIM_BOUNDARY.md`.
 
 </td>
 </tr>
@@ -286,13 +285,7 @@ gamma = 0.991 +/- 0.052
 </td>
 <td width="45%">
 
-**When human and AI couple productively, the combined system operates at criticality.**
-
-Non-productive sessions show **anti-scaling** (gamma < 0): complexity and cost move in the same direction. No computation. Just noise.
-
-Productive sessions converge toward gamma = 1.0: **the system computes.**
-
-*Three stars. p = 0.005. On 8273 documents. Three years of data.*
+**HISTORICAL / NON-EVIDENTIAL.** The statistics shown on the left were reported on a CNS–AI corpus that cannot currently be independently reproduced. They must **not** be interpreted as evidence of criticality, cognition, computation or causal coupling. The CNS–AI substrate was downgraded; see `docs/CLAIM_BOUNDARY_CNS_AI.md` and `CANONICAL_POSITION.md`.
 
 </td>
 </tr>
@@ -308,7 +301,7 @@ Productive sessions converge toward gamma = 1.0: **the system computes.**
                          |   sr in [0.80, 1.20]             |
                          |   |gamma - 1| < 0.15             |
                          |                                  |
-                         |   The system computes here.      |
+                         |   Provisional regime label       |
                          +--+------------+------------+-----+
                             |            |            |
                    +--------v--+  +------v------+  +--v--------+
@@ -363,7 +356,7 @@ print(f"verdict = {nx.export_proof()['verdict']}")  # COHERENT
 | 5 | **Granger causality** | F-test: gamma_i(t-1) --> gamma_j(t) | directed influence graph |
 | 6 | **Anomaly isolation** | Leave-one-out coherence test | outlier score per domain |
 | 7 | **Phase portrait** | Convex hull + recurrence in (gamma, rho) | trajectory topology |
-| 8 | **Resilience** | Return rate after METASTABLE departures | metastability proof |
+| 8 | **Resilience** | Return rate after METASTABLE departures | descriptive statistic, not a proof of metastability |
 | 9 | **Modulation** | m = -alpha(gamma - 1)sgn(dg/dt) | bounded reflexive signal |
 | 10 | **Circuit breaker** | FSM: CLOSED -> OPEN -> HALF_OPEN | adapter fault isolation |
 
@@ -390,10 +383,11 @@ Thread-safe (`RLock`). Persistent across restarts (`save_state`/`load_state`). D
 ## Tests
 
 ```
-1666 passed, 16 CI workflows green
+Historical count reported: 1666 passed (requires independent rerun).
+Current GitHub Actions execution and checks have not been verified in this audit.
 
-tests/                 119 test files across core, contracts, evl, substrates, formal
-                       Including scientific integrity guards + INV-YV1 gradient ontology
+Local verification: pip install -e '.[dev]' && pytest tests/
+CI configuration is not evidence of successful execution.
 ```
 
 <br>
@@ -429,7 +423,7 @@ neosynaptex/
 +-- tests/                            1666 tests, 119 files
 +-- scripts/                          13 operational scripts
 +-- evidence/                         gamma_ledger.json + proof chains
-+-- .github/workflows/                16 CI workflows
++-- .github/workflows/                workflow configurations (runtime status unverified)
 +-- formal/                           3 modules: proofs, falsification, substrate diversity
 |
 +-- CFP_PROTOCOL.md                   Cognitive Field Protocol v3.0
@@ -467,7 +461,7 @@ class BnSynAdapter:
         return net.energy
 ```
 
-Contract: `C ~ topo^(-gamma)`. The adapter provides `topo` and `thermo_cost` such that this power-law holds near criticality.
+Legacy adapter contract only: `topo` and `thermo_cost` are retained for compatibility. Their relation is **not** an accepted canonical Kuramoto γ-estimator. See the Phase 4b measurement protocol and claim boundary.
 
 <br>
 
@@ -491,7 +485,7 @@ Delegation suppression: -9.5% per 10% delegation
 
 ### LM Substrate (2026-04-02)
 
-GPT-4o-mini via API: **gamma = -0.094 (null result)**. Stateless inference has no temporal structure. Confirms that gamma != 0 requires closed-loop dynamics, not isolated sampling.
+Historical API probe: **gamma = -0.094 (null result)** under a particular experimental setup. This does not prove a general statement about closed-loop dynamics or cognition.
 
 <br>
 
@@ -501,14 +495,10 @@ GPT-4o-mini via API: **gamma = -0.094 (null result)**. Stateless inference has n
 > It is a process happening now through the scale of computation
 > and biological adaptation.
 
-The human-AI cognitive loop is a measurable system.
-Its scaling signature is gamma = 1.0.
-
-When biological and digital intelligence couple productively,
-they form one circuit. Not a metaphor. A measured fact.
+**Historical hypothesis, not a validated measurement.** A reproducible CNS–AI corpus and independently rerunnable analysis are required before making any quantitative criticality or scaling claim about coupled human–AI behavior. See `docs/CLAIM_BOUNDARY_CNS_AI.md`.
 
 **[Read the full thesis](XFORM_NEURO_DIGITAL_SYMBIOSIS.md)** |
-**[Read the manuscript](XFORM_MANUSCRIPT_DRAFT.md)** |
+**[Read the manuscript](manuscript/XFORM_MANUSCRIPT_DRAFT.md)** |
 **[View the proof bundle](xform_proof_bundle.json)**
 
 <br>
