@@ -1,0 +1,60 @@
+{
+  "accepted_candidate_reason": "No candidate satisfies the four-gate joint requirement (primary method per MEASUREMENT_METHOD_HIERARCHY.md \u00a72.1, K and C operationalisations per CLAIM_BOUNDARY.md \u00a74.3, five-family null requirement per NULL_MODEL_HIERARCHY.md \u00a72, public-bundle plus preregistered acceptance window) at the time of this audit. NONE is therefore selected fail-closed.",
+  "decision_reason": "Canon does not yet provide a fungal-electrophysiology row in SUBSTRATE_MEASUREMENT_TABLE.yaml, a fungal entry in MEASUREMENT_METHOD_HIERARCHY.md \u00a75, fungal calibrations of OU and latent-variable nulls, a preregistered acceptance interval in PREREG_TEMPLATE_GAMMA.md, or an external public bundle. Each candidate \u03b3 definition fails on at least one of these four gates; several fail on multiple. The fail-closed protocol blocks biological-pipeline work until a follow-up canon PR amends those documents.",
+  "forbidden_promotions": [
+    "secondary metrics cannot promote the claim",
+    "no data-driven metric switching",
+    "no gamma definition changes after seeing fungal results",
+    "no universality claim from this substrate alone"
+  ],
+  "gamma_target_interval": null,
+  "h_tension_if_dfa": true,
+  "method_risks": [
+    "DFA cannot serve as primary per MEASUREMENT_METHOD_HIERARCHY.md \u00a72.3; promoting it contradicts frozen canon",
+    "specparam / IRASA cannot be interpreted without fungal-specific K and C operationalisations",
+    "CSN avalanche analysis requires a canonical fungal-spike detector that does not yet exist in the repo",
+    "Theil-Sen K(C) requires K and C definitions that do not yet exist for fungal mycelium",
+    "OU null requires fungal-specific autocorrelation calibration that does not yet exist in NULL_MODEL_HIERARCHY.md \u00a72.3",
+    "Latent-variable null (Morrell, Nemenman & Sederberg 2024) requires a fungal-substrate latent model class that does not yet exist in NULL_MODEL_HIERARCHY.md \u00a72.5",
+    "No external public bundle (Zenodo / institutional archive) is registered for fungal electrophysiology under CLAIM_BOUNDARY.md \u00a75.1 gate (a)"
+  ],
+  "non_claims": [
+    "This audit does not claim that mycelium is neural.",
+    "This audit does not claim that mycelium is conscious.",
+    "This audit does not claim that fungal electrical activity proves gamma approximately 1.0.",
+    "This audit does not analyze fungal data.",
+    "This audit does not prove universality."
+  ],
+  "primary_gamma_definition": "NONE",
+  "primary_metric_formula": "",
+  "primary_metric_name": "",
+  "rejected_candidates": [
+    {
+      "candidate": "DFA_2H_PLUS_1",
+      "reason": "DFA is secondary cross-check only per MEASUREMENT_METHOD_HIERARCHY.md \u00a72.3; promoting it to primary contradicts frozen canon. Touboul & Destexhe 2021 show DFA passes crackling-noise tests on non-critical systems. Conversion gamma = 2H + 1 with gamma approximately 1.0 forces H approximately 0, which is biologically non-trivial for fungal recordings (slow drift, electrode polarisation, and burst structure typically yield H above 0.5)."
+    },
+    {
+      "candidate": "SPECTRAL_APERIODIC",
+      "reason": "Method aligns with primary canon (specparam + IRASA, MEASUREMENT_METHOD_HIERARCHY.md \u00a72.1) but cannot be accepted today because no fungal-specific K and C operationalisations exist in SUBSTRATE_MEASUREMENT_TABLE.yaml, no fungal OU calibration exists in NULL_MODEL_HIERARCHY.md \u00a72.3, and no preregistered acceptance interval exists in PREREG_TEMPLATE_GAMMA.md."
+    },
+    {
+      "candidate": "EVENT_AVALANCHE",
+      "reason": "Clauset-Shalizi-Newman framework would require a canonical fungal-spike detector (none exists in the repo) and the spatial-correlation convergence test required by MEASUREMENT_METHOD_HIERARCHY.md \u00a72.3 cannot be met by typical Adamatzky-style electrode geometries without a substrate-specific spatial-criticality amendment."
+    },
+    {
+      "candidate": "SUBSTRATE_KC",
+      "reason": "Theil-Sen K(C) regression requires fungal-specific K (topological complexity proxy) and C (thermodynamic cost proxy) definitions; none exist in SUBSTRATE_MEASUREMENT_TABLE.yaml. Choosing them ad hoc would constitute data-driven metric switching forbidden by CLAIM_BOUNDARY.md \u00a76."
+    }
+  ],
+  "secondary_metrics": [
+    "DFA alpha (per MEASUREMENT_METHOD_HIERARCHY.md \u00a72.3, secondary cross-check only)",
+    "Multifractal DFA spectrum width (per \u00a72.3, Aguilera 2015 critique)",
+    "Branching ratio sigma on detected events (per \u00a72.3, Marshall 2016)",
+    "Avalanche shape collapse on detected events (per \u00a72.3, Marshall 2016)",
+    "Inter-spike-interval coefficient of variation (descriptive)",
+    "Per-electrode mean rate (descriptive)",
+    "IRASA cross-check on aperiodic spectral fit (mandatory cross-check, not an independent metric)"
+  ],
+  "status": "BLOCKED_BY_METHOD_DEFINITION",
+  "substrate_id": "SUBSTRATE_006_MYCELIAL_ELECTROPHYSIOLOGY"
+}
