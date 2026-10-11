@@ -67,7 +67,18 @@ mypy; ruff; `make all`; anything under `substrates/*/tests`.
 - 34 references in 22 files still point at `neuron7xLab/neosynaptex`; several are
   frozen records (prereg, validation logs), so they were not bulk-rewritten.
 - No branch protection on `main`; no executing CI.
-- No remote branch was deleted. Every tip SHA is in the table below.
+- GitLab `neuron7x-group/neosynaptex` still carries its own 59 side branches; only `main` was mirrored.
+
+## Branch deletion (owner-approved, 2026-10-11)
+
+The 78 branches with disposition MERGED, ABSORBED, SUPERSEDED or PORTED were deleted
+from `github.com/neuron7x/neosynaptex` after each tip was (a) re-read from the remote
+and matched against the SHA in the table, (b) tagged `archive/2026-10-11/<branch>`,
+and (c) the tag confirmed on the remote. Restore any of them with
+`git push origin refs/tags/archive/2026-10-11/<branch>:refs/heads/<branch>`.
+
+Six branches remain besides `main`: the two OPEN, the PARTIAL / OPEN, the REJECTED,
+the NOT MERGED and the OWNER DECISION rows.
 
 ## Disposition of all 84 branches
 
