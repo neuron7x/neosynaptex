@@ -38,4 +38,9 @@ def claim_artifact_name(route_mode: str, final_status: str) -> str:
         return "rejection_artifact.json"
     if route_mode == "escalate":
         return "escalation_trace.json"
-    return "closure_artifact.json"
+    if route_mode == "verify":
+        # Pending verification is not closure; never label its artifact as such.
+        return "verification_request.json"
+    if route_mode == "cheap_triage":
+        return "triage_request.json"
+    return "routing_request.json"
