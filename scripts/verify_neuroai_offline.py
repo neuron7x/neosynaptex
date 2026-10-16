@@ -20,6 +20,10 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "agents/src/neuron7x_agents/dnca/orchestrator.py",
+    "agents/src/neuron7x_agents/dnca/core/sps.py",
+    "agents/src/neuron7x_agents/dnca/neuromodulators/dopamine.py",
+    "agents/pyproject.toml",
     "core/eai/dnca_first_step_contract.py",
     "tests/dopa_closure_v2/test_dnca_first_step_contract.py",
     "core/eai/dnca_claimwise_evaluator.py",
