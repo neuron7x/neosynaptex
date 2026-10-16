@@ -28,6 +28,12 @@ python scripts/verify_neuroai_offline.py \
 
 The destination **must not already exist**, to prevent overwriting evidence.
 
+**H5** additionally requires `experiments/dopa_signal_validity/h5_td_lambda.py`
+and `h5_oracle.py`, plus an installed `agents[ml]` to execute real
+`DopamineOperator` tests. A skipped real integration test blocks PASS.
+Its oracle is a separate Python process **within the same trust domain**,
+not an externally trusted referee.
+
 ## Fail-closed conditions
 
 The top-level verdict is `PASS` only if all conditions hold:
@@ -42,9 +48,10 @@ The top-level verdict is `PASS` only if all conditions hold:
 6. A separate **mandatory-test** stage runs the core fail-closed security,
    arithmetic verifier, HMAC attestation, negative-control and offline-runner
    tests; an independently parsed JUnit XML must contain at least one actual
-   testcase and **zero skipped, failed or errored testcases**. Twenty
-   named critical tests (including actual DopamineOperator, trained-vs-random
-   value prediction, no-oracle-leakage and eight-seed evidence checks) must
+   testcase and **zero skipped, failed or errored testcases**. Twenty-six
+   named critical tests (including actual DopamineOperator, independent-process
+   reward oracle, TD(lambda) boundary identities, tampering resistance,
+   trained-value prediction and eight-seed evidence checks) must
    appear in that JUnit evidence,
    preventing a partial or selectively deselected suite from passing.
    `PYTEST_ADDOPTS` and `PYTEST_PLUGINS` are removed from the subprocess
