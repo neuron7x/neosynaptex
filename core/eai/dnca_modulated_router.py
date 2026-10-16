@@ -172,7 +172,7 @@ def route_observation(
             ledger.register_failure(False)  # Reservation is not verifier failure.
         return Ok({
             "status": "ROUTING_ONLY",
-            "source": "DNCA.sps.snapshot",
+            "source": "UNTRUSTED_SPS_PROJECTION",
             "dnca_step": observation.step,
             "signal_validity": "UNTESTED",
             "dopamine_gain": gain,
@@ -205,7 +205,10 @@ def route_live_dnca(
         observation = observe_sps(dnca.sps.snapshot())
     except (ValueError, AttributeError, TypeError) as exc:
         return Err(f"dnca_snapshot_invalid:{exc}")
-    return route_observation(
+    routed = route_observation(
         observation, claims, construct_context, config_path,
         dopamine_gain=dopamine_gain, inhibition_threshold=inhibition_threshold,
     )
+    if isinstance(routed, Ok):
+        routed.value["source"] = "EXECUTED_DNCA_SPS"
+    return routed
