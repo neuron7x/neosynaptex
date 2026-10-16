@@ -2,6 +2,14 @@
 
 **Status:** experimental proof boundary for **exact bounded integer arithmetic only**. No general truthfulness, model-safety or cognitive-efficiency claim. Existing DOPA-CLOSURE theory remains **UNTESTED**.
 
+> **Attestation extension (2026-10-16):** This original protocol is still
+> valid for its **UNATTESTED** receipt mode. The new optional
+> `attestation_key` argument adds HMAC-authenticated routing archive
+> provenance, and its trust assumptions are specified in
+> [DNCA × DOPA Attestation Trust Boundary](DNCA_DOPA_ATTESTATION_TRUST_BOUNDARY.md).
+> A successfully authenticated archive does not establish factual
+> truthfulness beyond the exact-integer domain or a valid NeuroAI experiment.
+
 ## Fundamental trust principle
 
 An agent's internal reward, prediction error, novelty, certainty and budget-priority values may select **which** proposition to check. They do not establish the proposition's **truth**. An independent verifier must evaluate the proposition from its original committed content, without reading those values.
