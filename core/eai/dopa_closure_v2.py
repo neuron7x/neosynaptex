@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import re
 from dataclasses import asdict
@@ -63,10 +64,18 @@ class DopaClosureV2Allocator:
         return max(0.0, float((drive + scarcity_boost) * load_gate))
 
 
-def _provenance(config_path: str | Path) -> dict[str, str]:
+def _provenance(config_path: str | Path, claims: list[ClaimSignal]) -> dict[str, str]:
+    """Content-binding diagnostics, not independent verifier attestation."""
+    encoded = json.dumps(
+        [asdict(claim) for claim in claims],
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "config_path": str(config_path),
+        "claims_sha256": hashlib.sha256(encoded).hexdigest(),
     }
 
 
@@ -105,12 +114,16 @@ def _inadmissible_result(
         "final_verdict": verdict.verdict,
         "failure_reasons": verdict.reasons,
         "config_hash": allocator.config_hash,
-        "construct_gate": asdict(verdict),
+        "construct_gate": {
+            **asdict(verdict),
+            "scope": "ROUTING_ONLY",
+            "evidence_level": "UNATTESTED_CALLER_DECLARATION",
+        },
         "controls": asdict(run_controls([], [], seed=0)),
         "budget_ledger": _empty_budget_snapshot(allocator.config),
         "routes": [],
         "artifact_hashes": {},
-        "provenance": _provenance(config_path),
+        "provenance": _provenance(config_path, claims),
         "deferred_due_budget": 0,
     }
 
@@ -184,7 +197,11 @@ def run_allocator_full_path(
         _write_config_snapshot(output, config_path, allocator.config_hash)
     except (OSError, ValueError) as exc:
         return Err(f"config_snapshot_failed:{exc}")
-    write_json(output / "construct_gate.json", asdict(verdict))
+    write_json(output / "construct_gate.json", {
+        **asdict(verdict),
+        "scope": "ROUTING_ONLY",
+        "evidence_level": "UNATTESTED_CALLER_DECLARATION",
+    })
     if not verdict.admissible:
         final = _inadmissible_result(run_id, verdict, allocator, config_path)
         write_json(output / "budget_ledger.json", final["budget_ledger"])
@@ -315,7 +332,7 @@ def run_allocator_full_path(
         "deferred_due_budget": deferred_due_budget,
         "routes": routes,
         "artifact_hashes": artifact_hashes,
-        "provenance": _provenance(config_path),
+        "provenance": _provenance(config_path, claims),
     }
     write_json(output / "budget_ledger.json", result["budget_ledger"])
     write_json(output / "final_verdict.json", result)
