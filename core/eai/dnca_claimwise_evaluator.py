@@ -68,8 +68,9 @@ def _validate(rows: Sequence[ClaimEvidence], plan: StudyPlan) -> dict[str, list[
         _finite(row.signed_valence, -1, 1, "signed_valence")
         if type(row.oracle_benefit_label) is not int or row.oracle_benefit_label not in (0, 1):
             raise ValueError("invalid_binary_outcome")
-        if row.oracle_receipt_sha256 and (len(row.oracle_receipt_sha256) != 64
-                or any(c not in "0123456789abcdef" for c in row.oracle_receipt_sha256)):
+        if not isinstance(row.oracle_receipt_sha256, str) or (row.oracle_receipt_sha256 and (
+                len(row.oracle_receipt_sha256) != 64
+                or any(c not in "0123456789abcdef" for c in row.oracle_receipt_sha256))):
             raise ValueError("invalid_oracle_receipt_hash")
         groups.setdefault(row.group_id, []).append(row)
     if len(groups) < 4 or any(len(g) <= plan.slots for g in groups.values()):
