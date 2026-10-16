@@ -30,7 +30,7 @@ def test_wrong_model_value_observed():
 def test_clipping_and_noise():
     assert_one_step_zero_reward_construct(current_value=0.4,observed_valence=0.396000003,discount=0.99,previous_value=0,reward=0)
 
-@pytest.mark.integration
+@pytest.mark.slow
 def test_real_dopamine_operator_first_step_identity():
     torch=pytest.importorskip("torch")
     module=pytest.importorskip("neuron7x_agents.dnca.neuromodulators.dopamine")
