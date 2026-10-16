@@ -237,6 +237,16 @@ provenance.
 Existing tests are proposed checks, not published result data. This document
 was prepared from source inspection, not a successful CI run.
 
+> **Post-hardening amendment (2026-10-16):** The earlier review below records
+> vulnerabilities in the *pre-hardening* implementation. H1 removes
+> threshold-only `CLOSED`, makes no-verifier instrument results
+> `INADMISSIBLE`, guards budget/path/config boundaries, and renames pending
+> artifacts. See [H1 Hardening Act](DNCA_DOPA_HARDENING_ACT_2026-10-16.md).
+> Historic findings are retained for provenance and must not be interpreted as
+> still-active code paths. Remaining blockers: independently validated signal,
+> actual external verification, evidence-backed construct attestations, and
+> end-to-end metered, reproducible tests.
+
 ## 5. Construct-validity blockers and attack surface
 
 **B0 / blocker — weak reward-value semantics.** `DopamineOperator.value_net`
