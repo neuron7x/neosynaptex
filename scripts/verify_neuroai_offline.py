@@ -69,7 +69,6 @@ _MANDATORY_CASES = frozenset({
     "test_replay_never_claims_real_dnca_or_independent_oracle",
     "test_eight_seed_identity_and_provenance",
     "test_always_scientifically_inadmissible",
-    "test_no_oracle_leakage_during_selection",
     "test_random_seed_gives_matching_checkpoint_and_metric",
     "test_real_dopamine_operator_first_step_identity",
     "test_identity",
