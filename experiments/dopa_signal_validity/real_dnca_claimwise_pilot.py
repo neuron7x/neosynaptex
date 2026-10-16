@@ -16,12 +16,13 @@ import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from core.eai.dnca_claimwise_evaluator import ClaimEvidence, StudyPlan, evaluate
 from core.eai.dnca_signal_identifiability import paired_claimwise_probe
 
 
 @dataclass(frozen=True)
 class ProbeConfig:
-    seeds: tuple[int, ...] = (31, 37)
+    seeds: tuple[int, ...] = (31, 37, 41, 43)
     candidates: int = 12
     state_dim: int = 16
     hidden_dim: int = 32
@@ -98,6 +99,7 @@ def _content_hash(value: object) -> str:
 
 def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
     rows: list[dict[str, object]] = []
+    adjudication_rows: list[ClaimEvidence] = []
     for seed in config.seeds:
         features, proxy, hidden_labels = make_cases(seed, config)
         # Strict blindness: collect_real_dnca_cues accepts features only, not labels.
@@ -106,6 +108,15 @@ def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
         )
         analysis = paired_claimwise_probe(proxy, cues, hidden_labels,
                                           config.slots, seed=seed + 41)
+        for i, (base, cue, label) in enumerate(zip(proxy, cues, hidden_labels)):
+            adjudication_rows.append(ClaimEvidence(
+                group_id=str(seed),
+                claim_id=str(i),
+                baseline=float(base),
+                signed_valence=float(cue),
+                oracle_benefit_label=int(label),
+                oracle_receipt_sha256="",  # Synthetic target, no independent receipt.
+            ))
         rows.append({
             "seed": seed,
             "torch_version": torch_version,
@@ -118,8 +129,18 @@ def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
             "withheld_utility_sha256": _content_hash(hidden_labels),
             "cue_values_sha256": _content_hash(cues),
         })
+    # Four or more independently seeded groups are required for this
+    # descriptive resampling diagnostic. No label can reach DNCA inference.
+    if len(config.seeds) >= 4:
+        prequential: dict[str, object] = evaluate(
+            adjudication_rows, StudyPlan(slots=config.slots, gain=0.25)
+        )
+    else:
+        prequential = {"status": "UNTESTED_INSUFFICIENT_GROUPS",
+                       "n_groups": len(config.seeds)}
     data: dict[str, object] = {
         "protocol": "REAL_DNCA_UNTRAINED_CLAIMWISE_PILOT_v1",
+        "prequential_diagnostic": prequential,
         "verdict": "INSTRUMENT_INADMISSIBLE_UNTRAINED_SIGNAL",
         "model_weights": "RANDOM_INITIALIZATION_NOT_CALIBRATED",
         "task": "SYNTHETIC_BINARY_UTILITY_NOT_GENERAL_FACTUAL_VERIFICATION",
