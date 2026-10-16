@@ -14,6 +14,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
+from core.eai.dopa_run_attestation import verify_arithmetic_run_attestation
+
 _DOMAIN = "dopa.arithmetic.v1"
 _SAFE_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}\Z")
 _OPERATIONS = {"add", "subtract", "multiply"}
@@ -145,7 +147,12 @@ def _exclusive_write(path: Path, payload: dict[str, Any]) -> None:
         tmp.unlink(missing_ok=True)
 
 
-def verify_scheduled_arithmetic(run_dir: str | Path, claim: ArithmeticClaim) -> dict[str, Any]:
+def verify_scheduled_arithmetic(
+    run_dir: str | Path,
+    claim: ArithmeticClaim,
+    *,
+    attestation_key: bytes | None = None,
+) -> dict[str, Any]:
     """Independently recompute a precommitted, eligible claim and publish receipt.
 
     A hash is an integrity commitment, not a signature or authority guarantee.
@@ -154,6 +161,13 @@ def verify_scheduled_arithmetic(run_dir: str | Path, claim: ArithmeticClaim) -> 
     """
     path = Path(run_dir)
     report, route = _preflight(path, claim)
+    # This stronger path authenticates the *archive origin*, not factual truth.
+    # The key must be independently provisioned in a separate trust domain.
+    attestation = (
+        verify_arithmetic_run_attestation(path, claim.claim_id, attestation_key)
+        if attestation_key is not None else
+        {"status": "UNATTESTED", "attestation_sha256": None}
+    )
     computed = _exact_arithmetic(claim)
     verdict = "VERIFIED" if computed == claim.asserted else "REFUTED"
     receipt: dict[str, Any] = {
@@ -168,6 +182,8 @@ def verify_scheduled_arithmetic(run_dir: str | Path, claim: ArithmeticClaim) -> 
         "computed": computed,
         "asserted": claim.asserted,
         "verdict": verdict,
+        "archive_authentication": attestation["status"],
+        "attestation_sha256": attestation["attestation_sha256"],
         "does_not_attest": ["general_truthfulness", "dnca_value_validity", "model_accuracy"],
     }
     receipt["receipt_sha256"] = hashlib.sha256(canonical_json_bytes(receipt)).hexdigest()

@@ -82,3 +82,47 @@ def test_bad_commitments_rejected_before_file_creation(tmp_path: Path, monkeypat
         )
         assert isinstance(result, Err)
         assert not (tmp_path / "runs").exists()
+
+
+def test_full_path_authenticated_run_receipt(tmp_path: Path, monkeypatch) -> None:
+    """Actual allocator output is bound by a separately provisioned key."""
+    from core.eai.dopa_run_attestation import seal_arithmetic_run
+
+    monkeypatch.setenv("DOPA_RUN_ID", "arith-auth-001")
+    claim = ArithmeticClaim("auth-1", "multiply", 12, 11, 132)
+    result = run_allocator_full_path(
+        CONFIG, [_score(claim.claim_id)], tmp_path, ROUTING_ONLY,
+        claim_commitments={claim.claim_id: arithmetic_commitment(claim)},
+    )
+    assert isinstance(result, Ok), result
+    root = tmp_path / "runs" / "arith-auth-001"
+    key = b"test-vector-only-not-production!" + b"1234567890"
+    seal_arithmetic_run(root, claim.claim_id, key)
+    receipt = verify_scheduled_arithmetic(root, claim, attestation_key=key)
+    assert receipt["verdict"] == "VERIFIED"
+    assert receipt["archive_authentication"] == "HMAC_AUTHENTICATED"
+    assert len(receipt["attestation_sha256"]) == 64
+    assert result.value["final_verdict"] == "INADMISSIBLE"
+
+
+def test_full_path_wrong_attestation_key_fails_without_receipt(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from core.eai.dopa_run_attestation import seal_arithmetic_run
+    import pytest
+
+    monkeypatch.setenv("DOPA_RUN_ID", "arith-auth-002")
+    claim = ArithmeticClaim("auth-2", "add", 12, 11, 23)
+    result = run_allocator_full_path(
+        CONFIG, [_score(claim.claim_id)], tmp_path, ROUTING_ONLY,
+        claim_commitments={claim.claim_id: arithmetic_commitment(claim)},
+    )
+    assert isinstance(result, Ok), result
+    root = tmp_path / "runs" / "arith-auth-002"
+    key = b"k" * 32
+    seal_arithmetic_run(root, claim.claim_id, key)
+    with pytest.raises(ValueError, match="attestation_mac_invalid"):
+        verify_scheduled_arithmetic(root, claim, attestation_key=b"x" * 32)
+    assert not (
+        root / "claims" / claim.claim_id / "verification_receipt.json"
+    ).exists()
