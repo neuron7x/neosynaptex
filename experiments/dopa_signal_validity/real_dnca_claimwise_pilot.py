@@ -1,0 +1,159 @@
+"""Exploratory actual-DNCA per-claim probe with oracle-blind inference.
+
+This is NOT an admissible test of DNCA verification utility: weights are
+randomly initialized and synthetic benefits are not external ground truth.
+If torch or DNCA is unavailable, fail explicitly instead of faking cues.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import random
+import sys
+import time
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
+from core.eai.dnca_signal_identifiability import paired_claimwise_probe
+
+
+@dataclass(frozen=True)
+class ProbeConfig:
+    seeds: tuple[int, ...] = (31, 37)
+    candidates: int = 12
+    state_dim: int = 16
+    hidden_dim: int = 32
+    slots: int = 4
+
+    def __post_init__(self) -> None:
+        if self.candidates < 3 or self.candidates > 128:
+            raise ValueError("invalid_candidates")
+        if self.state_dim < 8 or self.state_dim % 2:
+            raise ValueError("invalid_state_dim")
+        if self.hidden_dim < 16 or self.hidden_dim % 2:
+            raise ValueError("invalid_hidden_dim")
+        if not 0 < self.slots < self.candidates:
+            raise ValueError("invalid_slots")
+        if not self.seeds or len(set(self.seeds)) != len(self.seeds):
+            raise ValueError("invalid_seeds")
+
+
+def make_cases(seed: int, config: ProbeConfig) -> tuple[list[tuple[float,...]], list[float], list[int]]:
+    """Synthetic feature/label mechanism; the model never receives labels."""
+    rng = random.Random(seed)
+    features: list[tuple[float,...]] = []
+    baselines: list[float] = []
+    hidden_labels: list[int] = []
+    for _ in range(config.candidates):
+        x = tuple(rng.gauss(0.0, 0.45) for _ in range(config.state_dim))
+        features.append(x)
+        baselines.append(1.0 / (1.0 + math.exp(-x[0])))
+        hidden_labels.append(int(x[1] + x[2] + rng.gauss(0, 0.3) > 0.0))
+    return features, baselines, hidden_labels
+
+
+def collect_real_dnca_cues(
+    features: list[tuple[float, ...]], *, seed: int, config: ProbeConfig
+) -> tuple[list[float], int, str]:
+    """Fresh identical-weight DNCA instance per claim; reward=0, no labels.
+
+    One step only prevents online learning and cross-claim state contamination.
+    Measures initialization + one-step inference elapsed wall-clock nanoseconds.
+    """
+    try:
+        import torch
+        from neuron7x_agents.dnca.orchestrator import DNCA
+        from core.eai.dnca_modulated_router import observe_sps
+    except ImportError as exc:
+        raise RuntimeError("real_dnca_and_torch_required_no_proxy_fallback") from exc
+
+    cues: list[float] = []
+    total_ns = 0
+    for x in features:
+        if len(x) != config.state_dim or not all(math.isfinite(v) for v in x):
+            raise ValueError("invalid_claim_sensory_features")
+        t0 = time.perf_counter_ns()
+        model = DNCA(state_dim=config.state_dim, hidden_dim=config.hidden_dim,
+                     device="cpu", seed=seed)
+        model.eval()
+        with torch.no_grad():
+            model.step(torch.tensor(x, dtype=torch.float32), reward=0.0)
+        observation = observe_sps(model.sps.snapshot())
+        elapsed = time.perf_counter_ns() - t0
+        if observation.step != 1:
+            raise RuntimeError("unexpected_dnca_step_count")
+        total_ns += elapsed
+        cues.append(observation.signed_valence)
+    return cues, total_ns, str(torch.__version__)
+
+
+def _content_hash(value: object) -> str:
+    """Stable canonical payload digest (integrity only, never authenticity)."""
+    return hashlib.sha256(json.dumps(
+        value, sort_keys=True, separators=(",", ":"), allow_nan=False
+    ).encode("utf-8")).hexdigest()
+
+
+def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
+    rows: list[dict[str, object]] = []
+    for seed in config.seeds:
+        features, proxy, hidden_labels = make_cases(seed, config)
+        # Strict blindness: collect_real_dnca_cues accepts features only, not labels.
+        cues, elapsed_ns, torch_version = collect_real_dnca_cues(
+            features, seed=seed, config=config
+        )
+        analysis = paired_claimwise_probe(proxy, cues, hidden_labels,
+                                          config.slots, seed=seed + 41)
+        rows.append({
+            "seed": seed,
+            "torch_version": torch_version,
+            "measured_dnca_init_plus_step_ns": elapsed_ns,
+            "analysis": analysis,
+            "cue_min": min(cues),
+            "cue_max": max(cues),
+            "cue_values": cues,
+            "sensory_inputs_sha256": _content_hash(features),
+            "withheld_utility_sha256": _content_hash(hidden_labels),
+            "cue_values_sha256": _content_hash(cues),
+        })
+    data: dict[str, object] = {
+        "protocol": "REAL_DNCA_UNTRAINED_CLAIMWISE_PILOT_v1",
+        "verdict": "INSTRUMENT_INADMISSIBLE_UNTRAINED_SIGNAL",
+        "model_weights": "RANDOM_INITIALIZATION_NOT_CALIBRATED",
+        "task": "SYNTHETIC_BINARY_UTILITY_NOT_GENERAL_FACTUAL_VERIFICATION",
+        "config": asdict(config),
+        "runs": rows,
+        "notes": [
+            "fresh same-seed DNCA per claim; no reward or access to withheld utility",
+            "fixed slots across arms; wall time includes DNCA initialization",
+            "actual verifier receipts, CPU/energy metering and calibrated value model absent",
+            "positive result must never promote scientific validity",
+        ],
+    }
+    data["sha256"] = hashlib.sha256(json.dumps(
+        data, sort_keys=True, separators=(",", ":"), allow_nan=False
+    ).encode("utf-8")).hexdigest()
+    return data
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True)
+    options = parser.parse_args()
+    if options.output.exists():
+        raise FileExistsError("evidence_output_already_exists")
+    result = execute_pilot()
+    options.output.parent.mkdir(parents=True, exist_ok=True)
+    with options.output.open("x", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, sort_keys=True, allow_nan=False)
+        f.write("\n")
+    print(json.dumps({"verdict": result["verdict"],
+                      "sha256": result["sha256"],
+                      "output": str(options.output)}))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

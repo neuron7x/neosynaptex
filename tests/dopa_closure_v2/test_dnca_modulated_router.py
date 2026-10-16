@@ -59,6 +59,8 @@ def test_inhibition_forces_hold_without_promoting_truth() -> None:
 def test_untrusted_projection_is_not_labeled_live_dnca() -> None:
     result = _success(route_observation(_obs(), _claims(), ADMISSIBLE, CONFIG))
     assert result["source"] == "UNTRUSTED_SPS_PROJECTION"
+    assert result["modulation_scope"] == "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC"
+    assert result["claim_specific_signal_qualified"] is False
 
 
 def test_failed_construct_gates_produce_no_routes_or_spend() -> None:

@@ -97,10 +97,13 @@ def route_observation(
     dopamine_gain: float = 0.0,
     inhibition_threshold: float = 0.8,
 ) -> Result[dict[str, Any]]:
-    """Experimental routing. Returns priorities and *queued* actions, never closure.
+    """Experimental *global regime* routing; cannot perform claimwise salience.
 
-    Gain=0 is the control (DA ablation); positive gain is an experimental arm.
-    Both share the same evidence inputs, costs, verification criteria and gates.
+    Gain=0 is the control. A single shared valence is applied equally to every
+    claim: at identical fixed baseline priorities it cannot strictly reorder
+    claims (although clipping creates ties and threshold/ledger effects differ).
+    Both arms share evidence inputs, costs, verification criteria and gates.
+    No independent verifier runs in this function.
     """
     try:
         gain = _scalar("dopamine_gain", dopamine_gain)
@@ -130,6 +133,7 @@ def route_observation(
                 "budget_ledger": ledger.snapshot(),
                 "closure_count": 0,
                 "signal_validity": "UNTESTED",
+                "modulation_scope": "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC",
             })
         thresholds = cfg["priority_gate"]["thresholds"]
         costs = cfg["budget"]["action_costs"]
@@ -175,6 +179,8 @@ def route_observation(
             "source": "UNTRUSTED_SPS_PROJECTION",
             "dnca_step": observation.step,
             "signal_validity": "UNTESTED",
+            "modulation_scope": "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC",
+            "claim_specific_signal_qualified": False,
             "dopamine_gain": gain,
             "closure_count": 0,
             "routes": routes,
