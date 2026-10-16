@@ -1,0 +1,52 @@
+{
+  "caveats": [
+    "informative cue was generated using oracle labels inside the simulator",
+    "routing slots matched; signal generation, verifier CPU and LLM token costs not metered",
+    "synthetic outcomes are not independently measured DNCA or task results",
+    "bootstrap intervals describe simulation replicates, not external replication"
+  ],
+  "config": {
+    "candidates": 128,
+    "gain": 0.25,
+    "seed": 7301,
+    "slots": 16,
+    "trials": 128
+  },
+  "payload_sha256": "7de320e991173d4eb8c991b961720a0214d25d1cc886f3f4836bf9ca071ef9b7",
+  "protocol": "SYNTHETIC_CUE_INSTRUMENT_CHECK_v1",
+  "regimes": {
+    "informative": {
+      "fixed_routing_slots_per_trial": 16,
+      "mean_verified_benefit_per_trial": {
+        "modulated": 14.9609375,
+        "oracle_ceiling": 16.0,
+        "permuted": 9.78125,
+        "random": 5.8046875,
+        "sign_reversed": 3.796875,
+        "uncertainty_only": 10.5703125
+      },
+      "paired_bootstrap_95pct": [
+        4.125,
+        4.671875
+      ],
+      "paired_gain_vs_uncertainty": 4.390625
+    },
+    "null": {
+      "fixed_routing_slots_per_trial": 16,
+      "mean_verified_benefit_per_trial": {
+        "modulated": 9.7890625,
+        "oracle_ceiling": 16.0,
+        "permuted": 9.8046875,
+        "random": 5.6796875,
+        "sign_reversed": 9.7734375,
+        "uncertainty_only": 10.515625
+      },
+      "paired_bootstrap_95pct": [
+        -0.984375,
+        -0.484375
+      ],
+      "paired_gain_vs_uncertainty": -0.7265625
+    }
+  },
+  "scope": "INSTRUMENT_SENSITIVITY_ONLY_NOT_DNCA_VALIDITY"
+}
