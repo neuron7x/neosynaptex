@@ -132,3 +132,22 @@ def test_output_is_stable_for_same_input_and_config() -> None:
     a = _success(route_observation(_obs(), _claims(3), ADMISSIBLE, CONFIG))
     b = _success(route_observation(_obs(), _claims(3), ADMISSIBLE, CONFIG))
     assert a == b
+
+
+
+def test_executed_dnca_runtime_projects_to_routing_only() -> None:
+    """Real integration smoke: no mocks, no truth claim, only routing."""
+    torch = pytest.importorskip("torch")
+    try:
+        from neuron7x_agents.dnca.orchestrator import DNCA
+    except ImportError:
+        pytest.skip("install local agents package: pip install -e agents")
+    model = DNCA(state_dim=16, hidden_dim=32, seed=42)
+    model.step(torch.zeros(16), reward=0.1)
+    result = route_live_dnca(model, _claims(), ADMISSIBLE, CONFIG)
+    output = _success(result)
+    assert output["source"] == "EXECUTED_DNCA_SPS"
+    assert output["dnca_step"] >= 1
+    assert output["status"] == "ROUTING_ONLY"
+    assert output["closure_count"] == 0
+    assert output["signal_validity"] == "UNTESTED"
