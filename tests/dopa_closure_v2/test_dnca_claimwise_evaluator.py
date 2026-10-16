@@ -94,3 +94,10 @@ def test_permutation_reproducibility_across_seeds():
 
 def test_invalid_resampling_plan():
     with pytest.raises(ValueError):evaluate(synthetic(),StudyPlan(permutation_repeats=0))
+
+
+def test_invalid_receipt_type_fails_closed():
+    rows=synthetic()
+    rows[0]=replace(rows[0],oracle_receipt_sha256=17)
+    with pytest.raises(ValueError,match="invalid_oracle_receipt_hash"):
+        evaluate(rows)
