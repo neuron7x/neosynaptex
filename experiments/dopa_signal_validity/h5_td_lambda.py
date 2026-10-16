@@ -119,6 +119,13 @@ def audit_oracle(trajectories: list[list[Step]]) -> str:
                 raise ValueError("transition_chain_broken")
             if not 0 <= s[4] <= 1 or not 0 <= after[4] <= 1:
                 raise ValueError("invalid_time_state")
+            for features in (s, after):
+                if (abs(features[5]-features[0]**2)>1e-10
+                    or abs(features[6]-features[1]*features[2])>1e-10
+                    or abs(features[7]-features[3]**2)>1e-10):
+                    raise ValueError("forged_derived_features")
+            if abs((s[4]-after[4])-1/len(episode))>1e-10:
+                raise ValueError("invalid_time_progression")
     raw = json.dumps([[asdict(x) for x in ep] for ep in trajectories],
                      sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
     return hashlib.sha256(raw).hexdigest()
