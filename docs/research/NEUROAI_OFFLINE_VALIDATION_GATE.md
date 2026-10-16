@@ -42,8 +42,9 @@ The top-level verdict is `PASS` only if all conditions hold:
 6. A separate **mandatory-test** stage runs the core fail-closed security,
    arithmetic verifier, HMAC attestation, negative-control and offline-runner
    tests; an independently parsed JUnit XML must contain at least one actual
-   testcase and **zero skipped, failed or errored testcases**. Six
-   named security-critical tests must appear in that JUnit evidence,
+   testcase and **zero skipped, failed or errored testcases**. Seven
+   named critical tests (including the synthetic signal sensitivity control)
+   must appear in that JUnit evidence,
    preventing a partial or selectively deselected suite from passing.
    `PYTEST_ADDOPTS` and `PYTEST_PLUGINS` are removed from the subprocess
    environment to prevent silent selection/plugin injection.
