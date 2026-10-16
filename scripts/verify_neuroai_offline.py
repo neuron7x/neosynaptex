@@ -43,6 +43,14 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_run_attestation.py",
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
+_MANDATORY_CASES = frozenset({
+    "test_never_close_without_independent_verifier",
+    "test_real_route_precommit_verifier_receipt",
+    "test_correct_exact_recomputation",
+    "test_valid_key_binds_entire_run",
+    "test_shuffling_priority_cannot_change_mean_or_establish_validity",
+    "test_postflight_fails_if_source_changes_during_tests",
+})
 _MYPY_PATHS = (
     "core/eai/dopa_run_attestation.py",
     "core/eai/dopa_independent_verifier.py",
@@ -105,6 +113,9 @@ def _run(root: Path, name: str, args: tuple[str, ...],
     env = os.environ.copy()
     env["PYTHONHASHSEED"] = "0"
     env["NO_COLOR"] = "1"
+    # A caller-supplied -k/-m via PYTEST_ADDOPTS can silently deselect tests.
+    env.pop("PYTEST_ADDOPTS", None)
+    env.pop("PYTEST_PLUGINS", None)
     try:
         proc = subprocess.run(
             command, cwd=root, capture_output=True, text=True,
@@ -153,6 +164,9 @@ def _junit_summary(path: Path) -> tuple[dict[str, int] | None, str | None]:
     }
     if not cases or any(summary[key] for key in ("skipped", "failures", "errors")):
         return summary, "required_tests_missing_skipped_or_failed"
+    observed = {case.get("name", "").split("[", 1)[0] for case in cases}
+    if not _MANDATORY_CASES.issubset(observed):
+        return summary, "mandatory_named_tests_not_executed"
     return summary, None
 
 
