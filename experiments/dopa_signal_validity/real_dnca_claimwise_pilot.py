@@ -24,11 +24,11 @@ from core.eai.dnca_signal_identifiability import paired_claimwise_probe
 @dataclass(frozen=True)
 class ProbeConfig:
     seeds: tuple[int, ...] = (31, 37, 41, 43)
-    model_seed: int = 20261016
     candidates: int = 12
     state_dim: int = 16
     hidden_dim: int = 32
     slots: int = 4
+    model_seed: int = 20261016
 
     def __post_init__(self) -> None:
         if self.candidates < 3 or self.candidates > 128:
