@@ -29,7 +29,7 @@ def test_oracle_labels_cannot_be_passed_to_real_dnca_signature() -> None:
 def test_mocked_cues_never_promote_untrained_model(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    config = pilot.ProbeConfig(seeds=(11,), candidates=6, slots=2)
+    config = pilot.ProbeConfig(seeds=(11,), model_seed=11, candidates=6, slots=2)
     def simulated_cue(features, *, seed, config):
         assert seed == 11
         assert len(features) == 6
@@ -40,6 +40,9 @@ def test_mocked_cues_never_promote_untrained_model(
     assert record["runs"][0]["analysis"]["global_shift_strict_inversions"] == 0
     assert record["runs"][0]["analysis"]["all_arms_same_slots"]
     assert record["runs"][0]["torch_version"] == "SIMULATED"
+    assert record["runs"][0]["data_seed"] == 11
+    assert record["runs"][0]["model_seed"] == 11
+    assert record["signal_construct"] == "CLIPPED_GAMMA_TIMES_RANDOM_VALUE_NET_NOT_TD_LEARNING"
     assert len(record["runs"][0]["sensory_inputs_sha256"]) == 64
     assert len(record["runs"][0]["withheld_utility_sha256"]) == 64
     assert len(record["runs"][0]["cue_values_sha256"]) == 64
@@ -86,8 +89,28 @@ def test_prequential_mocked_multigroup_cues_never_promote_oracle(
     record = pilot.execute_pilot(config)
     diagnostic = record["prequential_diagnostic"]
     assert record["verdict"] == "INSTRUMENT_INADMISSIBLE_UNTRAINED_SIGNAL"
+    assert all(r["model_seed"] == config.model_seed for r in record["runs"])
+    assert [r["data_seed"] for r in record["runs"]] == list(config.seeds)
     assert diagnostic["status"] == "UNQUALIFIED_ORACLE_AND_UNMETERED_COMPUTE"
     assert diagnostic["n_groups"] == 4
     assert diagnostic["oracle_receipt_hashes_verified"] is False
     assert diagnostic["end_to_end_cost_metered"] is False
     assert len(diagnostic["input_sha256"]) == 64
+
+
+def test_distinct_data_seeds_share_one_model_seed() -> None:
+    a = pilot.ProbeConfig(seeds=(1, 2, 3, 4), model_seed=100, candidates=6, slots=2)
+    b = pilot.ProbeConfig(seeds=(5, 6, 7, 8), model_seed=100, candidates=6, slots=2)
+    assert a.model_seed == b.model_seed
+    assert a.seeds != b.seeds
+
+
+@pytest.mark.parametrize("bad", [True, -1, 2**63, 3.14])
+def test_invalid_model_seed_rejected(bad) -> None:
+    with pytest.raises(ValueError, match="invalid_model_seed"):
+        pilot.ProbeConfig(model_seed=bad)
+
+
+def test_invalid_data_seed_bool_rejected() -> None:
+    with pytest.raises(ValueError, match="invalid_data_seeds"):
+        pilot.ProbeConfig(seeds=(31, True, 41, 43))
