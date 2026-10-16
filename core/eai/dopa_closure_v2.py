@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+from collections.abc import Mapping
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -175,7 +176,13 @@ def run_allocator_full_path(
     claims: list[ClaimSignal],
     output_root: str | Path,
     construct_context: ConstructContext,
+    *,
+    claim_commitments: Mapping[str, str] | None = None,
 ) -> Result[dict[str, Any]]:
+    """Optional precommitted claim-content hashes enable independent receipt checks.
+
+    Uncommitted routes remain routing-only and cannot receive independent receipts.
+    """
     try:
         allocator = DopaClosureV2Allocator(config_path)
     except ValueError as exc:
@@ -187,6 +194,13 @@ def run_allocator_full_path(
         return Err("invalid_run_id")
     if len({c.claim_id for c in claims}) != len(claims):
         return Err("duplicate_claim_ids")
+    if claim_commitments is not None:
+        claim_ids = {c.claim_id for c in claims}
+        if set(claim_commitments) != claim_ids:
+            return Err("claim_commitments_must_match_all_claim_ids")
+        if any(not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest)
+               for digest in claim_commitments.values()):
+            return Err("invalid_claim_payload_digest")
     output = Path(output_root) / "runs" / run_id
     try:
         # Atomic exclusive creation prevents artifact clobbering on ID collisions.
@@ -293,6 +307,8 @@ def run_allocator_full_path(
             "budget": asdict(step),
             "config_hash": allocator.config_hash,
         }
+        if claim_commitments is not None:
+            route_doc["claim_payload_sha256"] = claim_commitments[claim.claim_id]
         write_json(claim_dir / artifact, route_doc)
         # Hashing a routing request would not constitute independent evidence.
         route_doc["verification_artifact_hash"] = None
