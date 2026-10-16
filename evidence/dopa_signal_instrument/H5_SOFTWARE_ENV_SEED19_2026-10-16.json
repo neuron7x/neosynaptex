@@ -1,0 +1,93 @@
+{
+  "dataset_sha256": {
+    "test": "4969c545bbc31d408e27c50ed2ca4c7730db28ea0fc590ffa18c4d8d801eaa89",
+    "train": "fd3ab145370cab203bad1b0b9f36e22347f800532f43f8f98420c6de1168c648",
+    "validation": "26f494044c8a1dc0146ac21ee641b67d50b06ffa5c5965873a6edaf970605cb2"
+  },
+  "limitations": [
+    "simulator rollouts not measured real-world trajectories",
+    "no OS-isolated verifier or independently authenticated environmental rewards",
+    "model trained offline but not installed into live DNCA",
+    "training cost and inference cost measured but not matched"
+  ],
+  "model_outputs": "EX_ANTE_STATE_VALUE_ONLY",
+  "models": {
+    "td_lambda_linear": {
+      "checkpoint_sha256": "60e8e6742e11001c557d88f61c59fb06d46ae0d2e56ffca59064873619b65845",
+      "forward_MACs_upper_bound_per_state": 8,
+      "holdout_return_mae": 0.6197152137756348,
+      "holdout_return_mse": 0.6770617365837097,
+      "holdout_top3_oracle_ceiling": 0.5993964200612633,
+      "holdout_top3_realized_return": 0.05741378284362023,
+      "inference_seconds": 3.0456e-05,
+      "parameter_bytes": 36,
+      "parameter_count": 9,
+      "train_seconds": 0.19443442,
+      "validation_mse": 0.5476142764091492
+    },
+    "td_lambda_neural": {
+      "checkpoint_sha256": "448497894161b1820d10d30f17485d7efe67afcc8230d92892ebfc7c9cf64ef1",
+      "forward_MACs_upper_bound_per_state": 144,
+      "holdout_return_mae": 0.6200733780860901,
+      "holdout_return_mse": 0.6756430268287659,
+      "holdout_top3_oracle_ceiling": 0.5993964200612633,
+      "holdout_top3_realized_return": 0.07125113956302205,
+      "inference_seconds": 0.00032505,
+      "parameter_bytes": 644,
+      "parameter_count": 161,
+      "train_seconds": 0.220805789,
+      "validation_mse": 0.519223690032959
+    }
+  },
+  "oracle": "SEPARATE_PROCESS_DETERMINISTIC_RECOMPUTATION",
+  "oracle_external_independence": false,
+  "oracle_subprocess_receipts": {
+    "test": {
+      "authority": "SEPARATE_PROCESS_SAME_SOFTWARE_TRUST_DOMAIN",
+      "contract": "H5_SOFTWARE_ENV_REWARD_ORACLE_v1",
+      "episodes": 64,
+      "status": "CONSISTENT_WITH_DECLARED_REWARD_FUNCTION",
+      "trajectory_sha256": "4969c545bbc31d408e27c50ed2ca4c7730db28ea0fc590ffa18c4d8d801eaa89",
+      "transitions": 768
+    },
+    "train": {
+      "authority": "SEPARATE_PROCESS_SAME_SOFTWARE_TRUST_DOMAIN",
+      "contract": "H5_SOFTWARE_ENV_REWARD_ORACLE_v1",
+      "episodes": 180,
+      "status": "CONSISTENT_WITH_DECLARED_REWARD_FUNCTION",
+      "trajectory_sha256": "fd3ab145370cab203bad1b0b9f36e22347f800532f43f8f98420c6de1168c648",
+      "transitions": 2160
+    },
+    "validation": {
+      "authority": "SEPARATE_PROCESS_SAME_SOFTWARE_TRUST_DOMAIN",
+      "contract": "H5_SOFTWARE_ENV_REWARD_ORACLE_v1",
+      "episodes": 48,
+      "status": "CONSISTENT_WITH_DECLARED_REWARD_FUNCTION",
+      "trajectory_sha256": "26f494044c8a1dc0146ac21ee641b67d50b06ffa5c5965873a6edaf970605cb2",
+      "transitions": 576
+    }
+  },
+  "plan": {
+    "epochs": 55,
+    "gamma": 0.95,
+    "horizon": 12,
+    "lam": 0.8,
+    "learning_rate": 0.01,
+    "seed": 19,
+    "test_episodes": 64,
+    "train_episodes": 180,
+    "validation_episodes": 48
+  },
+  "policies_cost_matched": false,
+  "protocol": "H5_STOCHASTIC_SOFTWARE_ENV_TDLAMBDA_v1",
+  "report_sha256_pre_digest": "261f0d75a9b4f1480414db8ed68562ae0d732d434421083960f1e151303711dd",
+  "reward_leakage_into_action_selection": false,
+  "scientific_verdict": "INSTRUMENT_PROTOTYPE_ONLY_REAL_ENV_AND_DNCA_UNTESTED",
+  "source_sha256": {
+    "oracle": "7bfee7a9d9b7f8b8602fd17a94b2e1602df3fdb0af491ce7b7217b69f338f96d",
+    "study": "714021b281c58c5fe65f88b34ef51cebdd43664d30ab131bf0ff1a4c25447b2d"
+  },
+  "td_lambda_targets": "FROZEN_NEXT_VALUE_PER_EPOCH",
+  "torch_version": "2.10.0+cpu",
+  "trajectory_origin": "EXECUTED_STOCHASTIC_SOFTWARE_SIMULATOR_NOT_FIELD_DATA"
+}
