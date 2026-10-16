@@ -90,7 +90,11 @@ def _preflight(run_dir: Path, claim: ArithmeticClaim) -> tuple[dict[str, Any], d
         raise ValueError("untrusted_run_directory")
     if not _SAFE_ID.fullmatch(run_dir.name) or run_dir.name in (".", ".."):
         raise ValueError("invalid_run_id")
+    if (run_dir / "claims").is_symlink() or (run_dir / "claims" / claim.claim_id).is_symlink():
+        raise ValueError("untrusted_claims_directory")
     report = _load_json(run_dir / "final_verdict.json")
+    if report.get("final_verdict") != "INADMISSIBLE":
+        raise ValueError("unexpected_instrument_state")
     if report.get("run_id") != run_dir.name:
         raise ValueError("run_id_mismatch")
     routes = report.get("routes")
