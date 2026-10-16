@@ -189,7 +189,11 @@ def execute_gate(root: Path, output: Path, timeout: int = 240) -> dict[str, Any]
         for name, args in _plan()
     }
     # Validate mandatory test evidence independently of subprocess exit codes.
-    required_summary, required_error = _junit_summary(output / "required-tests.xml")
+    required_junit_path = output / "required-tests.xml"
+    required_summary, required_error = _junit_summary(required_junit_path)
+    required_junit_sha256 = (
+        _sha(required_junit_path.read_bytes()) if required_error is None else None
+    )
     post_manifest, post_missing = _read_manifest(root)
     post_commit, post_commit_error = _git(root, "rev-parse", "HEAD")
     post_dirty, post_status_error = _git(root, "status", "--porcelain", "--untracked-files=all")
@@ -214,6 +218,7 @@ def execute_gate(root: Path, output: Path, timeout: int = 240) -> dict[str, Any]
         "preflight_blockers": blockers,
         "postflight_blockers": postflight,
         "mandatory_test_summary": required_summary,
+        "mandatory_test_junit_sha256": required_junit_sha256,
         "stages": stages,
         "overall": "PASS"
         if not blockers and not postflight
