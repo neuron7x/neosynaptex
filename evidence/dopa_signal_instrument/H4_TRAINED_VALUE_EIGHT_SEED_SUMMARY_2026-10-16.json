@@ -1,0 +1,69 @@
+{
+  "protocol": "H4_SUPERVISED_VALUE_EIGHT_REPLICATE_CONTROL_v2",
+  "date": "2026-10-16",
+  "scientific_verdict": "SYNTHETIC_ONLY_REAL_DNCA_TD_UNTESTED",
+  "runtime": "Python 3.13.5 / PyTorch 2.10.0+cpu",
+  "seeds": [
+    731,
+    1031,
+    1331,
+    1631,
+    1931,
+    2231,
+    2531,
+    2831
+  ],
+  "dataset_per_seed": {
+    "train": 1200,
+    "validation": 320,
+    "test": 384,
+    "groups": 24,
+    "candidates_per_group": 16,
+    "slots": 4
+  },
+  "models": {
+    "full_linear": {
+      "mean_heldout_brier": 0.17264,
+      "mean_beneficial_choices_per_group": 3.31771
+    },
+    "trained_value_net": {
+      "mean_heldout_brier": 0.16993,
+      "mean_beneficial_choices_per_group": 3.34375
+    },
+    "untrained_value_net": {
+      "mean_heldout_brier": 0.25251,
+      "mean_beneficial_choices_per_group": 1.94792
+    },
+    "one_feature_linear": {
+      "mean_heldout_brier": 0.24673,
+      "mean_beneficial_choices_per_group": 2.16146
+    },
+    "shuffled_reward_net": {
+      "mean_heldout_brier": 0.25124,
+      "mean_beneficial_choices_per_group": 1.9375
+    }
+  },
+  "paired_mean_trained_minus_full_linear": 0.02604166666666663,
+  "descriptive_seed_bootstrap_95pct": [
+    -0.03645833333333337,
+    0.10416666666666663
+  ],
+  "mean_trained_minus_untrained": 1.3958333333333333,
+  "stable_detailed_replay_sha256": "8e902328f7d3fcb9c79078234396469f947f0c9e75a4c6ce36e703cf4d920997",
+  "executed_test_total": 23,
+  "tested_file_git_blobs": {
+    "trained_value": "213e16a02ba20aca8df13e8e6ef524c9345fae33",
+    "replay": "5c2bb2a8f3436d0704ed03ccc0d938ab6fa4f0f6",
+    "value_tests": "9439862976202b3dfbd6aab570b749512ade3c05",
+    "replay_tests": "890df014a185e0368764b0f5cd381a2d653565c8"
+  },
+  "oracle_receipts_verified": false,
+  "cost_matched": false,
+  "dnca_step_executed": false,
+  "td_learning_executed": false,
+  "claims": [
+    "supervised value prediction improves over random initialization on this synthetic task",
+    "no demonstrated advantage over full-feature linear baseline",
+    "no real DNCA neuromodulatory advantage demonstrated"
+  ]
+}

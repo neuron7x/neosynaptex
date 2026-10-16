@@ -12,7 +12,7 @@ From a clean checkout of `neuron7x/neosynaptex`, with development dependencies
 installed:
 
 ```bash
-python -m pip install -e '.[dev]' -e agents
+python -m pip install -e '.[dev]' -e 'agents[ml]'
 python scripts/verify_neuroai_offline.py --timeout 240
 ```
 
@@ -42,9 +42,9 @@ The top-level verdict is `PASS` only if all conditions hold:
 6. A separate **mandatory-test** stage runs the core fail-closed security,
    arithmetic verifier, HMAC attestation, negative-control and offline-runner
    tests; an independently parsed JUnit XML must contain at least one actual
-   testcase and **zero skipped, failed or errored testcases**. Fourteen
-   named critical tests (including the actual DopamineOperator first-step
-   identity, signal calibration and oracle-blind multigroup controls) must
+   testcase and **zero skipped, failed or errored testcases**. Twenty
+   named critical tests (including actual DopamineOperator, trained-vs-random
+   value prediction, no-oracle-leakage and eight-seed evidence checks) must
    appear in that JUnit evidence,
    preventing a partial or selectively deselected suite from passing.
    `PYTEST_ADDOPTS` and `PYTEST_PLUGINS` are removed from the subprocess
