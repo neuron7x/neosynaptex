@@ -70,3 +70,24 @@ def test_real_dnca_one_claim_executes_without_truth_feedback() -> None:
     assert len(cues) == 1
     assert math.isfinite(cues[0]) and -1 <= cues[0] <= 1
     assert elapsed_ns >= 0
+
+
+def test_prequential_mocked_multigroup_cues_never_promote_oracle(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Diagnostic orchestration: mocked cue output is never DNCA evidence."""
+    config = pilot.ProbeConfig(seeds=(11, 12, 13, 14), candidates=6, slots=2)
+
+    def stand_in(features, *, seed, config):
+        assert len(features) == 6
+        return [0.08 * (i - 3) for i in range(len(features))], 50, "SIMULATED"
+
+    monkeypatch.setattr(pilot, "collect_real_dnca_cues", stand_in)
+    record = pilot.execute_pilot(config)
+    diagnostic = record["prequential_diagnostic"]
+    assert record["verdict"] == "INSTRUMENT_INADMISSIBLE_UNTRAINED_SIGNAL"
+    assert diagnostic["status"] == "UNQUALIFIED_ORACLE_AND_UNMETERED_COMPUTE"
+    assert diagnostic["n_groups"] == 4
+    assert diagnostic["oracle_receipt_hashes_verified"] is False
+    assert diagnostic["end_to_end_cost_metered"] is False
+    assert len(diagnostic["input_sha256"]) == 64
