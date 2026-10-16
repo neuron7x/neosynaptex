@@ -17,8 +17,14 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "scripts/verify_neuroai_offline.py",
+    "pyproject.toml",
+    "tests/dopa_closure_v2/test_neuroai_offline_gate.py",
+    "tests/dopa_closure_v2/test_failclosed_security.py",
+    "tests/dopa_closure_v2/test_independent_arithmetic_verifier.py",
     "core/eai/dopa_closure_v2.py",
     "core/eai/dopa_independent_verifier.py",
     "core/eai/dopa_run_attestation.py",
@@ -37,6 +43,14 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_run_attestation.py",
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
+_MANDATORY_CASES = frozenset({
+    "test_never_close_without_independent_verifier",
+    "test_real_route_precommit_verifier_receipt",
+    "test_correct_exact_recomputation",
+    "test_valid_key_binds_entire_run",
+    "test_shuffling_priority_cannot_change_mean_or_establish_validity",
+    "test_postflight_fails_if_source_changes_during_tests",
+})
 _MYPY_PATHS = (
     "core/eai/dopa_run_attestation.py",
     "core/eai/dopa_independent_verifier.py",
@@ -77,6 +91,15 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
     return (
         ("compile", ("-m", "compileall", "-q", "core/eai", "tests/dopa_closure_v2")),
         ("pytest", ("-m", "pytest", "-q", "tests/dopa_closure_v2")),
+        ("pytest_required", (
+            "-m", "pytest", "-q", "-p", "no:cacheprovider",
+            "tests/dopa_closure_v2/test_neuroai_offline_gate.py",
+            "tests/dopa_closure_v2/test_failclosed_security.py",
+            "tests/dopa_closure_v2/test_independent_arithmetic_verifier.py",
+            "tests/dopa_closure_v2/test_independent_arithmetic_full_path.py",
+            "tests/dopa_closure_v2/test_run_attestation.py",
+            "tests/dopa_closure_v2/test_control_construct_validity.py",
+        )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
         ("mypy", ("-m", "mypy", *_MYPY_PATHS)),
     )
@@ -85,9 +108,14 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
 def _run(root: Path, name: str, args: tuple[str, ...],
          output: Path, timeout: int) -> dict[str, Any]:
     command = [sys.executable, *args]
+    if name == "pytest_required":
+        command.append("--junitxml=" + str((output / "required-tests.xml").resolve()))
     env = os.environ.copy()
     env["PYTHONHASHSEED"] = "0"
     env["NO_COLOR"] = "1"
+    # A caller-supplied -k/-m via PYTEST_ADDOPTS can silently deselect tests.
+    env.pop("PYTEST_ADDOPTS", None)
+    env.pop("PYTEST_PLUGINS", None)
     try:
         proc = subprocess.run(
             command, cwd=root, capture_output=True, text=True,
@@ -115,6 +143,44 @@ def _run(root: Path, name: str, args: tuple[str, ...],
     }
 
 
+def _junit_summary(path: Path) -> tuple[dict[str, int] | None, str | None]:
+    """Reject absent, empty, corrupt or skipped mandatory test evidence."""
+    if path.is_symlink() or not path.is_file():
+        return None, "required_junit_missing_or_symlink"
+    if path.stat().st_size > 4 * 1024 * 1024:
+        return None, "required_junit_oversize"
+    try:
+        root = ElementTree.parse(path).getroot()
+    except (ElementTree.ParseError, OSError, ValueError) as exc:
+        return None, f"required_junit_invalid:{type(exc).__name__}"
+    if root.tag not in ("testsuite", "testsuites"):
+        return None, "required_junit_wrong_root"
+    cases = root.findall(".//testcase")
+    summary = {
+        "collected": len(cases),
+        "skipped": sum(x.find("skipped") is not None for x in cases),
+        "failures": sum(x.find("failure") is not None for x in cases),
+        "errors": sum(x.find("error") is not None for x in cases),
+    }
+    if not cases or any(summary[key] for key in ("skipped", "failures", "errors")):
+        return summary, "required_tests_missing_skipped_or_failed"
+    observed = {case.get("name", "").split("[", 1)[0] for case in cases}
+    if not _MANDATORY_CASES.issubset(observed):
+        return summary, "mandatory_named_tests_not_executed"
+    return summary, None
+
+
+def _log_blockers(output: Path, stages: dict[str, dict[str, Any]]) -> list[str]:
+    failures: list[str] = []
+    for stage_name, stage in stages.items():
+        logfile = output / str(stage.get("log_file", ""))
+        if logfile.is_symlink() or not logfile.is_file():
+            failures.append(f"stage_log_missing:{stage_name}")
+        elif _sha(logfile.read_bytes()) != stage.get("log_sha256"):
+            failures.append(f"stage_log_sha256_mismatch:{stage_name}")
+    return failures
+
+
 def execute_gate(root: Path, output: Path, timeout: int = 240) -> dict[str, Any]:
     """Execute fixed validation stages and generate an independently replayable record."""
     if timeout < 1 or timeout > 3600:
@@ -136,6 +202,25 @@ def execute_gate(root: Path, output: Path, timeout: int = 240) -> dict[str, Any]
         name: _run(root, name, args, output, timeout)
         for name, args in _plan()
     }
+    # Validate mandatory test evidence independently of subprocess exit codes.
+    required_junit_path = output / "required-tests.xml"
+    required_summary, required_error = _junit_summary(required_junit_path)
+    required_junit_sha256 = (
+        _sha(required_junit_path.read_bytes()) if required_error is None else None
+    )
+    post_manifest, post_missing = _read_manifest(root)
+    post_commit, post_commit_error = _git(root, "rev-parse", "HEAD")
+    post_dirty, post_status_error = _git(root, "status", "--porcelain", "--untracked-files=all")
+    postflight: list[str] = list(post_missing)
+    if post_manifest != manifest:
+        postflight.append("source_manifest_changed_during_validation")
+    if post_commit_error or post_commit != commit:
+        postflight.append("git_head_changed_during_validation")
+    if post_status_error or post_dirty:
+        postflight.append("git_worktree_changed_during_validation")
+    if required_error:
+        postflight.append(required_error)
+    postflight.extend(_log_blockers(output, stages))
     result: dict[str, Any] = {
         "protocol": "NEUROAI_OFFLINE_GATE_v1",
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
@@ -143,10 +228,15 @@ def execute_gate(root: Path, output: Path, timeout: int = 240) -> dict[str, Any]
         "python": sys.version.split()[0],
         "platform": platform.platform(),
         "source_sha256": manifest,
+        "source_sha256_post": post_manifest,
         "preflight_blockers": blockers,
+        "postflight_blockers": postflight,
+        "mandatory_test_summary": required_summary,
+        "mandatory_test_junit_sha256": required_junit_sha256,
         "stages": stages,
         "overall": "PASS"
-        if not blockers and all(v["status"] == "PASS" for v in stages.values())
+        if not blockers and not postflight
+        and all(v["status"] == "PASS" for v in stages.values())
         else "FAIL",
         "epistemic_scope": "LOCAL_CODE_AND_TOOL_EXECUTION_ONLY",
         "does_not_establish": [
