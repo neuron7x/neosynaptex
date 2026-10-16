@@ -20,6 +20,12 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "agents/src/neuron7x_agents/dnca/orchestrator.py",
+    "agents/src/neuron7x_agents/dnca/core/sps.py",
+    "agents/src/neuron7x_agents/dnca/neuromodulators/dopamine.py",
+    "agents/pyproject.toml",
+    "core/eai/dnca_first_step_contract.py",
+    "tests/dopa_closure_v2/test_dnca_first_step_contract.py",
     "core/eai/dnca_claimwise_evaluator.py",
     "tests/dopa_closure_v2/test_dnca_claimwise_evaluator.py",
     "core/eai/dnca_signal_identifiability.py",
@@ -52,6 +58,8 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
 _MANDATORY_CASES = frozenset({
+    "test_real_dopamine_operator_first_step_identity",
+    "test_identity",
     "test_positive_control_has_signal_and_negative_direction",
     "test_constant_cue_is_identical_to_baseline",
     "test_prequential_mocked_multigroup_cues_never_promote_oracle",
@@ -117,6 +125,7 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
             "tests/dopa_closure_v2/test_dnca_signal_identifiability.py",
             "tests/dopa_closure_v2/test_real_dnca_claimwise_pilot.py",
             "tests/dopa_closure_v2/test_dnca_claimwise_evaluator.py",
+            "tests/dopa_closure_v2/test_dnca_first_step_contract.py",
         )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
         ("mypy", ("-m", "mypy", *_MYPY_PATHS)),

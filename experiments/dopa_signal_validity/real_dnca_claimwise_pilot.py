@@ -16,6 +16,7 @@ import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from core.eai.dnca_first_step_contract import assert_one_step_zero_reward_construct
 from core.eai.dnca_claimwise_evaluator import ClaimEvidence, StudyPlan, evaluate
 from core.eai.dnca_signal_identifiability import paired_claimwise_probe
 
@@ -27,6 +28,7 @@ class ProbeConfig:
     state_dim: int = 16
     hidden_dim: int = 32
     slots: int = 4
+    model_seed: int = 20261016
 
     def __post_init__(self) -> None:
         if self.candidates < 3 or self.candidates > 128:
@@ -39,6 +41,10 @@ class ProbeConfig:
             raise ValueError("invalid_slots")
         if not self.seeds or len(set(self.seeds)) != len(self.seeds):
             raise ValueError("invalid_seeds")
+        if type(self.model_seed) is not int or not 0 <= self.model_seed < 2**63:
+            raise ValueError("invalid_model_seed")
+        if any(type(seed) is not int or not 0 <= seed < 2**63 for seed in self.seeds):
+            raise ValueError("invalid_data_seeds")
 
 
 def make_cases(seed: int, config: ProbeConfig) -> tuple[list[tuple[float,...]], list[float], list[int]]:
@@ -58,10 +64,11 @@ def make_cases(seed: int, config: ProbeConfig) -> tuple[list[tuple[float,...]], 
 def collect_real_dnca_cues(
     features: list[tuple[float, ...]], *, seed: int, config: ProbeConfig
 ) -> tuple[list[float], int, str]:
-    """Fresh identical-weight DNCA instance per claim; reward=0, no labels.
+    """Fresh *untrained* same-weight DNCA per claim; reward=0, no labels.
 
-    One step only prevents online learning and cross-claim state contamination.
-    Measures initialization + one-step inference elapsed wall-clock nanoseconds.
+    One step avoids cross-claim learning, but makes valence exactly a clipped
+    random value projection (gamma*V(x)), NOT trained reward prediction error.
+    Assert that construct identity on every real claim or fail closed.
     """
     try:
         import torch
@@ -79,9 +86,19 @@ def collect_real_dnca_cues(
         model = DNCA(state_dim=config.state_dim, hidden_dim=config.hidden_dim,
                      device="cpu", seed=seed)
         model.eval()
+        input_tensor = torch.tensor(x, dtype=torch.float32)
+        dopamine = model.operators["dopamine"]
+        prior_value = float(dopamine._prev_value)
+        discount = float(model.sps.temporal_discount.item())
         with torch.no_grad():
-            model.step(torch.tensor(x, dtype=torch.float32), reward=0.0)
+            raw_value = float(dopamine.value_net(input_tensor).item())
+            model.step(input_tensor, reward=0.0)
         observation = observe_sps(model.sps.snapshot())
+        assert_one_step_zero_reward_construct(
+            current_value=raw_value,
+            observed_valence=observation.signed_valence,
+            discount=discount, previous_value=prior_value, reward=0.0,
+        )
         elapsed = time.perf_counter_ns() - t0
         if observation.step != 1:
             raise RuntimeError("unexpected_dnca_step_count")
@@ -104,7 +121,7 @@ def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
         features, proxy, hidden_labels = make_cases(seed, config)
         # Strict blindness: collect_real_dnca_cues accepts features only, not labels.
         cues, elapsed_ns, torch_version = collect_real_dnca_cues(
-            features, seed=seed, config=config
+            features, seed=config.model_seed, config=config
         )
         analysis = paired_claimwise_probe(proxy, cues, hidden_labels,
                                           config.slots, seed=seed + 41)
@@ -118,7 +135,8 @@ def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
                 oracle_receipt_sha256="",  # Synthetic target, no independent receipt.
             ))
         rows.append({
-            "seed": seed,
+            "data_seed": seed,
+            "model_seed": config.model_seed,
             "torch_version": torch_version,
             "measured_dnca_init_plus_step_ns": elapsed_ns,
             "analysis": analysis,
@@ -142,12 +160,16 @@ def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
         "protocol": "REAL_DNCA_UNTRAINED_CLAIMWISE_PILOT_v1",
         "prequential_diagnostic": prequential,
         "verdict": "INSTRUMENT_INADMISSIBLE_UNTRAINED_SIGNAL",
-        "model_weights": "RANDOM_INITIALIZATION_NOT_CALIBRATED",
+        "model_weights": "FRESH_FIXED_SEED_RANDOM_INITIALIZATION_NOT_TRAINED",
+        "signal_construct": "CLIPPED_GAMMA_TIMES_RANDOM_VALUE_NET_NOT_TD_LEARNING",
+        "first_step_identity_gate": "ENFORCED_PER_REAL_CLAIM",
         "task": "SYNTHETIC_BINARY_UTILITY_NOT_GENERAL_FACTUAL_VERIFICATION",
         "config": asdict(config),
         "runs": rows,
         "notes": [
-            "fresh same-seed DNCA per claim; no reward or access to withheld utility",
+            "model seed fixed across data groups; DNCA reinitialized for each claim",
+            "first-step valence is clipped gamma*random_V(input), NOT temporal learning",
+            "no reward or access to withheld utility",
             "fixed slots across arms; wall time includes DNCA initialization",
             "actual verifier receipts, CPU/energy metering and calibrated value model absent",
             "positive result must never promote scientific validity",
