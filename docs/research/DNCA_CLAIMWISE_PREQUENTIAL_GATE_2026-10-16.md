@@ -8,6 +8,8 @@ runtime and repository-wide CI **have not been executed** in this environment.
 **Prior authoritative result:** `evidence/dopa_closure/RETRACTION.md` remains
 in force; DOPA-CLOSURE is **UNTESTED**, not supported or falsified.
 
+> **H3 correction (2026-10-16):** [First-step TD Construct Correction](DNCA_FIRST_STEP_TD_CONSTRUCT_CORRECTION.md) proves that this pilot's repeatedly reset, zero-reward, one-step DNCA valence is a clipped random value-network projection, not learned temporal reward prediction error. The corrected pilot fixes the model seed across data groups and checks the identity for each actual claim. Any apparent benefit remains INADMISSIBLE.
+
 ## Why this gate exists
 
 A real, nonzero DNCA valence does not establish predictive information. The
