@@ -239,12 +239,26 @@ def _sha_model(model: nn.Module) -> str:
 
 def _metrics(model: nn.Module, episodes: list[list[Step]], gamma: float) -> dict:
     x=_tensor(episodes,"state")
-    truth=monte_carlo(episodes,gamma)
     tic=time.perf_counter_ns()
     with torch.no_grad():
         prediction=model(x).flatten()
     seconds=(time.perf_counter_ns()-tic)/1e9
-    return {"holdout_return_mse":float(torch.mean((prediction-truth)**2)),
+    # Labels are materialized only after all ex-ante predictions are frozen.
+    truth=monte_carlo(episodes,gamma)
+    selected=[]
+    oracle_ceiling=[]
+    start=0
+    for episode in episodes:
+        n=len(episode); k=min(3,n)
+        ids=range(start,start+n)
+        picks=sorted(ids,key=lambda i:(-float(prediction[i]),i))[:k]
+        ideal=sorted(ids,key=lambda i:(-float(truth[i]),i))[:k]
+        selected.append(sum(float(truth[i]) for i in picks)/k)
+        oracle_ceiling.append(sum(float(truth[i]) for i in ideal)/k)
+        start+=n
+    return {"holdout_top3_realized_return":sum(selected)/len(selected),
+            "holdout_top3_oracle_ceiling":sum(oracle_ceiling)/len(oracle_ceiling),
+            "holdout_return_mse":float(torch.mean((prediction-truth)**2)),
             "holdout_return_mae":float(torch.mean(torch.abs(prediction-truth))),
             "inference_seconds":seconds,
             "forward_MACs_upper_bound_per_state":sum(m.in_features*m.out_features for m in model.modules() if isinstance(m,nn.Linear)),
