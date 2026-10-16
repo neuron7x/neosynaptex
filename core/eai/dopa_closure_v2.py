@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 from dataclasses import asdict
@@ -72,9 +73,12 @@ def _provenance(config_path: str | Path) -> dict[str, str]:
 def _write_config_snapshot(
     output: Path, config_path: str | Path, config_hash: str
 ) -> None:
+    # Reject config change between validation and evidence snapshot.
+    config_bytes = Path(config_path).read_bytes()
+    if hashlib.sha256(config_bytes).hexdigest() != config_hash:
+        raise ValueError("config_snapshot_hash_mismatch")
     (output / "config.sha256").write_text(config_hash + "\n", encoding="utf-8")
-    config_text = Path(config_path).read_text(encoding="utf-8")
-    (output / "config.yaml").write_text(config_text, encoding="utf-8")
+    (output / "config.yaml").write_bytes(config_bytes)
 
 
 def _empty_budget_snapshot(cfg: dict[str, Any]) -> dict[str, float | bool | int]:
@@ -176,7 +180,10 @@ def run_allocator_full_path(
     except FileExistsError:
         return Err("run_id_collision")
     verdict = validate_construct_context(construct_context)
-    _write_config_snapshot(output, config_path, allocator.config_hash)
+    try:
+        _write_config_snapshot(output, config_path, allocator.config_hash)
+    except (OSError, ValueError) as exc:
+        return Err(f"config_snapshot_failed:{exc}")
     write_json(output / "construct_gate.json", asdict(verdict))
     if not verdict.admissible:
         final = _inadmissible_result(run_id, verdict, allocator, config_path)
