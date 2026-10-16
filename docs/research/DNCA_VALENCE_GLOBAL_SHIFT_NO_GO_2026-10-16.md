@@ -128,6 +128,11 @@ required-test stage must report a valid JUnit result.
 These checks support a **narrow deterministic software/math statement**,
 not cognitive advantage or truth verification performance.
 
+> **Follow-on evaluation gate (2026-10-16):** [Claimwise Prequential Gate](DNCA_CLAIMWISE_PREQUENTIAL_GATE_2026-10-16.md)
+> introduces group-level paired allocation deltas, bootstrap uncertainty and
+> a within-group cue-permutation control. Its real DNCA adapter is implemented
+> but not executed here; scientific status remains INADMISSIBLE/UNTESTED.
+
 ## 6. Scientific acceptance and falsification gates
 
 Before attributing a benefit to DNCA, pre-register: (i) checkpoint and

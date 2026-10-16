@@ -20,6 +20,8 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "core/eai/dnca_claimwise_evaluator.py",
+    "tests/dopa_closure_v2/test_dnca_claimwise_evaluator.py",
     "core/eai/dnca_signal_identifiability.py",
     "tests/dopa_closure_v2/test_dnca_signal_identifiability.py",
     "experiments/dopa_signal_validity/real_dnca_claimwise_pilot.py",
@@ -50,6 +52,9 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
 _MANDATORY_CASES = frozenset({
+    "test_positive_control_has_signal_and_negative_direction",
+    "test_constant_cue_is_identical_to_baseline",
+    "test_prequential_mocked_multigroup_cues_never_promote_oracle",
     "test_common_global_shift_never_inverts_5000_examples",
     "test_oracle_labels_cannot_be_passed_to_real_dnca_signature",
     "test_discriminates_informative_cue_from_null",
@@ -111,6 +116,7 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
             "tests/dopa_closure_v2/test_synthetic_signal_instrument.py",
             "tests/dopa_closure_v2/test_dnca_signal_identifiability.py",
             "tests/dopa_closure_v2/test_real_dnca_claimwise_pilot.py",
+            "tests/dopa_closure_v2/test_dnca_claimwise_evaluator.py",
         )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
         ("mypy", ("-m", "mypy", *_MYPY_PATHS)),
