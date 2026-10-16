@@ -53,6 +53,12 @@ def certify(path:Path)->dict:
                 raise ValueError('terminal_mismatch')
             if before is not None and any(abs(v-w)>1e-12 for v,w in zip(before,x)):
                 raise ValueError('chain_mismatch')
+            for item in (x,n):
+                if (abs(item[5]-item[0]**2)>1e-10 or abs(item[6]-item[1]*item[2])>1e-10
+                        or abs(item[7]-item[3]**2)>1e-10):
+                    raise ValueError('derived_feature_mismatch')
+            if abs((x[4]-n[4])-1/len(ep))>1e-10:
+                raise ValueError('time_progression_mismatch')
             before=n
             total+=1
     return {'contract':'H5_SOFTWARE_ENV_REWARD_ORACLE_v1',
