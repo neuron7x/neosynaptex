@@ -183,3 +183,26 @@ def test_config_snapshot_rejects_toctou_hash_drift(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="config_snapshot_hash_mismatch"):
         _write_config_snapshot(tmp_path, cfg, correct_hash)
     assert not (tmp_path / "config.sha256").exists()
+
+
+def test_claim_manifest_hash_is_bound_to_ordered_inputs(tmp_path: Path) -> None:
+    import hashlib
+
+    from dataclasses import asdict
+
+    first = _verifiable_risk_proxy()
+    second = ClaimSignal("second", 0.2, 0.1, 0.1, 0.1, 0.9, 0.55)
+    result = run_allocator_full_path(CONFIG, [first, second], tmp_path, DECLARED)
+    assert isinstance(result, Ok)
+    canonical = json.dumps(
+        [asdict(first), asdict(second)],
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+    assert result.value["provenance"]["claims_sha256"] == hashlib.sha256(
+        canonical
+    ).hexdigest()
+    assert result.value["construct_gate"]["evidence_level"] == (
+        "UNATTESTED_CALLER_DECLARATION"
+    )
