@@ -9,6 +9,14 @@ import pytest
 from scripts import verify_neuroai_offline as gate
 
 
+def _valid_junit() -> str:
+    cases = "".join(
+        f'<testcase name="{name}"/>'
+        for name in sorted(gate._MANDATORY_CASES)
+    )
+    return f"<testsuite>{cases}</testsuite>"
+
+
 def test_fixed_plan_uses_python_modules_and_no_shell() -> None:
     commands = gate._plan()
     assert tuple(name for name, _ in commands) == (
@@ -55,7 +63,7 @@ def test_overall_fails_closed_on_any_precondition(
         data = b"fixture\n"
         if name == "pytest_required":
             (output / "required-tests.xml").write_text(
-                '<testsuite><testcase classname="required" name="test_required"/></testsuite>',
+                _valid_junit(),
                 encoding="utf-8",
             )
         (output / f"{name}.log").write_bytes(data)
@@ -93,7 +101,7 @@ def test_gate_records_pass_only_with_clean_sources_and_all_success(
         raw = b"logged\n"
         if name == "pytest_required":
             (output / "required-tests.xml").write_text(
-                '<testsuite><testcase classname="required" name="test_required"/></testsuite>',
+                _valid_junit(),
                 encoding="utf-8",
             )
         (output / f"{name}.log").write_bytes(raw)
@@ -135,6 +143,8 @@ def test_required_junit_rejects_missing_empty_and_skipped(tmp_path: Path) -> Non
         '<testsuite><testcase name="a"/></testsuite>',
         encoding="utf-8",
     )
+    assert gate._junit_summary(path)[1] == "mandatory_named_tests_not_executed"
+    path.write_text(_valid_junit(), encoding="utf-8")
     assert gate._junit_summary(path)[1] is None
 
 
@@ -170,7 +180,7 @@ def test_postflight_fails_if_source_changes_during_tests(
         (output / f"{name}.log").write_bytes(data)
         if name == "pytest_required":
             (output / "required-tests.xml").write_text(
-                '<testsuite><testcase name="required"/></testsuite>',
+                _valid_junit(),
                 encoding="utf-8",
             )
         if name == "pytest":
