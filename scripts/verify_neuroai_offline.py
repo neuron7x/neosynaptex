@@ -20,6 +20,10 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "core/eai/dnca_signal_identifiability.py",
+    "tests/dopa_closure_v2/test_dnca_signal_identifiability.py",
+    "experiments/dopa_signal_validity/real_dnca_claimwise_pilot.py",
+    "tests/dopa_closure_v2/test_real_dnca_claimwise_pilot.py",
     "experiments/dopa_signal_validity/paired_instrument.py",
     "tests/dopa_closure_v2/test_synthetic_signal_instrument.py",
     "scripts/verify_neuroai_offline.py",
@@ -46,6 +50,8 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
 _MANDATORY_CASES = frozenset({
+    "test_common_global_shift_never_inverts_5000_examples",
+    "test_oracle_labels_cannot_be_passed_to_real_dnca_signature",
     "test_discriminates_informative_cue_from_null",
     "test_never_close_without_independent_verifier",
     "test_real_route_precommit_verifier_receipt",
@@ -103,6 +109,8 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
             "tests/dopa_closure_v2/test_run_attestation.py",
             "tests/dopa_closure_v2/test_control_construct_validity.py",
             "tests/dopa_closure_v2/test_synthetic_signal_instrument.py",
+            "tests/dopa_closure_v2/test_dnca_signal_identifiability.py",
+            "tests/dopa_closure_v2/test_real_dnca_claimwise_pilot.py",
         )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
         ("mypy", ("-m", "mypy", *_MYPY_PATHS)),
