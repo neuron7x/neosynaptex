@@ -17,7 +17,10 @@ Interaction: opponent with 5HT (appetitive vs aversive RPE)
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Mapping
+import hashlib
+import re
+import math
 
 import torch
 import torch.nn as nn
@@ -44,6 +47,62 @@ class DopamineOperator(NeuromodulatoryOperator):
         )
         self._prev_value: float = 0.0
         self._rpe_history: List[float] = []
+
+    def install_frozen_value_weights(
+        self,
+        weights: Mapping[str, torch.Tensor],
+        *,
+        expected_sha256: str,
+    ) -> str:
+        """Install a trained checkpoint from tensor values, never pickle bytes.
+
+        The caller must independently verify training provenance and data
+        admissibility; SHA-256 authenticates no external authority.
+        """
+        if not isinstance(expected_sha256, str) or not re.fullmatch(r"[a-f0-9]{64}", expected_sha256):
+            raise ValueError("invalid_expected_checkpoint_digest")
+        existing = self.value_net.state_dict()
+        if set(weights) != set(existing):
+            raise ValueError("value_checkpoint_keys_mismatch")
+        copied: dict[str, torch.Tensor] = {}
+        for name, reference in existing.items():
+            candidate = weights[name]
+            if not isinstance(candidate, torch.Tensor) or candidate.shape != reference.shape:
+                raise ValueError("value_checkpoint_shape_mismatch")
+            if candidate.dtype != reference.dtype or not torch.isfinite(candidate).all():
+                raise ValueError("value_checkpoint_dtype_or_finiteness")
+            copied[name] = candidate.detach().to(device=reference.device).clone()
+        h = hashlib.sha256()
+        for name, value in sorted(copied.items()):
+            array = value.cpu().contiguous().numpy()
+            h.update(name.encode())
+            h.update(str(array.dtype).encode())
+            h.update(str(array.shape).encode())
+            h.update(array.tobytes())
+        digest = h.hexdigest()
+        if digest != expected_sha256:
+            raise ValueError("value_checkpoint_hash_mismatch")
+        self.value_net.load_state_dict(copied, strict=True)
+        self.value_net.eval()
+        for parameter in self.value_net.parameters():
+            parameter.requires_grad_(False)
+        self._prev_value = 0.0
+        self._rpe_history.clear()
+        self.value_checkpoint_sha256 = digest
+        self.value_assurance_level = "FROZEN_WEIGHTS_NOT_EXTERNALLY_QUALIFIED"
+        return digest
+
+    def predict_value_ex_ante(self, state: torch.Tensor) -> float:
+        """Read frozen state value BEFORE oracle reward; no state mutation."""
+        if state.ndim != 1 or state.numel() != self.state_dim or not torch.isfinite(state).all():
+            raise ValueError("invalid_ex_ante_state")
+        if getattr(self, "value_assurance_level", None) != "FROZEN_WEIGHTS_NOT_EXTERNALLY_QUALIFIED":
+            raise ValueError("no_frozen_checkpoint_installed")
+        with torch.no_grad():
+            value = float(self.value_net(state.float()).item())
+        if not math.isfinite(value):
+            raise ValueError("nonfinite_ex_ante_value")
+        return value
 
     def modulate(self, sps: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
         """Compute RPE with asymmetric gain, write to dopamine_signal."""

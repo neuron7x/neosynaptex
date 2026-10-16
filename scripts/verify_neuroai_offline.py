@@ -20,6 +20,10 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "experiments/dopa_signal_validity/h5_td_lambda.py",
+    "experiments/dopa_signal_validity/h5_oracle.py",
+    "tests/dopa_closure_v2/test_h5_td_lambda.py",
+    "tests/dopa_closure_v2/test_h5_dopamine_checkpoint.py",
     "experiments/dopa_signal_validity/trained_value_falsification.py",
     "experiments/dopa_signal_validity/h4_replicate_study.py",
     "tests/dopa_closure_v2/test_trained_value_falsification.py",
@@ -64,6 +68,12 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
 _MANDATORY_CASES = frozenset({
+    "test_lambda_one_equals_monte_carlo_even_when_bootstrap_wrong",
+    "test_separate_process_oracle_approves_authentic_and_detects_tampering",
+    "test_forged_derived_markov_features_rejected",
+    "test_training_preserves_oracle_independence_and_cost_trace",
+    "test_real_operator_consumes_frozen_td_lambda_weights",
+    "test_tampered_h5_tensor_rejected_before_operator_mutation",
     "test_train_val_test_distinct",
     "test_no_oracle_leakage_during_selection",
     "test_replay_never_claims_real_dnca_or_independent_oracle",
@@ -140,6 +150,8 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
             "tests/dopa_closure_v2/test_dnca_first_step_contract.py",
             "tests/dopa_closure_v2/test_trained_value_falsification.py",
             "tests/dopa_closure_v2/test_h4_replicate_study.py",
+            "tests/dopa_closure_v2/test_h5_td_lambda.py",
+            "tests/dopa_closure_v2/test_h5_dopamine_checkpoint.py",
             "tests/dopa_closure_v2/test_trained_value_falsification.py",
         )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
