@@ -143,3 +143,43 @@ def test_failed_construct_no_closure(tmp_path: Path) -> None:
     assert isinstance(res, Ok)
     assert res.value["final_verdict"] == "INSTRUMENT_INADMISSIBLE"
     assert res.value["routes"] == []
+
+
+def test_yaml_nonfinite_numbers_are_blocked(tmp_path: Path) -> None:
+    src = Path(CONFIG).read_text(encoding="utf-8")
+    modified = src.replace("load_center: 0.55", "load_center: .nan")
+    cfg = tmp_path / "config.yaml"
+    cfg.write_text(modified, encoding="utf-8")
+    result = run_allocator_full_path(cfg, [_verifiable_risk_proxy()], tmp_path, DECLARED)
+    assert isinstance(result, Err)
+    assert "nonfinite_number" in result.reason
+    assert not (tmp_path / "runs").exists()
+
+
+def test_yaml_threshold_order_and_missing_cost_are_blocked(tmp_path: Path) -> None:
+    src = Path(CONFIG).read_text(encoding="utf-8")
+    wrong_order = src.replace("    verify: 0.44", "    verify: 0.90")
+    path = tmp_path / "bad-order.yaml"
+    path.write_text(wrong_order, encoding="utf-8")
+    result = run_allocator_full_path(path, [_verifiable_risk_proxy()], tmp_path, DECLARED)
+    assert isinstance(result, Err)
+    assert "routing_thresholds_out_of_order" in result.reason
+    missing_cost = src.replace("    quarantine: 2.0\n", "")
+    path.write_text(missing_cost, encoding="utf-8")
+    result = run_allocator_full_path(path, [_verifiable_risk_proxy()], tmp_path, DECLARED)
+    assert isinstance(result, Err)
+    assert "missing_action_cost:quarantine" in result.reason
+
+
+def test_config_snapshot_rejects_toctou_hash_drift(tmp_path: Path) -> None:
+    import hashlib
+
+    from core.eai.dopa_closure_v2 import _write_config_snapshot
+
+    cfg = tmp_path / "config.yaml"
+    cfg.write_text("key: old\n", encoding="utf-8")
+    correct_hash = hashlib.sha256(cfg.read_bytes()).hexdigest()
+    cfg.write_text("key: new\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="config_snapshot_hash_mismatch"):
+        _write_config_snapshot(tmp_path, cfg, correct_hash)
+    assert not (tmp_path / "config.sha256").exists()
