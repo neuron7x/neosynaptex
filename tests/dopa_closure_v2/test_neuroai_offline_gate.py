@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import hashlib
-from xml.etree import ElementTree
 from pathlib import Path
 
 import pytest
