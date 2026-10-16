@@ -117,3 +117,27 @@ def test_oracle_cannot_use_model_parameters():
     import inspect
     from experiments.dopa_signal_validity.h5_td_lambda import separate_process_oracle
     assert set(inspect.signature(separate_process_oracle).parameters)=={'trajectories'}
+
+
+def test_training_outputs_frozen_safe_tensor_handoff():
+    from experiments.dopa_signal_validity.h5_td_lambda import prepare_frozen_value_checkpoint
+    p=Plan(train_episodes=48,validation_episodes=16,test_episodes=20,epochs=10)
+    weights,digest,meta=prepare_frozen_value_checkpoint(p)
+    assert len(digest)==64
+    assert set(weights)=={'0.weight','0.bias','2.weight','2.bias'}
+    assert tuple(weights['0.weight'].shape)==(16,8)
+    assert tuple(weights['2.weight'].shape)==(1,16)
+    assert all(isinstance(x,torch.Tensor) and torch.isfinite(x).all() for x in weights.values())
+    assert meta['domain']=='STOCHASTIC_SOFTWARE_ENV_NOT_FIELD_DATA'
+
+
+def test_forged_derived_markov_features_rejected():
+    eps=collect(8,5,6)
+    s=list(eps[0][0].state)
+    s[5]+=0.4
+    eps[0][0]=replace(eps[0][0],state=tuple(s))
+    with pytest.raises(ValueError,match='forged_derived_features'):
+        audit_oracle(eps)
+    from experiments.dopa_signal_validity.h5_td_lambda import separate_process_oracle
+    with pytest.raises(ValueError,match='separate_oracle_rejected'):
+        separate_process_oracle(eps)
