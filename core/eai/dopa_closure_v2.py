@@ -107,6 +107,7 @@ def _inadmissible_result(
     verdict: Any,
     allocator: DopaClosureV2Allocator,
     config_path: str | Path,
+    claims: list[ClaimSignal],
 ) -> dict[str, Any]:
     return {
         "run_id": run_id,
@@ -203,7 +204,7 @@ def run_allocator_full_path(
         "evidence_level": "UNATTESTED_CALLER_DECLARATION",
     })
     if not verdict.admissible:
-        final = _inadmissible_result(run_id, verdict, allocator, config_path)
+        final = _inadmissible_result(run_id, verdict, allocator, config_path, claims)
         write_json(output / "budget_ledger.json", final["budget_ledger"])
         write_json(output / "controls.json", final["controls"])
         write_json(output / "final_verdict.json", final)
