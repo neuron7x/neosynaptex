@@ -40,6 +40,9 @@ def test_mocked_cues_never_promote_untrained_model(
     assert record["runs"][0]["analysis"]["global_shift_strict_inversions"] == 0
     assert record["runs"][0]["analysis"]["all_arms_same_slots"]
     assert record["runs"][0]["torch_version"] == "SIMULATED"
+    assert len(record["runs"][0]["sensory_inputs_sha256"]) == 64
+    assert len(record["runs"][0]["withheld_utility_sha256"]) == 64
+    assert len(record["runs"][0]["cue_values_sha256"]) == 64
 
 
 @pytest.mark.parametrize("options", [
