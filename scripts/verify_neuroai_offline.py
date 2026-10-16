@@ -20,6 +20,8 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "experiments/dopa_signal_validity/trained_value_falsification.py",
+    "tests/dopa_closure_v2/test_trained_value_falsification.py",
     "agents/src/neuron7x_agents/dnca/orchestrator.py",
     "agents/src/neuron7x_agents/dnca/core/sps.py",
     "agents/src/neuron7x_agents/dnca/neuromodulators/dopamine.py",
@@ -58,6 +60,9 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
 _MANDATORY_CASES = frozenset({
+    "test_always_scientifically_inadmissible",
+    "test_no_oracle_leakage_during_selection",
+    "test_random_seed_gives_matching_checkpoint_and_metric",
     "test_real_dopamine_operator_first_step_identity",
     "test_identity",
     "test_positive_control_has_signal_and_negative_direction",
@@ -126,6 +131,7 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
             "tests/dopa_closure_v2/test_real_dnca_claimwise_pilot.py",
             "tests/dopa_closure_v2/test_dnca_claimwise_evaluator.py",
             "tests/dopa_closure_v2/test_dnca_first_step_contract.py",
+            "tests/dopa_closure_v2/test_trained_value_falsification.py",
         )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
         ("mypy", ("-m", "mypy", *_MYPY_PATHS)),
