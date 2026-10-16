@@ -301,3 +301,21 @@ def run(p:Plan=Plan()) -> dict:
                 "model trained offline but not installed into live DNCA",
                 "training cost and inference cost measured but not matched"]}
     return report
+
+
+def prepare_frozen_value_checkpoint(p: Plan = Plan()):
+    """In-memory safe tensor handoff, no pickle; no access to test episodes.
+
+    This is a software-environment trained predictor, not a qualified field oracle.
+    """
+    torch.set_num_threads(1)
+    torch.manual_seed(p.seed)
+    train=collect(p.seed+101,p.train_episodes,p.horizon)
+    val=collect(p.seed+202,p.validation_episodes,p.horizon)
+    train_receipt=separate_process_oracle(train)
+    val_receipt=separate_process_oracle(val)
+    network=nn.Sequential(nn.Linear(8,16),nn.GELU(),nn.Linear(16,1))
+    network,metadata=_fit(network,train,val,p)
+    weights={key:val.detach().cpu().clone() for key,val in network.state_dict().items()}
+    return weights,_sha_model(network),{"training":metadata,"train_receipt":train_receipt,
+        "validation_receipt":val_receipt,"domain":"STOCHASTIC_SOFTWARE_ENV_NOT_FIELD_DATA"}
