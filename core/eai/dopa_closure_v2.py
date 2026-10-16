@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import os
+import re
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -61,19 +64,30 @@ class DopaClosureV2Allocator:
         return max(0.0, float((drive + scarcity_boost) * load_gate))
 
 
-def _provenance(config_path: str | Path) -> dict[str, str]:
+def _provenance(config_path: str | Path, claims: list[ClaimSignal]) -> dict[str, str]:
+    """Content-binding diagnostics, not independent verifier attestation."""
+    encoded = json.dumps(
+        [asdict(claim) for claim in claims],
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "config_path": str(config_path),
+        "claims_sha256": hashlib.sha256(encoded).hexdigest(),
     }
 
 
 def _write_config_snapshot(
     output: Path, config_path: str | Path, config_hash: str
 ) -> None:
+    # Reject config change between validation and evidence snapshot.
+    config_bytes = Path(config_path).read_bytes()
+    if hashlib.sha256(config_bytes).hexdigest() != config_hash:
+        raise ValueError("config_snapshot_hash_mismatch")
     (output / "config.sha256").write_text(config_hash + "\n", encoding="utf-8")
-    config_text = Path(config_path).read_text(encoding="utf-8")
-    (output / "config.yaml").write_text(config_text, encoding="utf-8")
+    (output / "config.yaml").write_bytes(config_bytes)
 
 
 def _empty_budget_snapshot(cfg: dict[str, Any]) -> dict[str, float | bool | int]:
@@ -93,6 +107,7 @@ def _inadmissible_result(
     verdict: Any,
     allocator: DopaClosureV2Allocator,
     config_path: str | Path,
+    claims: list[ClaimSignal],
 ) -> dict[str, Any]:
     return {
         "run_id": run_id,
@@ -100,12 +115,16 @@ def _inadmissible_result(
         "final_verdict": verdict.verdict,
         "failure_reasons": verdict.reasons,
         "config_hash": allocator.config_hash,
-        "construct_gate": asdict(verdict),
+        "construct_gate": {
+            **asdict(verdict),
+            "scope": "ROUTING_ONLY",
+            "evidence_level": "UNATTESTED_CALLER_DECLARATION",
+        },
         "controls": asdict(run_controls([], [], seed=0)),
         "budget_ledger": _empty_budget_snapshot(allocator.config),
         "routes": [],
         "artifact_hashes": {},
-        "provenance": _provenance(config_path),
+        "provenance": _provenance(config_path, claims),
         "deferred_due_budget": 0,
     }
 
@@ -162,14 +181,30 @@ def run_allocator_full_path(
     except ValueError as exc:
         return Err(str(exc))
 
+    # A run identifier is a file-system component, not an arbitrary path.
     run_id = _run_id()
+    if run_id in (".", "..") or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", run_id):
+        return Err("invalid_run_id")
+    if len({c.claim_id for c in claims}) != len(claims):
+        return Err("duplicate_claim_ids")
     output = Path(output_root) / "runs" / run_id
-    output.mkdir(parents=True, exist_ok=True)
+    try:
+        # Atomic exclusive creation prevents artifact clobbering on ID collisions.
+        output.mkdir(parents=True, exist_ok=False)
+    except FileExistsError:
+        return Err("run_id_collision")
     verdict = validate_construct_context(construct_context)
-    _write_config_snapshot(output, config_path, allocator.config_hash)
-    write_json(output / "construct_gate.json", asdict(verdict))
+    try:
+        _write_config_snapshot(output, config_path, allocator.config_hash)
+    except (OSError, ValueError) as exc:
+        return Err(f"config_snapshot_failed:{exc}")
+    write_json(output / "construct_gate.json", {
+        **asdict(verdict),
+        "scope": "ROUTING_ONLY",
+        "evidence_level": "UNATTESTED_CALLER_DECLARATION",
+    })
     if not verdict.admissible:
-        final = _inadmissible_result(run_id, verdict, allocator, config_path)
+        final = _inadmissible_result(run_id, verdict, allocator, config_path, claims)
         write_json(output / "budget_ledger.json", final["budget_ledger"])
         write_json(output / "controls.json", final["controls"])
         write_json(output / "final_verdict.json", final)
@@ -234,16 +269,14 @@ def run_allocator_full_path(
         elif verify_unaffordable:
             final_status = _final_status_for(executed_mode)
         elif executed_mode == RouteMode.VERIFY:
-            verification_result = "inconclusive"
-            if claim.evidence_risk <= thresholds["close_evidence_risk_max"]:
-                verification_result = "pass"
-            final_status = (
-                FinalStatus.CLOSED
-                if verification_result == "pass"
-                else FinalStatus.QUARANTINED
-            )
+            # Routing is not verification. An evidence-risk threshold cannot
+            # manufacture a verifier result or authorize CLOSED.
+            verification_result = "not_run"
+            final_status = FinalStatus.VERIFY
 
-        ledger.register_failure(final_status != FinalStatus.CLOSED)
+        # No verifier ran in this path; do not treat deferred verification
+        # as either successful closure or a failed independent verification.
+        ledger.register_failure(False)
 
         claim_dir = output / "claims" / claim.claim_id
         artifact = claim_artifact_name(executed_mode.value, final_status.value)
@@ -261,9 +294,8 @@ def run_allocator_full_path(
             "config_hash": allocator.config_hash,
         }
         write_json(claim_dir / artifact, route_doc)
+        # Hashing a routing request would not constitute independent evidence.
         route_doc["verification_artifact_hash"] = None
-        if final_status == FinalStatus.CLOSED:
-            route_doc["verification_artifact_hash"] = sha256_file(claim_dir / artifact)
         write_json(claim_dir / "route.json", route_doc)
         artifact_hashes[f"{claim.claim_id}/{artifact}"] = sha256_file(
             claim_dir / artifact
@@ -281,18 +313,19 @@ def run_allocator_full_path(
     random_u = controls_doc.get("random_routing_mean_priority", 0.0)
     allocator_u = sum(priorities) / max(1, len(priorities))
     degradation_triggered = allocator_u <= random_u
+    # Diagnostic proxy controls may inform routing development, but without
+    # a separately executed, qualified verifier the closure instrument is
+    # categorically INADMISSIBLE, regardless of internal priority scores.
     final_verdict = "INADMISSIBLE"
-    if controls_doc["passed"] and not degradation_triggered:
-        final_verdict = "ADMISSIBLE"
     result: dict[str, Any] = {
         "run_id": run_id,
         "commit_sha": _git_head_sha(),
         "final_verdict": final_verdict,
-        "failure_reasons": _failure_reasons(
-            final_verdict,
-            controls_doc,
-            degradation_triggered,
-        ),
+        "failure_reasons": [
+            "independent_verifier_not_executed",
+            "construct_context_not_independently_attested",
+            *_failure_reasons(final_verdict, controls_doc, degradation_triggered),
+        ],
         "config_hash": allocator.config_hash,
         "construct_gate": asdict(verdict),
         "controls": controls_doc,
@@ -300,7 +333,7 @@ def run_allocator_full_path(
         "deferred_due_budget": deferred_due_budget,
         "routes": routes,
         "artifact_hashes": artifact_hashes,
-        "provenance": _provenance(config_path),
+        "provenance": _provenance(config_path, claims),
     }
     write_json(output / "budget_ledger.json", result["budget_ledger"])
     write_json(output / "final_verdict.json", result)

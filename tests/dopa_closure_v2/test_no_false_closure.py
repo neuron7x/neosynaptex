@@ -11,5 +11,8 @@ def test_no_false_closure(tmp_path):
     assert isinstance(res, Ok)
     out = res.value
     route = out["routes"][0]
-    if route["final_status"] == "CLOSED":
-        assert route["verification_result"] == "pass"
+    # A risk score alone is not independent evidence of claim correctness.
+    assert route["final_status"] != "CLOSED"
+    assert route["verification_result"] == "not_run"
+    assert route["verification_artifact_hash"] is None
+    assert out["final_verdict"] == "INADMISSIBLE"

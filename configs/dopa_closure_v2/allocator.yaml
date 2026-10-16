@@ -27,8 +27,8 @@ budget:
     reject: 2.5
     close: 3.0
 modes:
-  cheap_triage: {artifact: closure_artifact.json}
-  verify: {artifact: closure_artifact.json}
+  cheap_triage: {artifact: triage_request.json}
+  verify: {artifact: verification_request.json}
   escalate: {artifact: escalation_trace.json}
   quarantine: {artifact: quarantine_artifact.json}
   reject: {artifact: rejection_artifact.json}
