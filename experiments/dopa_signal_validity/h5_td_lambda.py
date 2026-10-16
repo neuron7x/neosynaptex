@@ -326,3 +326,32 @@ def prepare_frozen_value_checkpoint(p: Plan = Plan()):
     weights={key:val.detach().cpu().clone() for key,val in network.state_dict().items()}
     return weights,_sha_model(network),{"training":metadata,"train_receipt":train_receipt,
         "validation_receipt":val_receipt,"domain":"STOCHASTIC_SOFTWARE_ENV_NOT_FIELD_DATA"}
+
+
+def main() -> int:
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--seed',type=int,default=Plan.seed)
+    args=parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError('refuse_to_overwrite_h5_evidence')
+    record=run(Plan(seed=args.seed))
+    record['source_sha256']={
+        'study':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'oracle':hashlib.sha256(Path(__file__).with_name('h5_oracle.py').read_bytes()).hexdigest(),
+    }
+    record['report_sha256_pre_digest']=hashlib.sha256(json.dumps(
+        record,sort_keys=True,separators=(',',':'),allow_nan=False,
+    ).encode()).hexdigest()
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    with args.output.open('x',encoding='utf-8') as output:
+        json.dump(record,output,indent=2,sort_keys=True,allow_nan=False)
+        output.write('\n')
+    print(json.dumps({'scientific_verdict':record['scientific_verdict'],
+                      'sha256':record['report_sha256_pre_digest']}))
+    return 0
+
+
+if __name__=='__main__':
+    raise SystemExit(main())
