@@ -20,6 +20,8 @@ from typing import Any
 from xml.etree import ElementTree
 
 _SOURCE_PATHS = (
+    "experiments/dopa_signal_validity/paired_instrument.py",
+    "tests/dopa_closure_v2/test_synthetic_signal_instrument.py",
     "scripts/verify_neuroai_offline.py",
     "pyproject.toml",
     "tests/dopa_closure_v2/test_neuroai_offline_gate.py",
@@ -44,6 +46,7 @@ _LINT_PATHS = (
     "tests/dopa_closure_v2/test_control_construct_validity.py",
 )
 _MANDATORY_CASES = frozenset({
+    "test_discriminates_informative_cue_from_null",
     "test_never_close_without_independent_verifier",
     "test_real_route_precommit_verifier_receipt",
     "test_correct_exact_recomputation",
@@ -99,6 +102,7 @@ def _plan() -> tuple[tuple[str, tuple[str, ...]], ...]:
             "tests/dopa_closure_v2/test_independent_arithmetic_full_path.py",
             "tests/dopa_closure_v2/test_run_attestation.py",
             "tests/dopa_closure_v2/test_control_construct_validity.py",
+            "tests/dopa_closure_v2/test_synthetic_signal_instrument.py",
         )),
         ("ruff", ("-m", "ruff", "check", *_LINT_PATHS)),
         ("mypy", ("-m", "mypy", *_MYPY_PATHS)),
