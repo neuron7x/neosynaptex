@@ -34,6 +34,7 @@
 | C4 / high | `DOPA_RUN_ID` path injection / repeated run ID overwrite / duplicate claims overwrite | Strict single-segment ID, exclusive run-directory creation, duplicate validation before output | Other output roots are trusted caller inputs; no hardened filesystem sandbox |
 | C5 / high | YAML `.nan`, underdeclared thresholds/costs; hash/payload race | Recursive finite-number check, required-field/order validation, one-byte read, hash-bound emitted config snapshot | Does not yet bind weights, runtime tensors and data manifest into one signed evidence chain |
 | C6 / major | Unverified routing request could be named `closure_artifact.json` | Generate `verification_request.json` and `triage_request.json` with synced SSOT config | Older consumers may depend on legacy filenames; migration needed |
+| C7 / major | Routes lacked a canonical digest of original ordered claim signals | SHA-256 over canonicalized ordered `ClaimSignal` inputs; explicit `UNATTESTED_CALLER_DECLARATION` construct level | SHA identifies input bytes, not their trustworthiness; does not authenticate upstream sensory data |
 
 ## Important backward-compatibility notice
 
