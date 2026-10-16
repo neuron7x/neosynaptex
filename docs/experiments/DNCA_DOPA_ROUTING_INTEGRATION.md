@@ -1,5 +1,12 @@
 # DNCA -> DOPA-CLOSURE v2: routing-only integration (experimental)
 
+**Research-grade justification:** [DNCA × DOPA Scientific Evidence Case](../research/DNCA_DOPA_SCIENTIFIC_EVIDENCE_CASE.md)
+contains nine primary/authoritative sources, explicit formulas, conditional proofs,
+test traceability, preregistration criteria and unresolved critical blockers.
+It distinguishes biological support, computational analogy, static code review
+and **unverified** empirical performance. This integration must not be described
+as an independently verified claim-closure engine.
+
 ## Scope and scientific boundary
 
 This vertical slice connects the **real executed DNCA** shared predictive state
