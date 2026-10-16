@@ -89,6 +89,13 @@ def collect_real_dnca_cues(
     return cues, total_ns, str(torch.__version__)
 
 
+def _content_hash(value: object) -> str:
+    """Stable canonical payload digest (integrity only, never authenticity)."""
+    return hashlib.sha256(json.dumps(
+        value, sort_keys=True, separators=(",", ":"), allow_nan=False
+    ).encode("utf-8")).hexdigest()
+
+
 def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
     rows: list[dict[str, object]] = []
     for seed in config.seeds:
@@ -107,6 +114,9 @@ def execute_pilot(config: ProbeConfig = ProbeConfig()) -> dict[str, object]:
             "cue_min": min(cues),
             "cue_max": max(cues),
             "cue_values": cues,
+            "sensory_inputs_sha256": _content_hash(features),
+            "withheld_utility_sha256": _content_hash(hidden_labels),
+            "cue_values_sha256": _content_hash(cues),
         })
     data: dict[str, object] = {
         "protocol": "REAL_DNCA_UNTRAINED_CLAIMWISE_PILOT_v1",
