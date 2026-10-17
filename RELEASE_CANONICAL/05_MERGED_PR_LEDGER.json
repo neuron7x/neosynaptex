@@ -1,0 +1,106 @@
+{
+  "record": "NEOSYNAPTEX_H5_MERGED_PR_LEDGER",
+  "snapshot_commit": "04f232e22066e594a29fa9b95e28a7ac48851122",
+  "prs": [
+    {
+      "number": 5,
+      "title": "DNCA-to-DOPA fail-closed routing",
+      "merge_sha": "bc59464d120e9dabc3deaa2a5de1ac33e4d72761",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/5"
+    },
+    {
+      "number": 6,
+      "title": "Theory, external research and scientific claims",
+      "merge_sha": "377fa20a02aaaeb98395ceb0403e021877588a5b",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/6"
+    },
+    {
+      "number": 7,
+      "title": "Closure/budget fail-closed safeguards",
+      "merge_sha": "b4d9a363e240cf66853337a2510a958330234d0d",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/7"
+    },
+    {
+      "number": 8,
+      "title": "Precommitted independent arithmetic receipts",
+      "merge_sha": "576b4228f5b9f844c501472e04116bf6ec87ea88",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/8"
+    },
+    {
+      "number": 9,
+      "title": "Authenticated provenance and replay boundary",
+      "merge_sha": "e9b73d5ab54300ca154afd0dbc028c9aaab9d793",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/9"
+    },
+    {
+      "number": 10,
+      "title": "Repaired non-identifying negative-control metric",
+      "merge_sha": "1ee681aff55beac25ff82b8315f7218a0a6c92d0",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/10"
+    },
+    {
+      "number": 11,
+      "title": "Offline validation source and logs",
+      "merge_sha": "e35ad528189f1f0ffbc0c8792e8d2c4957c4f927",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/11"
+    },
+    {
+      "number": 12,
+      "title": "Mandatory tests and anti-tamper offline gate",
+      "merge_sha": "4efd9c9e1cbab4f3736544ff359af8b0f4c365c0",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/12"
+    },
+    {
+      "number": 13,
+      "title": "Synthetic signal positive and null controls",
+      "merge_sha": "f583264068d3d3cc4eddd5a5a8f95ca56fe0d38e",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/13"
+    },
+    {
+      "number": 14,
+      "title": "Global DNCA valence rank no-go and claimwise pilot",
+      "merge_sha": "281c4254be7b0b18195a5c54d6845e99bb5c4c91",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/14"
+    },
+    {
+      "number": 15,
+      "title": "Blinded claimwise paired evaluation",
+      "merge_sha": "ec4d0e8a987f1e2a8f42c6a290b4f2d9ef114c90",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/15"
+    },
+    {
+      "number": 16,
+      "title": "First-step TD construct corrected",
+      "merge_sha": "6088e75df52fb606ebd6c7d146d8c8e6ab210e58",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/16"
+    },
+    {
+      "number": 17,
+      "title": "H4 trained value against full-feature linear",
+      "merge_sha": "40da531ebbfb2d0e68fbf9da457dda7ee8143818",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/17"
+    },
+    {
+      "number": 18,
+      "title": "H5 stochastic simulator TD lambda, oracle and DopamineOperator API",
+      "merge_sha": "04f232e22066e594a29fa9b95e28a7ac48851122",
+      "merged": true,
+      "url": "https://github.com/neuron7x/neosynaptex/pull/18"
+    }
+  ],
+  "count": 14,
+  "verified_from": "GitHub get_pr_info; per-PR merged states and merge commit SHA observed"
+}
