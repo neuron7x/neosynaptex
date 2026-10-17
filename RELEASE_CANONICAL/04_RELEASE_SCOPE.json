@@ -1,0 +1,32 @@
+{
+  "format": "NEOSYNAPTEX_CANONICAL_SOURCE_H5_V1",
+  "date": "2026-10-17",
+  "repository": "neuron7x/neosynaptex",
+  "release_branch": "release/neosynaptex-h5-canonical-20261017",
+  "base_commit": "04f232e22066e594a29fa9b95e28a7ac48851122",
+  "base_tree": "57b4f5804a66c9efc263a97f20d307ef2aac872b",
+  "github_tree_api_truncated": false,
+  "base_git_blobs": 10694,
+  "base_git_directories": 4479,
+  "base_uncompressed_blob_bytes": 79480146,
+  "submodule_gitlinks": 0,
+  "manifest_parts": 6,
+  "manifest_records": 10694,
+  "manifest_format": "mode TAB blob_sha1 TAB byte_size TAB relative_path",
+  "source_archive_contains": "ALL base tracked Git source files plus RELEASE_CANONICAL release documentation",
+  "scope_exclusions": [
+    "Git object history and .git directory",
+    "Other git branches as active checkout trees",
+    "Local untracked files and unstored assets",
+    "Literal ChatGPT conversation export and omitted history",
+    "Attachments not committed to GitHub",
+    "GitHub PR conversations as standalone raw JSON exports"
+  ],
+  "privacy": "Public repository; only research conversation reconstruction, not private messages",
+  "h5_science": "STOCHASTIC_SOFTWARE_ENVIRONMENT; GLOBAL_DNCA_EFFICACY_UNTESTED",
+  "h5_locally_executed_tests": "23/23 targeted cases reported; not full CI",
+  "h5_production_ci_status": "UNVERIFIED",
+  "outer_zip_sha256": "CALCULATE_ON_DOWNLOADED_GITHUB_ZIP; NOT_PRECOMPUTED",
+  "manifest_self_reference_note": "Release-added files excluded from base manifest; release commit ID identifies final tree",
+  "git_full_history_recovery": "git clone --mirror; git bundle create --all from a networked workstation"
+}
