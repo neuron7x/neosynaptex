@@ -59,7 +59,7 @@ def transfer_entropy(
         if hi - lo < 1e-15:
             return np.zeros(len(x), dtype=np.int64)
         edges = np.linspace(lo - 1e-10, hi + 1e-10, bins + 1)
-        return np.digitize(x, edges[1:-1])
+        return np.asarray(np.digitize(x, edges[1:-1]), dtype=np.int64)
 
     tf = _digitize(t_future)
     tp = _digitize(t_past)
