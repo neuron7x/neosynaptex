@@ -10,8 +10,9 @@ import json
 import math
 import random
 import statistics
+from collections.abc import Sequence
 from dataclasses import asdict, dataclass
-from typing import Sequence
+from typing import TypedDict
 
 
 @dataclass(frozen=True, slots=True)
@@ -31,6 +32,17 @@ class StudyPlan:
     permutation_repeats: int = 199
     bootstrap_repeats: int = 499
     seed: int = 20261016
+
+
+class TrialResult(TypedDict):
+    group_id: str
+    n_candidates: int
+    n_selected: int
+    baseline_benefit: int
+    claimwise_benefit: int
+    sign_reversed_benefit: int
+    paired_delta: int
+    cue_variation: float
 
 
 def _finite(value: object, minimum: float, maximum: float, field: str) -> float:
@@ -97,10 +109,12 @@ def _paired_bootstrap(deltas: list[int], repeats: int, rng: random.Random) -> li
     return [draws[int((repeats - 1) * 0.025)], draws[int((repeats - 1) * 0.975)]]
 
 
-def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan = StudyPlan()) -> dict[str, object]:
+def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan | None = None) -> dict[str, object]:
+    if plan is None:
+        plan = StudyPlan()
     groups = _validate(rows, plan)
     rng = random.Random(plan.seed)
-    trial_results: list[dict[str, object]] = []
+    trial_results: list[TrialResult] = []
     placebo: list[list[int]] = [[] for _ in range(plan.permutation_repeats)]
     for gid, group in groups.items():
         vals = [x.signed_valence for x in group]
@@ -122,7 +136,7 @@ def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan = StudyPlan()) -> di
             "paired_delta": chosen - base,
             "cue_variation": max(vals) - min(vals),
         })
-    deltas = [int(z["paired_delta"]) for z in trial_results]
+    deltas = [z["paired_delta"] for z in trial_results]
     observed = _paired_mean(deltas)
     permutation_stats = [_paired_mean(sample) for sample in placebo]
     # +1 correction includes the observed statistic in the randomization ensemble.
@@ -131,7 +145,12 @@ def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan = StudyPlan()) -> di
     )
     ci = _paired_bootstrap(deltas, plan.bootstrap_repeats, rng)
     diversified = sum(z["cue_variation"] > 1e-12 for z in trial_results)
-    input_raw = json.dumps([asdict(r) for r in rows], sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+    input_raw = json.dumps(
+        [asdict(r) for r in rows],
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode()
     result: dict[str, object] = {
         "protocol": "CLAIMWISE_PREQUENTIAL_DIAGNOSTIC_v1",
         "input_sha256": hashlib.sha256(input_raw).hexdigest(),
@@ -149,7 +168,8 @@ def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan = StudyPlan()) -> di
         "end_to_end_cost_metered": False,
         "limitations": [
             "requires independent oracle attestation and audit of claim labels",
-            "resampling assumes grouped trials are independent and within-group cue exchangeability",
+            "resampling assumes grouped trials are independent and within-group "
+            "cue exchangeability",
             "positive association is not causal evidence of DNCA or model cognition",
             "same verification slots does not imply equal total computational cost",
             "no adaptive threshold fitting or selection on held-out outcomes permitted",
