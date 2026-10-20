@@ -67,7 +67,7 @@ jobs:
         # falsification shuffles, EEG/HRV empirical data loads) — those
         # are regression-quality tests measured by NFI CI, not by this
         # performance budget.
-        run: pytest tests/ -q --tb=line --timeout=120 -m "not slow"
+        run: pytest tests/ -n auto -q --tb=line --timeout=120 -m "not slow"
 
       - name: Axiom self-verification
         run: python3 -c "from core.axioms import SUBSTRATE_GAMMA, gamma_psd, verify_axiom_consistency; print('axioms OK:', len(SUBSTRATE_GAMMA), 'substrates')"
