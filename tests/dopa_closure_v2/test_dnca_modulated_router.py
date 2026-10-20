@@ -1,4 +1,5 @@
 """Defect-sensitive contracts for the DNCA/DOPA routing-only integration."""
+
 from __future__ import annotations
 
 import math
@@ -25,10 +26,7 @@ def _obs(*, valence: float = 0.5, inhibition: float = 0.1) -> DNCAObservation:
 
 
 def _claims(n: int = 1) -> list[EvidenceInput]:
-    return [
-        EvidenceInput(f"claim-{i}", 0.6, 0.7, 0.1, 0.8, 0.55)
-        for i in range(n)
-    ]
+    return [EvidenceInput(f"claim-{i}", 0.6, 0.7, 0.1, 0.8, 0.55) for i in range(n)]
 
 
 def _success(result: object) -> dict:
@@ -39,7 +37,9 @@ def _success(result: object) -> dict:
 def test_modulation_is_sign_sensitive_and_budget_matched() -> None:
     neutral = _success(route_observation(_obs(), _claims(), ADMISSIBLE, CONFIG))
     raised = _success(route_observation(_obs(), _claims(), ADMISSIBLE, CONFIG, dopamine_gain=0.2))
-    inverted = _success(route_observation(_obs(valence=-0.5), _claims(), ADMISSIBLE, CONFIG, dopamine_gain=0.2))
+    inverted = _success(
+        route_observation(_obs(valence=-0.5), _claims(), ADMISSIBLE, CONFIG, dopamine_gain=0.2)
+    )
     assert raised["routes"][0]["priority"] > neutral["routes"][0]["priority"]
     assert inverted["routes"][0]["priority"] < neutral["routes"][0]["priority"]
     assert neutral["budget_ledger"]["envelope"] == raised["budget_ledger"]["envelope"]
@@ -89,9 +89,7 @@ def test_invalid_gain_fails_closed(gain: float) -> None:
 
 def test_duplicate_and_invalid_evidence_rejected() -> None:
     evidence = _claims()
-    assert isinstance(
-        route_observation(_obs(), evidence + evidence, ADMISSIBLE, CONFIG), Err
-    )
+    assert isinstance(route_observation(_obs(), evidence + evidence, ADMISSIBLE, CONFIG), Err)
     bad = [EvidenceInput("bad", 0.5, 0.5, 1.2, 0.2, 0.5)]
     assert isinstance(route_observation(_obs(), bad, ADMISSIBLE, CONFIG), Err)
 
@@ -134,7 +132,6 @@ def test_output_is_stable_for_same_input_and_config() -> None:
     a = _success(route_observation(_obs(), _claims(3), ADMISSIBLE, CONFIG))
     b = _success(route_observation(_obs(), _claims(3), ADMISSIBLE, CONFIG))
     assert a == b
-
 
 
 def test_executed_dnca_runtime_projects_to_routing_only() -> None:

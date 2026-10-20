@@ -1,4 +1,5 @@
 """Offline validation runner tests; no shell invocation and no external CI."""
+
 from __future__ import annotations
 
 import hashlib
@@ -10,21 +11,21 @@ from scripts import verify_neuroai_offline as gate
 
 
 def _valid_junit() -> str:
-    cases = "".join(
-        f'<testcase name="{name}"/>'
-        for name in sorted(gate._MANDATORY_CASES)
-    )
+    cases = "".join(f'<testcase name="{name}"/>' for name in sorted(gate._MANDATORY_CASES))
     return f"<testsuite>{cases}</testsuite>"
 
 
 def test_fixed_plan_uses_python_modules_and_no_shell() -> None:
     commands = gate._plan()
     assert tuple(name for name, _ in commands) == (
-        "compile", "pytest", "pytest_required", "ruff", "mypy",
+        "compile",
+        "pytest",
+        "pytest_required",
+        "ruff",
+        "mypy",
     )
     assert all(args[0] == "-m" for _, args in commands)
-    assert all(";" not in part and "|" not in part for _, args in commands
-               for part in args)
+    assert all(";" not in part and "|" not in part for _, args in commands for part in args)
 
 
 def test_source_manifest_digest_matches_source_bytes(tmp_path: Path) -> None:
@@ -69,7 +70,8 @@ def test_overall_fails_closed_on_any_precondition(
         (output / f"{name}.log").write_bytes(data)
         status = "FAIL" if failure == "stage" and name == "pytest" else "PASS"
         return {
-            "command": ["python", *args], "status": status,
+            "command": ["python", *args],
+            "status": status,
             "returncode": 1 if status == "FAIL" else 0,
             "log_file": f"{name}.log",
             "log_sha256": hashlib.sha256(data).hexdigest(),
@@ -93,9 +95,9 @@ def test_gate_records_pass_only_with_clean_sources_and_all_success(
         file.parent.mkdir(parents=True, exist_ok=True)
         file.write_text("test", encoding="utf-8")
 
-    monkeypatch.setattr(gate, "_git", lambda root, *args: (
-        ("", None) if "status" in args else ("b" * 40, None)
-    ))
+    monkeypatch.setattr(
+        gate, "_git", lambda root, *args: ("", None) if "status" in args else ("b" * 40, None)
+    )
 
     def fake_run(root: Path, name: str, args, output: Path, timeout: int):
         raw = b"logged\n"
@@ -106,7 +108,9 @@ def test_gate_records_pass_only_with_clean_sources_and_all_success(
             )
         (output / f"{name}.log").write_bytes(raw)
         return {
-            "command": ["python", *args], "status": "PASS", "returncode": 0,
+            "command": ["python", *args],
+            "status": "PASS",
+            "returncode": 0,
             "log_file": f"{name}.log",
             "log_sha256": hashlib.sha256(raw).hexdigest(),
         }
@@ -153,15 +157,15 @@ def test_log_integrity_requires_matching_bytes(tmp_path: Path) -> None:
     output.mkdir()
     data = b"passed"
     (output / "pytest.log").write_bytes(data)
-    stage = {"pytest": {
-        "log_file": "pytest.log",
-        "log_sha256": hashlib.sha256(data).hexdigest(),
-    }}
+    stage = {
+        "pytest": {
+            "log_file": "pytest.log",
+            "log_sha256": hashlib.sha256(data).hexdigest(),
+        }
+    }
     assert gate._log_blockers(output, stage) == []
     (output / "pytest.log").write_bytes(b"forged")
-    assert gate._log_blockers(output, stage) == [
-        "stage_log_sha256_mismatch:pytest"
-    ]
+    assert gate._log_blockers(output, stage) == ["stage_log_sha256_mismatch:pytest"]
 
 
 def test_postflight_fails_if_source_changes_during_tests(
@@ -171,9 +175,9 @@ def test_postflight_fails_if_source_changes_during_tests(
         file = tmp_path / relative
         file.parent.mkdir(parents=True, exist_ok=True)
         file.write_bytes(b"original")
-    monkeypatch.setattr(gate, "_git", lambda root, *args: (
-        ("", None) if "status" in args else ("b" * 40, None)
-    ))
+    monkeypatch.setattr(
+        gate, "_git", lambda root, *args: ("", None) if "status" in args else ("b" * 40, None)
+    )
 
     def mutate(root: Path, name: str, args, output: Path, timeout: int):
         data = b"fixture"
@@ -186,10 +190,13 @@ def test_postflight_fails_if_source_changes_during_tests(
         if name == "pytest":
             (root / gate._SOURCE_PATHS[0]).write_bytes(b"mutated")
         return {
-            "command": ["python", *args], "status": "PASS", "returncode": 0,
+            "command": ["python", *args],
+            "status": "PASS",
+            "returncode": 0,
             "log_file": f"{name}.log",
             "log_sha256": hashlib.sha256(data).hexdigest(),
         }
+
     monkeypatch.setattr(gate, "_run", mutate)
     result = gate.execute_gate(tmp_path, tmp_path / "evidence")
     assert result["overall"] == "FAIL"

@@ -76,6 +76,8 @@ jobs:
           cache: pip
       - name: Install
         run: pip install -e ".[dev]" --quiet
+      - name: Install CPU torch for DNCA H4/H5 tests (version recorded in evidence)
+        run: pip install --quiet "torch==2.10.0" --index-url https://download.pytorch.org/whl/cpu
       - name: Verify gamma_PSD = 2H+1 formula
         run: |
           python3 -c "
@@ -85,7 +87,8 @@ jobs:
           print('gamma_PSD = 2H+1: VERIFIED')
           "
       - name: Run tests
-        run: pytest tests/ -v --tb=short --timeout=300 --junitxml=junit-${{ matrix.python-version }}.xml
+        # -n auto: the serial suite outgrew the 25-min budget (3.12 timed out on PR #20).
+        run: pytest tests/ -n auto -v --tb=short --timeout=300 --junitxml=junit-${{ matrix.python-version }}.xml
       - name: Self-verify axioms
         run: python3 -c "from core.axioms import SUBSTRATE_GAMMA, gamma_psd, verify_axiom_consistency; print('axioms OK:', len(SUBSTRATE_GAMMA), 'substrates')"
       - name: Demo
@@ -166,9 +169,11 @@ jobs:
           python-version-file: .python-version
           cache: pip
       - run: pip install -e ".[dev]" pytest-cov --quiet
+      - name: Install CPU torch for DNCA H4/H5 tests (version recorded in evidence)
+        run: pip install --quiet "torch==2.10.0" --index-url https://download.pytorch.org/whl/cpu
       - name: Run with coverage
         run: |
-          pytest tests/ \
+          pytest tests/ -n auto \
             --cov=core --cov=contracts --cov=neosynaptex --cov-branch \
             --cov-report=xml:coverage.xml \
             --cov-report=term-missing \

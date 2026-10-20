@@ -52,6 +52,7 @@ dev = [
     "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
     "pytest-timeout>=2.4.0",
+    "pytest-xdist>=3.8.0",
     "mypy>=1.20.1",
     "ruff>=0.15.10",
     "import-linter>=2.11",
@@ -122,6 +123,13 @@ line-length = 100
 extend-exclude = [
     "core/eai/dopa_closure_v2.py",
     "core/eai/dopa_controls.py",
+    # Evidence-pinned sources: their exact Git blob IDs are recorded in docs/research/*
+    # and evidence/dopa_signal_instrument/*; reformatting would break that provenance.
+    "core/eai/dnca_first_step_contract.py",
+    "tests/dopa_closure_v2/test_dnca_claimwise_evaluator.py",
+    "tests/dopa_closure_v2/test_h4_replicate_study.py",
+    "tests/dopa_closure_v2/test_synthetic_signal_instrument.py",
+    "tests/dopa_closure_v2/test_trained_value_falsification.py",
 ]
 
 [tool.ruff.lint]

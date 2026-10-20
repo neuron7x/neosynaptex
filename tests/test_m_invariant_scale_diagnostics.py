@@ -96,7 +96,32 @@ def test_full_run_produces_json_with_required_keys(tmp_path: pathlib.Path) -> No
     for volatile in ("compute_seconds",):
         payload.pop(volatile)
         committed.pop(volatile)
-    assert payload == committed
+    _assert_reproduces(payload, committed)
+
+
+def _assert_reproduces(fresh: object, committed: object, path: str = "$") -> None:
+    """Exact equality for structure, strings, ints and bools; floats to 1e-12 relative.
+
+    Bitwise float identity depends on the BLAS/NumPy build of the runner (observed
+    1-ulp drift on GitHub runners); 1e-12 is ~4 orders above that and far below
+    any scientific threshold used here (EPSILON_M_CHANGE = 0.05).
+    """
+    if isinstance(committed, float) and isinstance(fresh, float):
+        assert fresh == pytest.approx(committed, rel=1e-12, abs=1e-15), path
+        return
+    assert type(fresh) is type(committed), f"{path}: {type(fresh)} != {type(committed)}"
+    if isinstance(committed, dict):
+        assert isinstance(fresh, dict)
+        assert list(fresh) == list(committed), f"{path}: keys differ"
+        for key in committed:
+            _assert_reproduces(fresh[key], committed[key], f"{path}.{key}")
+    elif isinstance(committed, list):
+        assert isinstance(fresh, list)
+        assert len(fresh) == len(committed), f"{path}: length differs"
+        for index, (a, b) in enumerate(zip(fresh, committed)):
+            _assert_reproduces(a, b, f"{path}[{index}]")
+    else:
+        assert fresh == committed, path
 
 
 def test_at_least_one_case_is_scale_sensitive() -> None:
