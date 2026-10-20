@@ -343,7 +343,11 @@ def run_allocator_full_path(
             *_failure_reasons(final_verdict, controls_doc, degradation_triggered),
         ],
         "config_hash": allocator.config_hash,
-        "construct_gate": asdict(verdict),
+        "construct_gate": {
+            **asdict(verdict),
+            "scope": "ROUTING_ONLY",
+            "evidence_level": "UNATTESTED_CALLER_DECLARATION",
+        },
         "controls": controls_doc,
         "budget_ledger": ledger.snapshot(),
         "deferred_due_budget": deferred_due_budget,
