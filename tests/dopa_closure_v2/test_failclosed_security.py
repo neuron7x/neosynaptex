@@ -1,4 +1,5 @@
 """Adversarial regression contracts for closure integrity and budget safety."""
+
 from __future__ import annotations
 
 import json
@@ -37,10 +38,12 @@ def test_never_close_without_independent_verifier(tmp_path: Path) -> None:
     assert route["final_status"] == "VERIFY"
     assert route["verification_result"] == "not_run"
     assert route["verification_artifact_hash"] is None
-    assert not (tmp_path / "runs" / output["run_id"] / "claims"
-                / "claim" / "closure_artifact.json").exists()
-    request = (tmp_path / "runs" / output["run_id"] / "claims"
-               / "claim" / "verification_request.json")
+    assert not (
+        tmp_path / "runs" / output["run_id"] / "claims" / "claim" / "closure_artifact.json"
+    ).exists()
+    request = (
+        tmp_path / "runs" / output["run_id"] / "claims" / "claim" / "verification_request.json"
+    )
     assert request.exists()
     record = json.loads(request.read_text(encoding="utf-8"))
     assert record["verification_result"] == "not_run"
@@ -62,8 +65,9 @@ def test_duplicate_claim_ids_rejected_before_any_write(tmp_path: Path) -> None:
     assert not (tmp_path / "runs").exists()
 
 
-@pytest.mark.parametrize("run_id", ["../escape", "../../", "x/y", ".", "..",
-                                   "a" * 129, "bad\\path"])
+@pytest.mark.parametrize(
+    "run_id", ["../escape", "../../", "x/y", ".", "..", "a" * 129, "bad\\path"]
+)
 def test_arbitrary_run_id_cannot_escape_output_root(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, run_id: str
 ) -> None:
@@ -122,13 +126,9 @@ def test_extreme_penalty_fails_closed_without_overflow() -> None:
 
 def test_direct_budget_state_must_obey_invariants() -> None:
     with pytest.raises(ValueError):
-        BudgetLedger(
-            Decimal("10"), Decimal("0"), Decimal("20"), 0, 0.0
-        )
+        BudgetLedger(Decimal("10"), Decimal("0"), Decimal("20"), 0, 0.0)
     with pytest.raises(ValueError):
-        BudgetLedger(
-            Decimal("NaN"), Decimal("0"), Decimal("0"), 0, 0.0
-        )
+        BudgetLedger(Decimal("NaN"), Decimal("0"), Decimal("0"), 0, 0.0)
 
 
 def test_artifact_names_preserve_epistemic_status() -> None:
@@ -187,7 +187,6 @@ def test_config_snapshot_rejects_toctou_hash_drift(tmp_path: Path) -> None:
 
 def test_claim_manifest_hash_is_bound_to_ordered_inputs(tmp_path: Path) -> None:
     import hashlib
-
     from dataclasses import asdict
 
     first = _verifiable_risk_proxy()
@@ -200,9 +199,5 @@ def test_claim_manifest_hash_is_bound_to_ordered_inputs(tmp_path: Path) -> None:
         separators=(",", ":"),
         allow_nan=False,
     ).encode("utf-8")
-    assert result.value["provenance"]["claims_sha256"] == hashlib.sha256(
-        canonical
-    ).hexdigest()
-    assert result.value["construct_gate"]["evidence_level"] == (
-        "UNATTESTED_CALLER_DECLARATION"
-    )
+    assert result.value["provenance"]["claims_sha256"] == hashlib.sha256(canonical).hexdigest()
+    assert result.value["construct_gate"]["evidence_level"] == ("UNATTESTED_CALLER_DECLARATION")

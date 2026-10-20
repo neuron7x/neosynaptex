@@ -45,9 +45,7 @@ def test_every_case_is_declared_non_critical() -> None:
 def test_verdict_follows_from_the_cases() -> None:
     ev = _committed()
     hits = [
-        c["name"]
-        for c in ev["spectral_cases"] + ev["pair_cases"]
-        if c["mean_in_metastable_band"]
+        c["name"] for c in ev["spectral_cases"] + ev["pair_cases"] if c["mean_in_metastable_band"]
     ]
     assert (ev["specificity_verdict"] == "NOT_SPECIFIC") == bool(hits)
     for name in hits:

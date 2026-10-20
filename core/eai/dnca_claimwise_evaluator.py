@@ -3,6 +3,7 @@
 Scoring uses committed per-claim cues and oracle labels only after selection.
 A real oracle, source authentication, and full compute accounting are NOT supplied.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -60,17 +61,25 @@ def _validate(rows: Sequence[ClaimEvidence], plan: StudyPlan) -> dict[str, list[
     if type(plan.slots) is not int or plan.slots < 1:
         raise ValueError("invalid_slots")
     _finite(plan.gain, 0, 0.25, "gain")
-    if (type(plan.permutation_repeats) is not int or not 19 <= plan.permutation_repeats <= 10000
-            or type(plan.bootstrap_repeats) is not int or not 99 <= plan.bootstrap_repeats <= 10000
-            or type(plan.seed) is not int):
+    if (
+        type(plan.permutation_repeats) is not int
+        or not 19 <= plan.permutation_repeats <= 10000
+        or type(plan.bootstrap_repeats) is not int
+        or not 99 <= plan.bootstrap_repeats <= 10000
+        or type(plan.seed) is not int
+    ):
         raise ValueError("invalid_resampling_plan")
     groups: dict[str, list[ClaimEvidence]] = {}
     seen: set[tuple[str, str]] = set()
     for row in rows:
         if not isinstance(row, ClaimEvidence):
             raise ValueError("invalid_record_type")
-        if not (isinstance(row.group_id, str) and 0 < len(row.group_id) <= 128
-                and isinstance(row.claim_id, str) and 0 < len(row.claim_id) <= 128):
+        if not (
+            isinstance(row.group_id, str)
+            and 0 < len(row.group_id) <= 128
+            and isinstance(row.claim_id, str)
+            and 0 < len(row.claim_id) <= 128
+        ):
             raise ValueError("invalid_identity")
         key = row.group_id, row.claim_id
         if key in seen:
@@ -80,9 +89,13 @@ def _validate(rows: Sequence[ClaimEvidence], plan: StudyPlan) -> dict[str, list[
         _finite(row.signed_valence, -1, 1, "signed_valence")
         if type(row.oracle_benefit_label) is not int or row.oracle_benefit_label not in (0, 1):
             raise ValueError("invalid_binary_outcome")
-        if not isinstance(row.oracle_receipt_sha256, str) or (row.oracle_receipt_sha256 and (
+        if not isinstance(row.oracle_receipt_sha256, str) or (
+            row.oracle_receipt_sha256
+            and (
                 len(row.oracle_receipt_sha256) != 64
-                or any(c not in "0123456789abcdef" for c in row.oracle_receipt_sha256))):
+                or any(c not in "0123456789abcdef" for c in row.oracle_receipt_sha256)
+            )
+        ):
             raise ValueError("invalid_oracle_receipt_hash")
         groups.setdefault(row.group_id, []).append(row)
     if len(groups) < 4 or any(len(g) <= plan.slots for g in groups.values()):
@@ -92,9 +105,9 @@ def _validate(rows: Sequence[ClaimEvidence], plan: StudyPlan) -> dict[str, list[
 
 def _score(group: list[ClaimEvidence], cues: Sequence[float], gain: float, slots: int) -> int:
     """Policy selection never touches hidden outcomes; oracle used only after top-k."""
-    order = sorted(range(len(group)), key=lambda i: (
-        -(group[i].baseline + gain * cues[i]), group[i].claim_id
-    ))
+    order = sorted(
+        range(len(group)), key=lambda i: (-(group[i].baseline + gain * cues[i]), group[i].claim_id)
+    )
     return sum(group[i].oracle_benefit_label for i in order[:slots])
 
 
@@ -104,8 +117,9 @@ def _paired_mean(values: Sequence[float]) -> float:
 
 def _paired_bootstrap(deltas: list[int], repeats: int, rng: random.Random) -> list[float]:
     n = len(deltas)
-    draws = sorted(_paired_mean([deltas[rng.randrange(n)] for _ in range(n)])
-                   for _ in range(repeats))
+    draws = sorted(
+        _paired_mean([deltas[rng.randrange(n)] for _ in range(n)]) for _ in range(repeats)
+    )
     return [draws[int((repeats - 1) * 0.025)], draws[int((repeats - 1) * 0.975)]]
 
 
@@ -126,16 +140,18 @@ def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan | None = None) -> di
             shuffled = vals[:]
             rng.shuffle(shuffled)
             placebo[i].append(_score(group, shuffled, plan.gain, plan.slots) - base)
-        trial_results.append({
-            "group_id": gid,
-            "n_candidates": len(group),
-            "n_selected": plan.slots,
-            "baseline_benefit": base,
-            "claimwise_benefit": chosen,
-            "sign_reversed_benefit": inverted,
-            "paired_delta": chosen - base,
-            "cue_variation": max(vals) - min(vals),
-        })
+        trial_results.append(
+            {
+                "group_id": gid,
+                "n_candidates": len(group),
+                "n_selected": plan.slots,
+                "baseline_benefit": base,
+                "claimwise_benefit": chosen,
+                "sign_reversed_benefit": inverted,
+                "paired_delta": chosen - base,
+                "cue_variation": max(vals) - min(vals),
+            }
+        )
     deltas = [z["paired_delta"] for z in trial_results]
     observed = _paired_mean(deltas)
     permutation_stats = [_paired_mean(sample) for sample in placebo]

@@ -4,12 +4,14 @@ Neuromodulator signals change *verification priority*, never truth.
 No route from this module can emit CLOSED / VERIFIED.
 Scientific status: experimental; DNCA vRPE predictive utility unvalidated.
 """
+
 from __future__ import annotations
 
 import math
+from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any
 
 from core.eai.dopa_budget import BudgetLedger
 from core.eai.dopa_closure_v2 import DopaClosureV2Allocator
@@ -39,6 +41,7 @@ def _scalar(name: str, obj: Any, *, signed: bool = False) -> float:
 @dataclass(frozen=True, slots=True)
 class EvidenceInput:
     """Independent claim metadata; never inferred from DA/5-HT."""
+
     claim_id: str
     uncertainty: float
     novelty: float
@@ -49,14 +52,21 @@ class EvidenceInput:
 
     def to_claim(self, prediction_error: float) -> ClaimSignal:
         return ClaimSignal(
-            self.claim_id, prediction_error, self.uncertainty, self.novelty,
-            self.evidence_risk, self.reversibility, self.load, self.epistemic_status,
+            self.claim_id,
+            prediction_error,
+            self.uncertainty,
+            self.novelty,
+            self.evidence_risk,
+            self.reversibility,
+            self.load,
+            self.epistemic_status,
         )
 
 
 @dataclass(frozen=True, slots=True)
 class DNCAObservation:
     """Detached projection of a genuine DNCA shared predictive state."""
+
     prediction_error: float
     signed_valence: float
     dopamine_signal: float
@@ -113,7 +123,9 @@ def route_observation(
         if observation.step <= 0:
             raise ValueError("unexecuted_dnca_observation")
         for key in ("prediction_error", "signed_valence", "dopamine_signal", "inhibition_signal"):
-            _scalar(key, getattr(observation, key), signed=key in ("signed_valence", "dopamine_signal"))
+            _scalar(
+                key, getattr(observation, key), signed=key in ("signed_valence", "dopamine_signal")
+            )
         signals = [item.to_claim(observation.prediction_error) for item in claims]
         if len({c.claim_id for c in signals}) != len(signals):
             raise ValueError("duplicate_claim_ids")
@@ -126,15 +138,17 @@ def route_observation(
             lambda_penalty=float(cfg["budget"].get("burn_rate_lambda", 0.0)),
         )
         if not verdict.admissible:
-            return Ok({
-                "status": "INSTRUMENT_INADMISSIBLE",
-                "reasons": verdict.reasons,
-                "routes": [],
-                "budget_ledger": ledger.snapshot(),
-                "closure_count": 0,
-                "signal_validity": "UNTESTED",
-                "modulation_scope": "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC",
-            })
+            return Ok(
+                {
+                    "status": "INSTRUMENT_INADMISSIBLE",
+                    "reasons": verdict.reasons,
+                    "routes": [],
+                    "budget_ledger": ledger.snapshot(),
+                    "closure_count": 0,
+                    "signal_validity": "UNTESTED",
+                    "modulation_scope": "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC",
+                }
+            )
         thresholds = cfg["priority_gate"]["thresholds"]
         costs = cfg["budget"]["action_costs"]
         routes: list[dict[str, Any]] = []
@@ -164,29 +178,33 @@ def route_observation(
             )
             if budget.overspend:
                 mode, reason = RouteMode.QUARANTINE, "INSUFFICIENT_BUDGET"
-            routes.append({
-                "claim_id": claim.claim_id,
-                "mode": mode.value,
-                "reason": reason,
-                "priority": priority,
-                "verification_result": "not_run",
-                "epistemic_status": claim.epistemic_status,
-                "reserved_budget": asdict(budget),
-            })
+            routes.append(
+                {
+                    "claim_id": claim.claim_id,
+                    "mode": mode.value,
+                    "reason": reason,
+                    "priority": priority,
+                    "verification_result": "not_run",
+                    "epistemic_status": claim.epistemic_status,
+                    "reserved_budget": asdict(budget),
+                }
+            )
             ledger.register_failure(False)  # Reservation is not verifier failure.
-        return Ok({
-            "status": "ROUTING_ONLY",
-            "source": "UNTRUSTED_SPS_PROJECTION",
-            "dnca_step": observation.step,
-            "signal_validity": "UNTESTED",
-            "modulation_scope": "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC",
-            "claim_specific_signal_qualified": False,
-            "dopamine_gain": gain,
-            "closure_count": 0,
-            "routes": routes,
-            "budget_ledger": ledger.snapshot(),
-            "config_hash": allocator.config_hash,
-        })
+        return Ok(
+            {
+                "status": "ROUTING_ONLY",
+                "source": "UNTRUSTED_SPS_PROJECTION",
+                "dnca_step": observation.step,
+                "signal_validity": "UNTESTED",
+                "modulation_scope": "GLOBAL_THRESHOLD_SHIFT_NOT_CLAIM_SPECIFIC",
+                "claim_specific_signal_qualified": False,
+                "dopamine_gain": gain,
+                "closure_count": 0,
+                "routes": routes,
+                "budget_ledger": ledger.snapshot(),
+                "config_hash": allocator.config_hash,
+            }
+        )
     except (ValueError, TypeError, OverflowError) as exc:
         return Err(str(exc))
 
@@ -212,8 +230,12 @@ def route_live_dnca(
     except (ValueError, AttributeError, TypeError) as exc:
         return Err(f"dnca_snapshot_invalid:{exc}")
     routed = route_observation(
-        observation, claims, construct_context, config_path,
-        dopamine_gain=dopamine_gain, inhibition_threshold=inhibition_threshold,
+        observation,
+        claims,
+        construct_context,
+        config_path,
+        dopamine_gain=dopamine_gain,
+        inhibition_threshold=inhibition_threshold,
     )
     if isinstance(routed, Ok):
         routed.value["source"] = "EXECUTED_DNCA_SPS"

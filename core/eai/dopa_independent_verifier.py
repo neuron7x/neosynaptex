@@ -3,6 +3,7 @@
 No neural signal or risk score influences this verdict. This fixture proves
 only bounded integer arithmetic, not general factual truth or model quality.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -10,9 +11,10 @@ import json
 import os
 import re
 import tempfile
+from collections.abc import Mapping
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from core.eai.dopa_run_attestation import verify_arithmetic_run_attestation
 
@@ -47,8 +49,9 @@ class ArithmeticClaim:
 
 
 def canonical_json_bytes(obj: Mapping[str, Any]) -> bytes:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=True, allow_nan=False).encode("utf-8")
+    return json.dumps(
+        obj, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False
+    ).encode("utf-8")
 
 
 def arithmetic_commitment(claim: ArithmeticClaim) -> str:
@@ -69,11 +72,15 @@ def _deny_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 def _load_json(path: Path) -> dict[str, Any]:
     if not path.is_file() or path.is_symlink() or path.stat().st_size > _MAX_JSON_BYTES:
         raise ValueError("untrusted_or_oversize_evidence")
+
     def _bad_constant(value: str) -> None:
         raise ValueError("nonfinite_json_constant")
-    result = json.loads(path.read_text(encoding="utf-8"),
-                        object_pairs_hook=_deny_duplicates,
-                        parse_constant=_bad_constant)
+
+    result = json.loads(
+        path.read_text(encoding="utf-8"),
+        object_pairs_hook=_deny_duplicates,
+        parse_constant=_bad_constant,
+    )
     if not isinstance(result, dict):
         raise ValueError("invalid_json_object")
     return result
@@ -130,8 +137,9 @@ def _exclusive_write(path: Path, payload: dict[str, Any]) -> None:
     if path.parent.is_symlink() or not path.parent.is_dir():
         raise ValueError("untrusted_receipt_parent")
     raw = canonical_json_bytes(payload) + b"\n"
-    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".receipt-",
-                                     suffix=".tmp", delete=False) as fp:
+    with tempfile.NamedTemporaryFile(
+        dir=path.parent, prefix=".receipt-", suffix=".tmp", delete=False
+    ) as fp:
         tmp = Path(fp.name)
         os.chmod(tmp, 0o600)
         try:
@@ -165,8 +173,8 @@ def verify_scheduled_arithmetic(
     # The key must be independently provisioned in a separate trust domain.
     attestation = (
         verify_arithmetic_run_attestation(path, claim.claim_id, attestation_key)
-        if attestation_key is not None else
-        {"status": "UNATTESTED", "attestation_sha256": None}
+        if attestation_key is not None
+        else {"status": "UNATTESTED", "attestation_sha256": None}
     )
     computed = _exact_arithmetic(claim)
     verdict = "VERIFIED" if computed == claim.asserted else "REFUTED"

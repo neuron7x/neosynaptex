@@ -1,4 +1,5 @@
 """Falsification tests for degenerate/invalid priority-only controls."""
+
 from __future__ import annotations
 
 import math
@@ -49,13 +50,16 @@ def test_empty_controls_are_not_positive_evidence() -> None:
     assert result.validity == "UNTESTED"
 
 
-@pytest.mark.parametrize("priorities", [
-    [],
-    [float("nan"), 0.2],
-    [float("inf"), 0.2],
-    [-0.1, 0.2],
-    [True, 0.2],
-])
+@pytest.mark.parametrize(
+    "priorities",
+    [
+        [],
+        [float("nan"), 0.2],
+        [float("inf"), 0.2],
+        [-0.1, 0.2],
+        [True, 0.2],
+    ],
+)
 def test_invalid_controls_fail_closed(priorities: list[float]) -> None:
     with pytest.raises(ValueError):
         run_controls([_claim("a"), _claim("b")], priorities, seed=42)
