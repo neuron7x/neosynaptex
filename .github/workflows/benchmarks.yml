@@ -30,6 +30,8 @@ jobs:
           python-version-file: .python-version
           cache: pip
       - run: pip install -e ".[dev]" --quiet
+      - name: Install CPU torch for DNCA H4/H5 tests (version recorded in evidence)
+        run: pip install --quiet "torch==2.10.0" --index-url https://download.pytorch.org/whl/cpu
 
       - name: Substrate γ benchmarks
         run: |
