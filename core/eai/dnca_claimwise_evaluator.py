@@ -127,7 +127,7 @@ def evaluate(rows: Sequence[ClaimEvidence], plan: StudyPlan | None = None) -> di
     if plan is None:
         plan = StudyPlan()
     groups = _validate(rows, plan)
-    rng = random.Random(plan.seed)
+    rng = random.Random(plan.seed)  # nosec B311  # seeded permutation null, not cryptographic
     trial_results: list[TrialResult] = []
     placebo: list[list[int]] = [[] for _ in range(plan.permutation_repeats)]
     for gid, group in groups.items():

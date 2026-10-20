@@ -44,7 +44,7 @@ def run_controls(
     if not claims:
         return ControlResults(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, False)
 
-    rng = random.Random(seed)  # deterministic simulation, not cryptographic.
+    rng = random.Random(seed)  # nosec B311  # deterministic simulation, not cryptographic.
     n = len(claims)
     random_mean = sum(rng.random() for _ in claims) / n
     margin_mean = sum(max(0.0, c.evidence_risk - c.uncertainty) for c in claims) / n

@@ -113,7 +113,7 @@ def paired_claimwise_probe(
     if len(withheld_utility) != len(b):
         raise ValueError("utility_length_mismatch")
     shuffle = list(c)
-    random.Random(seed).shuffle(shuffle)
+    random.Random(seed).shuffle(shuffle)  # nosec B311  # seeded diagnostic shuffle, not cryptographic
     scores = {
         "baseline": b,
         "claim_specific": priorities(b, c, 0.25),
