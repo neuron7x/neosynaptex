@@ -2,6 +2,7 @@
 
 All keys in this module are TEST VECTORS, not deployment secrets.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -35,10 +36,15 @@ def _run(tmp_path: Path) -> Path:
     }
     (claim_dir / "route.json").write_text(json.dumps(route), encoding="utf-8")
     (root / "final_verdict.json").write_text(
-        json.dumps({
-            "run_id": "run-1", "config_hash": digest,
-            "final_verdict": "INADMISSIBLE", "routes": [route],
-        }), encoding="utf-8",
+        json.dumps(
+            {
+                "run_id": "run-1",
+                "config_hash": digest,
+                "final_verdict": "INADMISSIBLE",
+                "routes": [route],
+            }
+        ),
+        encoding="utf-8",
     )
     return root
 
@@ -64,19 +70,25 @@ def test_missing_attestation_fails(tmp_path: Path) -> None:
         verify_arithmetic_run_attestation(_run(tmp_path), "c-1", TEST_KEY)
 
 
-@pytest.mark.parametrize("filename,replace_from,replace_to", [
-    ("final_verdict.json", "VERIFY", "ESCALATE"),
-    ("claims/c-1/route.json", "VERIFY", "ESCALATE"),
-    ("config.yaml", "test", "evil"),
-])
-def test_tampering_fails(tmp_path: Path, filename: str,
-                         replace_from: str, replace_to: str) -> None:
+@pytest.mark.parametrize(
+    "filename,replace_from,replace_to",
+    [
+        ("final_verdict.json", "VERIFY", "ESCALATE"),
+        ("claims/c-1/route.json", "VERIFY", "ESCALATE"),
+        ("config.yaml", "test", "evil"),
+    ],
+)
+def test_tampering_fails(tmp_path: Path, filename: str, replace_from: str, replace_to: str) -> None:
     root = _run(tmp_path)
     seal_arithmetic_run(root, "c-1", TEST_KEY)
     path = root / filename
-    path.write_text(path.read_text(encoding="utf-8").replace(
-        replace_from, replace_to,
-    ), encoding="utf-8")
+    path.write_text(
+        path.read_text(encoding="utf-8").replace(
+            replace_from,
+            replace_to,
+        ),
+        encoding="utf-8",
+    )
     with pytest.raises(ValueError):
         verify_arithmetic_run_attestation(root, "c-1", TEST_KEY)
 

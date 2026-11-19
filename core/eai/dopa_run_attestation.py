@@ -3,6 +3,7 @@
 This authenticates archived inputs, not claim correctness or DNCA calibration.
 Keep the HMAC key isolated from the untrusted agent and routing process.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -32,8 +33,9 @@ def _key(key: bytes) -> bytes:
 
 
 def _canonical(obj: dict[str, Any]) -> bytes:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"),
-                      allow_nan=False, ensure_ascii=True).encode("utf-8")
+    return json.dumps(
+        obj, sort_keys=True, separators=(",", ":"), allow_nan=False, ensure_ascii=True
+    ).encode("utf-8")
 
 
 def _blob(path: Path) -> bytes:
@@ -59,8 +61,8 @@ def _pairs_no_dup(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 def _json(path: Path) -> dict[str, Any]:
     def _constant(_: str) -> None:
         raise ValueError("nonfinite_attestation_json")
-    obj = json.loads(_blob(path), object_pairs_hook=_pairs_no_dup,
-                     parse_constant=_constant)
+
+    obj = json.loads(_blob(path), object_pairs_hook=_pairs_no_dup, parse_constant=_constant)
     if not isinstance(obj, dict):
         raise ValueError("invalid_attestation_json_object")
     return obj
@@ -74,8 +76,7 @@ def _inputs(run_dir: Path, claim_id: str) -> dict[str, str]:
     _id(run_dir.name)
     _id(claim_id)
     claim_dir = run_dir / "claims" / claim_id
-    if any(p.is_symlink() or not p.is_dir() for p in
-           (run_dir, run_dir / "claims", claim_dir)):
+    if any(p.is_symlink() or not p.is_dir() for p in (run_dir, run_dir / "claims", claim_dir)):
         raise ValueError("untrusted_attestation_directory")
     report = _json(run_dir / "final_verdict.json")
     route = _json(claim_dir / "route.json")
@@ -111,8 +112,9 @@ def _inputs(run_dir: Path, claim_id: str) -> dict[str, str]:
 def _atomic_create(path: Path, payload: dict[str, Any]) -> None:
     if path.parent.is_symlink() or not path.parent.is_dir():
         raise ValueError("untrusted_attestation_parent")
-    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".attest-",
-                                     suffix=".tmp", delete=False) as file:
+    with tempfile.NamedTemporaryFile(
+        dir=path.parent, prefix=".attest-", suffix=".tmp", delete=False
+    ) as file:
         temp = Path(file.name)
         try:
             os.chmod(temp, 0o600)
@@ -140,7 +142,9 @@ def seal_arithmetic_run(run_dir: str | Path, claim_id: str, key: bytes) -> dict[
 
 
 def verify_arithmetic_run_attestation(
-    run_dir: str | Path, claim_id: str, key: bytes,
+    run_dir: str | Path,
+    claim_id: str,
+    key: bytes,
 ) -> dict[str, str]:
     """Authenticate a run/claim/config tuple; reject any archive drift."""
     k = _key(key)
@@ -155,5 +159,4 @@ def verify_arithmetic_run_attestation(
     computed = hmac.new(k, _canonical(expected), hashlib.sha256).hexdigest()
     if not hmac.compare_digest(tag, computed):
         raise ValueError("attestation_mac_invalid")
-    return {"status": "HMAC_AUTHENTICATED",
-            "attestation_sha256": _digest(_canonical(record))}
+    return {"status": "HMAC_AUTHENTICATED", "attestation_sha256": _digest(_canonical(record))}

@@ -1,4 +1,5 @@
 """Runtime-read, hash-bound DOPA configuration with finite numeric invariants."""
+
 from __future__ import annotations
 
 import hashlib
@@ -37,8 +38,11 @@ def _validate_routing_contract(cfg: dict[str, Any]) -> None:
     gate = cfg["priority_gate"]
     t = gate["thresholds"]
     required_t = (
-        "triage", "verify", "escalate",
-        "reject_evidence_risk", "close_evidence_risk_max",
+        "triage",
+        "verify",
+        "escalate",
+        "reject_evidence_risk",
+        "close_evidence_risk_max",
     )
     for name in required_t:
         if name not in t or not isinstance(t[name], (int, float)):
