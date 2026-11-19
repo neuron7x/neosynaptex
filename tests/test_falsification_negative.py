@@ -88,6 +88,7 @@ def test_gamma_breaks_under_random_cost():
 # ---------------------------------------------------------------------------
 # 3. Brownian 1/f² control — known γ = 2, must NOT report γ ≈ 1
 # ---------------------------------------------------------------------------
+@pytest.mark.slow  # 123 s measured locally; exceeds the 120 s cap of the Benchmark job
 def test_brownian_1_over_f_squared_reports_gamma_near_2():
     """Synthetic Brownian motion has a PSD ∝ 1/f². Mapping that to
     (topo, cost) = (f, PSD) should give γ = 2, not 1."""
