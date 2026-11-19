@@ -132,7 +132,11 @@ jobs:
     name: estimator-admissibility-canonical (main / merge_group)
     if: github.event_name == 'push' || github.event_name == 'merge_group'
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    # 360 = GitHub-hosted max. Measured on 04f232e2 (run 38967334889):
+    # canonical_theil_sen finished in 238m48s, quantile_pivoted_slope and
+    # odr_log_log were cancelled by the former 240-min cap. Whether both
+    # fit in 360 is unverified until the first push run completes.
+    timeout-minutes: 360
     strategy:
       fail-fast: false
       matrix:
