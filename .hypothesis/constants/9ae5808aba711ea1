@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dopa_types.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1.0, '.', '..', '/', 'CHEAP_TRIAGE', 'CLOSED', 'ESCALATE', 'QUARANTINED', 'REJECTED', 'VERIFY', '\\', 'cheap_triage', 'claim_id', 'derived', 'escalate', 'evidence_risk', 'falsified', 'inferred', 'load', 'measured', 'novelty', 'prediction_error', 'quarantine', 'reject', 'retracted', 'reversibility', 'uncertainty', 'unknown', 'unverified analogy', 'verify']

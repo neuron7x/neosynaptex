@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/gate_g1.py
+# hypothesis_version: 6.140.3
+
+[256, 20000, ',', ':', 'Critic', 'EvidenceKeeper', 'Executor', 'FinalSynthesizer', 'NFC', 'Planner', 'Verifier', '[.\\n;!?]+', 'assign_agent_routes', 'bind_replay_identity', 'claim_type', 'compile_error_state', 'constraints', 'context_hash', 'current_state', 'decompose_subtasks', 'environment', 'error_state', 'expected_state', 'failure_boundary', 'frozen_dataclasses', 'gate_g1/v1', 'ingress_compilation', 'inputs', 'intent', 'missing_evidence', 'no_randomness', 'project', 'repository', 'schema_version', 'scientific_claim', 'stable_packet_hash', 'state_change', 'subtasks', 'success_condition', 'utf-8']

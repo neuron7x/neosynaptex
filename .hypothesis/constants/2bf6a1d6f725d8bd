@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/tools/eai/run_gamma_ledger_through_gate.py
+# hypothesis_version: 6.140.3
+
+[0.0, '--ledger', '--out', 'EAI-GAMMA-BRIDGE-v1', 'EVIDENCE', 'EVIDENCE_CANDIDATE', '__main__', 'admissibility_rate', 'admissible_evidence', 'artifact_id', 'bridge_module_sha256', 'candidate_total', 'core', 'delta', 'eai', 'evidence_tier', 'frozen_clock', 'gamma_bridge.py', 'gate_decision_reason', 'gate_failed_stage', 'gate_status', 'gate_verdict_counts', 'guardrail_update', 'hash_bound', 'hash_bound_count', 'id', 'ledger_evidence_tier', 'ledger_key', 'ledger_path', 'ledger_sha256', 'ledger_status', 'ledger_version', 'out', 'per_entry', 'retention_hash', 'schema_version', 'status', 'status_tags', 'substrate', 'total_entries', 'unknown', 'utf-8']

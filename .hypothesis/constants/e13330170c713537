@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/scripts/validate_dopa_closure_v2_config.py
+# hypothesis_version: 6.140.3
+
+[1e-09, 1.0, '__main__', 'action_costs', 'budget', 'cheap_triage', 'close', 'errors', 'escalate', 'margin_baseline', 'modes', 'modes set mismatch', 'negative_controls', 'no_dopamine_ablation', 'ok', 'priority_gate', 'quarantine', 'random_routing_seed', 'reject', 'run_controls', 'thresholds', 'triage', 'trivial_baseline', 'utf-8', 'verify', 'weights']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dopa_independent_verifier.py
+# hypothesis_version: 6.140.3
+
+[b'\n', 384, 1048576, 1000000000, ',', '.', '..', '.receipt-', '.tmp', ':', 'ESCALATE', 'INADMISSIBLE', 'REFUTED', 'UNATTESTED', 'VERIFIED', 'VERIFY', 'add', 'asserted', 'attestation_sha256', 'budget', 'claim', 'claim_id', 'claim_payload_sha256', 'claims', 'computed', 'config_hash', 'dnca_value_validity', 'does_not_attest', 'domain', 'dopa.arithmetic.v1', 'duplicate_json_key', 'escalate', 'final_status', 'final_verdict', 'final_verdict.json', 'general_truthfulness', 'invalid_claim_id', 'invalid_json_object', 'invalid_run_id', 'left', 'missing_routes', 'model_accuracy', 'multiply', 'not_run', 'overspend', 'receipt_sha256', 'right', 'route.json', 'route_mode', 'route_sha256', 'routes', 'run_id', 'run_id_mismatch', 'scope', 'status', 'subtract', 'utf-8', 'verdict', 'verification_result', 'verifier', 'verify']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/iev_gate.py
+# hypothesis_version: 6.140.3
+
+['1', 'EAI_EMERGENCY_EXIT', 'EVIDENCE', 'KILLED', 'QUARANTINED', '[0-9a-f]{64}', 'on', 'true', 'yes']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dnca_signal_identifiability.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.25, 1000000000000.0, 731, 'all_arms_same_slots', 'base', 'baseline', 'claim_specific', 'common_valence', 'cost_status', 'cue', 'cue_diversity', 'dimension_mismatch', 'gain', 'global_mean_shift', 'invalid_slots', 'permuted', 'scope', 'score', 'selection', 'sign_reversed', 'utility']

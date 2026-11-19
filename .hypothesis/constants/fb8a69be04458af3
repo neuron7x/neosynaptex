@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/artifact_ledger.py
+# hypothesis_version: 6.140.3
+
+['[0-9a-f]{64}']

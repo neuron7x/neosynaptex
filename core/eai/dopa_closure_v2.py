@@ -22,17 +22,11 @@ _SCHEMA_PATH = Path("schemas/dopa_closure_v2_config.schema.json")
 
 
 def _git_head_sha() -> str:
-    return (
-        os.getenv("COMMIT_SHA")
-        or os.getenv("GITHUB_SHA")
-        or "UNSTAMPED:dopa_closure_v2"
-    )
+    return os.getenv("COMMIT_SHA") or os.getenv("GITHUB_SHA") or "UNSTAMPED:dopa_closure_v2"
 
 
 def _run_id() -> str:
-    return os.getenv("DOPA_RUN_ID") or datetime.now(timezone.utc).strftime(
-        "%Y%m%dT%H%M%SZ"
-    )
+    return os.getenv("DOPA_RUN_ID") or datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 
 class DopaClosureV2Allocator:
@@ -80,9 +74,7 @@ def _provenance(config_path: str | Path, claims: list[ClaimSignal]) -> dict[str,
     }
 
 
-def _write_config_snapshot(
-    output: Path, config_path: str | Path, config_hash: str
-) -> None:
+def _write_config_snapshot(output: Path, config_path: str | Path, config_hash: str) -> None:
     # Reject config change between validation and evidence snapshot.
     config_bytes = Path(config_path).read_bytes()
     if hashlib.sha256(config_bytes).hexdigest() != config_hash:
@@ -103,6 +95,20 @@ def _empty_budget_snapshot(cfg: dict[str, Any]) -> dict[str, float | bool | int]
     }
 
 
+def _construct_gate_doc(verdict: Any) -> dict[str, Any]:
+    """Single shape of the construct-gate record for every output path.
+
+    The admissible path used to emit the bare verdict while the inadmissible
+    path and ``construct_gate.json`` carried scope and evidence level; a
+    reader of the final report could not tell the gate was caller-declared.
+    """
+    return {
+        **asdict(verdict),
+        "scope": "ROUTING_ONLY",
+        "evidence_level": "UNATTESTED_CALLER_DECLARATION",
+    }
+
+
 def _inadmissible_result(
     run_id: str,
     verdict: Any,
@@ -116,11 +122,7 @@ def _inadmissible_result(
         "final_verdict": verdict.verdict,
         "failure_reasons": verdict.reasons,
         "config_hash": allocator.config_hash,
-        "construct_gate": {
-            **asdict(verdict),
-            "scope": "ROUTING_ONLY",
-            "evidence_level": "UNATTESTED_CALLER_DECLARATION",
-        },
+        "construct_gate": _construct_gate_doc(verdict),
         "controls": asdict(run_controls([], [], seed=0)),
         "budget_ledger": _empty_budget_snapshot(allocator.config),
         "routes": [],
@@ -198,8 +200,10 @@ def run_allocator_full_path(
         claim_ids = {c.claim_id for c in claims}
         if set(claim_commitments) != claim_ids:
             return Err("claim_commitments_must_match_all_claim_ids")
-        if any(not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest)
-               for digest in claim_commitments.values()):
+        if any(
+            not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest)
+            for digest in claim_commitments.values()
+        ):
             return Err("invalid_claim_payload_digest")
     output = Path(output_root) / "runs" / run_id
     try:
@@ -212,11 +216,7 @@ def run_allocator_full_path(
         _write_config_snapshot(output, config_path, allocator.config_hash)
     except (OSError, ValueError) as exc:
         return Err(f"config_snapshot_failed:{exc}")
-    write_json(output / "construct_gate.json", {
-        **asdict(verdict),
-        "scope": "ROUTING_ONLY",
-        "evidence_level": "UNATTESTED_CALLER_DECLARATION",
-    })
+    write_json(output / "construct_gate.json", _construct_gate_doc(verdict))
     if not verdict.admissible:
         final = _inadmissible_result(run_id, verdict, allocator, config_path, claims)
         write_json(output / "budget_ledger.json", final["budget_ledger"])
@@ -313,9 +313,7 @@ def run_allocator_full_path(
         # Hashing a routing request would not constitute independent evidence.
         route_doc["verification_artifact_hash"] = None
         write_json(claim_dir / "route.json", route_doc)
-        artifact_hashes[f"{claim.claim_id}/{artifact}"] = sha256_file(
-            claim_dir / artifact
-        )
+        artifact_hashes[f"{claim.claim_id}/{artifact}"] = sha256_file(claim_dir / artifact)
         routes.append(route_doc)
 
     controls_doc = asdict(
@@ -343,7 +341,7 @@ def run_allocator_full_path(
             *_failure_reasons(final_verdict, controls_doc, degradation_triggered),
         ],
         "config_hash": allocator.config_hash,
-        "construct_gate": asdict(verdict),
+        "construct_gate": _construct_gate_doc(verdict),
         "controls": controls_doc,
         "budget_ledger": ledger.snapshot(),
         "deferred_due_budget": deferred_due_budget,

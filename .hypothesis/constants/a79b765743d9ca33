@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dopa_artifacts.py
+# hypothesis_version: 6.140.3
+
+[65536, 'CLOSED', 'QUARANTINED', 'REJECTED', 'cheap_triage', 'escalate', 'rb', 'routing_request.json', 'triage_request.json', 'utf-8', 'verify', 'w']

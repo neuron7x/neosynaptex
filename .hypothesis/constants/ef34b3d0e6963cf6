@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/experiments/dopa_signal_validity/trained_value_falsification.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.02, 0.1, 0.4, 1.0, 1.1, 1.25, 1000000000.0, 100, 101, 200, 202, 300, 303, 320, 404, 500, 512, 731, 1200, 10000, 20000, ',', '--output', ':', '__main__', 'checkpoint_sha256', 'claim', 'cost_comparability', 'dataset_sha256', 'full_linear', 'heldout_brier', 'inf', 'inference_seconds', 'invalid_plan', 'limitations', 'models', 'noninteger_plan', 'numpy_version', 'one_feature_linear', 'plan', 'protocol', 'python', 'scientific_verdict', 'sha256', 'shuffled_reward_net', 'test', 'test_event_count', 'torch_version', 'train', 'train_seconds', 'trained_value_net', 'untrained_value_net', 'utf-8', 'validation', 'validation_brier', 'x']

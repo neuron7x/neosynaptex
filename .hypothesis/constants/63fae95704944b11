@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/tools/audit/ledger_evidence_binding.py
+# hypothesis_version: 6.140.3
+
+[127, '--ledger', '.', '..', './', '/', 'BindingError', '\\', '^([a-zA-Z]:|\\\\\\\\)', '__main__', 'adapter_code_hash', 'collect_violations', 'compute_file_hash', 'data_sha256', 'data_sha256_source', 'entries', 'evidence', 'gamma_ledger.json', 'hash_binding', 'is_safe_repo_path', 'main', 'rb', 'source path is empty', 'utf-8']

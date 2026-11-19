@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/gamma_bridge.py
+# hypothesis_version: 6.140.3
+
+[', ', 'LOCAL_STRUCTURAL', 'NULL_FAILED', 'NUMERICAL_INTERNAL', '[gate-tags: ', '] ', '^[0-9a-f]{64}$', 'a', 'data_sha256', 'derivation_method', 'description', 'entries', 'evidence_tier', 'global_extrapolation', 'null_screen_rejected', 'other_substrates', 'rerun_command', 'status', 'substrate', 'unknown', 'unknown_substrate', 'utf-8', 'version']
