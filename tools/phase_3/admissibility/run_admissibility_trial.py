@@ -56,7 +56,7 @@ _DEFAULT_SEED_BASE: int = 0xC0FFEE
 # main matrix; smoke trades resolution for throughput so PR-time runs
 # stay tractable. The full B=1000 + N up to 1024 is exercised at
 # canonical M=1000 on push / merge_group, where each estimator runs
-# in its own job with a 240-min timeout.
+# in its own job with a 360-min timeout.
 #
 # At N=1024 with B=1000 a single bootstrap_median_slope replicate
 # costs ~16 s. Smoke at M=100 would therefore be 16 × 100 × 7 × 4 ≈

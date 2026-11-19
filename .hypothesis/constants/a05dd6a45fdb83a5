@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/tools/eai/track_admissibility.py
+# hypothesis_version: 6.140.3
+
+['--check-regression', '--history', '--ledger', '__main__', 'a', 'admissibility_rate', 'admissible_evidence', 'appended_to', 'bridge_module_sha256', 'candidate_total', 'core', 'eai', 'first_row', 'gamma_bridge.py', 'gate_verdict_counts', 'hash_bound_count', 'ledger_path', 'ledger_sha256', 'ledger_version', 'non_decreasing_rate', 'reason', 'recorded_at', 'regression', 'schema_version', 'store_true', 'total_entries', 'utf-8']

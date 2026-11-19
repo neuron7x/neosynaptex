@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/constraint_index.py
+# hypothesis_version: 6.140.3
+
+['RETIRED', 'SCOPED_DOWN', 'STRENGTHENED', 'SUPERSEDED', 'UNCHANGED']

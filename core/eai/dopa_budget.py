@@ -45,8 +45,11 @@ class BudgetLedger:
         probe_tax: float,
         lambda_penalty: float = 0.0,
     ) -> BudgetLedger:
-        for name, value in (("envelope", envelope), ("probe_tax", probe_tax),
-                            ("lambda_penalty", lambda_penalty)):
+        for name, value in (
+            ("envelope", envelope),
+            ("probe_tax", probe_tax),
+            ("lambda_penalty", lambda_penalty),
+        ):
             if isinstance(value, bool) or not isinstance(value, (int, float)):
                 raise ValueError(f"invalid_{name}_type")
             if not isfinite(value) or value < 0:
@@ -63,8 +66,10 @@ class BudgetLedger:
 
     def apply(self, requested_cost: float, quarantine_cost: float) -> BudgetStep:
         """Reserve nonnegative finite costs and fail closed under extreme penalties."""
-        for name, value in (("requested_cost", requested_cost),
-                            ("quarantine_cost", quarantine_cost)):
+        for name, value in (
+            ("requested_cost", requested_cost),
+            ("quarantine_cost", quarantine_cost),
+        ):
             if isinstance(value, bool) or not isinstance(value, (int, float)):
                 raise ValueError(f"invalid_{name}_type")
             if not isfinite(value) or value < 0:

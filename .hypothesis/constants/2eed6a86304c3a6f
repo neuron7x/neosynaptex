@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/experiments/dopa_signal_validity/h4_replicate_study.py
+# hypothesis_version: 6.140.3
+
+[0.025, 0.975, 731, 1031, 1331, 1631, 1931, 2231, 2531, 2831, 4000, 20261016, ',', '--output', ':', '__main__', 'caveat', 'checkpoint_sha256', 'checkpoints_sha256', 'cost_status', 'dataset_sha256', 'digest', 'full_linear', 'heldout_brier', 'mean_brier', 'mean_useful_of_four', 'model_summary', 'models', 'per_seed_brier', 'per_seed_utility', 'protocol', 'scientific_verdict', 'seeds', 'sha256_before_digest', 'trained_value_net', 'untrained_value_net', 'utf-8', 'verdict', 'x']

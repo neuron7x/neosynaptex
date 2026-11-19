@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dnca_claimwise_evaluator.py
+# hypothesis_version: 6.140.3
+
+[0.0, 1e-12, 0.025, 0.25, 0.975, 128, 199, 499, 10000, 50000, 20261016, ',', '0123456789abcdef', ':', 'baseline', 'baseline_benefit', 'claimwise_benefit', 'cue_variation', 'gain', 'group_id', 'groups', 'input_sha256', 'invalid_identity', 'invalid_record_type', 'invalid_slots', 'invalid_study_size', 'limitations', 'n_candidates', 'n_cue_varying_groups', 'n_groups', 'n_selected', 'paired_delta', 'plan', 'protocol', 'scope', 'sha256_pre_digest', 'signed_valence', 'status']

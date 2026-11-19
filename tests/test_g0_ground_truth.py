@@ -92,7 +92,9 @@ def test_verdict_is_recomputed_from_committed_records() -> None:
         {
             **r,
             "stats": {k: (nan if v is None else v) for k, v in r["stats"].items()},
-            **({"p": {k: (nan if v is None else v) for k, v in r["p"].items()}} if "p" in r else {}),
+            **(
+                {"p": {k: (nan if v is None else v) for k, v in r["p"].items()}} if "p" in r else {}
+            ),
         }
         for r in ev["records"]
     ]

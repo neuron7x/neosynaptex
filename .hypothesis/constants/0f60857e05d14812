@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/guardrail_registry.py
+# hypothesis_version: 6.140.3
+
+[':', 'ACTIVE', 'ALLOW', 'CHALLENGED', 'KILLED', 'MERGED', 'QUARANTINED', 'RETIRED', 'SCOPED_DOWN', 'STRENGTHENED', 'SUPERSEDED', 'UNCHANGED', 'a', 'docker_pytest_v0', 'feature:Z', 'generic', 'kill', 'library:Y', 'new', 'old', 'provenance_check', 'quarantine', 'regression_test', 'software', 'supports', 'until revalidated', 'warn']

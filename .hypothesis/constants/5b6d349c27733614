@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dopa_runtime_config.py
+# hypothesis_version: 6.140.3
+
+['$', 'action_costs', 'budget', 'cheap_triage', 'escalate', 'load_center', 'payload_not_object', 'priority_gate', 'quarantine', 'reject', 'reject_evidence_risk', 'thresholds', 'triage', 'utf-8', 'verify']

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/experiments/dopa_signal_validity/real_dnca_claimwise_pilot.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.25, 0.3, 0.45, 1.0, 128, 20261016, ',', '--output', ':', '__main__', 'analysis', 'config', 'cpu', 'cue_max', 'cue_min', 'cue_values', 'cue_values_sha256', 'data_seed', 'dopamine', 'invalid_candidates', 'invalid_data_seeds', 'invalid_hidden_dim', 'invalid_model_seed', 'invalid_seeds', 'invalid_slots', 'invalid_state_dim', 'model_seed', 'model_weights', 'n_groups', 'notes', 'output', 'protocol', 'runs', 'sha256', 'signal_construct', 'status', 'task', 'torch_version', 'utf-8', 'verdict', 'x']

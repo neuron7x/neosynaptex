@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/tools/eai/run_false_promotion_benchmark.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.02, '--dataset', '--out', 'EAI-FP-BENCH-v1', 'EVIDENCE', 'FAIL', 'KILLED', 'PASS', 'QUARANTINED', '__main__', 'a', 'actual_counts', 'actual_status', 'boundary_violated', 'claim_id', 'claim_text', 'claim_type', 'dataset', 'dataset is empty', 'dataset_sha256', 'decision', 'decision_reason', 'delta', 'expected_counts', 'expected_status', 'factual', 'failed_stage', 'false_kill_count', 'false_promotion_rate', 'frozen_clock', 'global', 'guardrail_update', 'id', 'none', 'out', 'per_row', 'pytest', 'quarantine_accuracy', 'required_boundary', 'required_falsifiers', 'schema_version', 'thresholds', 'total', 'trap_detected', 'trap_detection_rate', 'trap_total', 'trap_type', 'universal', 'utf-8']

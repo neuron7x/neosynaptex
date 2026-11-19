@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/engine.py
+# hypothesis_version: 6.140.3
+
+[1000.0, '^[0-9a-f]{64}$', 'artifact_ledger', 'block_repromotion', 'falsification', 'falsification_failed', 'gate_falsification', 'gate_not_satisfied', 'gate_quarantine', 'iev_gate', 'integration_memory', 'promotion_allowed']

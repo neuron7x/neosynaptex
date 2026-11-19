@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/external_verification.py
+# hypothesis_version: 6.140.3
+
+[',', ':', 'FAIL', 'PASS', 'disabled', 'docker_pytest_v0', 'local-subprocess', 'replace', 'report_hash', 'software_protocol', 'timestamp_utc', 'utf-8', 'w']

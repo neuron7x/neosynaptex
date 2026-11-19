@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/tools/eai/run_claim_gate.py
+# hypothesis_version: 6.140.3
+
+['--claim', '--context', '--kill-switch', '--out', '--retention-hash', 'BND-CLI-1', 'CLI-GR-1', 'CLM-CLI-1', '__main__', 'a', 'artifact_id', 'artifact_owner', 'claim', 'decision_reason', 'delta', 'eai-research-track', 'elapsed_ms', 'failed_stage', 'global', 'guardrail_update', 'id', 'local', 'local-cli', 'path', 'run_claim_gate', 'status', 'store_true', 'telemetry', 'timestamp_utc', 'utf-8']

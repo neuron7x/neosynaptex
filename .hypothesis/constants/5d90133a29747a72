@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/intelligence_cycle.py
+# hypothesis_version: 6.140.3
+
+['EVIDENCE', 'KILLED', 'QUARANTINED', '[0-9a-f]{64}', 'causal', 'compliance', 'factual', 'guardrail_update', 'methodological', 'operational', 'predictive', 'regression_block', 'security', 'software', 'statistical', 'theoretical']

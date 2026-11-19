@@ -74,8 +74,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - name: Install
-        run: pip install -e ".[dev]" --quiet
+      - name: Install (versions from uv.lock, as `make init`)
+        # Unpinned `pip install -e .[dev]` let numpy/scipy drift away from
+        # the toolchain the committed evidence was produced with; the
+        # evidence-reproduction tests compare a fresh run to that evidence.
+        run: |
+          pip install uv --quiet
+          uv export --locked --extra dev --extra test --no-emit-project --no-hashes -o "$RUNNER_TEMP/locked.txt" --quiet
+          pip install -r "$RUNNER_TEMP/locked.txt" --quiet
+          pip install -e . --no-deps --quiet
+          python -c "import numpy, scipy; print('numpy', numpy.__version__, 'scipy', scipy.__version__)"
       - name: Verify gamma_PSD = 2H+1 formula
         run: |
           python3 -c "

@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/falsification_engine.py
+# hypothesis_version: 6.140.3
+
+[0.0, 0.15, 0.4, 1.0, 100.0, '[a-z0-9]+', 'energy from nothing', 'passed', 'perpetual motion']

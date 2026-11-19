@@ -1,0 +1,4 @@
+# file: /home/neuro7/neosynaptex-wt/ci-green/core/eai/dopa_run_attestation.py
+# hypothesis_version: 6.140.3
+
+[b'\n', 384, 1024, ',', '.', '..', '.attest-', '.tmp', ':', 'HMAC_AUTHENTICATED', 'INADMISSIBLE', '[a-f0-9]{64}', 'ascii', 'attestation_sha256', 'claim_id', 'claim_payload_sha256', 'claims', 'config.sha256', 'config.yaml', 'config_hash', 'config_sha256', 'domain', 'final_verdict', 'final_verdict.json', 'mac_sha256', 'payload', 'report_sha256', 'route.json', 'route_sha256', 'routes', 'run_id', 'status', 'utf-8']
